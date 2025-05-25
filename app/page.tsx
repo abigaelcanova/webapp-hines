@@ -783,7 +783,7 @@ export default function VercelNavigation() {
           <aside
             className={cn(
               "bg-white lg:bg-[#F9FAFB] transition-all duration-300 ease-in-out",
-              "sticky top-14 lg:top-1 self-start h-[calc(100vh-3.5rem)]",
+              "fixed lg:sticky top-14 self-start h-[calc(100vh-3.5rem)]",
               "lg:sticky lg:block",
               isMobile
                 ? leftDrawerOpen
@@ -795,146 +795,148 @@ export default function VercelNavigation() {
             )}
           >
             {leftDrawerOpen && (
-              <div className="h-full p-4 flex flex-col font-normal">
+              <div className="h-full p-4 flex flex-col overflow-hidden">
                 {/* Navigation Items */}
-                <nav className="space-y-0.5 mb-8">
-                  <Button
-                    variant="ghost"
-                    className={cn(
-                      "w-full justify-start h-auto p-2 font-normal",
-                      currentPage === "home"
-                        ? "bg-gray-100 text-foreground"
-                        : "text-muted-foreground hover:text-foreground",
-                    )}
-                    onClick={() => setCurrentPage("home")}
-                  >
-                    <Home className="h-4 w-4 mr-3" />
-                    <span className="text-sm">Home</span>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
-                    onClick={() => setCurrentPage("about")}
-                  >
-                    <Info className="h-4 w-4 mr-3" />
-                    <span className="text-sm">About</span>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
-                  >
-                    <Newspaper className="h-4 w-4 mr-3" />
-                    <span className="text-sm">Happenings</span>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
-                  >
-                    <CalendarDays className="h-4 w-4 mr-3" />
-                    <span className="text-sm">Events</span>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className={cn(
-                      "w-full justify-start h-auto p-2 font-normal",
-                      currentPage === "book-space"
-                        ? "bg-gray-100 text-foreground"
-                        : "text-muted-foreground hover:text-foreground",
-                    )}
-                    onClick={() => setCurrentPage("book-space")}
-                  >
-                    <Building className="h-4 w-4 mr-3" />
-                    <span className="text-sm">Book a space</span>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
-                  >
-                    <Wrench className="h-4 w-4 mr-3" />
-                    <span className="text-sm">Click to fix</span>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
-                  >
-                    <UserPlus className="h-4 w-4 mr-3" />
-                    <span className="text-sm">Register a guest</span>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
-                  >
-                    <MessageSquare className="h-4 w-4 mr-3" />
-                    <span className="text-sm">Feedback</span>
-                  </Button>
-                </nav>
+                <div className="flex-1 overflow-y-auto">
+                  <nav className="space-y-0.5 mb-8">
+                    <Button
+                      variant="ghost"
+                      className={cn(
+                        "w-full justify-start h-auto p-2 font-normal",
+                        currentPage === "home"
+                          ? "bg-gray-100 text-foreground"
+                          : "text-muted-foreground hover:text-foreground",
+                      )}
+                      onClick={() => setCurrentPage("home")}
+                    >
+                      <Home className="h-4 w-4 mr-3" />
+                      <span className="text-sm">Home</span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
+                      onClick={() => setCurrentPage("about")}
+                    >
+                      <Info className="h-4 w-4 mr-3" />
+                      <span className="text-sm">About</span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
+                    >
+                      <Newspaper className="h-4 w-4 mr-3" />
+                      <span className="text-sm">Happenings</span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
+                    >
+                      <CalendarDays className="h-4 w-4 mr-3" />
+                      <span className="text-sm">Events</span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className={cn(
+                        "w-full justify-start h-auto p-2 font-normal",
+                        currentPage === "book-space"
+                          ? "bg-gray-100 text-foreground"
+                          : "text-muted-foreground hover:text-foreground",
+                      )}
+                      onClick={() => setCurrentPage("book-space")}
+                    >
+                      <Building className="h-4 w-4 mr-3" />
+                      <span className="text-sm">Book a space</span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
+                    >
+                      <Wrench className="h-4 w-4 mr-3" />
+                      <span className="text-sm">Click to fix</span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
+                    >
+                      <UserPlus className="h-4 w-4 mr-3" />
+                      <span className="text-sm">Register a guest</span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
+                    >
+                      <MessageSquare className="h-4 w-4 mr-3" />
+                      <span className="text-sm">Feedback</span>
+                    </Button>
+                  </nav>
 
-                {/* Quick Links Section */}
-                <div className="mb-6">
-                  <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2 px-2">Quick Links</h4>
-                  <div className="space-y-1">
-                    <a
-                      href="https://example.com/resources"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full text-left px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
-                    >
-                      Building Resources
-                    </a>
-                    <a
-                      href="https://example.com/policies"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full text-left px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
-                    >
-                      Policies & Guidelines
-                    </a>
-                    <a
-                      href="https://example.com/emergency"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full text-left px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
-                    >
-                      Emergency Procedures
-                    </a>
-                    <a
-                      href="https://example.com/contact"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full text-left px-2 py-1.5 text-xs text-muted-foreground hover:bg-gray-100 rounded-md transition-colors"
-                    >
-                      Contact Directory
-                    </a>
+                  {/* Quick Links Section */}
+                  <div className="mb-6">
+                    <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2 px-2">Quick Links</h4>
+                    <div className="space-y-1">
+                      <a
+                        href="https://example.com/resources"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full text-left px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
+                      >
+                        Building Resources
+                      </a>
+                      <a
+                        href="https://example.com/policies"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full text-left px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
+                      >
+                        Policies & Guidelines
+                      </a>
+                      <a
+                        href="https://example.com/emergency"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full text-left px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
+                      >
+                        Emergency Procedures
+                      </a>
+                      <a
+                        href="https://example.com/contact"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full text-left px-2 py-1.5 text-xs text-muted-foreground hover:bg-gray-100 rounded-md transition-colors"
+                      >
+                        Contact Directory
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Admin Section */}
+                  <div>
+                    <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2 px-2">Admin</h4>
+                    <div className="space-y-1">
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start h-auto px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground font-normal"
+                      >
+                        User Management
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start h-auto px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground font-normal"
+                      >
+                        Feature Management
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start h-auto px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground font-normal"
+                      >
+                        General Settings
+                      </Button>
+                    </div>
                   </div>
                 </div>
 
-                {/* Admin Section */}
-                <div>
-                  <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2 px-2">Admin</h4>
-                  <div className="space-y-1">
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start h-auto px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground font-normal"
-                    >
-                      User Management
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start h-auto px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground font-normal"
-                    >
-                      Feature Management
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start h-auto px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground font-normal"
-                    >
-                      General Settings
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Explore Card */}
-                <div className="mt-auto">
+                {/* Explore Card - Always visible at bottom */}
+                <div className="mt-4 flex-shrink-0">
                   <Link href="/explore" className="relative bg-white rounded-lg p-4 text-gray-900 border shadow-sm cursor-pointer hover:bg-gray-50 block focus:outline-none focus:ring-2 focus:ring-blue-500 overflow-hidden">
                     <div className="absolute inset-0">
                       <img 
