@@ -942,9 +942,9 @@ export default function VercelNavigation() {
                       <img 
                         src="/map-bg.png" 
                         alt="" 
-                        className="w-full h-full object-cover opacity-5"
+                        className="w-full h-full object-cover opacity-[0.08]"
                       />
-                      <div className="absolute inset-0 bg-white/90" />
+                      <div className="absolute inset-0 bg-white/80" />
                     </div>
                     <div className="relative z-10">
                       <h4 className="text-xs font-medium text-gray-900 mb-1">Explore</h4>
