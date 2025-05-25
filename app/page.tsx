@@ -935,8 +935,16 @@ export default function VercelNavigation() {
 
                 {/* Explore Card */}
                 <div className="mt-auto">
-                  <Link href="/explore" className="bg-white rounded-lg p-4 text-gray-900 border shadow-sm cursor-pointer hover:bg-gray-50 block focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <div className="flex-1">
+                  <Link href="/explore" className="relative bg-white rounded-lg p-4 text-gray-900 border shadow-sm cursor-pointer hover:bg-gray-50 block focus:outline-none focus:ring-2 focus:ring-blue-500 overflow-hidden">
+                    <div className="absolute inset-0">
+                      <img 
+                        src="/map-bg.png" 
+                        alt="" 
+                        className="w-full h-full object-cover opacity-10"
+                      />
+                      <div className="absolute inset-0 bg-white/70" />
+                    </div>
+                    <div className="relative z-10">
                       <h4 className="text-xs font-medium text-gray-900 mb-1">Explore</h4>
                       <p className="text-xs text-gray-600 leading-relaxed">Spaces, events, food & more</p>
                     </div>
