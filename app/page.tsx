@@ -949,10 +949,10 @@ export default function VercelNavigation() {
           {/* Main Content */}
           {currentPage === "home" ? (
             <div className="space-y-6">
-              {/* Main Row: Left 2/3 actions, Right 1/3 carousel/news */}
+              {/* Main Row: Left 3/5 actions, Right 2/5 carousel/news */}
               <div className="flex flex-col lg:flex-row gap-4">
-                {/* Left 2/3: Welcome Card, Action Cards and Sections */}
-                <div className="w-full lg:w-2/3 flex flex-col gap-6">
+                {/* Left 3/5: Welcome Card, Action Cards and Sections */}
+                <div className="w-full lg:w-3/5 flex flex-col gap-6">
                   {/* Welcome Card (moved from top) */}
                   <div className="relative rounded-2xl overflow-hidden bg-card border shadow-sm">
                     <div
@@ -1085,8 +1085,8 @@ export default function VercelNavigation() {
                     </div>
                   </div>
                 </div>
-                {/* Right 1/3: Carousel and News Feed */}
-                <div className="w-full lg:w-1/3 flex flex-col gap-6">
+                {/* Right 2/5: Carousel and News Feed */}
+                <div className="w-full lg:w-2/5 flex flex-col gap-6">
                   {/* Carousel */}
                   <div className="bg-white rounded-xl border shadow-sm p-4 flex flex-col items-center justify-center">
                     <ModernCarousel slides={carouselSlides} autoRotateInterval={4000} />
