@@ -1086,10 +1086,10 @@ export default function VercelNavigation() {
                   </div>
                 </div>
                 {/* Right 2/5: Carousel and News Feed */}
-                <div className="w-full lg:w-2/5 flex flex-col gap-6">
+                <div className="w-full lg:w-2/5 flex flex-col gap-6 mx-4">
                   {/* Carousel */}
                   <div className="bg-white rounded-xl border shadow-sm p-4 flex flex-col items-center justify-center">
-                    <ModernCarousel slides={carouselSlides} autoRotateInterval={4000} />
+                    <ModernCarousel slides={carouselSlides} />
                   </div>
                   {/* What's happening News Feed */}
                   <div className="bg-white rounded-xl border shadow-sm p-4">
