@@ -11,8 +11,8 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: "HqO Dashboard",
-  description: "Building management dashboard",
+  title: "HqO Web App",
+  description: "Tenant building portal",
     generator: 'v0.dev'
 }
 

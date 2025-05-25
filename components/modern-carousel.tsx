@@ -31,7 +31,7 @@ export function ModernCarousel({ slides, className = "" }: ModernCarouselProps) 
   }
 
   return (
-    <div className={`relative w-full h-80 rounded-xl overflow-hidden ${className}`}>
+    <div className={`relative w-full h-full rounded-xl overflow-hidden ${className}`}>
       {/* Slide Image */}
       <img
         src={slides[currentSlide].image}
