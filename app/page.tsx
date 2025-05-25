@@ -766,16 +766,21 @@ export default function VercelNavigation() {
           </div>
         </header>
 
-        {/* Main Content with 3-column Layout */}
+        {/* Main Content */}
         <div className="flex flex-1 overflow-hidden">
           {/* Left Drawer */}
           {isMobile && leftDrawerOpen && (
-            <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={() => setLeftDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setLeftDrawerOpen(false) }} tabIndex={0} role="button" />
+            <div 
+              className="fixed inset-0 bg-black/50 z-40 lg:hidden" 
+              onClick={() => setLeftDrawerOpen(false)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setLeftDrawerOpen(false) }}
+              role="button"
+              tabIndex={0}
+            />
           )}
           <aside
             className={cn(
               "bg-white transition-all duration-300 ease-in-out",
-              // Mobile: fixed overlay when open, hidden when closed
               "lg:relative lg:block",
               isMobile
                 ? leftDrawerOpen
@@ -938,7 +943,7 @@ export default function VercelNavigation() {
             )}
           </aside>
 
-          {/* Main content */}
+          {/* Middle Content */}
           <main
             className={cn(
               "flex-1 overflow-auto relative",
@@ -949,13 +954,24 @@ export default function VercelNavigation() {
             {currentPage === "home" ? (
               <div className="space-y-6">
                 {/* Welcome Card */}
-                {/* ... existing code ... */}
+                <div className="relative rounded-2xl overflow-hidden bg-card border shadow-sm">
+                  {/* Welcome card content */}
+                </div>
+                {/* Rest of home page content */}
               </div>
-            ) : (
-              <div className="mx-auto max-w-4xl px-4 w-full h-full">
-                {/* Your main content here */}
+            ) : currentPage === "book-space" ? (
+              <div className="space-y-6">
+                {/* Book space content */}
               </div>
-            )}
+            ) : currentPage === "about" ? (
+              <div className="space-y-6">
+                {/* About page content */}
+              </div>
+            ) : currentPage === "explore" ? (
+              <div className="flex flex-col h-full w-full">
+                {/* Explore page content */}
+              </div>
+            ) : null}
           </main>
 
           {/* Right Drawer - Activity (desktop only) */}
