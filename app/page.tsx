@@ -966,37 +966,31 @@ export default function VercelNavigation() {
                     <Building className="h-6 w-6 mb-4 text-blue-500" />
                     <h3 className="text-base font-medium mb-2">Book a space</h3>
                     <p className="text-sm text-muted-foreground mb-4">Reserve meeting rooms, workspaces, and more.</p>
-                    <Button variant="outline" className="w-full" onClick={() => setCurrentPage("book-space")}>
-                      Book now
-                    </Button>
                   </div>
 
                   <div className="p-6 rounded-xl border bg-white shadow-sm">
                     <UserPlus className="h-6 w-6 mb-4 text-teal-500" />
                     <h3 className="text-base font-medium mb-2">Register a guest</h3>
                     <p className="text-sm text-muted-foreground mb-4">Pre-register visitors for easy check-in.</p>
-                    <Button variant="outline" className="w-full">Register</Button>
                   </div>
 
                   <div className="p-6 rounded-xl border bg-white shadow-sm">
                     <Wrench className="h-6 w-6 mb-4 text-orange-500" />
                     <h3 className="text-base font-medium mb-2">Click to fix</h3>
                     <p className="text-sm text-muted-foreground mb-4">Report and track maintenance issues.</p>
-                    <Button variant="outline" className="w-full">Report</Button>
                   </div>
 
                   <div className="p-6 rounded-xl border bg-white shadow-sm">
                     <CalendarDays className="h-6 w-6 mb-4 text-purple-500" />
                     <h3 className="text-base font-medium mb-2">View events</h3>
                     <p className="text-sm text-muted-foreground mb-4">See upcoming building events and activities.</p>
-                    <Button variant="outline" className="w-full">View all</Button>
                   </div>
                 </div>
 
                 {/* Recent Activity */}
                 <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
                   <div className="p-6 border-b">
-                    <h3 className="text-base font-medium">Recent activity</h3>
+                    <h3 className="text-base font-medium">Placeholder card</h3>
                   </div>
                   <div className="divide-y">
                     {notifications.map((notification) => (
