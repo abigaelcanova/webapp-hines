@@ -1020,16 +1020,18 @@ export default function VercelNavigation() {
                 </div>
 
                 {/* Welcome Card with Carousel and Blog Posts */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[400px]">
                   {/* Carousel Half */}
-                  <div className="relative rounded-2xl overflow-hidden bg-card border shadow-sm">
-                    <ModernCarousel slides={carouselSlides} />
+                  <div className="relative rounded-xl overflow-hidden bg-card border shadow-sm h-full">
+                    <div className="h-full">
+                      <ModernCarousel slides={carouselSlides} />
+                    </div>
                   </div>
 
                   {/* Blog Posts Half */}
-                  <div className="flex flex-col gap-3">
+                  <div className="flex flex-col justify-between h-full">
                     {/* Blog Post 1 */}
-                    <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33.33%-0.75rem)]">
+                    <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33%-0.5rem)]">
                       <div className="w-1/3 relative">
                         <img 
                           src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=400&fit=crop" 
@@ -1051,7 +1053,7 @@ export default function VercelNavigation() {
                     </div>
 
                     {/* Blog Post 2 */}
-                    <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33.33%-0.75rem)]">
+                    <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33%-0.5rem)]">
                       <div className="w-1/3 relative">
                         <img 
                           src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=400&fit=crop" 
@@ -1073,7 +1075,7 @@ export default function VercelNavigation() {
                     </div>
 
                     {/* Blog Post 3 */}
-                    <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33.33%-0.75rem)]">
+                    <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33%-0.5rem)]">
                       <div className="w-1/3 relative">
                         <img 
                           src="https://images.unsplash.com/photo-1577412647305-991150c7d163?w=800&h=400&fit=crop" 
@@ -1091,6 +1093,161 @@ export default function VercelNavigation() {
                         </div>
                         <h3 className="text-sm font-semibold mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">New EV Charging Stations Added</h3>
                         <p className="text-xs text-muted-foreground line-clamp-2">Ten new electric vehicle charging stations have been installed in the parking garage, supporting our commitment to sustainability.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Events Section */}
+                <div className="mt-12">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-lg font-semibold tracking-tight">Upcoming Events</h2>
+                    <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("events")}>
+                      View all events
+                      <ChevronRightIcon className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Event Card 1 */}
+                    <div className="group relative bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+                      <img 
+                        src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=500&fit=crop" 
+                        alt="Networking event" 
+                        className="aspect-[4/3] object-cover w-full group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                        <p className="text-sm font-medium mb-1">Tech Networking Mixer</p>
+                        <p className="text-xs opacity-80">June 15, 2025 • 6:00 PM</p>
+                      </div>
+                      <div className="p-4 group-hover:opacity-0 transition-opacity">
+                        <p className="text-sm font-medium text-gray-900 mb-1">Tech Networking Mixer</p>
+                        <p className="text-xs text-gray-600">June 15, 2025 • 6:00 PM</p>
+                      </div>
+                    </div>
+
+                    {/* Event Card 2 */}
+                    <div className="group relative bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+                      <img 
+                        src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&h=500&fit=crop" 
+                        alt="Wellness workshop" 
+                        className="aspect-[4/3] object-cover w-full group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                        <p className="text-sm font-medium mb-1">Wellness Workshop</p>
+                        <p className="text-xs opacity-80">June 20, 2025 • 12:00 PM</p>
+                      </div>
+                      <div className="p-4 group-hover:opacity-0 transition-opacity">
+                        <p className="text-sm font-medium text-gray-900 mb-1">Wellness Workshop</p>
+                        <p className="text-xs text-gray-600">June 20, 2025 • 12:00 PM</p>
+                      </div>
+                    </div>
+
+                    {/* Event Card 3 */}
+                    <div className="group relative bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+                      <img 
+                        src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=500&fit=crop" 
+                        alt="Building tour" 
+                        className="aspect-[4/3] object-cover w-full group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                        <p className="text-sm font-medium mb-1">Building Tour & Happy Hour</p>
+                        <p className="text-xs opacity-80">June 25, 2025 • 4:00 PM</p>
+                      </div>
+                      <div className="p-4 group-hover:opacity-0 transition-opacity">
+                        <p className="text-sm font-medium text-gray-900 mb-1">Building Tour & Happy Hour</p>
+                        <p className="text-xs text-gray-600">June 25, 2025 • 4:00 PM</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Spaces Section */}
+                <div className="mt-12">
+                  <div className="flex items-center justify-between mb-8">
+                    <h2 className="text-lg font-semibold tracking-tight">Featured Spaces</h2>
+                    <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("book-space")}>
+                      View all spaces
+                      <ChevronRightIcon className="h-4 w-4" />
+                    </Button>
+                  </div>
+
+                  <div className="grid grid-cols-12 gap-6">
+                    {/* Large Featured Space */}
+                    <div className="col-span-12 md:col-span-8">
+                      <div className="group relative h-[300px] bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                        <div className="absolute inset-0">
+                          <img 
+                            src="https://images.unsplash.com/photo-1497366412874-3415097a27e7?w=1200&h=800&fit=crop" 
+                            alt="Conference center" 
+                            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+                        </div>
+                        <div className="relative h-full flex flex-col justify-end p-6 text-white">
+                          <div className="space-y-2">
+                            <Badge className="bg-blue-500/20 text-blue-100 hover:bg-blue-500/30 transition-colors">
+                              Conference Center
+                            </Badge>
+                            <h3 className="text-2xl font-semibold">Grand Hall</h3>
+                            <p className="text-sm text-blue-100/80 max-w-md">
+                              Our flagship space perfect for large events, conferences, and gatherings up to 200 people
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-4 mt-6">
+                            <Button 
+                              className="bg-white text-gray-900 hover:bg-white/90"
+                              onClick={() => setCurrentPage("book-space")}
+                            >
+                              Book now
+                            </Button>
+                            <Button variant="ghost" className="text-white hover:bg-white/20">
+                              Learn more
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Side Spaces */}
+                    <div className="col-span-12 md:col-span-4 space-y-6">
+                      {/* Side Space 1 */}
+                      <div className="group relative h-[142px] bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                        <div className="absolute inset-0">
+                          <img 
+                            src="https://images.unsplash.com/photo-1497215842964-222b430dc094?w=600&h=400&fit=crop" 
+                            alt="Meeting room" 
+                            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/20" />
+                        </div>
+                        <div className="relative h-full flex flex-col justify-end p-4 text-white">
+                          <Badge className="w-fit bg-green-500/20 text-green-100 hover:bg-green-500/30 transition-colors mb-2">
+                            Meeting Room
+                          </Badge>
+                          <p className="text-sm font-medium">Executive Suite</p>
+                        </div>
+                      </div>
+
+                      {/* Side Space 2 */}
+                      <div className="group relative h-[142px] bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                        <div className="absolute inset-0">
+                          <img 
+                            src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=600&h=400&fit=crop" 
+                            alt="Collaborative space" 
+                            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/20" />
+                        </div>
+                        <div className="relative h-full flex flex-col justify-end p-4 text-white">
+                          <Badge className="w-fit bg-purple-500/20 text-purple-100 hover:bg-purple-500/30 transition-colors mb-2">
+                            Collaborative
+                          </Badge>
+                          <p className="text-sm font-medium">Innovation Hub</p>
+                        </div>
                       </div>
                     </div>
                   </div>
