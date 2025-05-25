@@ -998,7 +998,7 @@ export default function VercelNavigation() {
                     </div>
                   </div>
                   {/* Spaces Section */}
-                  <div className="bg-white rounded-xl border shadow-sm p-6">
+                  <div className="bg-white">
                     <h2 className="text-sm font-medium text-gray-700 mb-4">Spaces</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                       {/* Example tall cards for spaces */}
@@ -1014,7 +1014,7 @@ export default function VercelNavigation() {
                     </div>
                   </div>
                   {/* Events Section */}
-                  <div className="bg-white rounded-xl border shadow-sm p-6">
+                  <div className="bg-white">
                     <h2 className="text-sm font-medium text-gray-700 mb-4">Events</h2>
                     <div className="overflow-x-auto">
                       <div className="flex gap-6 min-w-full pb-2">
@@ -1088,7 +1088,7 @@ export default function VercelNavigation() {
                 {/* Right 2/5: Carousel and News Feed */}
                 <div className="w-full lg:w-2/5 flex flex-col gap-6 mx-4">
                   {/* Carousel */}
-                  <div className="bg-white rounded-xl border shadow-sm p-4 flex flex-col items-center justify-center">
+                  <div className="bg-white rounded-xl border shadow-sm flex flex-col items-center justify-center">
                     <ModernCarousel slides={carouselSlides} />
                   </div>
                   {/* What's happening News Feed */}
