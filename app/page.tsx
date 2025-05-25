@@ -948,6 +948,7 @@ export default function VercelNavigation() {
             className={cn(
               "flex-1 overflow-auto relative",
               "mx-auto max-w-[1024px] px-4",
+              "mt-4 mb-8",
               !leftDrawerOpen && !rightDrawerOpen && !assistantDrawerOpen && "lg:mx-auto"
             )}
           >
