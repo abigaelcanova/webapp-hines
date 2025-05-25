@@ -1027,70 +1027,70 @@ export default function VercelNavigation() {
                   </div>
 
                   {/* Blog Posts Half */}
-                  <div className="space-y-6">
+                  <div className="flex flex-col gap-3">
                     {/* Blog Post 1 */}
-                    <div className="group rounded-2xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                      <div className="aspect-[16/9] relative">
+                    <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33.33%-0.75rem)]">
+                      <div className="w-1/3 relative">
                         <img 
                           src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=400&fit=crop" 
                           alt="Rooftop garden" 
                           className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
                       </div>
-                      <div className="p-6">
-                        <div className="flex items-center gap-2 mb-3">
-                          <Badge variant="secondary" className="bg-green-50 text-green-700 hover:bg-green-50">
+                      <div className="w-2/3 p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Badge variant="secondary" className="bg-green-50 text-green-700 hover:bg-green-50 text-xs">
                             Sustainability
                           </Badge>
                           <span className="text-xs text-muted-foreground">2 days ago</span>
                         </div>
-                        <h3 className="text-lg font-semibold mb-2 group-hover:text-blue-600 transition-colors">New Rooftop Garden Opening This Summer</h3>
-                        <p className="text-sm text-muted-foreground">Experience our latest green initiative with stunning city views. Perfect for meetings, lunches, or quiet work time.</p>
+                        <h3 className="text-sm font-semibold mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">New Rooftop Garden Opening This Summer</h3>
+                        <p className="text-xs text-muted-foreground line-clamp-2">Experience our latest green initiative with stunning city views. Perfect for meetings, lunches, or quiet work time.</p>
                       </div>
                     </div>
 
                     {/* Blog Post 2 */}
-                    <div className="group rounded-2xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                      <div className="aspect-[16/9] relative">
+                    <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33.33%-0.75rem)]">
+                      <div className="w-1/3 relative">
                         <img 
                           src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=400&fit=crop" 
                           alt="Fitness center" 
                           className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
                       </div>
-                      <div className="p-6">
-                        <div className="flex items-center gap-2 mb-3">
-                          <Badge variant="secondary" className="bg-purple-50 text-purple-700 hover:bg-purple-50">
+                      <div className="w-2/3 p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Badge variant="secondary" className="bg-purple-50 text-purple-700 hover:bg-purple-50 text-xs">
                             Wellness
                           </Badge>
                           <span className="text-xs text-muted-foreground">4 days ago</span>
                         </div>
-                        <h3 className="text-lg font-semibold mb-2 group-hover:text-blue-600 transition-colors">Expanded Fitness Center Hours</h3>
-                        <p className="text-sm text-muted-foreground">Our newly renovated fitness center will now be open 24/7 with enhanced security and cleaning protocols.</p>
+                        <h3 className="text-sm font-semibold mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">Expanded Fitness Center Hours</h3>
+                        <p className="text-xs text-muted-foreground line-clamp-2">Our newly renovated fitness center will now be open 24/7 with enhanced security and cleaning protocols.</p>
                       </div>
                     </div>
 
                     {/* Blog Post 3 */}
-                    <div className="group rounded-2xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                      <div className="aspect-[16/9] relative">
+                    <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33.33%-0.75rem)]">
+                      <div className="w-1/3 relative">
                         <img 
                           src="https://images.unsplash.com/photo-1577412647305-991150c7d163?w=800&h=400&fit=crop" 
                           alt="Electric vehicle charging stations" 
                           className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
                       </div>
-                      <div className="p-6">
-                        <div className="flex items-center gap-2 mb-3">
-                          <Badge variant="secondary" className="bg-blue-50 text-blue-700 hover:bg-blue-50">
+                      <div className="w-2/3 p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Badge variant="secondary" className="bg-blue-50 text-blue-700 hover:bg-blue-50 text-xs">
                             Infrastructure
                           </Badge>
                           <span className="text-xs text-muted-foreground">1 week ago</span>
                         </div>
-                        <h3 className="text-lg font-semibold mb-2 group-hover:text-blue-600 transition-colors">New EV Charging Stations Added</h3>
-                        <p className="text-sm text-muted-foreground">Ten new electric vehicle charging stations have been installed in the parking garage, supporting our commitment to sustainability.</p>
+                        <h3 className="text-sm font-semibold mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">New EV Charging Stations Added</h3>
+                        <p className="text-xs text-muted-foreground line-clamp-2">Ten new electric vehicle charging stations have been installed in the parking garage, supporting our commitment to sustainability.</p>
                       </div>
                     </div>
                   </div>
