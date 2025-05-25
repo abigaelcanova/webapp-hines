@@ -1259,68 +1259,79 @@ export default function VercelNavigation() {
               <aside className={cn("transition-all duration-300 ease-in-out mr-4 sticky top-14 self-start", rightDrawerOpen ? "w-[320px]" : "w-0")}>
                 {rightDrawerOpen && (
                   <div className="h-[calc(100vh-3.5rem-2rem)] bg-white rounded-xl border shadow-sm flex flex-col mt-4 overflow-hidden">
-                    <div className="flex items-center justify-between p-4">
-                      <h2 className="text-base font-normal">Activity</h2>
-                      <Button variant="ghost" size="icon" type="button" onClick={() => setRightDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setRightDrawerOpen(false) }}>
-                        <X className="h-4 w-4" />
-                        <span className="sr-only">Close activity panel</span>
-                      </Button>
+                    <div className="flex items-center justify-between p-4 border-b">
+                      <div className="flex items-center gap-3">
+                        <span className="font-regular text-gray-900">Activity</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
+                          <Maximize2 className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-8 w-8" type="button" onClick={() => setRightDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setRightDrawerOpen(false) }}>
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
 
                     {/* Calendar */}
-                    <div className="px-4 mb-6">{renderCalendar()}</div>
+                    <div className="flex-1 p-4 flex flex-col overflow-y-auto">
+                      <div className="mb-6">{renderCalendar()}</div>
 
-                    {/* Selected Day Events */}
-                    <div className="px-4 space-y-4 overflow-y-auto">
-                      <h3 className="text-sm font-normal text-gray-700">
-                        {selectedDateLabel}
-                      </h3>
+                      {/* Selected Day Events */}
+                      <div className="space-y-4">
+                        <h3 className="text-sm font-normal text-gray-700">
+                          {selectedDateLabel}
+                        </h3>
 
-                      {/* Events */}
-                      <div className="space-y-2">
-                        <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
-                          <BookOpen className="h-5 w-5 mr-3 text-muted-foreground" />
-                          <div className="flex-1">
-                            <p className="text-xs font-normal text-foreground">Booked: Conference Room A</p>
-                          </div>
-                          <span className="text-[10px] font-normal text-muted-foreground">9:00 AM</span>
-                        </div>
-
-                        <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
-                          <User className="h-5 w-5 mr-3 text-muted-foreground" />
-                          <div className="flex-1">
-                            <p className="text-xs font-normal text-foreground">Guest: Abby Canova</p>
-                          </div>
-                          <span className="text-[10px] font-normal text-muted-foreground">12:00 PM</span>
-                        </div>
-
-                        <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
-                          <Coffee className="h-5 w-5 mr-3 text-muted-foreground" />
-                          <div className="flex-1">
-                            <p className="text-xs font-normal text-foreground">Lunch & Learn</p>
-                          </div>
-                          <span className="text-[10px] font-normal text-muted-foreground">1:30 PM</span>
-                        </div>
-                      </div>
-
-                      {/* Open Requests */}
-                      <div className="mt-6">
-                        <h3 className="text-sm font-normal text-gray-700 mb-2">Open requests</h3>
+                        {/* Events */}
                         <div className="space-y-2">
-                          <div className="flex items-center justify-between p-3 rounded-md bg-white border border-border shadow-sm">
-                            <div className="flex items-center">
-                              <Wrench className="h-5 w-5 mr-3 text-muted-foreground" />
-                              <p className="text-xs font-normal text-foreground">New equipment request</p>
+                          <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
+                            <BookOpen className="h-5 w-5 mr-3 text-muted-foreground" />
+                            <div className="flex-1">
+                              <p className="text-xs font-normal text-foreground">Booked: Conference Room A</p>
                             </div>
-                            <span className="text-[10px] font-normal text-muted-foreground">Created 5/10/25</span>
+                            <span className="text-[10px] font-normal text-muted-foreground">9:00 AM</span>
                           </div>
 
-                          <div className="flex items-center justify-between p-3 rounded-md bg-white border border-border shadow-sm">
-                            <div className="flex items-center">
-                              <AlertTriangle className="h-5 w-5 mr-3 text-muted-foreground" />
-                              <p className="text-xs font-normal text-foreground">Broken light</p>
+                          <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
+                            <User className="h-5 w-5 mr-3 text-muted-foreground" />
+                            <div className="flex-1">
+                              <p className="text-xs font-normal text-foreground">Guest: Abby Canova</p>
                             </div>
-                            <span className="text-[10px] font-normal text-muted-foreground">Created 5/15/25</span>
+                            <span className="text-[10px] font-normal text-muted-foreground">12:00 PM</span>
+                          </div>
+
+                          <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
+                            <Coffee className="h-5 w-5 mr-3 text-muted-foreground" />
+                            <div className="flex-1">
+                              <p className="text-xs font-normal text-foreground">Lunch & Learn</p>
+                            </div>
+                            <span className="text-[10px] font-normal text-muted-foreground">1:30 PM</span>
+                          </div>
+                        </div>
+
+                        {/* Open Requests */}
+                        <div className="mt-6">
+                          <h3 className="text-sm font-normal text-gray-700 mb-2">Open requests</h3>
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between p-3 rounded-md bg-white border border-border shadow-sm">
+                              <div className="flex items-center">
+                                <Wrench className="h-5 w-5 mr-3 text-muted-foreground" />
+                                <p className="text-xs font-normal text-foreground">New equipment request</p>
+                              </div>
+                              <span className="text-[10px] font-normal text-muted-foreground">Created 5/10/25</span>
+                            </div>
+
+                            <div className="flex items-center justify-between p-3 rounded-md bg-white border border-border shadow-sm">
+                              <div className="flex items-center">
+                                <AlertTriangle className="h-5 w-5 mr-3 text-muted-foreground" />
+                                <p className="text-xs font-normal text-foreground">Broken light</p>
+                              </div>
+                              <span className="text-[10px] font-normal text-muted-foreground">Created 5/15/25</span>
+                            </div>
                           </div>
                         </div>
                       </div>
