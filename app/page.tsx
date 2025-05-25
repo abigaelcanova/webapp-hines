@@ -461,7 +461,7 @@ export default function VercelNavigation() {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="h-auto p-2 gap-2 hover:bg-muted">
                 <MapPin className="h-4 w-4 text-muted-foreground" />
-                <span className="font-medium">{selectedCity?.name}</span>
+                {!isMobile && <span className="font-medium">{selectedCity?.name}</span>}
                 <ChevronDown className="h-4 w-4 text-muted-foreground" />
               </Button>
             </DropdownMenuTrigger>
@@ -570,7 +570,7 @@ export default function VercelNavigation() {
                     <Building className="h-4 w-4" />
                   </AvatarFallback>
                 </Avatar>
-                <span className="font-medium">{selectedBuilding.name}</span>
+                {!isMobile && <span className="font-medium">{selectedBuilding.name}</span>}
                 <ChevronDown className="h-4 w-4 text-muted-foreground" />
               </Button>
             </DropdownMenuTrigger>
@@ -745,7 +745,7 @@ export default function VercelNavigation() {
             onClick={openActivity}
           >
             <Calendar className="h-4 w-4" />
-            <span className="text-sm font-medium">Activity</span>
+            {!isMobile && <span className="text-sm font-medium">Activity</span>}
           </Button>
 
           <Avatar className="h-8 w-8 ml-3">
