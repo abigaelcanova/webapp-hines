@@ -1260,10 +1260,10 @@ export default function VercelNavigation() {
 
           {/* Right Drawer - Activity (desktop only) */}
           {!isMobile && (
-            <aside className={cn("bg-white transition-all duration-300 ease-in-out", rightDrawerOpen ? "w-1/4" : "w-0")}>
+            <aside className={cn("transition-all duration-300 ease-in-out", rightDrawerOpen ? "w-1/4" : "w-0")}>
               {rightDrawerOpen && (
-                <div className="h-full p-4 overflow-y-auto">
-                  <div className="flex items-center justify-between mb-2">
+                <div className="h-full bg-white rounded-xl border shadow-sm flex flex-col mt-4 mb-4">
+                  <div className="flex items-center justify-between p-4">
                     <h2 className="text-base font-normal">Activity</h2>
                     <Button variant="ghost" size="icon" type="button" onClick={() => setRightDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setRightDrawerOpen(false) }}>
                       <X className="h-4 w-4" />
@@ -1272,16 +1272,16 @@ export default function VercelNavigation() {
                   </div>
 
                   {/* Calendar */}
-                  <div className="mb-6">{renderCalendar()}</div>
+                  <div className="px-4 mb-6">{renderCalendar()}</div>
 
                   {/* Selected Day Events */}
-                  <div className="space-y-4">
+                  <div className="px-4 space-y-4">
                     <h3 className="text-sm font-normal text-gray-700">
                       {selectedDateLabel}
                     </h3>
 
                     {/* Events */}
-                    <div className="space-y-2">
+                    <div className="space-y-2 px-4">
                       <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
                         <BookOpen className="h-5 w-5 mr-3 text-muted-foreground" />
                         <div className="flex-1">
@@ -1308,7 +1308,7 @@ export default function VercelNavigation() {
                     </div>
 
                     {/* Open Requests */}
-                    <div className="mt-6">
+                    <div className="mt-6 px-4 pb-4">
                       <h3 className="text-sm font-normal text-gray-700 mb-2">Open requests</h3>
                       <div className="space-y-2">
                         <div className="flex items-center justify-between p-3 rounded-md bg-white border border-border shadow-sm">
@@ -1411,7 +1411,7 @@ export default function VercelNavigation() {
                 <div className="space-y-4">
                   <h3 className="text-sm font-normal text-gray-700">{selectedDateLabel}</h3>
                   {/* Events */}
-                  <div className="space-y-2">
+                  <div className="space-y-2 px-4">
                     <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
                       <BookOpen className="h-5 w-5 mr-3 text-muted-foreground" />
                       <div className="flex-1">
@@ -1437,7 +1437,7 @@ export default function VercelNavigation() {
                     </div>
                   </div>
                   {/* Open Requests */}
-                  <div className="mt-6">
+                  <div className="mt-6 px-4 pb-4">
                     <h3 className="text-sm font-normal text-gray-700 mb-2">Open requests</h3>
                     <div className="space-y-2">
                       <div className="flex items-center justify-between p-3 rounded-md bg-white border border-border shadow-sm">
