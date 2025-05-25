@@ -39,6 +39,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
 import { ModernCarousel } from "@/components/modern-carousel"
+import Link from "next/link"
 
 export default function VercelNavigation() {
   const [teamDropdownOpen, setTeamDropdownOpen] = useState(false)
@@ -801,7 +802,7 @@ export default function VercelNavigation() {
                   className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
                 >
                   <Newspaper className="h-4 w-4 mr-3" />
-                  <span className="text-sm">Feed</span>
+                  <span className="text-sm">Happenings</span>
                 </Button>
                 <Button
                   variant="ghost"
@@ -912,12 +913,12 @@ export default function VercelNavigation() {
 
               {/* Explore Card */}
               <div className="mt-auto">
-                <div className="bg-white rounded-lg p-4 text-gray-900 border shadow-sm">
+                <Link href="/explore" className="bg-white rounded-lg p-4 text-gray-900 border shadow-sm cursor-pointer hover:bg-gray-50 block focus:outline-none focus:ring-2 focus:ring-blue-500">
                   <div className="flex-1">
                     <h4 className="text-xs font-medium text-gray-900 mb-1">Explore</h4>
                     <p className="text-xs text-gray-600 leading-relaxed">Spaces, events, food & more</p>
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
           )}
@@ -1376,6 +1377,57 @@ export default function VercelNavigation() {
                       <p className="text-gray-700">Find building policies, emergency procedures, and more resources here.</p>
                     </div>
                   )}
+                </div>
+              </div>
+            </div>
+          ) : currentPage === "explore" ? (
+            <div className="flex flex-col h-full w-full">
+              {/* Header */}
+              <div className="flex items-center justify-between px-6 py-4 border-b bg-white rounded-t-2xl">
+                <h1 className="text-2xl font-semibold">Explore</h1>
+                <button type="button" className="p-2 rounded-full hover:bg-gray-100" onClick={() => setCurrentPage(lastPage || 'home')} aria-label="Close explore">
+                  <X className="h-6 w-6 text-gray-700" />
+                </button>
+              </div>
+              {/* Filter Row */}
+              <div className="flex items-center justify-between px-6 py-3 bg-white border-b gap-4">
+                {/* Left: Cities, Neighborhoods, Buildings */}
+                <div className="flex gap-2 items-center">
+                  <select className="border rounded-md px-2 py-1 text-sm">
+                    <option>City</option>
+                    <option>New York</option>
+                    <option>Boston</option>
+                  </select>
+                  <select className="border rounded-md px-2 py-1 text-sm">
+                    <option>Neighborhood</option>
+                    <option>Midtown</option>
+                    <option>Downtown</option>
+                  </select>
+                  <select className="border rounded-md px-2 py-1 text-sm">
+                    <option>Building</option>
+                    <option>Empire State</option>
+                    <option>Chrysler</option>
+                  </select>
+                </div>
+                {/* Center: Tab Bar */}
+                <div className="flex gap-2 items-center">
+                  {['All', 'Events', 'Spaces', 'Food', 'Amenities'].map(tab => (
+                    <button key={tab} type="button" className="px-3 py-1 rounded-md text-sm font-medium hover:bg-gray-100">
+                      {tab}
+                    </button>
+                  ))}
+                </div>
+                {/* Right: Price, Available Now, More */}
+                <div className="flex gap-2 items-center">
+                  <button type="button" className="px-3 py-1 rounded-md text-sm font-medium border hover:bg-gray-100">Price</button>
+                  <button type="button" className="px-3 py-1 rounded-md text-sm font-medium border hover:bg-gray-100">Available now</button>
+                  <button type="button" className="px-3 py-1 rounded-md text-sm font-medium border hover:bg-gray-100">More</button>
+                </div>
+              </div>
+              {/* Map Section */}
+              <div className="flex-1 p-6">
+                <div className="w-full h-full rounded-3xl border overflow-hidden bg-gray-200 flex items-center justify-center text-gray-500 text-lg">
+                  [Map Placeholder]
                 </div>
               </div>
             </div>
