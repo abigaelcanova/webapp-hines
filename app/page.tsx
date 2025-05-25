@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import {
   Check,
   Search,
@@ -63,6 +63,7 @@ export default function VercelNavigation() {
   const [bookingDateLabel, setBookingDateLabel] = useState("");
   const [selectedDateLabel, setSelectedDateLabel] = useState("");
   const [aboutTab, setAboutTab] = useState('Overview');
+  const prevIsMobile = useRef(false)
 
   useEffect(() => {
     setCurrentMonthLabel(
@@ -97,10 +98,11 @@ export default function VercelNavigation() {
     const handleResize = () => {
       const mobile = window.innerWidth < 1024
       setIsMobile(mobile)
-      // Only close drawer when going to mobile, don't force open when going to desktop
-      if (mobile && leftDrawerOpen) {
+      // Only close drawer when transitioning from desktop to mobile
+      if (mobile && !prevIsMobile.current && leftDrawerOpen) {
         setLeftDrawerOpen(false)
       }
+      prevIsMobile.current = mobile
     }
 
     // Initial check
