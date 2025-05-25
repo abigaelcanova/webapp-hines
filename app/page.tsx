@@ -944,10 +944,10 @@ export default function VercelNavigation() {
                         alt=""
                         className="absolute inset-0 w-full h-full object-cover opacity-[0.15]"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-b from-white/90 to-white/70" />
+                      <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-white/70" />
                     </div>
                     <div className="relative z-10">
-                      <h4 className="text-xs font-medium text-gray-900 mb-1">Explore</h4>
+                      <h4 className="text-xs font-medium text-gray-900 mb-1">Explore nearby</h4>
                       <p className="text-xs text-gray-600 leading-relaxed">Spaces, events, food & more</p>
                     </div>
                   </Link>
@@ -995,25 +995,25 @@ export default function VercelNavigation() {
                 {/* Quick Actions */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div className="p-6 rounded-xl border bg-white shadow-sm">
-                    <Building className="h-6 w-6 mb-4 text-blue-500" />
+                    <Building className="h-6 w-6 mb-4 text-gray-500" />
                     <h3 className="text-base font-medium mb-2">Book a space</h3>
                     <p className="text-sm text-muted-foreground mb-4">Reserve meeting rooms, workspaces, and more.</p>
                   </div>
 
                   <div className="p-6 rounded-xl border bg-white shadow-sm">
-                    <UserPlus className="h-6 w-6 mb-4 text-teal-500" />
+                    <UserPlus className="h-6 w-6 mb-4 text-gray-500" />
                     <h3 className="text-base font-medium mb-2">Register a guest</h3>
                     <p className="text-sm text-muted-foreground mb-4">Pre-register visitors for easy check-in.</p>
                   </div>
 
                   <div className="p-6 rounded-xl border bg-white shadow-sm">
-                    <Wrench className="h-6 w-6 mb-4 text-orange-500" />
+                    <Wrench className="h-6 w-6 mb-4 text-gray-500" />
                     <h3 className="text-base font-medium mb-2">Click to fix</h3>
                     <p className="text-sm text-muted-foreground mb-4">Report and track maintenance issues.</p>
                   </div>
 
                   <div className="p-6 rounded-xl border bg-white shadow-sm">
-                    <CalendarDays className="h-6 w-6 mb-4 text-purple-500" />
+                    <CalendarDays className="h-6 w-6 mb-4 text-gray-500" />
                     <h3 className="text-base font-medium mb-2">View events</h3>
                     <p className="text-sm text-muted-foreground mb-4">See upcoming building events and activities.</p>
                   </div>
