@@ -442,7 +442,7 @@ export default function VercelNavigation() {
   return (
     <div className="bg-[#F9FAFB]">
       <div className="flex flex-col min-h-screen w-full">
-        <header className="grid grid-cols-12 items-center h-14 px-4 bg-[#F9FAFB] flex-none">
+        <header className="sticky top-0 z-40 grid grid-cols-12 items-center h-14 px-4 bg-[#F9FAFB] border-b">
           {/* Left section - Menu and Logo */}
           <div className="col-span-2 flex items-center gap-4">
             {/* Menu Toggle */}
@@ -771,7 +771,7 @@ export default function VercelNavigation() {
           {/* Left Drawer */}
           {isMobile && leftDrawerOpen && (
             <div 
-              className="fixed inset-0 bg-black/50 z-40 lg:hidden" 
+              className="fixed inset-0 bg-black/50 z-30 lg:hidden" 
               onClick={() => setLeftDrawerOpen(false)}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setLeftDrawerOpen(false) }}
               role="button"
@@ -781,6 +781,7 @@ export default function VercelNavigation() {
           <aside
             className={cn(
               "bg-white lg:bg-[#F9FAFB] transition-all duration-300 ease-in-out",
+              "sticky top-14 self-start h-[calc(100vh-3.5rem)]",
               "lg:relative lg:block",
               isMobile
                 ? leftDrawerOpen
@@ -948,7 +949,7 @@ export default function VercelNavigation() {
             className={cn(
               "flex-1 min-w-0",
               "mx-auto max-w-[1024px] px-4",
-              "mt-4 mb-8",
+              "py-4",
               !leftDrawerOpen && !rightDrawerOpen && !assistantDrawerOpen && "lg:mx-auto"
             )}
           >
@@ -1262,9 +1263,9 @@ export default function VercelNavigation() {
           {/* Right Drawers */}
           {!isMobile && (
             <>
-              <aside className={cn("transition-all duration-300 ease-in-out mr-4", rightDrawerOpen ? "w-[320px]" : "w-0")}>
+              <aside className={cn("transition-all duration-300 ease-in-out mr-4 sticky top-14 self-start", rightDrawerOpen ? "w-[320px]" : "w-0")}>
                 {rightDrawerOpen && (
-                  <div className="h-[calc(100vh-6rem)] bg-white rounded-xl border shadow-sm flex flex-col mt-4 mb-8 overflow-hidden">
+                  <div className="h-[calc(100vh-3.5rem-2rem)] bg-white rounded-xl border shadow-sm flex flex-col mt-4 overflow-hidden">
                     <div className="flex items-center justify-between p-4">
                       <h2 className="text-base font-normal">Activity</h2>
                       <Button variant="ghost" size="icon" type="button" onClick={() => setRightDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setRightDrawerOpen(false) }}>
@@ -1334,9 +1335,9 @@ export default function VercelNavigation() {
                   </div>
                 )}
               </aside>
-              <aside className={cn("transition-all duration-300 ease-in-out mr-4", assistantDrawerOpen ? "w-[320px]" : "w-0")}>
+              <aside className={cn("transition-all duration-300 ease-in-out mr-4 sticky top-14 self-start", assistantDrawerOpen ? "w-[320px]" : "w-0")}>
                 {assistantDrawerOpen && (
-                  <div className="h-[calc(100vh-6rem)] bg-white rounded-xl border shadow-sm flex flex-col mt-4 mb-8 overflow-hidden">
+                  <div className="h-[calc(100vh-3.5rem-2rem)] bg-white rounded-xl border shadow-sm flex flex-col mt-4 overflow-hidden">
                     {/* Header */}
                     <div className="flex items-center justify-between p-4">
                       <div className="flex items-center gap-3">
