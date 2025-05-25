@@ -1471,7 +1471,7 @@ export default function VercelNavigation() {
           {/* Right Drawers */}
           {!isMobile && (
             <>
-              <aside className={cn("transition-all duration-300 ease-in-out mr-2 sticky top-14 self-start", rightDrawerOpen ? "w-[320px]" : "w-0")}>
+              <aside className={cn("transition-all duration-300 ease-in-out  sticky top-14 self-start", rightDrawerOpen ? "w-[320px]" : "w-0")}>
                 {rightDrawerOpen && (
                   <div className="h-[calc(100vh-3.5rem-2rem)] bg-white rounded-xl border shadow-sm flex flex-col mt-4 overflow-hidden">
                     <div className="flex items-center justify-between p-4">
