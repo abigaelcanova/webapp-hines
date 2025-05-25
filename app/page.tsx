@@ -1175,7 +1175,7 @@ export default function VercelNavigation() {
                 </div>
 
                 {/* Spaces Section */}
-                <div className="pt-16 mt-[88px]">
+                <div className="pt-16 mt-[88px] mb-[88px]">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-xl font-normal">Featured Spaces</h2>
                     <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("book-space")}>
