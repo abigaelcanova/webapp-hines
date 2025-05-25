@@ -60,8 +60,12 @@ export default function ExplorePage() {
       </div>
       {/* Map Section */}
       <div className="flex-1 p-6">
-        <div className="w-full h-full rounded-3xl border overflow-hidden bg-gray-200 flex items-center justify-center text-gray-500 text-lg">
-          [Map Placeholder]
+        <div className="w-full h-full rounded-3xl border overflow-hidden">
+          <img
+            src="/map.png"
+            alt="Interactive Map"
+            className="w-full h-full object-cover"
+          />
         </div>
       </div>
     </div>
