@@ -41,6 +41,7 @@ import { cn } from "@/lib/utils"
 import { ModernCarousel } from "@/components/modern-carousel"
 import Link from "next/link"
 import { Drawer, DrawerContent } from "@/components/ui/drawer"
+import { Checkbox } from "@/components/ui/checkbox"
 
 export default function VercelNavigation() {
   const [teamDropdownOpen, setTeamDropdownOpen] = useState(false)
@@ -1265,92 +1266,100 @@ export default function VercelNavigation() {
               <div className="space-y-6">
                 {/* Booking Header */}
                 <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-medium">Book a space</h2>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant={bookingView === "calendar" ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setBookingView("calendar")}
-                    >
-                      Calendar
-                    </Button>
-                    <Button
-                      variant={bookingView === "list" ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setBookingView("list")}
-                    >
-                      List
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Resources Filter */}
-                <div className="flex flex-wrap gap-2">
-                  {bookingResources.map((resource) => (
-                    <Button
-                      key={resource.id}
-                      variant={selectedResources.includes(resource.id) ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => {
-                        if (selectedResources.includes(resource.id)) {
-                          setSelectedResources(selectedResources.filter((id) => id !== resource.id))
-                        } else {
-                          setSelectedResources([...selectedResources, resource.id])
-                        }
-                      }}
-                    >
-                      {resource.name}
-                    </Button>
-                  ))}
-                </div>
-
-                {/* Calendar View */}
-                {bookingView === "calendar" && (
-                  <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
-                    <div className="p-6 border-b">
-                      <div className="flex items-center justify-between mb-6">
-                        <h3 className="text-base font-medium">{bookingDateLabel}</h3>
-                        <div className="flex items-center gap-2">
-                          <Button
-                            variant={bookingViewType === "day" ? "default" : "outline"}
-                            size="sm"
-                            onClick={() => setBookingViewType("day")}
-                          >
-                            Day
-                          </Button>
-                          <Button
-                            variant={bookingViewType === "week" ? "default" : "outline"}
-                            size="sm"
-                            onClick={() => setBookingViewType("week")}
-                          >
-                            Week
-                          </Button>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-[auto,1fr] gap-4">
-                        {/* Time slots */}
-                        <div className="space-y-4">
-                          {timeSlots.map((time) => (
-                            <div key={time} className="text-xs text-muted-foreground h-12 flex items-center">
-                              {time}
-                            </div>
-                          ))}
-                        </div>
-                        {/* Calendar grid */}
-                        <div className="grid grid-cols-1 gap-2">
-                          {timeSlots.map((time) => (
-                            <div
-                              key={time}
-                              className="h-12 border-t border-dashed first:border-t-0 relative group cursor-pointer hover:bg-muted/50"
-                            >
-                              <div className="absolute inset-x-0 top-0 h-full group-hover:bg-muted/10" />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
+                  <div className="flex items-center gap-4">
+                    <h2 className="text-xl font-normal">Book a space</h2>
+                    <div className="flex items-center gap-2 ml-8">
+                      <Button variant="outline" size="sm" className="h-8">
+                        <ChevronLeftIcon className="h-4 w-4" />
+                        <span className="sr-only">Previous day</span>
+                      </Button>
+                      <Button variant="outline" size="sm" className="h-8 px-3 font-normal">
+                        {bookingDateLabel}
+                      </Button>
+                      <Button variant="outline" size="sm" className="h-8">
+                        <ChevronRightIcon className="h-4 w-4" />
+                        <span className="sr-only">Next day</span>
+                      </Button>
                     </div>
                   </div>
-                )}
+                  <div className="flex items-center gap-2">
+                    <Button variant={bookingViewType === "day" ? "default" : "outline"} size="sm" onClick={() => setBookingViewType("day")}>
+                      Day
+                    </Button>
+                    <Button variant={bookingViewType === "week" ? "default" : "outline"} size="sm" onClick={() => setBookingViewType("week")}>
+                      Week
+                    </Button>
+                    <Button variant={bookingViewType === "month" ? "default" : "outline"} size="sm" onClick={() => setBookingViewType("month")}>
+                      Month
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Resource Type Tabs */}
+                <div className="flex gap-2 border-b pb-3">
+                  <Button variant="ghost" size="sm" className="text-primary font-medium">
+                    Space
+                  </Button>
+                  <Button variant="ghost" size="sm" className="text-muted-foreground">
+                    Equipment
+                  </Button>
+                  <Button variant="ghost" size="sm" className="text-muted-foreground">
+                    Transportation
+                  </Button>
+                </div>
+
+                {/* Calendar Grid */}
+                <div className="rounded-lg border bg-white shadow-sm">
+                  {/* Time Header */}
+                  <div className="grid grid-cols-[200px,repeat(14,1fr)] border-b">
+                    <div className="p-3 border-r text-sm font-medium">Resource</div>
+                    {timeSlots.map((time) => (
+                      <div key={time} className="p-3 text-center text-sm text-muted-foreground font-normal">
+                        {time}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Resource Rows */}
+                  <div className="divide-y">
+                    {bookingResources.map((resource) => (
+                      <div key={resource.id} className="grid grid-cols-[200px,repeat(14,1fr)]">
+                        <div className="p-3 border-r">
+                          <div className="flex items-center gap-2">
+                            <Checkbox id={resource.id} />
+                            <label htmlFor={resource.id} className="text-sm font-medium text-blue-600 cursor-pointer hover:text-blue-700">
+                              {resource.name}
+                            </label>
+                          </div>
+                        </div>
+                        {timeSlots.map((time) => (
+                          <div
+                            key={`${resource.id}-${time}`}
+                            className="p-3 border-r last:border-r-0 group cursor-pointer hover:bg-blue-50 transition-colors relative"
+                          >
+                            <div className="absolute inset-1 rounded opacity-0 group-hover:opacity-100 border border-dashed border-blue-200 transition-opacity" />
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Legend or Additional Info */}
+                <div className="flex items-center gap-6 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-sm bg-blue-100 border border-blue-300" />
+                    <span>Available</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-sm bg-blue-500" />
+                    <span>Booked</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-sm bg-gray-100 border border-gray-300" />
+                    <span>Unavailable</span>
+                  </div>
+                </div>
               </div>
             ) : currentPage === "about" ? (
               <div className="space-y-6">
