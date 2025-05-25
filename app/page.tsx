@@ -794,7 +794,7 @@ export default function VercelNavigation() {
                   className={cn(
                     "w-full justify-start h-auto p-2 font-normal",
                     currentPage === "home"
-                      ? "bg-[#F0F0F0] text-foreground"
+                      ? "bg-gray-100 text-foreground"
                       : "text-muted-foreground hover:text-foreground",
                   )}
                   onClick={() => setCurrentPage("home")}
@@ -829,7 +829,7 @@ export default function VercelNavigation() {
                   className={cn(
                     "w-full justify-start h-auto p-2 font-normal",
                     currentPage === "book-space"
-                      ? "bg-[#F0F0F0] text-foreground"
+                      ? "bg-gray-100 text-foreground"
                       : "text-muted-foreground hover:text-foreground",
                   )}
                   onClick={() => setCurrentPage("book-space")}
