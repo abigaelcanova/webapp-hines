@@ -1077,27 +1077,30 @@ export default function VercelNavigation() {
                     <ModernCarousel slides={carouselSlides} />
                     <div className="w-full mt-6">
                       <h2 className="text-sm font-medium text-gray-700 mb-4">What's happening</h2>
-                      <div className="space-y-3">
-                        {/* Example news posts */}
-                        <div className="flex items-start gap-3">
-                          <Newspaper className="h-5 w-5 text-blue-500 mt-1" />
-                          <div>
-                            <p className="text-sm font-normal text-gray-900">Rooftop terrace will be closed for maintenance this weekend</p>
-                            <p className="text-xs text-gray-500">1 day ago</p>
+                      <div className="space-y-6">
+                        {/* Blog-style news posts */}
+                        <div className="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex flex-col md:flex-row">
+                          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&q=80" alt="Rooftop terrace maintenance" className="h-40 md:h-32 w-full md:w-40 object-cover" />
+                          <div className="flex-1 p-5 flex flex-col justify-center">
+                            <h3 className="text-lg font-semibold text-gray-900 mb-1">Rooftop terrace will be closed for maintenance this weekend</h3>
+                            <p className="text-sm text-gray-500 mb-2">Building Management &middot; 1 day ago</p>
+                            <p className="text-gray-700 text-sm">The rooftop terrace will be temporarily closed for scheduled maintenance. We appreciate your understanding.</p>
                           </div>
                         </div>
-                        <div className="flex items-start gap-3">
-                          <User className="h-5 w-5 text-green-500 mt-1" />
-                          <div>
-                            <p className="text-sm font-normal text-gray-900">John Smith has been registered for today's meeting</p>
-                            <p className="text-xs text-gray-500">2 minutes ago</p>
+                        <div className="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex flex-col md:flex-row">
+                          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&q=80" alt="Guest registration" className="h-40 md:h-32 w-full md:w-40 object-cover" />
+                          <div className="flex-1 p-5 flex flex-col justify-center">
+                            <h3 className="text-lg font-semibold text-gray-900 mb-1">John Smith has been registered for today's meeting</h3>
+                            <p className="text-sm text-gray-500 mb-2">Front Desk &middot; 2 minutes ago</p>
+                            <p className="text-gray-700 text-sm">A new guest, John Smith, has been registered for your meeting. Please greet your guest at the lobby.</p>
                           </div>
                         </div>
-                        <div className="flex items-start gap-3">
-                          <AlertTriangle className="h-5 w-5 text-orange-500 mt-1" />
-                          <div>
-                            <p className="text-sm font-normal text-gray-900">Broken light in Conference Room A has been fixed</p>
-                            <p className="text-xs text-gray-500">1 hour ago</p>
+                        <div className="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex flex-col md:flex-row">
+                          <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=400&q=80" alt="Maintenance update" className="h-40 md:h-32 w-full md:w-40 object-cover" />
+                          <div className="flex-1 p-5 flex flex-col justify-center">
+                            <h3 className="text-lg font-semibold text-gray-900 mb-1">Broken light in Conference Room A has been fixed</h3>
+                            <p className="text-sm text-gray-500 mb-2">Maintenance Team &middot; 1 hour ago</p>
+                            <p className="text-gray-700 text-sm">The maintenance request for the broken light in Conference Room A has been completed. Thank you for your patience.</p>
                           </div>
                         </div>
                       </div>
