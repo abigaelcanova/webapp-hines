@@ -1034,20 +1034,6 @@ export default function VercelNavigation() {
                             host: "By Wellness Team",
                             desc: "Start your day with a guided yoga session and healthy snacks.",
                           },
-                          {
-                            id: 3,
-                            image: "https://images.unsplash.com/photo-1515168833906-d2a3b82b3029?w=600&q=80",
-                            title: "Book Club: Summer Reads",
-                            host: "By Tenant Council",
-                            desc: "Discuss your favorite summer books and meet fellow readers.",
-                          },
-                          {
-                            id: 4,
-                            image: "https://images.unsplash.com/photo-1515378791036-0648a814c963?w=600&q=80",
-                            title: "Lunch & Learn: Sustainability",
-                            host: "By Green Team",
-                            desc: "Learn about building sustainability initiatives over lunch.",
-                          },
                         ].map(event => (
                           <div key={event.id} className="flex flex-col w-72 rounded-2xl overflow-hidden bg-gray-900 text-white shadow-lg relative">
                             <img src={event.image} alt={event.title} className="h-48 w-full object-cover" />
@@ -1066,7 +1052,7 @@ export default function VercelNavigation() {
                     </div>
                   </div>
                   {/* Amenities Section */}
-                  <div className="bg-white rounded-xl border shadow-sm p-6">
+                  <div className="bg-white">
                     <h2 className="text-sm font-medium text-gray-700 mb-4">Amenities</h2>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                       {/* Example amenities */}
@@ -1086,35 +1072,33 @@ export default function VercelNavigation() {
                   </div>
                 </div>
                 {/* Right 2/5: Carousel and News Feed */}
-                <div className="w-full lg:w-2/5 flex flex-col gap-6 mx-4">
-                  {/* Carousel */}
-                  <div className="bg-white rounded-xl border shadow-sm flex flex-col items-center justify-center">
+                <div className="w-full lg:w-2/5 mx-4">
+                  <div className="bg-white rounded-xl border shadow-sm p-4 flex flex-col items-center justify-center sticky top-8">
                     <ModernCarousel slides={carouselSlides} />
-                  </div>
-                  {/* What's happening News Feed */}
-                  <div className="bg-white rounded-xl border shadow-sm p-4">
-                    <h2 className="text-sm font-medium text-gray-700 mb-4">What's happening</h2>
-                    <div className="space-y-3">
-                      {/* Example news posts */}
-                      <div className="flex items-start gap-3">
-                        <Newspaper className="h-5 w-5 text-blue-500 mt-1" />
-                        <div>
-                          <p className="text-sm font-normal text-gray-900">Rooftop terrace will be closed for maintenance this weekend</p>
-                          <p className="text-xs text-gray-500">1 day ago</p>
+                    <div className="w-full mt-6">
+                      <h2 className="text-sm font-medium text-gray-700 mb-4">What's happening</h2>
+                      <div className="space-y-3">
+                        {/* Example news posts */}
+                        <div className="flex items-start gap-3">
+                          <Newspaper className="h-5 w-5 text-blue-500 mt-1" />
+                          <div>
+                            <p className="text-sm font-normal text-gray-900">Rooftop terrace will be closed for maintenance this weekend</p>
+                            <p className="text-xs text-gray-500">1 day ago</p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <User className="h-5 w-5 text-green-500 mt-1" />
-                        <div>
-                          <p className="text-sm font-normal text-gray-900">John Smith has been registered for today's meeting</p>
-                          <p className="text-xs text-gray-500">2 minutes ago</p>
+                        <div className="flex items-start gap-3">
+                          <User className="h-5 w-5 text-green-500 mt-1" />
+                          <div>
+                            <p className="text-sm font-normal text-gray-900">John Smith has been registered for today's meeting</p>
+                            <p className="text-xs text-gray-500">2 minutes ago</p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <AlertTriangle className="h-5 w-5 text-orange-500 mt-1" />
-                        <div>
-                          <p className="text-sm font-normal text-gray-900">Broken light in Conference Room A has been fixed</p>
-                          <p className="text-xs text-gray-500">1 hour ago</p>
+                        <div className="flex items-start gap-3">
+                          <AlertTriangle className="h-5 w-5 text-orange-500 mt-1" />
+                          <div>
+                            <p className="text-sm font-normal text-gray-900">Broken light in Conference Room A has been fixed</p>
+                            <p className="text-xs text-gray-500">1 hour ago</p>
+                          </div>
                         </div>
                       </div>
                     </div>
