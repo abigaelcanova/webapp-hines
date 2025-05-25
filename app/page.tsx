@@ -1588,7 +1588,7 @@ export default function VercelNavigation() {
 
         {/* Mobile Bottom Drawer - Activity */}
         <Drawer open={mobileActivityDrawerOpen} onOpenChange={setMobileActivityDrawerOpen}>
-          <DrawerContent className="max-h-[90vh] overflow-y-auto">
+          <DrawerContent className="h-[90vh] overflow-y-auto">
             {/* Activity content (copy from right drawer) */}
             <div className="h-full p-4 overflow-y-auto">
               <div className="flex items-center justify-between mb-2">
@@ -1654,7 +1654,7 @@ export default function VercelNavigation() {
         </Drawer>
         {/* Mobile Bottom Drawer - Assistant */}
         <Drawer open={mobileAssistantDrawerOpen} onOpenChange={setMobileAssistantDrawerOpen}>
-          <DrawerContent className="max-h-[90vh] overflow-y-auto">
+          <DrawerContent className="h-[90vh] overflow-y-auto">
             {/* Assistant content (copy from right drawer) */}
             <div className="h-full bg-white rounded-xl border shadow-sm flex flex-col mt-4 mb-4">
               <div className="flex items-center justify-between p-4 ">
