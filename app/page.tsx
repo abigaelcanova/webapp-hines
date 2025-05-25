@@ -946,7 +946,7 @@ export default function VercelNavigation() {
           {/* Middle Content */}
           <main
             className={cn(
-              "flex-1 overflow-auto relative",
+              "flex-1 relative",
               "mx-auto max-w-[1024px] px-4",
               "mt-4 mb-8",
               !leftDrawerOpen && !rightDrawerOpen && !assistantDrawerOpen && "lg:mx-auto"
