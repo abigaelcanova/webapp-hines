@@ -462,7 +462,7 @@ export default function VercelNavigation() {
           </Button>
 
           {/* Logo */}
-          <Badge className="h-8 px-3 text-sm font-bold bg-black text-white rounded-md w-full">Logo</Badge>
+          <Badge className="h-8 px-3 text-sm font-bold bg-gray-200 text-black rounded-md w-full max-w-[144px]">Logo</Badge>
         </div>
 
         {/* Middle section - City & Building Selectors */}
