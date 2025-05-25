@@ -1232,50 +1232,12 @@ export default function VercelNavigation() {
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-lg font-medium">Explore</h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {/* Explore cards */}
-                  <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
-                    <div className="aspect-video relative">
-                      <img
-                        src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop"
-                        alt="Office space"
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <h3 className="text-lg font-medium text-white mb-1">Workspaces</h3>
-                        <p className="text-sm text-white/90">Find your perfect spot to work</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
-                    <div className="aspect-video relative">
-                      <img
-                        src="https://images.unsplash.com/photo-1559304822-9eb2813c9844?w=600&h=400&fit=crop"
-                        alt="Food court"
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <h3 className="text-lg font-medium text-white mb-1">Food & Dining</h3>
-                        <p className="text-sm text-white/90">Explore dining options</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
-                    <div className="aspect-video relative">
-                      <img
-                        src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&h=400&fit=crop"
-                        alt="Gym"
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <h3 className="text-lg font-medium text-white mb-1">Wellness</h3>
-                        <p className="text-sm text-white/90">Stay healthy and active</p>
-                      </div>
-                    </div>
-                  </div>
+                <div className="relative w-full h-[600px] rounded-xl overflow-hidden border bg-white shadow-sm">
+                  <img
+                    src="/map.png"
+                    alt="Interactive Map"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
             ) : null}
