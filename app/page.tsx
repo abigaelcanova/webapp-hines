@@ -1542,7 +1542,7 @@ export default function VercelNavigation() {
                     <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
                       <Maximize2 className="h-4 w-4" />
                     </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8" type="button" onClick={() => setMobileAssistantDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setMobileAssistantDrawerOpen(false) }}>
+                    <Button variant="ghost" size="icon" className="h-8 w-8" type="button" onClick={() => setAssistantDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setAssistantDrawerOpen(false) }}>
                       <X className="h-4 w-4" />
                     </Button>
                   </div>
