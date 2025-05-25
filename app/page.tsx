@@ -442,7 +442,7 @@ export default function VercelNavigation() {
   return (
     <div className="bg-[#F9FAFB]">
       <div className="flex flex-col min-h-screen w-full">
-        <header className="sticky top-0 z-40 grid grid-cols-12 items-center h-14 px-4 bg-[#F9FAFB] border-b">
+        <header className="sticky top-0 z-40 grid grid-cols-12 items-center h-14 px-4 bg-[#F9FAFB]">
           {/* Left section - Menu and Logo */}
           <div className="col-span-2 flex items-center gap-4">
             {/* Menu Toggle */}
@@ -788,7 +788,7 @@ export default function VercelNavigation() {
                   ? "fixed inset-y-0 left-0 z-50 w-64 shadow-lg"
                   : "hidden"
                 : leftDrawerOpen
-                  ? "w-1/6"
+                  ? "w-64"
                   : "w-0 overflow-hidden",
             )}
           >
