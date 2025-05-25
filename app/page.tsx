@@ -949,27 +949,26 @@ export default function VercelNavigation() {
           {/* Main Content */}
           {currentPage === "home" ? (
             <div className="space-y-6">
-              {/* Hero Card */}
-              <div className="relative rounded-2xl overflow-hidden bg-card border shadow-sm">
-                <div
-                  className="relative h-48 bg-cover bg-center"
-                  style={{
-                    backgroundImage: `url(${selectedBuilding.image.replace("w=120&h=120", "w=1200&h=800")})`,
-                  }}
-                >
-                  <div className="absolute inset-0 bg-black bg-opacity-40" />
-                  <div className="relative z-10 h-full flex flex-col justify-end p-6 text-white">
-                    <h1 className="text-3xl font-medium mb-2">{selectedBuilding.name}</h1>
-                    <p className="text-white text-lg mb-4">A living piece of New York history.</p>
-                    <Button size="sm" className="w-fit bg-white text-black hover:bg-gray-100" onClick={() => setCurrentPage("about")}>About</Button>
-                  </div>
-                </div>
-              </div>
-
               {/* Main Row: Left 2/3 actions, Right 1/3 carousel/news */}
               <div className="flex flex-col lg:flex-row gap-4">
-                {/* Left 2/3: Action Cards and Sections */}
+                {/* Left 2/3: Welcome Card, Action Cards and Sections */}
                 <div className="w-full lg:w-2/3 flex flex-col gap-6">
+                  {/* Welcome Card (moved from top) */}
+                  <div className="relative rounded-2xl overflow-hidden bg-card border shadow-sm">
+                    <div
+                      className="relative h-48 bg-cover bg-center"
+                      style={{
+                        backgroundImage: `url(${selectedBuilding.image.replace("w=120&h=120", "w=1200&h=800")})`,
+                      }}
+                    >
+                      <div className="absolute inset-0 bg-black bg-opacity-40" />
+                      <div className="relative z-10 h-full flex flex-col justify-end p-6 text-white">
+                        <h1 className="text-3xl font-medium mb-2">{selectedBuilding.name}</h1>
+                        <p className="text-white text-lg mb-4">A living piece of New York history.</p>
+                        <Button size="sm" className="w-fit bg-white text-black hover:bg-gray-100" onClick={() => setCurrentPage("about")}>About</Button>
+                      </div>
+                    </div>
+                  </div>
                   {/* 3 Action Cards in a Row */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {/* Register a Guest Card */}
