@@ -957,11 +957,6 @@ export default function VercelNavigation() {
           >
             {currentPage === "home" ? (
               <div className="space-y-6">
-                {/* Welcome Card */}
-                <div className="relative rounded-2xl overflow-hidden bg-card border shadow-sm">
-                  <ModernCarousel slides={carouselSlides} />
-                </div>
-
                 {/* Quick Actions */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div className="p-6 rounded-xl border bg-white shadow-sm">
@@ -989,7 +984,12 @@ export default function VercelNavigation() {
                   </div>
                 </div>
 
-                {/* Recent Activity */}
+                {/* Welcome Card with Carousel */}
+                <div className="relative rounded-2xl overflow-hidden bg-card border shadow-sm">
+                  <ModernCarousel slides={carouselSlides} />
+                </div>
+
+                {/* Placeholder Card */}
                 <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
                   <div className="p-6 border-b">
                     <h3 className="text-base font-medium">Placeholder card</h3>
