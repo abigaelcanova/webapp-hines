@@ -1284,7 +1284,7 @@ export default function VercelNavigation() {
                       </h3>
 
                       {/* Events */}
-                      <div className="space-y-2 px-4">
+                      <div className="space-y-2">
                         <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
                           <BookOpen className="h-5 w-5 mr-3 text-muted-foreground" />
                           <div className="flex-1">
@@ -1311,7 +1311,7 @@ export default function VercelNavigation() {
                       </div>
 
                       {/* Open Requests */}
-                      <div className="mt-6 px-4 pb-4">
+                      <div className="mt-6">
                         <h3 className="text-sm font-normal text-gray-700 mb-2">Open requests</h3>
                         <div className="space-y-2">
                           <div className="flex items-center justify-between p-3 rounded-md bg-white border border-border shadow-sm">
