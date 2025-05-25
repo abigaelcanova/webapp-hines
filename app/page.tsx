@@ -1019,40 +1019,80 @@ export default function VercelNavigation() {
                   </div>
                 </div>
 
-                {/* Welcome Card with Carousel */}
-                <div className="relative rounded-2xl overflow-hidden bg-card border shadow-sm">
-                  <ModernCarousel slides={carouselSlides} />
-                </div>
-
-                {/* Placeholder Card */}
-                <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
-                  <div className="p-6 border-b">
-                    <h3 className="text-base font-medium">Placeholder card</h3>
+                {/* Welcome Card with Carousel and Blog Posts */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Carousel Half */}
+                  <div className="relative rounded-2xl overflow-hidden bg-card border shadow-sm">
+                    <ModernCarousel slides={carouselSlides} />
                   </div>
-                  <div className="divide-y">
-                    {notifications.map((notification) => (
-                      <div
-                        key={notification.id}
-                        className={cn(
-                          "p-4 hover:bg-muted/50",
-                          notification.unread && "bg-blue-50/50"
-                        )}
-                      >
-                        <div className="flex items-start gap-3">
-                          <div
-                            className={cn(
-                              "w-2 h-2 rounded-full mt-2 flex-shrink-0",
-                              notification.unread ? "bg-blue-500" : "bg-transparent"
-                            )}
-                          />
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-foreground mb-1">{notification.title}</p>
-                            <p className="text-xs text-muted-foreground mb-2">{notification.description}</p>
-                            <p className="text-xs text-muted-foreground">{notification.time}</p>
-                          </div>
-                        </div>
+
+                  {/* Blog Posts Half */}
+                  <div className="space-y-6">
+                    {/* Blog Post 1 */}
+                    <div className="group rounded-2xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                      <div className="aspect-[16/9] relative">
+                        <img 
+                          src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=400&fit=crop" 
+                          alt="Rooftop garden" 
+                          className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                       </div>
-                    ))}
+                      <div className="p-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Badge variant="secondary" className="bg-green-50 text-green-700 hover:bg-green-50">
+                            Sustainability
+                          </Badge>
+                          <span className="text-xs text-muted-foreground">2 days ago</span>
+                        </div>
+                        <h3 className="text-lg font-semibold mb-2 group-hover:text-blue-600 transition-colors">New Rooftop Garden Opening This Summer</h3>
+                        <p className="text-sm text-muted-foreground">Experience our latest green initiative with stunning city views. Perfect for meetings, lunches, or quiet work time.</p>
+                      </div>
+                    </div>
+
+                    {/* Blog Post 2 */}
+                    <div className="group rounded-2xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                      <div className="aspect-[16/9] relative">
+                        <img 
+                          src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=400&fit=crop" 
+                          alt="Fitness center" 
+                          className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                      </div>
+                      <div className="p-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Badge variant="secondary" className="bg-purple-50 text-purple-700 hover:bg-purple-50">
+                            Wellness
+                          </Badge>
+                          <span className="text-xs text-muted-foreground">4 days ago</span>
+                        </div>
+                        <h3 className="text-lg font-semibold mb-2 group-hover:text-blue-600 transition-colors">Expanded Fitness Center Hours</h3>
+                        <p className="text-sm text-muted-foreground">Our newly renovated fitness center will now be open 24/7 with enhanced security and cleaning protocols.</p>
+                      </div>
+                    </div>
+
+                    {/* Blog Post 3 */}
+                    <div className="group rounded-2xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                      <div className="aspect-[16/9] relative">
+                        <img 
+                          src="https://images.unsplash.com/photo-1577412647305-991150c7d163?w=800&h=400&fit=crop" 
+                          alt="Electric vehicle charging stations" 
+                          className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                      </div>
+                      <div className="p-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Badge variant="secondary" className="bg-blue-50 text-blue-700 hover:bg-blue-50">
+                            Infrastructure
+                          </Badge>
+                          <span className="text-xs text-muted-foreground">1 week ago</span>
+                        </div>
+                        <h3 className="text-lg font-semibold mb-2 group-hover:text-blue-600 transition-colors">New EV Charging Stations Added</h3>
+                        <p className="text-sm text-muted-foreground">Ten new electric vehicle charging stations have been installed in the parking garage, supporting our commitment to sustainability.</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
