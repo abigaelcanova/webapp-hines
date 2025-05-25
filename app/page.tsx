@@ -440,9 +440,9 @@ export default function VercelNavigation() {
   }
 
   return (
-    <div className="bg-[#F9FAFB] min-h-screen">
-      <div className="flex flex-col h-screen w-full">
-        <header className="grid grid-cols-12 items-center h-14 px-4 bg-[#F9FAFB]">
+    <div className="bg-[#F9FAFB]">
+      <div className="flex flex-col min-h-screen w-full">
+        <header className="grid grid-cols-12 items-center h-14 px-4 bg-[#F9FAFB] flex-none">
           {/* Left section - Menu and Logo */}
           <div className="col-span-2 flex items-center gap-4">
             {/* Menu Toggle */}
@@ -767,7 +767,7 @@ export default function VercelNavigation() {
         </header>
 
         {/* Main Content */}
-        <div className="flex flex-1 overflow-hidden">
+        <div className="flex flex-1">
           {/* Left Drawer */}
           {isMobile && leftDrawerOpen && (
             <div 
@@ -946,7 +946,7 @@ export default function VercelNavigation() {
           {/* Middle Content */}
           <main
             className={cn(
-              "flex-1 relative",
+              "flex-1 min-w-0",
               "mx-auto max-w-[1024px] px-4",
               "mt-4 mb-8",
               !leftDrawerOpen && !rightDrawerOpen && !assistantDrawerOpen && "lg:mx-auto"
@@ -1259,257 +1259,140 @@ export default function VercelNavigation() {
             ) : null}
           </main>
 
-          {/* Right Drawer - Activity (desktop only) */}
+          {/* Right Drawers */}
           {!isMobile && (
-            <aside className={cn("transition-all duration-300 ease-in-out mr-4", rightDrawerOpen ? "w-[320px]" : "w-0")}>
-              {rightDrawerOpen && (
-                <div className="h-[calc(100vh-6rem)] bg-white rounded-xl border shadow-sm flex flex-col mt-4 mb-8 overflow-hidden">
-                  <div className="flex items-center justify-between p-4">
-                    <h2 className="text-base font-normal">Activity</h2>
-                    <Button variant="ghost" size="icon" type="button" onClick={() => setRightDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setRightDrawerOpen(false) }}>
-                      <X className="h-4 w-4" />
-                      <span className="sr-only">Close activity panel</span>
-                    </Button>
-                  </div>
-
-                  {/* Calendar */}
-                  <div className="px-4 mb-6">{renderCalendar()}</div>
-
-                  {/* Selected Day Events */}
-                  <div className="px-4 space-y-4 overflow-y-auto">
-                    <h3 className="text-sm font-normal text-gray-700">
-                      {selectedDateLabel}
-                    </h3>
-
-                    {/* Events */}
-                    <div className="space-y-2 px-4">
-                      <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
-                        <BookOpen className="h-5 w-5 mr-3 text-muted-foreground" />
-                        <div className="flex-1">
-                          <p className="text-xs font-normal text-foreground">Booked: Conference Room A</p>
-                        </div>
-                        <span className="text-[10px] font-normal text-muted-foreground">9:00 AM</span>
-                      </div>
-
-                      <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
-                        <User className="h-5 w-5 mr-3 text-muted-foreground" />
-                        <div className="flex-1">
-                          <p className="text-xs font-normal text-foreground">Guest: Abby Canova</p>
-                        </div>
-                        <span className="text-[10px] font-normal text-muted-foreground">12:00 PM</span>
-                      </div>
-
-                      <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
-                        <Coffee className="h-5 w-5 mr-3 text-muted-foreground" />
-                        <div className="flex-1">
-                          <p className="text-xs font-normal text-foreground">Lunch & Learn</p>
-                        </div>
-                        <span className="text-[10px] font-normal text-muted-foreground">1:30 PM</span>
-                      </div>
-                    </div>
-
-                    {/* Open Requests */}
-                    <div className="mt-6 px-4 pb-4">
-                      <h3 className="text-sm font-normal text-gray-700 mb-2">Open requests</h3>
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between p-3 rounded-md bg-white border border-border shadow-sm">
-                          <div className="flex items-center">
-                            <Wrench className="h-5 w-5 mr-3 text-muted-foreground" />
-                            <p className="text-xs font-normal text-foreground">New equipment request</p>
-                          </div>
-                          <span className="text-[10px] font-normal text-muted-foreground">Created 5/10/25</span>
-                        </div>
-
-                        <div className="flex items-center justify-between p-3 rounded-md bg-white border border-border shadow-sm">
-                          <div className="flex items-center">
-                            <AlertTriangle className="h-5 w-5 mr-3 text-muted-foreground" />
-                            <p className="text-xs font-normal text-foreground">Broken light</p>
-                          </div>
-                          <span className="text-[10px] font-normal text-muted-foreground">Created 5/15/25</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </aside>
-          )}
-
-          {/* Right Drawer - Assistant (desktop only) */}
-          {!isMobile && (
-            <aside className={cn("transition-all duration-300 ease-in-out", assistantDrawerOpen ? "w-[320px]" : "w-0")}>
-              {assistantDrawerOpen && (
-                <div className="h-[calc(100vh-6rem)] bg-white rounded-xl border shadow-sm flex flex-col mt-4 mb-8 overflow-hidden">
-                  {/* Header */}
-                  <div className="flex items-center justify-between p-4">
-                    <div className="flex items-center gap-3">
-                      <span className="font-regular text-gray-900">Assistant</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
-                        <MoreHorizontal className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
-                        <Maximize2 className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon" className="h-8 w-8" type="button" onClick={() => setAssistantDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setAssistantDrawerOpen(false) }}>
+            <>
+              <aside className={cn("transition-all duration-300 ease-in-out mr-4", rightDrawerOpen ? "w-[320px]" : "w-0")}>
+                {rightDrawerOpen && (
+                  <div className="h-[calc(100vh-6rem)] bg-white rounded-xl border shadow-sm flex flex-col mt-4 mb-8 overflow-hidden">
+                    <div className="flex items-center justify-between p-4">
+                      <h2 className="text-base font-normal">Activity</h2>
+                      <Button variant="ghost" size="icon" type="button" onClick={() => setRightDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setRightDrawerOpen(false) }}>
                         <X className="h-4 w-4" />
+                        <span className="sr-only">Close activity panel</span>
                       </Button>
                     </div>
+
+                    {/* Calendar */}
+                    <div className="px-4 mb-6">{renderCalendar()}</div>
+
+                    {/* Selected Day Events */}
+                    <div className="px-4 space-y-4 overflow-y-auto">
+                      <h3 className="text-sm font-normal text-gray-700">
+                        {selectedDateLabel}
+                      </h3>
+
+                      {/* Events */}
+                      <div className="space-y-2 px-4">
+                        <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
+                          <BookOpen className="h-5 w-5 mr-3 text-muted-foreground" />
+                          <div className="flex-1">
+                            <p className="text-xs font-normal text-foreground">Booked: Conference Room A</p>
+                          </div>
+                          <span className="text-[10px] font-normal text-muted-foreground">9:00 AM</span>
+                        </div>
+
+                        <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
+                          <User className="h-5 w-5 mr-3 text-muted-foreground" />
+                          <div className="flex-1">
+                            <p className="text-xs font-normal text-foreground">Guest: Abby Canova</p>
+                          </div>
+                          <span className="text-[10px] font-normal text-muted-foreground">12:00 PM</span>
+                        </div>
+
+                        <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
+                          <Coffee className="h-5 w-5 mr-3 text-muted-foreground" />
+                          <div className="flex-1">
+                            <p className="text-xs font-normal text-foreground">Lunch & Learn</p>
+                          </div>
+                          <span className="text-[10px] font-normal text-muted-foreground">1:30 PM</span>
+                        </div>
+                      </div>
+
+                      {/* Open Requests */}
+                      <div className="mt-6 px-4 pb-4">
+                        <h3 className="text-sm font-normal text-gray-700 mb-2">Open requests</h3>
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between p-3 rounded-md bg-white border border-border shadow-sm">
+                            <div className="flex items-center">
+                              <Wrench className="h-5 w-5 mr-3 text-muted-foreground" />
+                              <p className="text-xs font-normal text-foreground">New equipment request</p>
+                            </div>
+                            <span className="text-[10px] font-normal text-muted-foreground">Created 5/10/25</span>
+                          </div>
+
+                          <div className="flex items-center justify-between p-3 rounded-md bg-white border border-border shadow-sm">
+                            <div className="flex items-center">
+                              <AlertTriangle className="h-5 w-5 mr-3 text-muted-foreground" />
+                              <p className="text-xs font-normal text-foreground">Broken light</p>
+                            </div>
+                            <span className="text-[10px] font-normal text-muted-foreground">Created 5/15/25</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-
-                  {/* Content */}
-                  <div className="flex-1 p-4 flex flex-col overflow-y-auto">
-                    {/* Greeting */}
-                    <div className="mb-4">
-                      <p className="text-sm text-gray-600">How can I help you today?</p>
-                    </div>
-
-                    {/* Suggestion Card */}
-                    <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                      <p className="text-xs text-gray-600">What hours is the rooftop terrace open?</p>
-                    </div>
-
-                    <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                      <p className="text-xs text-gray-600">What's the food truck schedule for the week?</p>
-                    </div>
-
-                    {/* Chat Area - Spacer */}
-                    <div className="flex-1" />
-
-                    {/* Input Area */}
-                    <div className="space-y-3">
-                      <div className="relative">
-                        <Input placeholder="Ask anything" className="pr-12 py-3 text-sm" />
-                        <Button size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8" type="button">
-                          <Send className="h-4 w-4" />
+                )}
+              </aside>
+              <aside className={cn("transition-all duration-300 ease-in-out mr-4", assistantDrawerOpen ? "w-[320px]" : "w-0")}>
+                {assistantDrawerOpen && (
+                  <div className="h-[calc(100vh-6rem)] bg-white rounded-xl border shadow-sm flex flex-col mt-4 mb-8 overflow-hidden">
+                    {/* Header */}
+                    <div className="flex items-center justify-between p-4">
+                      <div className="flex items-center gap-3">
+                        <span className="font-regular text-gray-900">Assistant</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
+                          <Maximize2 className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-8 w-8" type="button" onClick={() => setAssistantDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setAssistantDrawerOpen(false) }}>
+                          <X className="h-4 w-4" />
                         </Button>
                       </div>
-                      <p className="text-[10px] text-gray-500 text-center">
-                        The assistant can make mistakes. It does not use your data to train its models.{" "}
-                        <button className="underline hover:no-underline" type="button">Learn more</button>
-                      </p>
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1 p-4 flex flex-col overflow-y-auto">
+                      {/* Greeting */}
+                      <div className="mb-4">
+                        <p className="text-sm text-gray-600">How can I help you today?</p>
+                      </div>
+
+                      {/* Suggestion Card */}
+                      <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                        <p className="text-xs text-gray-600">What hours is the rooftop terrace open?</p>
+                      </div>
+
+                      <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                        <p className="text-xs text-gray-600">What's the food truck schedule for the week?</p>
+                      </div>
+
+                      {/* Chat Area - Spacer */}
+                      <div className="flex-1" />
+
+                      {/* Input Area */}
+                      <div className="space-y-3">
+                        <div className="relative">
+                          <Input placeholder="Ask anything" className="pr-12 py-3 text-sm" />
+                          <Button size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8" type="button">
+                            <Send className="h-4 w-4" />
+                          </Button>
+                        </div>
+                        <p className="text-[10px] text-gray-500 text-center">
+                          The assistant can make mistakes. It does not use your data to train its models.{" "}
+                          <button className="underline hover:no-underline" type="button">Learn more</button>
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </aside>
+                )}
+              </aside>
+            </>
           )}
-
-          {/* Mobile Bottom Drawer - Activity */}
-          <Drawer open={mobileActivityDrawerOpen} onOpenChange={setMobileActivityDrawerOpen}>
-            <DrawerContent className="h-[90vh] overflow-y-auto">
-              {/* Activity content (copy from right drawer) */}
-              <div className="h-full p-4 overflow-y-auto">
-                <div className="flex items-center justify-between mb-2">
-                  <h2 className="text-base font-normal">Activity</h2>
-                  <Button variant="ghost" size="icon" type="button" onClick={() => setMobileActivityDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setMobileActivityDrawerOpen(false) }}>
-                    <X className="h-4 w-4" />
-                    <span className="sr-only">Close activity panel</span>
-                  </Button>
-                </div>
-                <div className="mb-6">{renderCalendar()}</div>
-                <div className="space-y-4">
-                  <h3 className="text-sm font-normal text-gray-700">{selectedDateLabel}</h3>
-                  {/* Events */}
-                  <div className="space-y-2 px-4">
-                    <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
-                      <BookOpen className="h-5 w-5 mr-3 text-muted-foreground" />
-                      <div className="flex-1">
-                        <p className="text-xs font-normal text-foreground">Booked: Conference Room A</p>
-                      </div>
-                      <span className="text-[10px] font-normal text-muted-foreground">9:00 AM</span>
-                    </div>
-
-                    <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
-                      <User className="h-5 w-5 mr-3 text-muted-foreground" />
-                      <div className="flex-1">
-                        <p className="text-xs font-normal text-foreground">Guest: Abby Canova</p>
-                      </div>
-                      <span className="text-[10px] font-normal text-muted-foreground">12:00 PM</span>
-                    </div>
-
-                    <div className="flex items-center p-3 rounded-md bg-white border border-border shadow-sm">
-                      <Coffee className="h-5 w-5 mr-3 text-muted-foreground" />
-                      <div className="flex-1">
-                        <p className="text-xs font-normal text-foreground">Lunch & Learn</p>
-                      </div>
-                      <span className="text-[10px] font-normal text-muted-foreground">1:30 PM</span>
-                    </div>
-                  </div>
-                  {/* Open Requests */}
-                  <div className="mt-6 px-4 pb-4">
-                    <h3 className="text-sm font-normal text-gray-700 mb-2">Open requests</h3>
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between p-3 rounded-md bg-white border border-border shadow-sm">
-                        <div className="flex items-center">
-                          <Wrench className="h-5 w-5 mr-3 text-muted-foreground" />
-                          <p className="text-xs font-normal text-foreground">New equipment request</p>
-                        </div>
-                        <span className="text-[10px] font-normal text-muted-foreground">Created 5/10/25</span>
-                      </div>
-
-                      <div className="flex items-center justify-between p-3 rounded-md bg-white border border-border shadow-sm">
-                        <div className="flex items-center">
-                          <AlertTriangle className="h-5 w-5 mr-3 text-muted-foreground" />
-                          <p className="text-xs font-normal text-foreground">Broken light</p>
-                        </div>
-                        <span className="text-[10px] font-normal text-muted-foreground">Created 5/15/25</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </DrawerContent>
-          </Drawer>
-          {/* Mobile Bottom Drawer - Assistant */}
-          <Drawer open={mobileAssistantDrawerOpen} onOpenChange={setMobileAssistantDrawerOpen}>
-            <DrawerContent className="h-[90vh] overflow-y-auto">
-              {/* Assistant content (copy from right drawer) */}
-              <div className="h-full bg-white rounded-xl border shadow-sm flex flex-col mt-4 mb-4">
-                <div className="flex items-center justify-between p-4 ">
-                  <div className="flex items-center gap-3">
-                    <span className="font-regular text-gray-900">Assistant</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
-                      <MoreHorizontal className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
-                      <Maximize2 className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8" type="button" onClick={() => setMobileAssistantDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setMobileAssistantDrawerOpen(false) }}>
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-                <div className="flex-1 p-4 flex flex-col">
-                  <div className="mb-4">
-                    <p className="text-sm text-gray-600">How can I help you today?</p>
-                  </div>
-                  <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                    <p className="text-xs text-gray-600">What hours is the rooftop terrace open?</p>
-                  </div>
-                  <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                    <p className="text-xs text-gray-600">What's the food truck schedule for the week?</p>
-                  </div>
-                  <div className="flex-1" />
-                  <div className="space-y-3">
-                    <div className="relative">
-                      <Input placeholder="Ask anything" className="pr-12 py-3 text-sm" />
-                      <Button size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8" type="button">
-                        <Send className="h-4 w-4" />
-                      </Button>
-                    </div>
-                    <p className="text-[10px] text-gray-500 text-center">
-                      The assistant can make mistakes. It does not use your data to train its models.{' '}
-                      <button className="underline hover:no-underline" type="button">Learn more</button>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </DrawerContent>
-          </Drawer>
         </div>
 
         {/* Search Modal */}
