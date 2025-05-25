@@ -781,8 +781,8 @@ export default function VercelNavigation() {
           <aside
             className={cn(
               "bg-white lg:bg-[#F9FAFB] transition-all duration-300 ease-in-out",
-              "sticky top-14 lg:top-2 self-start h-[calc(100vh-3.5rem)]",
-              "lg:relative lg:block",
+              "sticky top-14 lg:top-1 self-start h-[calc(100vh-3.5rem)]",
+              "lg:sticky lg:block",
               isMobile
                 ? leftDrawerOpen
                   ? "fixed inset-y-0 left-0 z-50 w-64 shadow-lg"
