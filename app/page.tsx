@@ -949,196 +949,154 @@ export default function VercelNavigation() {
           {/* Main Content */}
           {currentPage === "home" ? (
             <div className="space-y-6">
-              {/* Main Row: Left 3/5 actions, Right 2/5 carousel/news */}
-              <div className="flex flex-col lg:flex-row gap-4">
-                {/* Left 3/5: Welcome Card, Action Cards and Sections */}
-                <div className="w-full lg:w-3/5 flex flex-col gap-6">
-                  {/* Welcome Card (moved from top) */}
-                  <div className="relative rounded-2xl overflow-hidden bg-card border shadow-sm">
-                    <div
-                      className="relative h-48 bg-cover bg-center"
-                      style={{
-                        backgroundImage: `url(${selectedBuilding.image.replace("w=120&h=120", "w=1200&h=800")})`,
-                      }}
-                    >
-                      <div className="absolute inset-0 bg-black bg-opacity-40" />
-                      <div className="relative z-10 h-full flex flex-col justify-end p-6 text-white">
-                        <h1 className="text-3xl font-medium mb-2">{selectedBuilding.name}</h1>
-                        <p className="text-white text-lg mb-4">A living piece of New York history.</p>
-                        <Button size="sm" className="w-fit bg-white text-black hover:bg-gray-100" onClick={() => setCurrentPage("about")}>About</Button>
-                      </div>
-                    </div>
+              {/* Welcome Card (moved from top) */}
+              <div className="relative rounded-2xl overflow-hidden bg-card border shadow-sm">
+                <div
+                  className="relative h-48 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url(${selectedBuilding.image.replace("w=120&h=120", "w=1200&h=800")})`,
+                  }}
+                >
+                  <div className="absolute inset-0 bg-black bg-opacity-40" />
+                  <div className="relative z-10 h-full flex flex-col justify-end p-6 text-white">
+                    <h1 className="text-3xl font-medium mb-2">{selectedBuilding.name}</h1>
+                    <p className="text-white text-lg mb-4">A living piece of New York history.</p>
+                    <Button size="sm" className="w-fit bg-white text-black hover:bg-gray-100" onClick={() => setCurrentPage("about")}>About</Button>
                   </div>
-                  {/* Carousel and News Feed (now full width, below welcome card) */}
-                  <div className="bg-white rounded-xl border shadow-sm p-4 flex flex-col items-center justify-center my-6">
-                    <ModernCarousel slides={carouselSlides} />
-                    <div className="w-full mt-6">
-                      <h2 className="text-sm font-medium text-gray-700 mb-4">What's happening</h2>
-                      <div className="space-y-6">
-                        {/* Blog-style news posts */}
-                        <div className="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex flex-col md:flex-row">
-                          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&q=80" alt="Rooftop terrace maintenance" className="h-40 md:h-32 w-full md:w-40 object-cover" />
-                          <div className="flex-1 p-5 flex flex-col justify-center">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-1">Rooftop terrace will be closed for maintenance this weekend</h3>
-                            <p className="text-sm text-gray-500 mb-2">Building Management &middot; 1 day ago</p>
-                            <p className="text-gray-700 text-sm">The rooftop terrace will be temporarily closed for scheduled maintenance. We appreciate your understanding.</p>
-                          </div>
-                        </div>
-                        <div className="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex flex-col md:flex-row">
-                          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&q=80" alt="Guest registration" className="h-40 md:h-32 w-full md:w-40 object-cover" />
-                          <div className="flex-1 p-5 flex flex-col justify-center">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-1">John Smith has been registered for today's meeting</h3>
-                            <p className="text-sm text-gray-500 mb-2">Front Desk &middot; 2 minutes ago</p>
-                            <p className="text-gray-700 text-sm">A new guest, John Smith, has been registered for your meeting. Please greet your guest at the lobby.</p>
-                          </div>
-                        </div>
-                        <div className="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex flex-col md:flex-row">
-                          <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=400&q=80" alt="Maintenance update" className="h-40 md:h-32 w-full md:w-40 object-cover" />
-                          <div className="flex-1 p-5 flex flex-col justify-center">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-1">Broken light in Conference Room A has been fixed</h3>
-                            <p className="text-sm text-gray-500 mb-2">Maintenance Team &middot; 1 hour ago</p>
-                            <p className="text-gray-700 text-sm">The maintenance request for the broken light in Conference Room A has been completed. Thank you for your patience.</p>
-                          </div>
-                        </div>
+                </div>
+              </div>
+              {/* Carousel and News Feed (now full width, below welcome card) */}
+              <div className="bg-white rounded-xl border shadow-sm p-4 flex flex-col items-center justify-center my-6">
+                <ModernCarousel slides={carouselSlides} />
+                <div className="w-full mt-6">
+                  <h2 className="text-sm font-medium text-gray-700 mb-4">What's happening</h2>
+                  <div className="space-y-6">
+                    {/* Blog-style news posts */}
+                    <div className="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex flex-col md:flex-row">
+                      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&q=80" alt="Rooftop terrace maintenance" className="h-40 md:h-32 w-full md:w-40 object-cover" />
+                      <div className="flex-1 p-5 flex flex-col justify-center">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-1">Rooftop terrace will be closed for maintenance this weekend</h3>
+                        <p className="text-sm text-gray-500 mb-2">Building Management &middot; 1 day ago</p>
+                        <p className="text-gray-700 text-sm">The rooftop terrace will be temporarily closed for scheduled maintenance. We appreciate your understanding.</p>
                       </div>
                     </div>
-                  </div>
-                  {/* 3 Action Cards in a Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    {/* Register a Guest Card */}
-                    <div className="bg-white rounded-xl p-6 border shadow-sm flex flex-col items-center justify-center text-center h-full">
-                      <div className="h-10 w-10 rounded-full bg-teal-100 flex items-center justify-center mb-2">
-                        <UserPlus className="h-5 w-5 text-teal-600" />
-                      </div>
-                      <h3 className="font-normal text-sm text-gray-900">Register a Guest</h3>
-                    </div>
-                    {/* Click to Fix Card */}
-                    <div className="bg-white rounded-xl p-6 border shadow-sm flex flex-col items-center justify-center text-center h-full">
-                      <div className="h-10 w-10 rounded-full bg-orange-100 flex items-center justify-center mb-2">
-                        <Wrench className="h-5 w-5 text-orange-600" />
-                      </div>
-                      <h3 className="font-normal text-sm text-gray-900">Click to Fix</h3>
-                    </div>
-                    {/* Book a Space Card */}
-                    <div
-                      className="bg-white rounded-xl p-6 border shadow-sm flex flex-col items-center justify-center text-center h-full cursor-pointer hover:bg-gray-50"
-                      onClick={() => setCurrentPage("book-space")}
-                      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setCurrentPage('book-space'); }}
-                    >
-                      <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mb-2">
-                        <Building className="h-5 w-5 text-blue-600" />
-                      </div>
-                      <h3 className="font-normal text-sm text-gray-900">Book a Space</h3>
-                    </div>
-                  </div>
-                  {/* Spaces Section */}
-                  <div className="bg-white">
-                    <h2 className="text-sm font-medium text-gray-700 mb-4">Spaces</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                      {/* Example tall cards for spaces */}
-                      {bookingResources.slice(0, 3).map((space) => (
-                        <div key={space.id} className="flex flex-col h-64 rounded-lg overflow-hidden border shadow-sm bg-gray-50">
-                          <div className="h-2/3 bg-cover bg-center" style={{backgroundImage: `url('https://source.unsplash.com/400x300/?office,${space.name}')`}} />
-                          <div className="flex-1 p-4 flex flex-col justify-between">
-                            <h3 className="font-medium text-gray-900 text-base mb-2">{space.name}</h3>
-                            <Button size="sm" className="w-fit mt-auto">Book</Button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  {/* Events Section */}
-                  <div className="bg-white">
-                    <h2 className="text-sm font-medium text-gray-700 mb-4">Events</h2>
-                    <div className="overflow-x-auto">
-                      <div className="flex gap-6 min-w-full pb-2">
-                        {/* Example event cards */}
-                        {[
-                          {
-                            id: 1,
-                            image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80",
-                            title: "Summer Rooftop Social",
-                            host: "By Building Management",
-                            desc: "Join your colleagues for drinks, music, and city views on the rooftop.",
-                          },
-                          {
-                            id: 2,
-                            image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=600&q=80",
-                            title: "Yoga & Wellness Morning",
-                            host: "By Wellness Team",
-                            desc: "Start your day with a guided yoga session and healthy snacks.",
-                          },
-                        ].map(event => (
-                          <div key={event.id} className="flex flex-col w-72 rounded-2xl overflow-hidden bg-gray-900 text-white shadow-lg relative">
-                            <img src={event.image} alt={event.title} className="h-48 w-full object-cover" />
-                            <div className="flex-1 flex flex-col p-5">
-                              <h3 className="text-xl font-semibold mb-1">{event.title}</h3>
-                              <p className="text-xs text-gray-300 mb-2">{event.host}</p>
-                              <p className="text-sm text-gray-100 mb-4 flex-1">{event.desc}</p>
-                              <div className="flex gap-2 mt-auto">
-                                <button type="button" className="bg-white text-gray-900 font-regular rounded-lg px-4 py-2 text-sm hover:bg-gray-100">RSVP</button>
-                                <button type="button" className="bg-gray-800 text-white font-regular rounded-lg px-4 py-2 text-sm border border-white/20 hover:bg-gray-700">View details</button>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
+                    <div className="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex flex-col md:flex-row">
+                      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&q=80" alt="Guest registration" className="h-40 md:h-32 w-full md:w-40 object-cover" />
+                      <div className="flex-1 p-5 flex flex-col justify-center">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-1">John Smith has been registered for today's meeting</h3>
+                        <p className="text-sm text-gray-500 mb-2">Front Desk &middot; 2 minutes ago</p>
+                        <p className="text-gray-700 text-sm">A new guest, John Smith, has been registered for your meeting. Please greet your guest at the lobby.</p>
                       </div>
                     </div>
-                  </div>
-                  {/* Amenities Section */}
-                  <div className="bg-white">
-                    <h2 className="text-sm font-medium text-gray-700 mb-4">Amenities</h2>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      {/* Example amenities */}
-                      <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
-                        <Coffee className="h-6 w-6 text-brown-500 mb-2" />
-                        <span className="text-sm text-gray-900">Coffee Bar</span>
-                      </div>
-                      <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
-                        <User className="h-6 w-6 text-blue-500 mb-2" />
-                        <span className="text-sm text-gray-900">Concierge</span>
-                      </div>
-                      <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
-                        <Wrench className="h-6 w-6 text-orange-500 mb-2" />
-                        <span className="text-sm text-gray-900">Maintenance</span>
+                    <div className="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex flex-col md:flex-row">
+                      <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=400&q=80" alt="Maintenance update" className="h-40 md:h-32 w-full md:w-40 object-cover" />
+                      <div className="flex-1 p-5 flex flex-col justify-center">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-1">Broken light in Conference Room A has been fixed</h3>
+                        <p className="text-sm text-gray-500 mb-2">Maintenance Team &middot; 1 hour ago</p>
+                        <p className="text-gray-700 text-sm">The maintenance request for the broken light in Conference Room A has been completed. Thank you for your patience.</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                {/* Right 2/5: Carousel and News Feed */}
-                <div className="w-full lg:w-2/5 mx-4">
-                  <div className="bg-white rounded-xl border shadow-sm p-4 flex flex-col items-center justify-center sticky top-8">
-                    <ModernCarousel slides={carouselSlides} />
-                    <div className="w-full mt-6">
-                      <h2 className="text-sm font-medium text-gray-700 mb-4">What's happening</h2>
-                      <div className="space-y-6">
-                        {/* Blog-style news posts */}
-                        <div className="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex flex-col md:flex-row">
-                          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&q=80" alt="Rooftop terrace maintenance" className="h-40 md:h-32 w-full md:w-40 object-cover" />
-                          <div className="flex-1 p-5 flex flex-col justify-center">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-1">Rooftop terrace will be closed for maintenance this weekend</h3>
-                            <p className="text-sm text-gray-500 mb-2">Building Management &middot; 1 day ago</p>
-                            <p className="text-gray-700 text-sm">The rooftop terrace will be temporarily closed for scheduled maintenance. We appreciate your understanding.</p>
-                          </div>
-                        </div>
-                        <div className="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex flex-col md:flex-row">
-                          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&q=80" alt="Guest registration" className="h-40 md:h-32 w-full md:w-40 object-cover" />
-                          <div className="flex-1 p-5 flex flex-col justify-center">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-1">John Smith has been registered for today's meeting</h3>
-                            <p className="text-sm text-gray-500 mb-2">Front Desk &middot; 2 minutes ago</p>
-                            <p className="text-gray-700 text-sm">A new guest, John Smith, has been registered for your meeting. Please greet your guest at the lobby.</p>
-                          </div>
-                        </div>
-                        <div className="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex flex-col md:flex-row">
-                          <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=400&q=80" alt="Maintenance update" className="h-40 md:h-32 w-full md:w-40 object-cover" />
-                          <div className="flex-1 p-5 flex flex-col justify-center">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-1">Broken light in Conference Room A has been fixed</h3>
-                            <p className="text-sm text-gray-500 mb-2">Maintenance Team &middot; 1 hour ago</p>
-                            <p className="text-gray-700 text-sm">The maintenance request for the broken light in Conference Room A has been completed. Thank you for your patience.</p>
+              </div>
+              {/* 3 Action Cards in a Row */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {/* Register a Guest Card */}
+                <div className="bg-white rounded-xl p-6 border shadow-sm flex flex-col items-center justify-center text-center h-full">
+                  <div className="h-10 w-10 rounded-full bg-teal-100 flex items-center justify-center mb-2">
+                    <UserPlus className="h-5 w-5 text-teal-600" />
+                  </div>
+                  <h3 className="font-normal text-sm text-gray-900">Register a Guest</h3>
+                </div>
+                {/* Click to Fix Card */}
+                <div className="bg-white rounded-xl p-6 border shadow-sm flex flex-col items-center justify-center text-center h-full">
+                  <div className="h-10 w-10 rounded-full bg-orange-100 flex items-center justify-center mb-2">
+                    <Wrench className="h-5 w-5 text-orange-600" />
+                  </div>
+                  <h3 className="font-normal text-sm text-gray-900">Click to Fix</h3>
+                </div>
+                {/* Book a Space Card */}
+                <div
+                  className="bg-white rounded-xl p-6 border shadow-sm flex flex-col items-center justify-center text-center h-full cursor-pointer hover:bg-gray-50"
+                  onClick={() => setCurrentPage("book-space")}
+                  onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setCurrentPage('book-space'); }}
+                >
+                  <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                    <Building className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <h3 className="font-normal text-sm text-gray-900">Book a Space</h3>
+                </div>
+              </div>
+              {/* Spaces Section */}
+              <div className="bg-white">
+                <h2 className="text-sm font-medium text-gray-700 mb-4">Spaces</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {/* Example tall cards for spaces */}
+                  {bookingResources.slice(0, 3).map((space) => (
+                    <div key={space.id} className="flex flex-col h-64 rounded-lg overflow-hidden border shadow-sm bg-gray-50">
+                      <div className="h-2/3 bg-cover bg-center" style={{backgroundImage: `url('https://source.unsplash.com/400x300/?office,${space.name}')`}} />
+                      <div className="flex-1 p-4 flex flex-col justify-between">
+                        <h3 className="font-medium text-gray-900 text-base mb-2">{space.name}</h3>
+                        <Button size="sm" className="w-fit mt-auto">Book</Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Events Section */}
+              <div className="bg-white">
+                <h2 className="text-sm font-medium text-gray-700 mb-4">Events</h2>
+                <div className="overflow-x-auto">
+                  <div className="flex gap-6 min-w-full pb-2">
+                    {/* Example event cards */}
+                    {[
+                      {
+                        id: 1,
+                        image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80",
+                        title: "Summer Rooftop Social",
+                        host: "By Building Management",
+                        desc: "Join your colleagues for drinks, music, and city views on the rooftop.",
+                      },
+                      {
+                        id: 2,
+                        image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=600&q=80",
+                        title: "Yoga & Wellness Morning",
+                        host: "By Wellness Team",
+                        desc: "Start your day with a guided yoga session and healthy snacks.",
+                      },
+                    ].map(event => (
+                      <div key={event.id} className="flex flex-col w-72 rounded-2xl overflow-hidden bg-gray-900 text-white shadow-lg relative">
+                        <img src={event.image} alt={event.title} className="h-48 w-full object-cover" />
+                        <div className="flex-1 flex flex-col p-5">
+                          <h3 className="text-xl font-semibold mb-1">{event.title}</h3>
+                          <p className="text-xs text-gray-300 mb-2">{event.host}</p>
+                          <p className="text-sm text-gray-100 mb-4 flex-1">{event.desc}</p>
+                          <div className="flex gap-2 mt-auto">
+                            <button type="button" className="bg-white text-gray-900 font-regular rounded-lg px-4 py-2 text-sm hover:bg-gray-100">RSVP</button>
+                            <button type="button" className="bg-gray-800 text-white font-regular rounded-lg px-4 py-2 text-sm border border-white/20 hover:bg-gray-700">View details</button>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              {/* Amenities Section */}
+              <div className="bg-white">
+                <h2 className="text-sm font-medium text-gray-700 mb-4">Amenities</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {/* Example amenities */}
+                  <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
+                    <Coffee className="h-6 w-6 text-brown-500 mb-2" />
+                    <span className="text-sm text-gray-900">Coffee Bar</span>
+                  </div>
+                  <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
+                    <User className="h-6 w-6 text-blue-500 mb-2" />
+                    <span className="text-sm text-gray-900">Concierge</span>
+                  </div>
+                  <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
+                    <Wrench className="h-6 w-6 text-orange-500 mb-2" />
+                    <span className="text-sm text-gray-900">Maintenance</span>
                   </div>
                 </div>
               </div>
