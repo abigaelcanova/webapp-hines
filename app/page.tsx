@@ -1020,7 +1020,7 @@ export default function VercelNavigation() {
                 </div>
 
                 {/* Welcome Card with Carousel and Blog Posts */}
-                <div className="mt-20">
+                <div className="pt-16 mt-20">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-normal">What's Happening</h2>
                     <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("happenings")}>
@@ -1107,7 +1107,7 @@ export default function VercelNavigation() {
                 </div>
 
                 {/* Events Section */}
-                <div className="mt-20">
+                <div className="pt-16 mt-20">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-normal">Upcoming Events</h2>
                     <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("events")}>
@@ -1174,7 +1174,7 @@ export default function VercelNavigation() {
                 </div>
 
                 {/* Spaces Section */}
-                <div className="mt-20">
+                <div className="pt-16 mt-20">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-normal">Featured Spaces</h2>
                     <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("book-space")}>
