@@ -957,6 +957,31 @@ export default function VercelNavigation() {
           >
             {currentPage === "home" ? (
               <div className="space-y-6">
+                {/* Hero Card */}
+                <div className="relative w-full h-[300px] rounded-2xl overflow-hidden group">
+                  {/* Background Image */}
+                  <img
+                    src="https://images.unsplash.com/photo-1555109307-f7d9da25c244?w=1920&h=600&fit=crop&crop=faces,center"
+                    alt="Empire State Building"
+                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-300 ease-out group-hover:scale-105"
+                  />
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+                  {/* Content */}
+                  <div className="absolute inset-0 flex flex-col justify-end p-8">
+                    <h1 className="text-3xl font-semibold text-white mb-2">Empire State Building</h1>
+                    <p className="text-lg text-white/90 mb-6 max-w-2xl">Experience the iconic heart of New York City, where history meets modern workspace excellence.</p>
+                    <Button 
+                      variant="outline" 
+                      size="lg"
+                      className="w-fit bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:text-white transition-colors"
+                      onClick={() => setCurrentPage("about")}
+                    >
+                      About
+                    </Button>
+                  </div>
+                </div>
+
                 {/* Quick Actions */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div className="p-6 rounded-xl border bg-white shadow-sm">
