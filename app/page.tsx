@@ -1772,7 +1772,7 @@ export default function VercelNavigation() {
                       </button>
                       <button className="flex items-center gap-3 p-3 rounded-md border hover:bg-muted text-left" type="button">
                         <div className="h-8 w-8 rounded-full bg-teal-100 flex items-center justify-center">
-                          <UserPlus className="h-4 w-4 text-teal-600" />
+                          <UserPlus className="h-4 w-4 text-teal-600"/>
                         </div>
                         <div>
                           <p className="text-sm font-medium">Register guest</p>
