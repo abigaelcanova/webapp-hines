@@ -1261,9 +1261,9 @@ export default function VercelNavigation() {
 
           {/* Right Drawer - Activity (desktop only) */}
           {!isMobile && (
-            <aside className={cn("transition-all duration-300 ease-in-out", rightDrawerOpen ? "w-1/4" : "w-0")}>
+            <aside className={cn("transition-all duration-300 ease-in-out", rightDrawerOpen ? "w-[320px]" : "w-0")}>
               {rightDrawerOpen && (
-                <div className="h-full bg-white rounded-xl border shadow-sm flex flex-col mt-4 mb-4">
+                <div className="h-[calc(100vh-6rem)] bg-white rounded-xl border shadow-sm flex flex-col mt-4 mb-8 overflow-hidden">
                   <div className="flex items-center justify-between p-4">
                     <h2 className="text-base font-normal">Activity</h2>
                     <Button variant="ghost" size="icon" type="button" onClick={() => setRightDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setRightDrawerOpen(false) }}>
@@ -1276,7 +1276,7 @@ export default function VercelNavigation() {
                   <div className="px-4 mb-6">{renderCalendar()}</div>
 
                   {/* Selected Day Events */}
-                  <div className="px-4 space-y-4">
+                  <div className="px-4 space-y-4 overflow-y-auto">
                     <h3 className="text-sm font-normal text-gray-700">
                       {selectedDateLabel}
                     </h3>
@@ -1337,11 +1337,11 @@ export default function VercelNavigation() {
 
           {/* Right Drawer - Assistant (desktop only) */}
           {!isMobile && (
-            <aside className={cn("transition-all duration-300 ease-in-out", assistantDrawerOpen ? "w-1/4 mr-4 mb-4" : "w-0")}>
+            <aside className={cn("transition-all duration-300 ease-in-out", assistantDrawerOpen ? "w-[320px]" : "w-0")}>
               {assistantDrawerOpen && (
-                <div className="h-full bg-white rounded-xl border shadow-sm flex flex-col mt-4 mb-4">
+                <div className="h-[calc(100vh-6rem)] bg-white rounded-xl border shadow-sm flex flex-col mt-4 mb-8 overflow-hidden">
                   {/* Header */}
-                  <div className="flex items-center justify-between p-4 ">
+                  <div className="flex items-center justify-between p-4">
                     <div className="flex items-center gap-3">
                       <span className="font-regular text-gray-900">Assistant</span>
                     </div>
@@ -1359,7 +1359,7 @@ export default function VercelNavigation() {
                   </div>
 
                   {/* Content */}
-                  <div className="flex-1 p-4 flex flex-col">
+                  <div className="flex-1 p-4 flex flex-col overflow-y-auto">
                     {/* Greeting */}
                     <div className="mb-4">
                       <p className="text-sm text-gray-600">How can I help you today?</p>
