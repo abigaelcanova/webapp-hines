@@ -58,6 +58,28 @@ export default function VercelNavigation() {
   const [bookingViewType, setBookingViewType] = useState("day")
   const [selectedResources, setSelectedResources] = useState<string[]>([])
   const [isMobile, setIsMobile] = useState(false)
+  const [currentMonthLabel, setCurrentMonthLabel] = useState("");
+  const [bookingDateLabel, setBookingDateLabel] = useState("");
+  const [selectedDateLabel, setSelectedDateLabel] = useState("");
+  const [aboutTab, setAboutTab] = useState('Overview');
+
+  useEffect(() => {
+    setCurrentMonthLabel(
+      currentMonth.toLocaleDateString("en-US", { month: "long", year: "numeric" })
+    );
+  }, [currentMonth]);
+
+  useEffect(() => {
+    setBookingDateLabel(
+      bookingDate.toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "numeric" })
+    );
+  }, [bookingDate]);
+
+  useEffect(() => {
+    setSelectedDateLabel(
+      selectedDate.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })
+    );
+  }, [selectedDate]);
 
   // Keyboard shortcuts for search modal
   useEffect(() => {
@@ -90,7 +112,7 @@ export default function VercelNavigation() {
       document.removeEventListener("keydown", handleKeyDown)
       window.removeEventListener("resize", handleResize)
     }
-  }, [searchModalOpen])
+  }, [searchModalOpen, leftDrawerOpen])
 
   const setPrimary = (buildingName: string) => {
     setPrimaryBuilding(buildingName)
@@ -310,26 +332,30 @@ export default function VercelNavigation() {
           <Button
             variant="ghost"
             size="icon"
+            type="button"
             onClick={() => {
               const newMonth = new Date(currentMonth)
               newMonth.setMonth(newMonth.getMonth() - 1)
               setCurrentMonth(newMonth)
             }}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { const newMonth = new Date(currentMonth); newMonth.setMonth(newMonth.getMonth() - 1); setCurrentMonth(newMonth); } }}
           >
             <ChevronLeftIcon className="h-5 w-5 text-gray-500" />
             <span className="sr-only">Previous month</span>
           </Button>
           <h2 className="text-sm font-medium text-gray-700">
-            {currentMonth.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+            {currentMonthLabel}
           </h2>
           <Button
             variant="ghost"
             size="icon"
+            type="button"
             onClick={() => {
               const newMonth = new Date(currentMonth)
               newMonth.setMonth(newMonth.getMonth() + 1)
               setCurrentMonth(newMonth)
             }}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { const newMonth = new Date(currentMonth); newMonth.setMonth(newMonth.getMonth() + 1); setCurrentMonth(newMonth); } }}
           >
             <ChevronRightIcon className="h-5 w-5 text-gray-500" />
             <span className="sr-only">Next month</span>
@@ -360,6 +386,7 @@ export default function VercelNavigation() {
             return (
               <div key={`current-${day}`} className="p-1 text-center">
                 <button
+                  type="button"
                   className={cn(
                     "h-7 w-7 rounded-full flex items-center justify-center text-xs relative",
                     isSelected ? "bg-gray-200 text-gray-900" : "",
@@ -367,6 +394,7 @@ export default function VercelNavigation() {
                     !isSelected && !isHighlighted ? "hover:bg-gray-100" : "",
                   )}
                   onClick={() => setSelectedDate(new Date(year, month, day))}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { const newDate = new Date(year, month, day); setSelectedDate(newDate); } }}
                 >
                   {day}
                   {dayWithDot && !isHighlighted && (
@@ -763,6 +791,7 @@ export default function VercelNavigation() {
                 <Button
                   variant="ghost"
                   className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
+                  onClick={() => setCurrentPage("about")}
                 >
                   <Info className="h-4 w-4 mr-3" />
                   <span className="text-sm">About</span>
@@ -914,30 +943,21 @@ export default function VercelNavigation() {
                     backgroundImage: `url(${selectedBuilding.image.replace("w=120&h=120", "w=1200&h=800")})`,
                   }}
                 >
-                  {/* Dark overlay for text readability */}
-                  <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-
-                  {/* Content overlay */}
+                  <div className="absolute inset-0 bg-black bg-opacity-40" />
                   <div className="relative z-10 h-full flex flex-col justify-end p-6 text-white">
                     <h1 className="text-3xl font-medium mb-2">{selectedBuilding.name}</h1>
                     <p className="text-white text-lg mb-4">A living piece of New York history.</p>
-                    <Button size="sm" className="w-fit bg-white text-black hover:bg-gray-100">
-                      About
-                    </Button>
+                    <Button size="sm" className="w-fit bg-white text-black hover:bg-gray-100" onClick={() => setCurrentPage("about")}>About</Button>
                   </div>
                 </div>
               </div>
 
-              {/* Small Action Cards and Modern Carousel in a row */}
+              {/* Main Row: Left 2/3 actions, Right 1/3 carousel/news */}
               <div className="flex flex-col lg:flex-row gap-4">
-                {/* Modern Carousel Card */}
-                <div className="w-full lg:w-1/2">
-                  <ModernCarousel slides={carouselSlides} autoRotateInterval={4000} />
-                </div>
-
-                {/* Small Action Cards */}
-                <div className="w-full lg:w-1/2">
-                  <div className="grid grid-cols-2 gap-4 h-full">
+                {/* Left 2/3: Action Cards and Sections */}
+                <div className="w-full lg:w-2/3 flex flex-col gap-6">
+                  {/* 3 Action Cards in a Row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {/* Register a Guest Card */}
                     <div className="bg-white rounded-xl p-6 border shadow-sm flex flex-col items-center justify-center text-center h-full">
                       <div className="h-10 w-10 rounded-full bg-teal-100 flex items-center justify-center mb-2">
@@ -945,7 +965,6 @@ export default function VercelNavigation() {
                       </div>
                       <h3 className="font-normal text-sm text-gray-900">Register a Guest</h3>
                     </div>
-
                     {/* Click to Fix Card */}
                     <div className="bg-white rounded-xl p-6 border shadow-sm flex flex-col items-center justify-center text-center h-full">
                       <div className="h-10 w-10 rounded-full bg-orange-100 flex items-center justify-center mb-2">
@@ -953,82 +972,139 @@ export default function VercelNavigation() {
                       </div>
                       <h3 className="font-normal text-sm text-gray-900">Click to Fix</h3>
                     </div>
-
                     {/* Book a Space Card */}
                     <div
                       className="bg-white rounded-xl p-6 border shadow-sm flex flex-col items-center justify-center text-center h-full cursor-pointer hover:bg-gray-50"
                       onClick={() => setCurrentPage("book-space")}
+                      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setCurrentPage('book-space'); }}
+                      tabIndex={0}
+                      role="button"
                     >
                       <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mb-2">
                         <Building className="h-5 w-5 text-blue-600" />
                       </div>
                       <h3 className="font-normal text-sm text-gray-900">Book a Space</h3>
                     </div>
-
-                    {/* View Events Card */}
-                    <div className="bg-white rounded-xl p-6 border shadow-sm flex flex-col items-center justify-center text-center h-full">
-                      <div className="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center mb-2">
-                        <CalendarDays className="h-5 w-5 text-purple-600" />
+                  </div>
+                  {/* Spaces Section */}
+                  <div className="bg-white rounded-xl border shadow-sm p-6">
+                    <h2 className="text-sm font-medium text-gray-700 mb-4">Spaces</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                      {/* Example tall cards for spaces */}
+                      {bookingResources.slice(0, 3).map((space) => (
+                        <div key={space.id} className="flex flex-col h-64 rounded-lg overflow-hidden border shadow-sm bg-gray-50">
+                          <div className="h-2/3 bg-cover bg-center" style={{backgroundImage: `url('https://source.unsplash.com/400x300/?office,${space.name}')`}} />
+                          <div className="flex-1 p-4 flex flex-col justify-between">
+                            <h3 className="font-medium text-gray-900 text-base mb-2">{space.name}</h3>
+                            <Button size="sm" className="w-fit mt-auto">Book</Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  {/* Events Section */}
+                  <div className="bg-white rounded-xl border shadow-sm p-6">
+                    <h2 className="text-sm font-medium text-gray-700 mb-4">Events</h2>
+                    <div className="overflow-x-auto">
+                      <div className="flex gap-6 min-w-full pb-2">
+                        {/* Example event cards */}
+                        {[
+                          {
+                            id: 1,
+                            image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80",
+                            title: "Summer Rooftop Social",
+                            host: "By Building Management",
+                            desc: "Join your colleagues for drinks, music, and city views on the rooftop.",
+                          },
+                          {
+                            id: 2,
+                            image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=600&q=80",
+                            title: "Yoga & Wellness Morning",
+                            host: "By Wellness Team",
+                            desc: "Start your day with a guided yoga session and healthy snacks.",
+                          },
+                          {
+                            id: 3,
+                            image: "https://images.unsplash.com/photo-1515168833906-d2a3b82b3029?w=600&q=80",
+                            title: "Book Club: Summer Reads",
+                            host: "By Tenant Council",
+                            desc: "Discuss your favorite summer books and meet fellow readers.",
+                          },
+                          {
+                            id: 4,
+                            image: "https://images.unsplash.com/photo-1515378791036-0648a814c963?w=600&q=80",
+                            title: "Lunch & Learn: Sustainability",
+                            host: "By Green Team",
+                            desc: "Learn about building sustainability initiatives over lunch.",
+                          },
+                        ].map(event => (
+                          <div key={event.id} className="flex flex-col w-72 rounded-2xl overflow-hidden bg-gray-900 text-white shadow-lg relative">
+                            <img src={event.image} alt={event.title} className="h-48 w-full object-cover" />
+                            <div className="flex-1 flex flex-col p-5">
+                              <h3 className="text-xl font-semibold mb-1">{event.title}</h3>
+                              <p className="text-xs text-gray-300 mb-2">{event.host}</p>
+                              <p className="text-sm text-gray-100 mb-4 flex-1">{event.desc}</p>
+                              <div className="flex gap-2 mt-auto">
+                                <button type="button" className="bg-white text-gray-900 font-medium rounded-lg px-4 py-2 text-sm hover:bg-gray-100">Recommend</button>
+                                <button type="button" className="bg-gray-800 text-white font-medium rounded-lg px-4 py-2 text-sm border border-white/20 hover:bg-gray-700">View details</button>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                      <h3 className="font-normal text-sm text-gray-900">View Events</h3>
+                    </div>
+                  </div>
+                  {/* Amenities Section */}
+                  <div className="bg-white rounded-xl border shadow-sm p-6">
+                    <h2 className="text-sm font-medium text-gray-700 mb-4">Amenities</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      {/* Example amenities */}
+                      <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
+                        <Coffee className="h-6 w-6 text-brown-500 mb-2" />
+                        <span className="text-sm text-gray-900">Coffee Bar</span>
+                      </div>
+                      <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
+                        <User className="h-6 w-6 text-blue-500 mb-2" />
+                        <span className="text-sm text-gray-900">Concierge</span>
+                      </div>
+                      <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
+                        <Wrench className="h-6 w-6 text-orange-500 mb-2" />
+                        <span className="text-sm text-gray-900">Maintenance</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Upcoming Events and Recently Booked Cards */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                {/* Upcoming Events Card */}
-                <div className="bg-white rounded-xl p-6 border shadow-sm">
-                  <h2 className="text-sm font-medium text-gray-700 mb-4">Upcoming Events</h2>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <CalendarDays className="h-4 w-4 text-blue-500" />
-                      <div>
-                        <p className="text-sm font-normal text-gray-900">Townhall Meeting</p>
-                        <p className="text-xs text-gray-500">May 31, 2025 - 10:00 AM</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Coffee className="h-4 w-4 text-green-500" />
-                      <div>
-                        <p className="text-sm font-normal text-gray-900">Coffee with the CEO</p>
-                        <p className="text-xs text-gray-500">June 5, 2025 - 2:00 PM</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <BookOpen className="h-4 w-4 text-purple-500" />
-                      <div>
-                        <p className="text-sm font-normal text-gray-900">Book Club Meeting</p>
-                        <p className="text-xs text-gray-500">June 12, 2025 - 6:00 PM</p>
-                      </div>
-                    </div>
+                {/* Right 1/3: Carousel and News Feed */}
+                <div className="w-full lg:w-1/3 flex flex-col gap-6">
+                  {/* Carousel */}
+                  <div className="bg-white rounded-xl border shadow-sm p-4 flex flex-col items-center justify-center">
+                    <ModernCarousel slides={carouselSlides} autoRotateInterval={4000} />
                   </div>
-                </div>
-
-                {/* Recently Booked Card */}
-                <div className="bg-white rounded-xl p-6 border shadow-sm">
-                  <h2 className="text-sm font-medium text-gray-700 mb-4">Recently Booked</h2>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <User className="h-4 w-4 text-orange-500" />
-                      <div>
-                        <p className="text-sm font-normal text-gray-900">Conference Room A</p>
-                        <p className="text-xs text-gray-500">Booked by John Doe</p>
+                  {/* What's happening News Feed */}
+                  <div className="bg-white rounded-xl border shadow-sm p-4">
+                    <h2 className="text-sm font-medium text-gray-700 mb-4">What's happening</h2>
+                    <div className="space-y-3">
+                      {/* Example news posts */}
+                      <div className="flex items-start gap-3">
+                        <Newspaper className="h-5 w-5 text-blue-500 mt-1" />
+                        <div>
+                          <p className="text-sm font-normal text-gray-900">Rooftop terrace will be closed for maintenance this weekend</p>
+                          <p className="text-xs text-gray-500">1 day ago</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Building className="h-4 w-4 text-teal-500" />
-                      <div>
-                        <p className="text-sm font-normal text-gray-900">Meeting Room 2B</p>
-                        <p className="text-xs text-gray-500">Booked by Jane Smith</p>
+                      <div className="flex items-start gap-3">
+                        <User className="h-5 w-5 text-green-500 mt-1" />
+                        <div>
+                          <p className="text-sm font-normal text-gray-900">John Smith has been registered for today's meeting</p>
+                          <p className="text-xs text-gray-500">2 minutes ago</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <MapPin className="h-4 w-4 text-red-500" />
-                      <div>
-                        <p className="text-sm font-normal text-gray-900">Event Space</p>
-                        <p className="text-xs text-gray-500">Booked by Acme Corp</p>
+                      <div className="flex items-start gap-3">
+                        <AlertTriangle className="h-5 w-5 text-orange-500 mt-1" />
+                        <div>
+                          <p className="text-sm font-normal text-gray-900">Broken light in Conference Room A has been fixed</p>
+                          <p className="text-xs text-gray-500">1 hour ago</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1104,11 +1180,7 @@ export default function VercelNavigation() {
                             <ChevronLeftIcon className="h-4 w-4" />
                           </Button>
                           <span className="text-sm font-medium text-gray-900">
-                            {bookingDate.toLocaleDateString("en-US", {
-                              month: "2-digit",
-                              day: "2-digit",
-                              year: "numeric",
-                            })}
+                            {bookingDateLabel}
                           </span>
                           <Button variant="ghost" size="icon" className="h-8 w-8">
                             <ChevronRightIcon className="h-4 w-4" />
@@ -1187,7 +1259,7 @@ export default function VercelNavigation() {
                               )}
                             >
                               {/* Add booking slots or events here */}
-                              <div className="h-6"></div>
+                              <div className="h-6" />
 
                               {/* Current time line */}
                               {timeIndex === 4 && (
@@ -1214,6 +1286,99 @@ export default function VercelNavigation() {
                 </div>
               )}
             </div>
+          ) : currentPage === "about" ? (
+            <div className="space-y-6">
+              {/* About Hero */}
+              <div className="relative rounded-2xl overflow-hidden bg-card border shadow-sm">
+                <div
+                  className="relative h-48 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${selectedBuilding.image.replace("w=120&h=120", "w=1200&h=800")})` }}
+                >
+                  <div className="absolute inset-0 bg-black bg-opacity-40" />
+                  <div className="relative z-10 h-full flex flex-col justify-end p-6 text-white">
+                    <h1 className="text-3xl font-medium mb-2">About</h1>
+                    <p className="text-white text-lg mb-4">Everything you need to know about your building.</p>
+                  </div>
+                </div>
+              </div>
+              {/* Tabs */}
+              <div className="bg-white rounded-xl border shadow-sm p-6">
+                <div className="border-b border-gray-200 mb-6">
+                  <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+                    {['Overview', 'Property Contacts', 'Tenants', 'Features', 'Amenities', 'More'].map((tab) => (
+                      <button
+                        key={tab}
+                        type="button"
+                        className={cn(
+                          "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm",
+                          aboutTab === tab
+                            ? "border-blue-600 text-blue-600"
+                            : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                        )}
+                        onClick={() => setAboutTab(tab)}
+                      >
+                        {tab}
+                      </button>
+                    ))}
+                  </nav>
+                </div>
+                {/* Tab Content */}
+                <div>
+                  {aboutTab === 'Overview' && (
+                    <div>
+                      <h2 className="text-lg font-semibold mb-2">Welcome to {selectedBuilding.name}</h2>
+                      <p className="text-gray-700">This is your building's overview. Here you can find general information, history, and highlights about your property.</p>
+                    </div>
+                  )}
+                  {aboutTab === 'Property Contacts' && (
+                    <div>
+                      <h2 className="text-lg font-semibold mb-2">Property Contacts</h2>
+                      <ul className="text-gray-700 space-y-1">
+                        <li>Building Manager: John Smith (john.smith@example.com)</li>
+                        <li>Security: Jane Doe (security@example.com)</li>
+                        <li>Maintenance: Mike Brown (maintenance@example.com)</li>
+                      </ul>
+                    </div>
+                  )}
+                  {aboutTab === 'Tenants' && (
+                    <div>
+                      <h2 className="text-lg font-semibold mb-2">Tenants</h2>
+                      <ul className="text-gray-700 space-y-1">
+                        <li>Acme Corp</li>
+                        <li>Globex Inc</li>
+                        <li>Umbrella Co</li>
+                      </ul>
+                    </div>
+                  )}
+                  {aboutTab === 'Features' && (
+                    <div>
+                      <h2 className="text-lg font-semibold mb-2">Features</h2>
+                      <ul className="text-gray-700 space-y-1">
+                        <li>24/7 Security</li>
+                        <li>On-site Fitness Center</li>
+                        <li>Conference Rooms</li>
+                      </ul>
+                    </div>
+                  )}
+                  {aboutTab === 'Amenities' && (
+                    <div>
+                      <h2 className="text-lg font-semibold mb-2">Amenities</h2>
+                      <ul className="text-gray-700 space-y-1">
+                        <li>Coffee Bar</li>
+                        <li>Concierge</li>
+                        <li>Maintenance</li>
+                      </ul>
+                    </div>
+                  )}
+                  {aboutTab === 'More' && (
+                    <div>
+                      <h2 className="text-lg font-semibold mb-2">More Useful Info</h2>
+                      <p className="text-gray-700">Find building policies, emergency procedures, and more resources here.</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
           ) : null}
         </main>
 
@@ -1235,12 +1400,7 @@ export default function VercelNavigation() {
               {/* Selected Day Events */}
               <div className="space-y-4">
                 <h3 className="text-sm font-normal text-gray-700">
-                  {selectedDate.toLocaleDateString("en-US", {
-                    weekday: "long",
-                    month: "long",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
+                  {selectedDateLabel}
                 </h3>
 
                 {/* Events */}
