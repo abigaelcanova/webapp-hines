@@ -963,8 +963,7 @@ export default function VercelNavigation() {
               "flex-1 min-w-0",
               "mx-auto max-w-[1024px] px-4",
               "py-4",
-              !leftDrawerOpen && !rightDrawerOpen && !assistantDrawerOpen && "lg:mx-auto",
-              rightDrawerOpen && "mr-6"
+              !leftDrawerOpen && !rightDrawerOpen && !assistantDrawerOpen && "lg:mx-auto"
             )}
           >
             {currentPage === "home" ? (
@@ -1471,7 +1470,7 @@ export default function VercelNavigation() {
           {/* Right Drawers */}
           {!isMobile && (
             <>
-              <aside className={cn("transition-all duration-300 ease-in-out mr-2 sticky top-14 self-start", rightDrawerOpen ? "w-[320px]" : "w-0")}>
+              <aside className={cn("transition-all duration-300 ease-in-out mr-4 sticky top-14 self-start", rightDrawerOpen ? "w-[320px]" : "w-0")}>
                 {rightDrawerOpen && (
                   <div className="h-[calc(100vh-3.5rem-2rem)] bg-white rounded-xl border shadow-sm flex flex-col mt-4 overflow-hidden">
                     <div className="flex items-center justify-between p-4">
@@ -1554,7 +1553,7 @@ export default function VercelNavigation() {
                   </div>
                 )}
               </aside>
-              <aside className={cn("transition-all duration-300 ease-in-out mr-2 sticky top-14 self-start", assistantDrawerOpen ? "w-[320px]" : "w-0")}>
+              <aside className={cn("transition-all duration-300 ease-in-out mr-4 sticky top-14 self-start", assistantDrawerOpen ? "w-[320px]" : "w-0")}>
                 {assistantDrawerOpen && (
                   <div className="h-[calc(100vh-3.5rem-2rem)] bg-white rounded-xl border shadow-sm flex flex-col mt-4 overflow-hidden">
                     {/* Header */}
