@@ -14,7 +14,7 @@ export default function ExplorePage() {
   return (
     <div className="flex flex-col h-screen w-full bg-[#F9FAFB]">
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 bg-white border-b relative">
+      <div className="flex items-center justify-between px-6 py-4 relative">
         <h1 className="text-2xl font-semibold">Explore</h1>
         {/* Chip Bar Centered */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-2">
@@ -25,8 +25,8 @@ export default function ExplorePage() {
               onClick={() => setActiveTab(tab)}
               className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
                 activeTab === tab 
-                  ? "bg-gray-100 text-gray-900 border-gray-200 border" 
-                  : "bg-white text-gray-500 border-gray-200 border hover:bg-gray-50 hover:text-gray-900"
+                  ? "bg-gray-100 text-gray-900" 
+                  : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
               }`}
             >
               {tab}
@@ -44,7 +44,7 @@ export default function ExplorePage() {
         </Button>
       </div>
       {/* Filter Row */}
-      <div className="flex items-center justify-between px-6 py-3 bg-white border-b gap-4">
+      <div className="flex items-center justify-between px-6 py-3 gap-4">
         {/* Left: Cities, Neighborhoods, Buildings */}
         <div className="flex gap-2 items-center">
           <Select>
@@ -83,8 +83,8 @@ export default function ExplorePage() {
         </div>
       </div>
       {/* Map Section */}
-      <div className="flex-1 p-6">
-        <div className="w-full h-full rounded-3xl border overflow-hidden">
+      <div className="flex-1 p-6 min-h-0">
+        <div className="w-full h-full rounded-3xl border overflow-hidden bg-white">
           <img
             src="/map.png"
             alt="Interactive Map"
