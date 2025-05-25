@@ -955,21 +955,305 @@ export default function VercelNavigation() {
               <div className="space-y-6">
                 {/* Welcome Card */}
                 <div className="relative rounded-2xl overflow-hidden bg-card border shadow-sm">
-                  {/* Welcome card content */}
+                  <ModernCarousel slides={carouselSlides} />
                 </div>
-                {/* Rest of home page content */}
+
+                {/* Quick Actions */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="p-6 rounded-xl border bg-white shadow-sm">
+                    <Building className="h-6 w-6 mb-4 text-blue-500" />
+                    <h3 className="text-base font-medium mb-2">Book a space</h3>
+                    <p className="text-sm text-muted-foreground mb-4">Reserve meeting rooms, workspaces, and more.</p>
+                    <Button variant="outline" className="w-full" onClick={() => setCurrentPage("book-space")}>
+                      Book now
+                    </Button>
+                  </div>
+
+                  <div className="p-6 rounded-xl border bg-white shadow-sm">
+                    <UserPlus className="h-6 w-6 mb-4 text-teal-500" />
+                    <h3 className="text-base font-medium mb-2">Register a guest</h3>
+                    <p className="text-sm text-muted-foreground mb-4">Pre-register visitors for easy check-in.</p>
+                    <Button variant="outline" className="w-full">Register</Button>
+                  </div>
+
+                  <div className="p-6 rounded-xl border bg-white shadow-sm">
+                    <Wrench className="h-6 w-6 mb-4 text-orange-500" />
+                    <h3 className="text-base font-medium mb-2">Click to fix</h3>
+                    <p className="text-sm text-muted-foreground mb-4">Report and track maintenance issues.</p>
+                    <Button variant="outline" className="w-full">Report</Button>
+                  </div>
+
+                  <div className="p-6 rounded-xl border bg-white shadow-sm">
+                    <CalendarDays className="h-6 w-6 mb-4 text-purple-500" />
+                    <h3 className="text-base font-medium mb-2">View events</h3>
+                    <p className="text-sm text-muted-foreground mb-4">See upcoming building events and activities.</p>
+                    <Button variant="outline" className="w-full">View all</Button>
+                  </div>
+                </div>
+
+                {/* Recent Activity */}
+                <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
+                  <div className="p-6 border-b">
+                    <h3 className="text-base font-medium">Recent activity</h3>
+                  </div>
+                  <div className="divide-y">
+                    {notifications.map((notification) => (
+                      <div
+                        key={notification.id}
+                        className={cn(
+                          "p-4 hover:bg-muted/50",
+                          notification.unread && "bg-blue-50/50"
+                        )}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div
+                            className={cn(
+                              "w-2 h-2 rounded-full mt-2 flex-shrink-0",
+                              notification.unread ? "bg-blue-500" : "bg-transparent"
+                            )}
+                          />
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-foreground mb-1">{notification.title}</p>
+                            <p className="text-xs text-muted-foreground mb-2">{notification.description}</p>
+                            <p className="text-xs text-muted-foreground">{notification.time}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             ) : currentPage === "book-space" ? (
               <div className="space-y-6">
-                {/* Book space content */}
+                {/* Booking Header */}
+                <div className="flex items-center justify-between">
+                  <h2 className="text-lg font-medium">Book a space</h2>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant={bookingView === "calendar" ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setBookingView("calendar")}
+                    >
+                      Calendar
+                    </Button>
+                    <Button
+                      variant={bookingView === "list" ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setBookingView("list")}
+                    >
+                      List
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Resources Filter */}
+                <div className="flex flex-wrap gap-2">
+                  {bookingResources.map((resource) => (
+                    <Button
+                      key={resource.id}
+                      variant={selectedResources.includes(resource.id) ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => {
+                        if (selectedResources.includes(resource.id)) {
+                          setSelectedResources(selectedResources.filter((id) => id !== resource.id))
+                        } else {
+                          setSelectedResources([...selectedResources, resource.id])
+                        }
+                      }}
+                    >
+                      {resource.name}
+                    </Button>
+                  ))}
+                </div>
+
+                {/* Calendar View */}
+                {bookingView === "calendar" && (
+                  <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
+                    <div className="p-6 border-b">
+                      <div className="flex items-center justify-between mb-6">
+                        <h3 className="text-base font-medium">{bookingDateLabel}</h3>
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant={bookingViewType === "day" ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => setBookingViewType("day")}
+                          >
+                            Day
+                          </Button>
+                          <Button
+                            variant={bookingViewType === "week" ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => setBookingViewType("week")}
+                          >
+                            Week
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-[auto,1fr] gap-4">
+                        {/* Time slots */}
+                        <div className="space-y-4">
+                          {timeSlots.map((time) => (
+                            <div key={time} className="text-xs text-muted-foreground h-12 flex items-center">
+                              {time}
+                            </div>
+                          ))}
+                        </div>
+                        {/* Calendar grid */}
+                        <div className="grid grid-cols-1 gap-2">
+                          {timeSlots.map((time) => (
+                            <div
+                              key={time}
+                              className="h-12 border-t border-dashed first:border-t-0 relative group cursor-pointer hover:bg-muted/50"
+                            >
+                              <div className="absolute inset-x-0 top-0 h-full group-hover:bg-muted/10" />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : currentPage === "about" ? (
               <div className="space-y-6">
-                {/* About page content */}
+                <div className="flex items-center justify-between">
+                  <h2 className="text-lg font-medium">About</h2>
+                </div>
+                <div className="flex gap-4 border-b">
+                  {['Overview', 'Amenities', 'Transportation', 'Contact'].map((tab) => (
+                    <button
+                      key={tab}
+                      type="button"
+                      className={cn(
+                        'px-4 py-2 text-sm font-medium border-b-2 -mb-px transition-colors',
+                        aboutTab === tab
+                          ? 'border-primary text-primary'
+                          : 'border-transparent text-muted-foreground hover:text-foreground'
+                      )}
+                      onClick={() => setAboutTab(tab)}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  <div className="lg:col-span-2 space-y-6">
+                    <div className="aspect-video rounded-xl border bg-white shadow-sm overflow-hidden">
+                      <img
+                        src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=400&fit=crop"
+                        alt="Building exterior"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="prose max-w-none">
+                      <p>
+                        Welcome to our state-of-the-art building, where modern design meets functionality. Our space is
+                        designed to inspire creativity, foster collaboration, and provide a comfortable environment for all
+                        occupants.
+                      </p>
+                      <p>
+                        With a focus on sustainability and innovation, we offer a range of amenities and services to meet
+                        the diverse needs of our community. From flexible workspaces to cutting-edge technology
+                        infrastructure, every detail has been carefully considered.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="space-y-6">
+                    <div className="rounded-xl border bg-white shadow-sm">
+                      <div className="p-6">
+                        <h3 className="text-base font-medium mb-4">Quick facts</h3>
+                        <dl className="space-y-4">
+                          <div>
+                            <dt className="text-sm text-muted-foreground">Year built</dt>
+                            <dd className="text-sm font-medium">2020</dd>
+                          </div>
+                          <div>
+                            <dt className="text-sm text-muted-foreground">Square footage</dt>
+                            <dd className="text-sm font-medium">250,000 sq ft</dd>
+                          </div>
+                          <div>
+                            <dt className="text-sm text-muted-foreground">Number of floors</dt>
+                            <dd className="text-sm font-medium">25</dd>
+                          </div>
+                          <div>
+                            <dt className="text-sm text-muted-foreground">Parking spaces</dt>
+                            <dd className="text-sm font-medium">500</dd>
+                          </div>
+                        </dl>
+                      </div>
+                    </div>
+                    <div className="rounded-xl border bg-white shadow-sm">
+                      <div className="p-6">
+                        <h3 className="text-base font-medium mb-4">Hours of operation</h3>
+                        <dl className="space-y-4">
+                          <div>
+                            <dt className="text-sm text-muted-foreground">Monday - Friday</dt>
+                            <dd className="text-sm font-medium">6:00 AM - 10:00 PM</dd>
+                          </div>
+                          <div>
+                            <dt className="text-sm text-muted-foreground">Saturday</dt>
+                            <dd className="text-sm font-medium">8:00 AM - 6:00 PM</dd>
+                          </div>
+                          <div>
+                            <dt className="text-sm text-muted-foreground">Sunday</dt>
+                            <dd className="text-sm font-medium">Closed</dd>
+                          </div>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             ) : currentPage === "explore" ? (
               <div className="flex flex-col h-full w-full">
-                {/* Explore page content */}
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-lg font-medium">Explore</h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {/* Explore cards */}
+                  <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
+                    <div className="aspect-video relative">
+                      <img
+                        src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop"
+                        alt="Office space"
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <h3 className="text-lg font-medium text-white mb-1">Workspaces</h3>
+                        <p className="text-sm text-white/90">Find your perfect spot to work</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
+                    <div className="aspect-video relative">
+                      <img
+                        src="https://images.unsplash.com/photo-1559304822-9eb2813c9844?w=600&h=400&fit=crop"
+                        alt="Food court"
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <h3 className="text-lg font-medium text-white mb-1">Food & Dining</h3>
+                        <p className="text-sm text-white/90">Explore dining options</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="rounded-xl border bg-white shadow-sm overflow-hidden">
+                    <div className="aspect-video relative">
+                      <img
+                        src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&h=400&fit=crop"
+                        alt="Gym"
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <h3 className="text-lg font-medium text-white mb-1">Wellness</h3>
+                        <p className="text-sm text-white/90">Stay healthy and active</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             ) : null}
           </main>
@@ -1252,7 +1536,7 @@ export default function VercelNavigation() {
                     <div className="p-4 border-b">
                       <h3 className="text-sm font-medium text-muted-foreground mb-3">Recent searches</h3>
                       <div className="space-y-2">
-                        <button className="flex items-center gap-3 w-full p-2 rounded-md hover:bg-muted text-left">
+                        <button type="button" className="flex items-center gap-3 w-full p-2 rounded-md hover:bg-muted text-left">
                           <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
                             <Building className="h-4 w-4 text-muted-foreground" />
                           </div>
@@ -1261,7 +1545,7 @@ export default function VercelNavigation() {
                             <p className="text-xs text-muted-foreground">Meeting space</p>
                           </div>
                         </button>
-                        <button className="flex items-center gap-3 w-full p-2 rounded-md hover:bg-muted text-left">
+                        <button type="button" className="flex items-center gap-3 w-full p-2 rounded-md hover:bg-muted text-left">
                           <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
                             <User className="h-4 w-4 text-muted-foreground" />
                           </div>
@@ -1270,7 +1554,7 @@ export default function VercelNavigation() {
                             <p className="text-xs text-muted-foreground">Building manager</p>
                           </div>
                         </button>
-                        <button className="flex items-center gap-3 w-full p-2 rounded-md hover:bg-muted text-left">
+                        <button type="button" className="flex items-center gap-3 w-full p-2 rounded-md hover:bg-muted text-left">
                           <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
                             <CalendarDays className="h-4 w-4 text-muted-foreground" />
                           </div>
