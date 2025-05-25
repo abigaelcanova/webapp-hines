@@ -462,7 +462,7 @@ export default function VercelNavigation() {
           </Button>
 
           {/* Logo */}
-          <Badge className="h-8 px-3 text-sm font-bold bg-black text-white">Logo here</Badge>
+          <Badge className="h-8 px-3 text-sm font-bold bg-black text-white rounded-md w-full">Logo</Badge>
         </div>
 
         {/* Middle section - City & Building Selectors */}
@@ -1566,7 +1566,7 @@ export default function VercelNavigation() {
                   </div>
 
                   {/* Chat Area - Spacer */}
-                  <div className="flex-1"></div>
+                  <div className="flex-1" />
 
                   {/* Input Area */}
                   <div className="space-y-3">
@@ -1684,7 +1684,7 @@ export default function VercelNavigation() {
                 <div className="bg-gray-50 rounded-lg p-4 mb-4">
                   <p className="text-xs text-gray-600">What's the food truck schedule for the week?</p>
                 </div>
-                <div className="flex-1"></div>
+                <div className="flex-1" />
                 <div className="space-y-3">
                   <div className="relative">
                     <Input placeholder="Ask anything" className="pr-12 py-3 text-sm" />
