@@ -438,7 +438,7 @@ export default function VercelNavigation() {
             className="h-9 w-9"
             onClick={() => {
               if (isMobile) {
-                setLeftDrawerOpen(!leftDrawerOpen)
+                setLeftDrawerOpen(true)
               } else {
                 setLeftDrawerOpen(!leftDrawerOpen)
               }
