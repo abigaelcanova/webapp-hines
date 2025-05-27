@@ -37,6 +37,7 @@ import {
   Store,
   Users,
   Gift,
+  NotebookTabs,
 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
