@@ -65,6 +65,8 @@ export default function VercelNavigation() {
   const prevIsMobile = useRef(false)
   const [mobileAssistantDrawerOpen, setMobileAssistantDrawerOpen] = useState(false)
   const [mobileActivityDrawerOpen, setMobileActivityDrawerOpen] = useState(false)
+  const [assistantFullScreenOpen, setAssistantFullScreenOpen] = useState(false)
+  const [activityFullScreenOpen, setActivityFullScreenOpen] = useState(false)
 
   useEffect(() => {
     setCurrentMonthLabel(
@@ -87,8 +89,14 @@ export default function VercelNavigation() {
   // Keyboard shortcuts for search modal
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && searchModalOpen) {
-        setSearchModalOpen(false)
+      if (event.key === "Escape") {
+        if (searchModalOpen) {
+          setSearchModalOpen(false)
+        } else if (assistantFullScreenOpen) {
+          setAssistantFullScreenOpen(false)
+        } else if (activityFullScreenOpen) {
+          setActivityFullScreenOpen(false)
+        }
       }
       if ((event.metaKey || event.ctrlKey) && event.key === "k") {
         event.preventDefault()
@@ -116,7 +124,7 @@ export default function VercelNavigation() {
       document.removeEventListener("keydown", handleKeyDown)
       window.removeEventListener("resize", handleResize)
     }
-  }, [searchModalOpen, leftDrawerOpen])
+  }, [searchModalOpen, leftDrawerOpen, assistantFullScreenOpen, activityFullScreenOpen])
 
   const setPrimary = (buildingName: string) => {
     setPrimaryBuilding(buildingName)
@@ -331,7 +339,7 @@ export default function VercelNavigation() {
     // Days with events or indicators
     const daysWithDots = [
       { date: 1, color: "bg-blue-500" },
-      { date: 10, color: "bg-blue-500", highlight: true },
+      { date: 27, color: "bg-blue-500", highlight: true },
       { date: 30, color: "bg-blue-500", selected: true },
       { date: 34, color: "bg-gray-400" }, // June 4 (30 days in May + 4)
     ]
@@ -665,7 +673,7 @@ export default function VercelNavigation() {
 
             {/* Sign In Button */}
             <Link href="/login">
-              <Button variant="default" size="sm" className="ml-3">
+              <Button variant="default" size="sm" className="ml-3 bg-black text-white hover:bg-gray-800">
                 Sign in
               </Button>
             </Link>
@@ -1299,7 +1307,7 @@ export default function VercelNavigation() {
                         <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
                           <MoreHorizontal className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
+                        <Button variant="ghost" size="icon" className="h-8 w-8" type="button" onClick={() => setActivityFullScreenOpen(true)}>
                           <Maximize2 className="h-4 w-4" />
                         </Button>
                         <Button variant="ghost" size="icon" className="h-8 w-8" type="button" onClick={() => setRightDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setRightDrawerOpen(false) }}>
@@ -1383,7 +1391,7 @@ export default function VercelNavigation() {
                         <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
                           <MoreHorizontal className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
+                        <Button variant="ghost" size="icon" className="h-8 w-8" type="button" onClick={() => setAssistantFullScreenOpen(true)}>
                           <Maximize2 className="h-4 w-4" />
                         </Button>
                         <Button variant="ghost" size="icon" className="h-8 w-8" type="button" onClick={() => setAssistantDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setAssistantDrawerOpen(false) }}>
@@ -1541,6 +1549,171 @@ export default function VercelNavigation() {
                         <span>
                           Press <kbd className="px-1.5 py-0.5 bg-background border rounded text-xs">Esc</kbd> to close
                         </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Assistant Full Screen Modal */}
+        {assistantFullScreenOpen && (
+          <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+              <div className="w-full h-full max-w-4xl max-h-[90vh] bg-white rounded-xl border shadow-lg overflow-hidden flex flex-col">
+                {/* Header */}
+                <div className="flex items-center justify-between p-6 border-b">
+                  <div className="flex items-center gap-3">
+                    <span className="text-lg font-medium text-gray-900">Assistant</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" className="h-8 w-8" type="button" onClick={() => setAssistantFullScreenOpen(false)}>
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 p-6 flex flex-col overflow-y-auto">
+                  {/* Greeting */}
+                  <div className="mb-6">
+                    <p className="text-base text-gray-600">How can I help you today?</p>
+                  </div>
+
+                  {/* Suggestion Cards */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 cursor-pointer transition-colors">
+                      <p className="text-sm text-gray-700">What hours is the rooftop terrace open?</p>
+                    </div>
+                    <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 cursor-pointer transition-colors">
+                      <p className="text-sm text-gray-700">What's the food truck schedule for the week?</p>
+                    </div>
+                    <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 cursor-pointer transition-colors">
+                      <p className="text-sm text-gray-700">How do I book a conference room?</p>
+                    </div>
+                    <div className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 cursor-pointer transition-colors">
+                      <p className="text-sm text-gray-700">What amenities are available in the building?</p>
+                    </div>
+                  </div>
+
+                  {/* Chat Area - Spacer */}
+                  <div className="flex-1" />
+
+                  {/* Input Area */}
+                  <div className="space-y-4">
+                    <div className="relative">
+                      <Input placeholder="Ask anything..." className="pr-12 py-4 text-base" />
+                      <Button size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10" type="button">
+                        <Send className="h-5 w-5" />
+                      </Button>
+                    </div>
+                    <p className="text-xs text-gray-500 text-center">
+                      The assistant can make mistakes. It does not use your data to train its models.{" "}
+                      <button className="underline hover:no-underline" type="button">Learn more</button>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Activity Full Screen Modal */}
+        {activityFullScreenOpen && (
+          <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+              <div className="w-full h-full max-w-4xl max-h-[90vh] bg-white rounded-xl border shadow-lg overflow-hidden flex flex-col">
+                {/* Header */}
+                <div className="flex items-center justify-between p-6 border-b">
+                  <div className="flex items-center gap-3">
+                    <span className="text-lg font-medium text-gray-900">Activity</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" className="h-8 w-8" type="button" onClick={() => setActivityFullScreenOpen(false)}>
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 p-6 flex flex-col lg:flex-row gap-6 overflow-y-auto">
+                  {/* Calendar Section */}
+                  <div className="lg:w-1/3">
+                    <div className="mb-6">{renderCalendar()}</div>
+                  </div>
+
+                  {/* Events and Requests Section */}
+                  <div className="lg:w-2/3 space-y-6">
+                    {/* Selected Day Events */}
+                    <div>
+                      <h3 className="text-base font-medium text-gray-900 mb-4">
+                        {selectedDateLabel}
+                      </h3>
+
+                      {/* Events */}
+                      <div className="space-y-3 mb-8">
+                        <div className="flex items-center p-4 rounded-lg bg-white border border-border shadow-sm">
+                          <BookOpen className="h-6 w-6 mr-4 text-muted-foreground" />
+                          <div className="flex-1">
+                            <p className="text-sm font-medium text-foreground">Booked: Conference Room A</p>
+                            <p className="text-xs text-muted-foreground">Meeting with design team</p>
+                          </div>
+                          <span className="text-sm font-medium text-muted-foreground">9:00 AM</span>
+                        </div>
+
+                        <div className="flex items-center p-4 rounded-lg bg-white border border-border shadow-sm">
+                          <User className="h-6 w-6 mr-4 text-muted-foreground" />
+                          <div className="flex-1">
+                            <p className="text-sm font-medium text-foreground">Guest: Abby Canova</p>
+                            <p className="text-xs text-muted-foreground">Visitor from marketing department</p>
+                          </div>
+                          <span className="text-sm font-medium text-muted-foreground">12:00 PM</span>
+                        </div>
+
+                        <div className="flex items-center p-4 rounded-lg bg-white border border-border shadow-sm">
+                          <Coffee className="h-6 w-6 mr-4 text-muted-foreground" />
+                          <div className="flex-1">
+                            <p className="text-sm font-medium text-foreground">Lunch & Learn</p>
+                            <p className="text-xs text-muted-foreground">Monthly knowledge sharing session</p>
+                          </div>
+                          <span className="text-sm font-medium text-muted-foreground">1:30 PM</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Open Requests */}
+                    <div>
+                      <h3 className="text-base font-medium text-gray-900 mb-4">Open requests</h3>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between p-4 rounded-lg bg-white border border-border shadow-sm">
+                          <div className="flex items-center">
+                            <Wrench className="h-6 w-6 mr-4 text-muted-foreground" />
+                            <div>
+                              <p className="text-sm font-medium text-foreground">New equipment request</p>
+                              <p className="text-xs text-muted-foreground">Standing desk for office 4B</p>
+                            </div>
+                          </div>
+                          <span className="text-sm text-muted-foreground">Created 5/10/25</span>
+                        </div>
+
+                        <div className="flex items-center justify-between p-4 rounded-lg bg-white border border-border shadow-sm">
+                          <div className="flex items-center">
+                            <AlertTriangle className="h-6 w-6 mr-4 text-muted-foreground" />
+                            <div>
+                              <p className="text-sm font-medium text-foreground">Broken light</p>
+                              <p className="text-xs text-muted-foreground">Conference Room B ceiling light</p>
+                            </div>
+                          </div>
+                          <span className="text-sm text-muted-foreground">Created 5/15/25</span>
+                        </div>
                       </div>
                     </div>
                   </div>
