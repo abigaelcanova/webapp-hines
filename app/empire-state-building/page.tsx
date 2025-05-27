@@ -890,7 +890,7 @@ export default function VercelNavigation() {
                       className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
                     >
                       <Newspaper className="h-4 w-4 mr-3" />
-                      <span className="text-sm">Happenings</span>
+                      <span className="text-sm">Your feed</span>
                     </Button>
                     <Button
                       variant="ghost"
@@ -1113,7 +1113,7 @@ export default function VercelNavigation() {
                 <div className="pt-16 mt-[80px]">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-xl font-normal">What's Happening</h2>
-                    <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("happenings")}>
+                    <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("your-feed")}>
                       View all updates
                       <ChevronRightIcon className="h-4 w-4" />
                     </Button>
