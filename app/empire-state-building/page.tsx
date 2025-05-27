@@ -33,6 +33,9 @@ import {
   FileText,
   Smartphone,
   Mail,
+  UtensilsCrossed,
+  Store,
+  Users,
 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -890,7 +893,7 @@ export default function VercelNavigation() {
                       className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
                     >
                       <Newspaper className="h-4 w-4 mr-3" />
-                      <span className="text-sm flex-1">Your feed</span>
+                      <span className="text-sm flex-1 text-left">Your feed</span>
                       <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 rounded-full ml-auto">
                         3
                       </span>
@@ -900,7 +903,7 @@ export default function VercelNavigation() {
                       className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
                     >
                       <CalendarDays className="h-4 w-4 mr-3" />
-                      <span className="text-sm flex-1">Events</span>
+                      <span className="text-sm flex-1 text-left">Events</span>
                       <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-medium bg-orange-100 text-orange-800 rounded-full ml-auto">
                         2
                       </span>
@@ -917,6 +920,19 @@ export default function VercelNavigation() {
                     >
                       <Building className="h-4 w-4 mr-3" />
                       <span className="text-sm">Book a space</span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className={cn(
+                        "w-full justify-start h-auto p-2 font-normal",
+                        currentPage === "directory"
+                          ? "bg-gray-100 text-foreground"
+                          : "text-muted-foreground hover:text-foreground",
+                      )}
+                      onClick={() => setCurrentPage("directory")}
+                    >
+                      <Users className="h-4 w-4 mr-3" />
+                      <span className="text-sm">Directory</span>
                     </Button>
                     <Button
                       variant="ghost"
@@ -1375,6 +1391,127 @@ export default function VercelNavigation() {
                       <div className="p-4 group-hover:opacity-0 transition-opacity">
                         <p className="text-sm font-medium text-gray-900 mb-1">Building Tour & Happy Hour</p>
                         <p className="text-xs text-gray-600">June 25, 2025 • 4:00 PM</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* On-site Food and Retail Section */}
+                <div className="pt-16 mt-[80px]">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-xl font-normal">On-site Food and Retail</h2>
+                    <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("food-retail")}>
+                      View all
+                      <ChevronRightIcon className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Coffee Shop */}
+                    <div className="group relative bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                      <div className="aspect-[4/3] relative overflow-hidden">
+                        <img 
+                          src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800&h=600&fit=crop" 
+                          alt="Empire Coffee Co." 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-3 left-3">
+                          <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100">
+                            <Coffee className="h-3 w-3 mr-1" />
+                            Coffee Shop
+                          </Badge>
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <div className="absolute bottom-3 left-3 right-3 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                          <p className="text-sm font-medium mb-1">Empire Coffee Co.</p>
+                          <p className="text-xs opacity-90">Premium coffee • Fresh pastries • Quick bites</p>
+                        </div>
+                      </div>
+                      <div className="p-4 group-hover:opacity-0 transition-opacity">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-sm font-medium text-gray-900">Empire Coffee Co.</h3>
+                          <div className="flex items-center gap-1">
+                            <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                            <span className="text-xs text-gray-600">4.8</span>
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-600 mb-3">Premium coffee • Fresh pastries • Quick bites</p>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-green-600 font-medium">• Open now</span>
+                          <span className="text-gray-500">Ground floor</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Restaurant 1 */}
+                    <div className="group relative bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                      <div className="aspect-[4/3] relative overflow-hidden">
+                        <img 
+                          src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop" 
+                          alt="Skyline Bistro" 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-3 left-3">
+                          <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">
+                            <UtensilsCrossed className="h-3 w-3 mr-1" />
+                            Restaurant
+                          </Badge>
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <div className="absolute bottom-3 left-3 right-3 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                          <p className="text-sm font-medium mb-1">Skyline Bistro</p>
+                          <p className="text-xs opacity-90">Modern American • Business lunch • City views</p>
+                        </div>
+                      </div>
+                      <div className="p-4 group-hover:opacity-0 transition-opacity">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-sm font-medium text-gray-900">Skyline Bistro</h3>
+                          <div className="flex items-center gap-1">
+                            <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                            <span className="text-xs text-gray-600">4.6</span>
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-600 mb-3">Modern American • Business lunch • City views</p>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-green-600 font-medium">• Open now</span>
+                          <span className="text-gray-500">15th floor</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Restaurant 2 */}
+                    <div className="group relative bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                      <div className="aspect-[4/3] relative overflow-hidden">
+                        <img 
+                          src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&h=600&fit=crop" 
+                          alt="Metro Market" 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-3 left-3">
+                          <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
+                            <Store className="h-3 w-3 mr-1" />
+                            Market
+                          </Badge>
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <div className="absolute bottom-3 left-3 right-3 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                          <p className="text-sm font-medium mb-1">Metro Market</p>
+                          <p className="text-xs opacity-90">Fresh salads • Grab & go • Healthy options</p>
+                        </div>
+                      </div>
+                      <div className="p-4 group-hover:opacity-0 transition-opacity">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-sm font-medium text-gray-900">Metro Market</h3>
+                          <div className="flex items-center gap-1">
+                            <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                            <span className="text-xs text-gray-600">4.7</span>
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-600 mb-3">Fresh salads • Grab & go • Healthy options</p>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-green-600 font-medium">• Open now</span>
+                          <span className="text-gray-500">Concourse level</span>
+                        </div>
                       </div>
                     </div>
                   </div>
