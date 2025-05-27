@@ -935,7 +935,7 @@ export default function VercelNavigation() {
 
                   {/* Quick Links Section */}
                   <div className="mb-6">
-                    <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2 px-2">Quick Links</h4>
+                    <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2 px-2">Helpful links</h4>
                     <div className="space-y-1">
                       <a
                         href="https://example.com/resources"
