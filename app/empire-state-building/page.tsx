@@ -6,6 +6,8 @@ import {
   Search,
   Star,
   ChevronDown,
+  Bell,
+  Sparkles,
   Calendar,
   MapPin,
   Building,
@@ -14,20 +16,22 @@ import {
   BookOpen,
   User,
   Coffee,
+  Wrench,
   AlertTriangle,
   X,
   CalendarDays,
   Home,
   Info,
   Newspaper,
+  UserPlus,
+  MessageSquare,
   Send,
   MoreHorizontal,
   Maximize2,
   Menu,
-  UserPlus,
-  Wrench,
+  LogOut,
 } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -138,6 +142,11 @@ export default function VercelNavigation() {
       setAssistantDrawerOpen(false)
       setRightDrawerOpen(true)
     }
+  }
+
+  const handleLogout = () => {
+    // For prototype: just redirect to home page
+    window.location.href = "/"
   }
 
   const cities = [
@@ -662,13 +671,136 @@ export default function VercelNavigation() {
               <Search className="h-4 w-4" />
               <span className="sr-only">Search</span>
             </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className={cn("h-9 w-9 p-2", assistantDrawerOpen && "bg-primary/10 text-primary")}
+              onClick={openAssistant}
+            >
+              <Sparkles className="h-4 w-4" />
+              <span className="sr-only">AI Features</span>
+            </Button>
+            <Popover open={notificationPopoverOpen} onOpenChange={setNotificationPopoverOpen}>
+              <PopoverTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-9 w-9 p-2 relative">
+                  <Bell className="h-4 w-4" />
+                  <span className="sr-only">Notifications</span>
+                  {notificationCount > 0 && (
+                    <Badge
+                      variant="destructive"
+                      className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center p-0 text-xs font-normal"
+                    >
+                      {notificationCount}
+                    </Badge>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent align="end" className="w-80 p-0 z-50">
+                <div className="flex items-center justify-between p-4 border-b">
+                  <h3 className="font-medium text-sm">Notifications</h3>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-auto p-1 text-xs text-muted-foreground hover:text-foreground"
+                  >
+                    Mark all as read
+                  </Button>
+                </div>
+                <div className="max-h-96 overflow-y-auto">
+                  {notifications.length > 0 ? (
+                    <div className="divide-y">
+                      {notifications.map((notification) => (
+                        <div
+                          key={notification.id}
+                          className={cn(
+                            "p-4 hover:bg-muted/50 cursor-pointer transition-colors",
+                            notification.unread && "bg-blue-50/50",
+                          )}
+                        >
+                          <div className="flex items-start gap-3">
+                            <div
+                              className={cn(
+                                "w-2 h-2 rounded-full mt-2 flex-shrink-0",
+                                notification.unread ? "bg-blue-500" : "bg-transparent",
+                              )}
+                            />
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-medium text-foreground mb-1">{notification.title}</p>
+                              <p className="text-xs text-muted-foreground mb-2 line-clamp-2">
+                                {notification.description}
+                              </p>
+                              <p className="text-xs text-muted-foreground">{notification.time}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="p-8 text-center">
+                      <Bell className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                      <p className="text-sm text-muted-foreground">No notifications</p>
+                    </div>
+                  )}
+                </div>
+                {notifications.length > 0 && (
+                  <div className="p-3 border-t">
+                    <Button variant="ghost" size="sm" className="w-full text-xs">
+                      View all notifications
+                    </Button>
+                  </div>
+                )}
+              </PopoverContent>
+            </Popover>
 
-            {/* Sign In Button */}
-            <Link href="/login">
-              <Button variant="default" size="sm" className="ml-3">
-                Sign in
-              </Button>
-            </Link>
+            {/* Separator */}
+            <div className="w-px h-6 bg-border mx-3" />
+
+            {/* Activity Button */}
+            <Button
+              variant={rightDrawerOpen ? "default" : "outline"}
+              size="sm"
+              className={cn(
+                "h-9 px-3 gap-2 rounded-full transition-colors",
+                rightDrawerOpen && "bg-primary/10 text-primary hover:bg-primary/20 border-primary/20",
+              )}
+              onClick={openActivity}
+            >
+              <Calendar className="h-4 w-4" />
+              {!isMobile && <span className="text-sm font-medium">Activity</span>}
+            </Button>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="h-8 w-8 ml-3 cursor-pointer">
+                  <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">JD</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-64">
+                <div className="flex items-center gap-3 p-3">
+                  <Avatar className="h-10 w-10">
+                    <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">JD</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <span className="font-medium text-sm">John Doe</span>
+                    <span className="text-xs text-muted-foreground">john.doe@company.com</span>
+                  </div>
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="cursor-pointer">
+                  <User className="h-4 w-4 mr-2" />
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer">
+                  <Building className="h-4 w-4 mr-2" />
+                  My buildings
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Log out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
 
@@ -749,9 +881,94 @@ export default function VercelNavigation() {
                       onClick={() => setCurrentPage("book-space")}
                     >
                       <Building className="h-4 w-4 mr-3" />
-                      <span className="text-sm">Spaces</span>
+                      <span className="text-sm">Book a space</span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
+                    >
+                      <Wrench className="h-4 w-4 mr-3" />
+                      <span className="text-sm">Click to fix</span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
+                    >
+                      <UserPlus className="h-4 w-4 mr-3" />
+                      <span className="text-sm">Register a guest</span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
+                    >
+                      <MessageSquare className="h-4 w-4 mr-3" />
+                      <span className="text-sm">Feedback</span>
                     </Button>
                   </nav>
+
+                  {/* Quick Links Section */}
+                  <div className="mb-6">
+                    <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2 px-2">Quick Links</h4>
+                    <div className="space-y-1">
+                      <a
+                        href="https://example.com/resources"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full text-left px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
+                      >
+                        Building Resources
+                      </a>
+                      <a
+                        href="https://example.com/policies"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full text-left px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
+                      >
+                        Policies & Guidelines
+                      </a>
+                      <a
+                        href="https://example.com/emergency"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full text-left px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
+                      >
+                        Emergency Procedures
+                      </a>
+                      <a
+                        href="https://example.com/contact"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full text-left px-2 py-1.5 text-xs text-muted-foreground hover:bg-gray-100 rounded-md transition-colors"
+                      >
+                        Contact Directory
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Admin Section */}
+                  <div>
+                    <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2 px-2">Admin</h4>
+                    <div className="space-y-1">
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start h-auto px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground font-normal"
+                      >
+                        User Management
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start h-auto px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground font-normal"
+                      >
+                        Feature Management
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start h-auto px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground font-normal"
+                      >
+                        General Settings
+                      </Button>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Explore Card - Always visible at bottom */}
@@ -815,26 +1032,26 @@ export default function VercelNavigation() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div className="p-6 rounded-xl border bg-white shadow-sm">
                     <Building className="h-6 w-6 mb-4 text-gray-500 stroke-[1.5]" />
-                    <h3 className="text-base font-medium mb-2">Explore spaces</h3>
-                    <p className="text-sm text-muted-foreground mb-4">Discover meeting rooms, workspaces, and more.</p>
+                    <h3 className="text-base font-medium mb-2">Book a space</h3>
+                    <p className="text-sm text-muted-foreground mb-4">Reserve meeting rooms, workspaces, and more.</p>
+                  </div>
+
+                  <div className="p-6 rounded-xl border bg-white shadow-sm">
+                    <UserPlus className="h-6 w-6 mb-4 text-gray-500 stroke-[1.5]" />
+                    <h3 className="text-base font-medium mb-2">Register a guest</h3>
+                    <p className="text-sm text-muted-foreground mb-4">Pre-register visitors for easy check-in.</p>
+                  </div>
+
+                  <div className="p-6 rounded-xl border bg-white shadow-sm">
+                    <Wrench className="h-6 w-6 mb-4 text-gray-500 stroke-[1.5]" />
+                    <h3 className="text-base font-medium mb-2">Click to fix</h3>
+                    <p className="text-sm text-muted-foreground mb-4">Report and track maintenance issues.</p>
                   </div>
 
                   <div className="p-6 rounded-xl border bg-white shadow-sm">
                     <CalendarDays className="h-6 w-6 mb-4 text-gray-500 stroke-[1.5]" />
                     <h3 className="text-base font-medium mb-2">View events</h3>
                     <p className="text-sm text-muted-foreground mb-4">See upcoming building events and activities.</p>
-                  </div>
-
-                  <div className="p-6 rounded-xl border bg-white shadow-sm">
-                    <Info className="h-6 w-6 mb-4 text-gray-500 stroke-[1.5]" />
-                    <h3 className="text-base font-medium mb-2">Building info</h3>
-                    <p className="text-sm text-muted-foreground mb-4">Learn about amenities and building details.</p>
-                  </div>
-
-                  <div className="p-6 rounded-xl border bg-white shadow-sm">
-                    <MapPin className="h-6 w-6 mb-4 text-gray-500 stroke-[1.5]" />
-                    <h3 className="text-base font-medium mb-2">Explore nearby</h3>
-                    <p className="text-sm text-muted-foreground mb-4">Find restaurants, shops, and local attractions.</p>
                   </div>
                 </div>
 
@@ -1496,26 +1713,26 @@ export default function VercelNavigation() {
                             <Building className="h-4 w-4 text-blue-600" />
                           </div>
                           <div>
-                            <p className="text-sm font-medium">Explore spaces</p>
-                            <p className="text-xs text-muted-foreground">View available</p>
+                            <p className="text-sm font-medium">Book a space</p>
+                            <p className="text-xs text-muted-foreground">Find and reserve</p>
                           </div>
                         </button>
                         <button className="flex items-center gap-3 p-3 rounded-md border hover:bg-muted text-left" type="button">
                           <div className="h-8 w-8 rounded-full bg-teal-100 flex items-center justify-center">
-                            <Info className="h-4 w-4 text-teal-600"/>
+                            <UserPlus className="h-4 w-4 text-teal-600"/>
                           </div>
                           <div>
-                            <p className="text-sm font-medium">Building info</p>
-                            <p className="text-xs text-muted-foreground">Learn more</p>
+                            <p className="text-sm font-medium">Register guest</p>
+                            <p className="text-xs text-muted-foreground">Add visitor</p>
                           </div>
                         </button>
                         <button className="flex items-center gap-3 p-3 rounded-md border hover:bg-muted text-left" type="button">
                           <div className="h-8 w-8 rounded-full bg-orange-100 flex items-center justify-center">
-                            <MapPin className="h-4 w-4 text-orange-600" />
+                            <Wrench className="h-4 w-4 text-orange-600" />
                           </div>
                           <div>
-                            <p className="text-sm font-medium">Explore nearby</p>
-                            <p className="text-xs text-muted-foreground">Local area</p>
+                            <p className="text-sm font-medium">Report issue</p>
+                            <p className="text-xs text-muted-foreground">Click to fix</p>
                           </div>
                         </button>
                         <button className="flex items-center gap-3 p-3 rounded-md border hover:bg-muted text-left" type="button">

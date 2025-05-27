@@ -1,0 +1,109 @@
+"use client"
+
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import Link from "next/link"
+
+export default function LoginPage() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // For prototype: just redirect to authenticated version
+    window.location.href = "/empire-state-building"
+  }
+
+  return (
+    <div className="min-h-screen flex">
+      {/* Left side - Login form */}
+      <div className="flex-1 flex items-center justify-center px-8 py-12 bg-white">
+        <div className="w-full max-w-md space-y-8">
+          <div className="space-y-2">
+            <h1 className="text-3xl font-semibold text-gray-900">Welcome back</h1>
+            <p className="text-gray-600">Sign in to access Empire State Building</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+                Email
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+                Password
+              </Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                required
+              />
+            </div>
+
+            <div className="text-left">
+              <Link 
+                href="/forgot-password" 
+                className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Forgot password
+              </Link>
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800 transition-colors font-medium"
+            >
+              Sign in
+            </Button>
+
+            <div className="text-center">
+              <span className="text-sm text-gray-600">
+                Don't have an account?{" "}
+                <Link 
+                  href="/signup" 
+                  className="text-gray-900 hover:text-gray-700 transition-colors font-medium"
+                >
+                  Sign up
+                </Link>
+              </span>
+            </div>
+          </form>
+
+          <div className="text-center text-xs text-gray-500 mt-8">
+            © 2025
+          </div>
+        </div>
+      </div>
+
+      {/* Right side - Empire State Building image */}
+      <div className="flex-1 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1555109307-f7d9da25c244?w=1920&h=1080&fit=crop&crop=faces,center"
+            alt="Empire State Building"
+            className="w-full h-full object-cover"
+          />
+          {/* Gradient overlay for better contrast */}
+          <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-black/60" />
+        </div>
+      </div>
+    </div>
+  )
+} 
