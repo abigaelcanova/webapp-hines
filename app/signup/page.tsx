@@ -10,8 +10,7 @@ export default function SignupPage() {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [company, setCompany] = useState("")
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -24,9 +23,20 @@ export default function SignupPage() {
       {/* Left side - Signup form */}
       <div className="flex-1 flex items-center justify-center px-8 py-12 bg-white">
         <div className="w-full max-w-md space-y-8">
-          <div className="space-y-2">
-            <h1 className="text-3xl font-semibold text-gray-900">Create account</h1>
-            <p className="text-gray-600">Join Empire State Building community</p>
+          {/* Logo */}
+          <div className="flex justify-center">
+            <div className="h-12 w-auto">
+              <img 
+                src="/logo.svg" 
+                alt="Logo" 
+                className="h-full w-auto"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2 text-center">
+            <h1 className="text-3xl font-semibold text-gray-900">Request account</h1>
+            <p className="text-gray-600">Request access to Empire State Building</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -77,30 +87,15 @@ export default function SignupPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium text-gray-700">
-                Password
+              <Label htmlFor="company" className="text-sm font-medium text-gray-700">
+                Company
               </Label>
               <Input
-                id="password"
-                type="password"
-                placeholder="Create password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
-                Confirm password
-              </Label>
-              <Input
-                id="confirmPassword"
-                type="password"
-                placeholder="Confirm password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                id="company"
+                type="text"
+                placeholder="Enter your company"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
               />
@@ -110,7 +105,7 @@ export default function SignupPage() {
               type="submit"
               className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800 transition-colors font-medium"
             >
-              Create account
+              Request account
             </Button>
 
             <div className="text-center">

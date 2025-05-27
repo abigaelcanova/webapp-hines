@@ -21,7 +21,18 @@ export default function LoginPage() {
       {/* Left side - Login form */}
       <div className="flex-1 flex items-center justify-center px-8 py-12 bg-white">
         <div className="w-full max-w-md space-y-8">
-          <div className="space-y-2">
+          {/* Logo */}
+          <div className="flex justify-center">
+            <div className="h-12 w-auto">
+              <img 
+                src="/logo.svg" 
+                alt="Logo" 
+                className="h-full w-auto"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2 text-center">
             <h1 className="text-3xl font-semibold text-gray-900">Welcome back</h1>
             <p className="text-gray-600">Sign in to access Empire State Building</p>
           </div>
@@ -80,7 +91,7 @@ export default function LoginPage() {
                   href="/signup" 
                   className="text-gray-900 hover:text-gray-700 transition-colors font-medium"
                 >
-                  Sign up
+                  Request access
                 </Link>
               </span>
             </div>
