@@ -932,7 +932,7 @@ export default function VercelNavigation() {
                       )}
                       onClick={() => setCurrentPage("directory")}
                     >
-                      <Users className="h-4 w-4 mr-3" />
+                     <NotebookTabs className="h-4 w-4 mr-3" />
                       <span className="text-sm">Directory</span>
                     </Button>
                     <Button
