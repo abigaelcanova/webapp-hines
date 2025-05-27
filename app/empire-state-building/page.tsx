@@ -30,6 +30,9 @@ import {
   Maximize2,
   Menu,
   LogOut,
+  FileText,
+  Smartphone,
+  Mail,
 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -797,6 +800,30 @@ export default function VercelNavigation() {
                   My buildings
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
+                
+                {/* Email Call-out */}
+                <div className="p-3 bg-blue-50 border border-blue-200 rounded-md mx-2 my-2">
+                  <div className="flex items-start gap-3">
+                    <div className="p-1.5 bg-blue-100 rounded-md">
+                      <Mail className="h-3.5 w-3.5 text-blue-600" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-medium text-blue-900 mb-1">Add personal email</p>
+                      <p className="text-xs text-blue-700 leading-relaxed">
+                        Connect your personal email to see all buildings you have access to across organizations.
+                      </p>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="mt-2 h-6 px-2 text-xs border-blue-300 text-blue-700 hover:bg-blue-100"
+                      >
+                        Add email
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+                
+                <DropdownMenuSeparator />
                 <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
                   <LogOut className="h-4 w-4 mr-2" />
                   Log out
@@ -1163,6 +1190,117 @@ export default function VercelNavigation() {
                           </div>
                           <h3 className="text-sm font-semibold mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">New EV Charging Stations Added</h3>
                           <p className="text-xs text-muted-foreground line-clamp-2">Ten new electric vehicle charging stations have been installed in the parking garage, supporting our commitment to sustainability.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Resources & Mobile App Cards */}
+                <div className="pt-16 mt-[80px]">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Resources Card */}
+                    <div className="bg-white rounded-xl border shadow-sm p-6 hover:shadow-md transition-shadow">
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-blue-50 rounded-lg">
+                          <FileText className="h-6 w-6 text-blue-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-lg font-semibold text-gray-900 mb-2">Resources</h3>
+                          <p className="text-sm text-gray-600 mb-4">
+                            Access important documents and forms for building services and amenities.
+                          </p>
+                          <div className="space-y-2">
+                            <a 
+                              href="/resources/gym-waiver.pdf" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 transition-colors"
+                            >
+                              <FileText className="h-4 w-4" />
+                              Gym Waiver Form
+                            </a>
+                            <a 
+                              href="/resources/parking-pass.pdf" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 transition-colors"
+                            >
+                              <FileText className="h-4 w-4" />
+                              Parking Pass Application
+                            </a>
+                            <a 
+                              href="/resources/building-policies.pdf" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 transition-colors"
+                            >
+                              <FileText className="h-4 w-4" />
+                              Building Policies & Guidelines
+                            </a>
+                            <a 
+                              href="/resources/emergency-procedures.pdf" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 transition-colors"
+                            >
+                              <FileText className="h-4 w-4" />
+                              Emergency Procedures
+                            </a>
+                          </div>
+                          <Button variant="outline" className="mt-4 w-full">
+                            View all resources
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Mobile App Card */}
+                    <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl border shadow-sm p-6 text-white hover:shadow-md transition-shadow">
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-white/10 rounded-lg">
+                          <Smartphone className="h-6 w-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-lg font-semibold mb-2">Get the Mobile App</h3>
+                          <p className="text-sm text-gray-300 mb-4">
+                            Access everything on the go with mobile check-in, space booking, and building services.
+                          </p>
+                          <div className="flex items-center gap-4">
+                            <div className="flex-1">
+                              <div className="space-y-2 text-sm text-gray-300">
+                                <div className="flex items-center gap-2">
+                                  <div className="w-1 h-1 bg-gray-400 rounded-full" />
+                                  <span>Mobile access & check-in</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <div className="w-1 h-1 bg-gray-400 rounded-full" />
+                                  <span>Book spaces on the go</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <div className="w-1 h-1 bg-gray-400 rounded-full" />
+                                  <span>Real-time notifications</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <div className="w-1 h-1 bg-gray-400 rounded-full" />
+                                  <span>Building directory</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex-shrink-0">
+                              <div className="w-20 h-20 bg-white rounded-lg p-2 flex items-center justify-center">
+                                <img 
+                                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjgiIHk9IjgiIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgZmlsbD0iI0ZGRkZGRiIvPgo8cmVjdCB4PSIxNiIgeT0iMTYiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iMzIiIHk9IjE2IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjQ4IiB5PSIxNiIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSIxNiIgeT0iMzIiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iNDgiIHk9IjMyIiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjE2IiB5PSI0OCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSIzMiIgeT0iNDgiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iNDgiIHk9IjQ4IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+Cjwvc3ZnPgo="
+                                  alt="QR Code"
+                                  className="w-full h-full object-contain"
+                                />
+                              </div>
+                              <p className="text-xs text-gray-400 text-center mt-2">Scan to download</p>
+                            </div>
+                          </div>
+                          <Button variant="secondary" className="mt-4 w-full bg-white text-gray-900 hover:bg-gray-100">
+                            Download App
+                          </Button>
                         </div>
                       </div>
                     </div>
