@@ -806,31 +806,6 @@ export default function VercelNavigation() {
           </div>
         </header>
 
-        {/* Banner Alert */}
-        {!bannerDismissed && (
-          <Alert className="mx-4 mb-4 border-amber-200 bg-amber-50 text-amber-900">
-            <AlertTriangle className="h-4 w-4 text-amber-600" />
-            <AlertDescription className="flex items-center justify-between">
-              <div>
-                <span className="font-medium">5 Lab | Boilers Down Last Night</span>
-                <br />
-                <span className="text-sm">
-                  Please be advised that the boilers were down last night so temperatures are low. Our team is working to restore as soon as possible—thank you!
-                </span>
-              </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-6 w-6 text-amber-700 hover:text-amber-900 hover:bg-amber-100 ml-4 flex-shrink-0"
-                onClick={() => setBannerDismissed(true)}
-              >
-                <X className="h-4 w-4" />
-                <span className="sr-only">Dismiss alert</span>
-              </Button>
-            </AlertDescription>
-          </Alert>
-        )}
-
         {/* Main Content */}
         <div className="flex flex-1">
           {/* Left Drawer */}
@@ -1084,6 +1059,31 @@ export default function VercelNavigation() {
 
                 {/* Welcome Card with Carousel and Blog Posts */}
                 <div className="pt-16 mt-[80px]">
+                  {/* Banner Alert */}
+                  {!bannerDismissed && (
+                    <Alert className="mb-6 border-amber-200 bg-amber-50 text-amber-900">
+                      <AlertTriangle className="h-4 w-4 text-amber-600" />
+                      <AlertDescription className="flex items-center justify-between">
+                        <div>
+                          <span className="font-medium">5 Lab | Boilers Down Last Night</span>
+                          <br />
+                          <span className="text-sm">
+                            Please be advised that the boilers were down last night so temperatures are low. Our team is working to restore as soon as possible—thank you!
+                          </span>
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-6 w-6 text-amber-700 hover:text-amber-900 hover:bg-amber-100 ml-4 flex-shrink-0"
+                          onClick={() => setBannerDismissed(true)}
+                        >
+                          <X className="h-4 w-4" />
+                          <span className="sr-only">Dismiss alert</span>
+                        </Button>
+                      </AlertDescription>
+                    </Alert>
+                  )}
+
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-xl font-normal">What's Happening</h2>
                     <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("happenings")}>
