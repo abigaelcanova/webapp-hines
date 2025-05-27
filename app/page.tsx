@@ -29,6 +29,8 @@ import {
   UtensilsCrossed,
   Store,
   Users,
+  Gift,
+  NotebookTabs,
 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -778,8 +780,34 @@ export default function VercelNavigation() {
                       )}
                       onClick={() => setCurrentPage("directory")}
                     >
-                      <Users className="h-4 w-4 mr-3" />
+                      <NotebookTabs className="h-4 w-4 mr-3" />
                       <span className="text-sm">Directory</span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className={cn(
+                        "w-full justify-start h-auto p-2 font-normal",
+                        currentPage === "register-guest"
+                          ? "bg-gray-100 text-foreground"
+                          : "text-muted-foreground hover:text-foreground",
+                      )}
+                      onClick={() => setCurrentPage("register-guest")}
+                    >
+                      <UserPlus className="h-4 w-4 mr-3" />
+                      <span className="text-sm">Register a guest</span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className={cn(
+                        "w-full justify-start h-auto p-2 font-normal",
+                        currentPage === "perks-rewards"
+                          ? "bg-gray-100 text-foreground"
+                          : "text-muted-foreground hover:text-foreground",
+                      )}
+                      onClick={() => setCurrentPage("perks-rewards")}
+                    >
+                      <Gift className="h-4 w-4 mr-3" />
+                      <span className="text-sm">Perks & Rewards</span>
                     </Button>
                   </nav>
                 </div>
