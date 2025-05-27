@@ -29,9 +29,8 @@ import {
   MoreHorizontal,
   Maximize2,
   Menu,
-  LogOut,
 } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -45,9 +44,6 @@ import { Drawer, DrawerContent } from "@/components/ui/drawer"
 import { Checkbox } from "@/components/ui/checkbox"
 
 export default function VercelNavigation() {
-  // Authentication state
-  const [isAuthenticated, setIsAuthenticated] = useState(true)
-  
   const [teamDropdownOpen, setTeamDropdownOpen] = useState(false)
   const [projectDropdownOpen, setProjectDropdownOpen] = useState(false)
   const [primaryBuilding, setPrimaryBuilding] = useState<string>("Empire State Building")
@@ -124,19 +120,6 @@ export default function VercelNavigation() {
       window.removeEventListener("resize", handleResize)
     }
   }, [searchModalOpen, leftDrawerOpen])
-
-  // Authentication functions
-  const handleLogin = () => {
-    setIsAuthenticated(true)
-  }
-
-  const handleLogout = () => {
-    setIsAuthenticated(false)
-    // Reset any user-specific state
-    setRightDrawerOpen(false)
-    setAssistantDrawerOpen(false)
-    setNotificationPopoverOpen(false)
-  }
 
   const setPrimary = (buildingName: string) => {
     setPrimaryBuilding(buildingName)
@@ -457,204 +440,6 @@ export default function VercelNavigation() {
     )
   }
 
-  // If not authenticated, show the unauthenticated view
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-[#F9FAFB]">
-        {/* Unauthenticated Header */}
-        <header className="sticky top-0 z-40 grid grid-cols-12 items-center h-14 px-4 bg-[#F9FAFB]">
-          {/* Left section - Menu and Logo */}
-          <div className="col-span-2 flex items-center gap-4">
-            {/* Menu Toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-9 w-9"
-              onClick={() => {
-                if (isMobile) {
-                  setLeftDrawerOpen(true)
-                } else {
-                  setLeftDrawerOpen(!leftDrawerOpen)
-                }
-              }}
-            >
-              <Menu className="h-4 w-4" />
-              <span className="sr-only">Toggle navigation menu</span>
-            </Button>
-
-            {/* Logo */}
-            <div className="h-8">
-              <img src="/logo.svg" alt="Logo" className="h-full w-auto" />
-            </div>
-          </div>
-
-          {/* Center - Building selector (simplified for unauthenticated) */}
-          <div className="col-span-8 flex items-center justify-center">
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 rounded-full">
-              <Building className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">Select a building</span>
-            </div>
-          </div>
-
-          {/* Right side - Auth buttons */}
-          <div className="col-span-2 flex items-center justify-end space-x-3">
-            <Button variant="ghost" size="sm" onClick={handleLogin}>
-              Log in
-            </Button>
-            <Button size="sm" onClick={handleLogin}>
-              Sign up
-            </Button>
-          </div>
-        </header>
-
-        {/* Unauthenticated Main Content */}
-        <div className="flex flex-1">
-          {/* Simplified Left Navigation */}
-          {isMobile && leftDrawerOpen && (
-            <div 
-              className="fixed inset-0 bg-black/50 z-30 lg:hidden" 
-              onClick={() => setLeftDrawerOpen(false)}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setLeftDrawerOpen(false) }}
-              role="button"
-              tabIndex={0}
-            />
-          )}
-          <aside
-            className={cn(
-              "bg-white lg:bg-[#F9FAFB] transition-all duration-300 ease-in-out",
-              "fixed lg:sticky top-14 self-start h-[calc(100vh-3.5rem)]",
-              "lg:sticky lg:block",
-              isMobile
-                ? leftDrawerOpen
-                  ? "fixed inset-y-0 left-0 z-50 w-64 shadow-lg"
-                  : "hidden"
-                : leftDrawerOpen
-                  ? "w-1/6"
-                  : "w-0 overflow-hidden",
-            )}
-          >
-            {leftDrawerOpen && (
-              <div className="h-full p-4 flex flex-col overflow-hidden">
-                <nav className="space-y-0.5 mb-8">
-                  <Button
-                    variant="ghost"
-                    className={cn(
-                      "w-full justify-start h-auto p-2 font-normal",
-                      currentPage === "home"
-                        ? "bg-gray-100 text-foreground"
-                        : "text-muted-foreground hover:text-foreground",
-                    )}
-                    onClick={() => setCurrentPage("home")}
-                  >
-                    <Home className="h-4 w-4 mr-3" />
-                    <span className="text-sm">Home</span>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
-                    onClick={() => setCurrentPage("about")}
-                  >
-                    <Info className="h-4 w-4 mr-3" />
-                    <span className="text-sm">About</span>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
-                  >
-                    <Newspaper className="h-4 w-4 mr-3" />
-                    <span className="text-sm">Happenings</span>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
-                  >
-                    <CalendarDays className="h-4 w-4 mr-3" />
-                    <span className="text-sm">Events</span>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className={cn(
-                      "w-full justify-start h-auto p-2 font-normal",
-                      currentPage === "book-space"
-                        ? "bg-gray-100 text-foreground"
-                        : "text-muted-foreground hover:text-foreground",
-                    )}
-                    onClick={() => setCurrentPage("book-space")}
-                  >
-                    <Building className="h-4 w-4 mr-3" />
-                    <span className="text-sm">Book a space</span>
-                  </Button>
-                </nav>
-
-                {/* Explore Card - Always visible at bottom */}
-                <div className="mt-auto flex-shrink-0">
-                  <Link href="/explore" className="relative bg-white rounded-lg p-4 text-gray-900 border shadow-sm cursor-pointer hover:bg-gray-50 block focus:outline-none focus:ring-2 focus:ring-blue-500 overflow-hidden">
-                    <div className="absolute inset-0">
-                      <img 
-                        src="/map-bg.png" 
-                        alt=""
-                        className="absolute inset-0 w-full h-full object-cover opacity-[0.15]"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-white/70" />
-                    </div>
-                    <div className="relative z-10">
-                      <h3 className="font-medium text-sm mb-1">Explore</h3>
-                      <p className="text-xs text-muted-foreground">Discover spaces and amenities</p>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            )}
-          </aside>
-
-          {/* Main Content Area */}
-          <main className="flex-1 p-6">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center py-16">
-                <h1 className="text-4xl font-bold text-gray-900 mb-4">Welcome to HqO</h1>
-                <p className="text-xl text-gray-600 mb-8">Your building portal for modern workplace experiences</p>
-                <div className="space-x-4">
-                  <Button size="lg" onClick={handleLogin}>
-                    Get started
-                  </Button>
-                  <Button variant="outline" size="lg">
-                    Learn more
-                  </Button>
-                </div>
-              </div>
-              
-              {/* Feature highlights for unauthenticated users */}
-              <div className="grid md:grid-cols-3 gap-8 mt-16">
-                <div className="text-center">
-                  <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <Building className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <h3 className="font-semibold mb-2">Book Spaces</h3>
-                  <p className="text-gray-600 text-sm">Reserve meeting rooms and workspaces with ease</p>
-                </div>
-                <div className="text-center">
-                  <div className="h-12 w-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <CalendarDays className="h-6 w-6 text-green-600" />
-                  </div>
-                  <h3 className="font-semibold mb-2">Stay Updated</h3>
-                  <p className="text-gray-600 text-sm">Get notified about building events and announcements</p>
-                </div>
-                <div className="text-center">
-                  <div className="h-12 w-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <Sparkles className="h-6 w-6 text-purple-600" />
-                  </div>
-                  <h3 className="font-semibold mb-2">Smart Assistant</h3>
-                  <p className="text-gray-600 text-sm">Get help with building services and information</p>
-                </div>
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-    )
-  }
-
-  // Authenticated view continues below...
   return (
     <div className="bg-[#F9FAFB]">
       <div className="flex flex-col min-h-screen w-full">
@@ -874,7 +659,7 @@ export default function VercelNavigation() {
             </DropdownMenu>
           </div>
 
-          {/* Right side icons - with user dropdown */}
+          {/* Right side icons */}
           <div className="col-span-2 flex items-center justify-end space-x-2">
             <Button variant="ghost" size="icon" className="h-9 w-9 p-2" onClick={() => setSearchModalOpen(true)}>
               <Search className="h-4 w-4" />
@@ -978,47 +763,15 @@ export default function VercelNavigation() {
               {!isMobile && <span className="text-sm font-medium">Activity</span>}
             </Button>
 
-            {/* User Avatar with Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 rounded-full p-0 ml-3">
-                  <Avatar className="h-8 w-8">
-                    <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">JD</AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <div className="flex items-center justify-start gap-2 p-2">
-                  <Avatar className="h-8 w-8">
-                    <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">JD</AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col space-y-1 leading-none">
-                    <p className="font-medium text-sm">John Doe</p>
-                    <p className="text-xs text-muted-foreground">john.doe@company.com</p>
-                  </div>
-                </div>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <User className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Building className="mr-2 h-4 w-4" />
-                  <span>My buildings</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Avatar className="h-8 w-8 ml-3">
+              <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">JD</AvatarFallback>
+            </Avatar>
           </div>
         </header>
 
         {/* Main Content */}
         <div className="flex flex-1">
-          {/* Left Drawer - with all authenticated features */}
+          {/* Left Drawer */}
           {isMobile && leftDrawerOpen && (
             <div 
               className="fixed inset-0 bg-black/50 z-30 lg:hidden" 
@@ -1213,13 +966,505 @@ export default function VercelNavigation() {
               !leftDrawerOpen && !rightDrawerOpen && !assistantDrawerOpen && "lg:mx-auto"
             )}
           >
-            {/* Authenticated content pages would go here - keeping existing content structure */}
-            <div className="space-y-6">
-              <div className="text-center py-16">
-                <h1 className="text-4xl font-bold text-gray-900 mb-4">Welcome back, John!</h1>
-                <p className="text-xl text-gray-600 mb-8">Your building portal dashboard</p>
+            {currentPage === "home" ? (
+              <div className="space-y-6">
+                {/* Hero Card */}
+                <div className="relative w-full h-[300px] rounded-2xl overflow-hidden group">
+                  {/* Background Image */}
+                  <img
+                    src="https://images.unsplash.com/photo-1555109307-f7d9da25c244?w=1920&h=600&fit=crop&crop=faces,center"
+                    alt="Empire State Building"
+                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-300 ease-out group-hover:scale-105"
+                  />
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+                  {/* Content */}
+                  <div className="absolute inset-0 flex flex-col justify-end p-8">
+                    <h1 className="text-3xl font-semibold text-white mb-2">Empire State Building</h1>
+                    <p className="text-lg text-white/90 mb-6 max-w-2xl">Experience the iconic heart of New York City, where history meets modern workspace excellence.</p>
+                    <Button 
+                      variant="outline" 
+                      size="lg"
+                      className="w-fit bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:text-white transition-colors"
+                      onClick={() => setCurrentPage("about")}
+                    >
+                      About
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Quick Actions */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="p-6 rounded-xl border bg-white shadow-sm">
+                    <Building className="h-6 w-6 mb-4 text-gray-500 stroke-[1.5]" />
+                    <h3 className="text-base font-medium mb-2">Book a space</h3>
+                    <p className="text-sm text-muted-foreground mb-4">Reserve meeting rooms, workspaces, and more.</p>
+                  </div>
+
+                  <div className="p-6 rounded-xl border bg-white shadow-sm">
+                    <UserPlus className="h-6 w-6 mb-4 text-gray-500 stroke-[1.5]" />
+                    <h3 className="text-base font-medium mb-2">Register a guest</h3>
+                    <p className="text-sm text-muted-foreground mb-4">Pre-register visitors for easy check-in.</p>
+                  </div>
+
+                  <div className="p-6 rounded-xl border bg-white shadow-sm">
+                    <Wrench className="h-6 w-6 mb-4 text-gray-500 stroke-[1.5]" />
+                    <h3 className="text-base font-medium mb-2">Click to fix</h3>
+                    <p className="text-sm text-muted-foreground mb-4">Report and track maintenance issues.</p>
+                  </div>
+
+                  <div className="p-6 rounded-xl border bg-white shadow-sm">
+                    <CalendarDays className="h-6 w-6 mb-4 text-gray-500 stroke-[1.5]" />
+                    <h3 className="text-base font-medium mb-2">View events</h3>
+                    <p className="text-sm text-muted-foreground mb-4">See upcoming building events and activities.</p>
+                  </div>
+                </div>
+
+                {/* Welcome Card with Carousel and Blog Posts */}
+                <div className="pt-16 mt-[80px]">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-xl font-normal">What's Happening</h2>
+                    <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("happenings")}>
+                      View all updates
+                      <ChevronRightIcon className="h-4 w-4" />
+                    </Button>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[400px]">
+                    {/* Carousel Half */}
+                    <div className="relative rounded-xl overflow-hidden bg-card border shadow-sm h-full">
+                      <ModernCarousel slides={carouselSlides} className="h-full" />
+                    </div>
+
+                    {/* Blog Posts Half */}
+                    <div className="flex flex-col justify-between h-full">
+                      {/* Blog Post 1 */}
+                      <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33%-0.5rem)]">
+                        <div className="w-1/3 relative">
+                          <img 
+                            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=400&fit=crop" 
+                            alt="Rooftop garden" 
+                            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
+                        </div>
+                        <div className="w-2/3 p-4">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Badge variant="secondary" className="bg-green-50 text-green-700 hover:bg-green-50 text-xs">
+                              Sustainability
+                            </Badge>
+                            <span className="text-xs text-muted-foreground">2 days ago</span>
+                          </div>
+                          <h3 className="text-sm font-semibold mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">New Rooftop Garden Opening This Summer</h3>
+                          <p className="text-xs text-muted-foreground line-clamp-2">Experience our latest green initiative with stunning city views. Perfect for meetings, lunches, or quiet work time.</p>
+                        </div>
+                      </div>
+
+                      {/* Blog Post 2 */}
+                      <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33%-0.5rem)]">
+                        <div className="w-1/3 relative">
+                          <img 
+                            src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=400&fit=crop" 
+                            alt="Fitness center" 
+                            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
+                        </div>
+                        <div className="w-2/3 p-4">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Badge variant="secondary" className="bg-purple-50 text-purple-700 hover:bg-purple-50 text-xs">
+                              Wellness
+                            </Badge>
+                            <span className="text-xs text-muted-foreground">4 days ago</span>
+                          </div>
+                          <h3 className="text-sm font-semibold mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">Expanded Fitness Center Hours</h3>
+                          <p className="text-xs text-muted-foreground line-clamp-2">Our newly renovated fitness center will now be open 24/7 with enhanced security and cleaning protocols.</p>
+                        </div>
+                      </div>
+
+                      {/* Blog Post 3 */}
+                      <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33%-0.5rem)]">
+                        <div className="w-1/3 relative">
+                          <img 
+                            src="https://images.unsplash.com/photo-1577412647305-991150c7d163?w=800&h=400&fit=crop" 
+                            alt="Electric vehicle charging stations" 
+                            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
+                        </div>
+                        <div className="w-2/3 p-4">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Badge variant="secondary" className="bg-blue-50 text-blue-700 hover:bg-blue-50 text-xs">
+                              Infrastructure
+                            </Badge>
+                            <span className="text-xs text-muted-foreground">1 week ago</span>
+                          </div>
+                          <h3 className="text-sm font-semibold mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">New EV Charging Stations Added</h3>
+                          <p className="text-xs text-muted-foreground line-clamp-2">Ten new electric vehicle charging stations have been installed in the parking garage, supporting our commitment to sustainability.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Events Section */}
+                <div className="pt-16 mt-[80px]">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-xl font-normal">Upcoming Events</h2>
+                    <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("events")}>
+                      View all events
+                      <ChevronRightIcon className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Event Card 1 */}
+                    <div className="group relative bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+                      <img 
+                        src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=500&fit=crop" 
+                        alt="Networking event" 
+                        className="aspect-[4/3] object-cover w-full group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                        <p className="text-sm font-medium mb-1">Tech Networking Mixer</p>
+                        <p className="text-xs opacity-80">June 15, 2025 • 6:00 PM</p>
+                      </div>
+                      <div className="p-4 group-hover:opacity-0 transition-opacity">
+                        <p className="text-sm font-medium text-gray-900 mb-1">Tech Networking Mixer</p>
+                        <p className="text-xs text-gray-600">June 15, 2025 • 6:00 PM</p>
+                      </div>
+                    </div>
+
+                    {/* Event Card 2 */}
+                    <div className="group relative bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+                      <img 
+                        src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&h=500&fit=crop" 
+                        alt="Wellness workshop" 
+                        className="aspect-[4/3] object-cover w-full group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                        <p className="text-sm font-medium mb-1">Wellness Workshop</p>
+                        <p className="text-xs opacity-80">June 20, 2025 • 12:00 PM</p>
+                      </div>
+                      <div className="p-4 group-hover:opacity-0 transition-opacity">
+                        <p className="text-sm font-medium text-gray-900 mb-1">Wellness Workshop</p>
+                        <p className="text-xs text-gray-600">June 20, 2025 • 12:00 PM</p>
+                      </div>
+                    </div>
+
+                    {/* Event Card 3 */}
+                    <div className="group relative bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+                      <img 
+                        src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=500&fit=crop" 
+                        alt="Building tour" 
+                        className="aspect-[4/3] object-cover w-full group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                        <p className="text-sm font-medium mb-1">Building Tour & Happy Hour</p>
+                        <p className="text-xs opacity-80">June 25, 2025 • 4:00 PM</p>
+                      </div>
+                      <div className="p-4 group-hover:opacity-0 transition-opacity">
+                        <p className="text-sm font-medium text-gray-900 mb-1">Building Tour & Happy Hour</p>
+                        <p className="text-xs text-gray-600">June 25, 2025 • 4:00 PM</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Spaces Section */}
+                <div className="pt-16 mt-[80px] mb-[88px]">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-xl font-normal">Featured Spaces</h2>
+                    <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("book-space")}>
+                      View all spaces
+                      <ChevronRightIcon className="h-4 w-4" />
+                    </Button>
+                  </div>
+
+                  <div className="grid grid-cols-12 gap-6">
+                    {/* Large Featured Space */}
+                    <div className="col-span-12 md:col-span-8">
+                      <div className="group relative h-[300px] bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                        <div className="absolute inset-0">
+                          <img 
+                            src="https://images.unsplash.com/photo-1497366412874-3415097a27e7?w=1200&h=800&fit=crop" 
+                            alt="Conference center" 
+                            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+                        </div>
+                        <div className="relative h-full flex flex-col justify-end p-6 text-white">
+                          <div className="space-y-2">
+                            <Badge className="bg-blue-500/20 text-blue-100 hover:bg-blue-500/30 transition-colors">
+                              Conference Center
+                            </Badge>
+                            <h3 className="text-2xl font-semibold">Grand Hall</h3>
+                            <p className="text-sm text-blue-100/80 max-w-md">
+                              Our flagship space perfect for large events, conferences, and gatherings up to 200 people
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-4 mt-6">
+                            <Button 
+                              className="bg-white text-gray-900 hover:bg-white/90"
+                              onClick={() => setCurrentPage("book-space")}
+                            >
+                              Book now
+                            </Button>
+                            <Button variant="ghost" className="text-white hover:bg-white/20">
+                              Learn more
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Side Spaces */}
+                    <div className="col-span-12 md:col-span-4 space-y-6">
+                      {/* Side Space 1 */}
+                      <div className="group relative h-[142px] bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                        <div className="absolute inset-0">
+                          <img 
+                            src="https://images.unsplash.com/photo-1497215842964-222b430dc094?w=600&h=400&fit=crop" 
+                            alt="Meeting room" 
+                            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/20" />
+                        </div>
+                        <div className="relative h-full flex flex-col justify-end p-4 text-white">
+                          <Badge className="w-fit bg-green-500/20 text-green-100 hover:bg-green-500/30 transition-colors mb-2">
+                            Meeting Room
+                          </Badge>
+                          <p className="text-sm font-medium">Executive Suite</p>
+                        </div>
+                      </div>
+
+                      {/* Side Space 2 */}
+                      <div className="group relative h-[142px] bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
+                        <div className="absolute inset-0">
+                          <img 
+                            src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=600&h=400&fit=crop" 
+                            alt="Collaborative space" 
+                            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/20" />
+                        </div>
+                        <div className="relative h-full flex flex-col justify-end p-4 text-white">
+                          <Badge className="w-fit bg-purple-500/20 text-purple-100 hover:bg-purple-500/30 transition-colors mb-2">
+                            Collaborative
+                          </Badge>
+                          <p className="text-sm font-medium">Innovation Hub</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+            ) : currentPage === "book-space" ? (
+              <div className="space-y-6">
+                {/* Booking Header */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <h2 className="text-xl font-normal">Book a space</h2>
+                    <div className="flex items-center gap-2 ml-8">
+                      <Button variant="outline" size="sm" className="h-8">
+                        <ChevronLeftIcon className="h-4 w-4" />
+                        <span className="sr-only">Previous day</span>
+                      </Button>
+                      <Button variant="outline" size="sm" className="h-8 px-3 font-normal">
+                        {bookingDateLabel}
+                      </Button>
+                      <Button variant="outline" size="sm" className="h-8">
+                        <ChevronRightIcon className="h-4 w-4" />
+                        <span className="sr-only">Next day</span>
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button variant={bookingViewType === "day" ? "default" : "outline"} size="sm" onClick={() => setBookingViewType("day")}>
+                      Day
+                    </Button>
+                    <Button variant={bookingViewType === "week" ? "default" : "outline"} size="sm" onClick={() => setBookingViewType("week")}>
+                      Week
+                    </Button>
+                    <Button variant={bookingViewType === "month" ? "default" : "outline"} size="sm" onClick={() => setBookingViewType("month")}>
+                      Month
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Resource Type Tabs */}
+                <div className="flex gap-2 border-b pb-3">
+                  <Button variant="ghost" size="sm" className="text-primary font-medium">
+                    Space
+                  </Button>
+                  <Button variant="ghost" size="sm" className="text-muted-foreground">
+                    Equipment
+                  </Button>
+                  <Button variant="ghost" size="sm" className="text-muted-foreground">
+                    Transportation
+                  </Button>
+                </div>
+
+                {/* Calendar Grid */}
+                <div className="rounded-lg border bg-white shadow-sm">
+                  {/* Time Header */}
+                  <div className="grid grid-cols-[200px,repeat(14,1fr)] border-b">
+                    <div className="p-3 border-r text-sm font-medium">Resource</div>
+                    {timeSlots.map((time) => (
+                      <div key={time} className="p-3 text-center text-sm text-muted-foreground font-normal">
+                        {time}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Resource Rows */}
+                  <div className="divide-y">
+                    {bookingResources.map((resource) => (
+                      <div key={resource.id} className="grid grid-cols-[200px,repeat(14,1fr)]">
+                        <div className="p-3 border-r">
+                          <div className="flex items-center gap-2">
+                            <Checkbox id={resource.id} />
+                            <label htmlFor={resource.id} className="text-sm font-medium text-blue-600 cursor-pointer hover:text-blue-700">
+                              {resource.name}
+                            </label>
+                          </div>
+                        </div>
+                        {timeSlots.map((time) => (
+                          <div
+                            key={`${resource.id}-${time}`}
+                            className="p-3 border-r last:border-r-0 group cursor-pointer hover:bg-blue-50 transition-colors relative"
+                          >
+                            <div className="absolute inset-1 rounded opacity-0 group-hover:opacity-100 border border-dashed border-blue-200 transition-opacity" />
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Legend or Additional Info */}
+                <div className="flex items-center gap-6 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-sm bg-blue-100 border border-blue-300" />
+                    <span>Available</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-sm bg-blue-500" />
+                    <span>Booked</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-sm bg-gray-100 border border-gray-300" />
+                    <span>Unavailable</span>
+                  </div>
+                </div>
+              </div>
+            ) : currentPage === "about" ? (
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-lg font-medium">About</h2>
+                </div>
+                <div className="flex gap-4 border-b">
+                  {['Overview', 'Amenities', 'Transportation', 'Contact'].map((tab) => (
+                    <button
+                      key={tab}
+                      type="button"
+                      className={cn(
+                        'px-4 py-2 text-sm font-medium border-b-2 -mb-px transition-colors',
+                        aboutTab === tab
+                          ? 'border-primary text-primary'
+                          : 'border-transparent text-muted-foreground hover:text-foreground'
+                      )}
+                      onClick={() => setAboutTab(tab)}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  <div className="lg:col-span-2 space-y-6">
+                    <div className="aspect-video rounded-xl border bg-white shadow-sm overflow-hidden">
+                      <img
+                        src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=400&fit=crop"
+                        alt="Building exterior"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="prose max-w-none">
+                      <p>
+                        Welcome to our state-of-the-art building, where modern design meets functionality. Our space is
+                        designed to inspire creativity, foster collaboration, and provide a comfortable environment for all
+                        occupants.
+                      </p>
+                      <p>
+                        With a focus on sustainability and innovation, we offer a range of amenities and services to meet
+                        the diverse needs of our community. From flexible workspaces to cutting-edge technology
+                        infrastructure, every detail has been carefully considered.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="space-y-6">
+                    <div className="rounded-xl border bg-white shadow-sm">
+                      <div className="p-6">
+                        <h3 className="text-base font-medium mb-4">Quick facts</h3>
+                        <dl className="space-y-4">
+                          <div>
+                            <dt className="text-sm text-muted-foreground">Year built</dt>
+                            <dd className="text-sm font-medium">2020</dd>
+                          </div>
+                          <div>
+                            <dt className="text-sm text-muted-foreground">Square footage</dt>
+                            <dd className="text-sm font-medium">250,000 sq ft</dd>
+                          </div>
+                          <div>
+                            <dt className="text-sm text-muted-foreground">Number of floors</dt>
+                            <dd className="text-sm font-medium">25</dd>
+                          </div>
+                          <div>
+                            <dt className="text-sm text-muted-foreground">Parking spaces</dt>
+                            <dd className="text-sm font-medium">500</dd>
+                          </div>
+                        </dl>
+                      </div>
+                    </div>
+                    <div className="rounded-xl border bg-white shadow-sm">
+                      <div className="p-6">
+                        <h3 className="text-base font-medium mb-4">Hours of operation</h3>
+                        <dl className="space-y-4">
+                          <div>
+                            <dt className="text-sm text-muted-foreground">Monday - Friday</dt>
+                            <dd className="text-sm font-medium">6:00 AM - 10:00 PM</dd>
+                          </div>
+                          <div>
+                            <dt className="text-sm text-muted-foreground">Saturday</dt>
+                            <dd className="text-sm font-medium">8:00 AM - 6:00 PM</dd>
+                          </div>
+                          <div>
+                            <dt className="text-sm text-muted-foreground">Sunday</dt>
+                            <dd className="text-sm font-medium">Closed</dd>
+                          </div>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : currentPage === "explore" ? (
+              <div className="flex flex-col h-full w-full">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-lg font-medium">Explore</h2>
+                </div>
+                <div className="relative w-full h-[600px] rounded-xl overflow-hidden border bg-white shadow-sm">
+                  <img
+                    src="/map.png"
+                    alt="Interactive Map"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            ) : null}
           </main>
 
           {/* Right Drawers */}
