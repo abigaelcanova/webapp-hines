@@ -1037,7 +1037,7 @@ export default function VercelNavigation() {
                               className="bg-white text-gray-900 hover:bg-white/90"
                               onClick={() => setCurrentPage("book-space")}
                             >
-                              Book now
+                              Request access
                             </Button>
                             <Button variant="ghost" className="text-white hover:bg-white/20">
                               Learn more
