@@ -737,14 +737,20 @@ export default function VercelNavigation() {
                       className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
                     >
                       <Newspaper className="h-4 w-4 mr-3" />
-                      <span className="text-sm">Your feed</span>
+                      <span className="text-sm flex-1">Your feed</span>
+                      <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 rounded-full ml-auto">
+                        3
+                      </span>
                     </Button>
                     <Button
                       variant="ghost"
                       className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
                     >
                       <CalendarDays className="h-4 w-4 mr-3" />
-                      <span className="text-sm">Events</span>
+                      <span className="text-sm flex-1">Events</span>
+                      <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-medium bg-orange-100 text-orange-800 rounded-full ml-auto">
+                        2
+                      </span>
                     </Button>
                     <Button
                       variant="ghost"
