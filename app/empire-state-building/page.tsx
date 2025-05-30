@@ -52,6 +52,7 @@ import { ModernCarousel } from "@/components/modern-carousel"
 import Link from "next/link"
 import { Drawer, DrawerContent } from "@/components/ui/drawer"
 import { Checkbox } from "@/components/ui/checkbox"
+import AnimatedTestimonialsDemo from "@/components/animated-testimonials-demo"
 
 export default function VercelNavigation() {
   const [teamDropdownOpen, setTeamDropdownOpen] = useState(false)
@@ -933,7 +934,7 @@ export default function VercelNavigation() {
                       )}
                       onClick={() => setCurrentPage("directory")}
                     >
-                     <NotebookTabs className="h-4 w-4 mr-3" />
+                     <NotebookTabs className="h-4 w-4 mr-3" />comma
                       <span className="text-sm">Directory</span>
                     </Button>
                     <Button
@@ -1223,6 +1224,14 @@ export default function VercelNavigation() {
                       </div>
                     </div>
                   </div>
+                </div>
+
+                {/* Testimonials Section */}
+                <div className="pt-16 mt-[80px]">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-xl font-normal">What Our Community Says</h2>
+                  </div>
+                  <AnimatedTestimonialsDemo />
                 </div>
 
                 {/* Resources & Mobile App Cards */}
