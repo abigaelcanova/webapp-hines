@@ -1183,7 +1183,7 @@ export default function VercelNavigation() {
                       <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33%-0.5rem)]">
                         <div className="w-1/3 relative">
                           <img 
-                            src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=400&fit=crop" 
+                            src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=600&fit=crop" 
                             alt="Fitness center" 
                             className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                           />
@@ -1228,8 +1228,8 @@ export default function VercelNavigation() {
 
                 {/* Testimonials Section */}
                 <div className="pt-16 mt-[80px]">
-                  <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-normal">What Our Community Says</h2>
+                  <div className="flex items-center justify-center mb-3">
+                    <h2 className="text-xl font-normal">Meet our staff</h2>
                   </div>
                   <AnimatedTestimonialsDemo />
                 </div>
