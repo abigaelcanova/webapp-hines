@@ -1229,7 +1229,7 @@ export default function VercelNavigation() {
                 {/* Testimonials Section */}
                 <div className="pt-16 mt-[80px]">
                   <div className="flex items-center justify-center mb-0">
-                    <h2 className="text-xl font-normal">Meet the staff</h2>
+                    <h1 className="text-xl font-normal">Meet the staff</h1>
                   </div>
                   <AnimatedTestimonialsDemo />
                 </div>
