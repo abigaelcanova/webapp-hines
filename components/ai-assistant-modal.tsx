@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { X, Minimize2, Send, Sparkles, Building, Calendar, MapPin, UserPlus } from "lucide-react"
 
 interface AIAssistantModalProps {
@@ -235,15 +234,10 @@ export function AIAssistantModal({
             className="fixed inset-4 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b bg-gradient-to-r from-blue-50 to-indigo-50">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center">
-                  <Sparkles className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <h2 className="text-xl font-semibold text-gray-900">AI Assistant</h2>
-                  <p className="text-sm text-gray-600">Empire State Building</p>
-                </div>
+            <div className="flex items-center justify-between p-6 border-b bg-white">
+              <div>
+                <h2 className="text-xl font-semibold text-gray-900">AI Assistant</h2>
+                <p className="text-sm text-gray-600">Empire State Building</p>
               </div>
               <div className="flex items-center gap-2">
                 <Button
@@ -276,21 +270,13 @@ export function AIAssistantModal({
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
-                    className={`flex gap-4 ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                    className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
-                    {message.type === 'assistant' && (
-                      <div className="flex-shrink-0">
-                        <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                          {IconComponent && <IconComponent className="h-5 w-5 text-blue-600" />}
-                        </div>
-                      </div>
-                    )}
-                    
-                    <div className={`max-w-2xl ${message.type === 'user' ? 'order-1' : ''}`}>
+                    <div className="max-w-2xl">
                       <div
                         className={`rounded-2xl px-4 py-3 ${
                           message.type === 'user'
-                            ? 'bg-blue-600 text-white ml-auto'
+                            ? 'bg-blue-600 text-white'
                             : 'bg-gray-100 text-gray-900'
                         }`}
                       >
@@ -302,16 +288,6 @@ export function AIAssistantModal({
                         {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </div>
                     </div>
-
-                    {message.type === 'user' && (
-                      <div className="flex-shrink-0">
-                        <Avatar className="w-10 h-10">
-                          <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white text-sm">
-                            JD
-                          </AvatarFallback>
-                        </Avatar>
-                      </div>
-                    )}
                   </motion.div>
                 )
               })}
@@ -321,13 +297,8 @@ export function AIAssistantModal({
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex gap-4"
+                  className="flex justify-start"
                 >
-                  <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                      <Sparkles className="h-5 w-5 text-blue-600" />
-                    </div>
-                  </div>
                   <div className="bg-gray-100 rounded-2xl px-4 py-3">
                     <div className="flex space-x-1">
                       <motion.div

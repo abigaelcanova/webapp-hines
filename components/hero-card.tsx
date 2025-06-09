@@ -93,15 +93,15 @@ export function HeroCard({
   }, [])
 
   return (
-    <div className={`relative w-full h-[300px] rounded-2xl overflow-hidden ${className}`}>
+    <div className={`relative w-full h-[300px] rounded-2xl ${className}`}>
       {/* Background Image */}
       <img
         src={backgroundImage}
         alt="Empire State Building"
-        className="absolute inset-0 w-full h-full object-cover object-center"
+        className="absolute inset-0 w-full h-full object-cover object-center rounded-2xl"
       />
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10 rounded-2xl" />
       {/* Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center p-8">
         <div className="text-center space-y-6 max-w-2xl">
@@ -139,8 +139,8 @@ export function HeroCard({
                 className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-white/20 overflow-hidden z-50 animate-in fade-in-0 slide-in-from-top-2 duration-200"
               >
                 <div className="p-2">
-                  <div className="text-xs font-medium text-gray-500 px-3 py-2 uppercase tracking-wide">
-                    Suggested prompts
+                  <div className="text-xs font-medium text-gray-500 px-3 py-2">
+                    Suggestions
                   </div>
                   <div className="space-y-1">
                     {suggestedPrompts.map((prompt) => {
