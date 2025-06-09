@@ -54,6 +54,7 @@ import { Drawer, DrawerContent } from "@/components/ui/drawer"
 import { Checkbox } from "@/components/ui/checkbox"
 import AnimatedTestimonialsDemo from "@/components/animated-testimonials-demo"
 import { HeroCard } from "@/components/hero-card"
+import { AIAssistantModal } from "@/components/ai-assistant-modal"
 
 export default function VercelNavigation() {
   const [teamDropdownOpen, setTeamDropdownOpen] = useState(false)
@@ -81,6 +82,8 @@ export default function VercelNavigation() {
   const [mobileAssistantDrawerOpen, setMobileAssistantDrawerOpen] = useState(false)
   const [mobileActivityDrawerOpen, setMobileActivityDrawerOpen] = useState(false)
   const [bannerDismissed, setBannerDismissed] = useState(false)
+  const [aiModalOpen, setAiModalOpen] = useState(false)
+  const [aiModalPrompt, setAiModalPrompt] = useState("")
 
   useEffect(() => {
     setCurrentMonthLabel(
@@ -144,6 +147,22 @@ export default function VercelNavigation() {
     } else {
       setRightDrawerOpen(false)
       setAssistantDrawerOpen(true)
+    }
+  }
+
+  const handleAssistantSubmit = (message: string) => {
+    setAiModalPrompt(message)
+    setAiModalOpen(true)
+  }
+
+  const handleAiModalMinimize = () => {
+    setAiModalOpen(false)
+    // Open the assistant drawer when minimizing
+    if (isMobile) {
+      setMobileAssistantDrawerOpen(true)
+    } else {
+      setAssistantDrawerOpen(true)
+      setRightDrawerOpen(false)
     }
   }
 
@@ -1066,10 +1085,7 @@ export default function VercelNavigation() {
                 {/* Hero Card */}
                 <HeroCard
                   backgroundImage="https://images.unsplash.com/photo-1555109307-f7d9da25c244?w=1920&h=600&fit=crop&crop=faces,center"
-                  onAssistantSubmit={(message) => {
-                    // TODO: Handle assistant message submission
-                    console.log('Assistant message:', message)
-                  }}
+                  onAssistantSubmit={handleAssistantSubmit}
                 />
 
                 {/* Banner Alert */}
@@ -1957,6 +1973,14 @@ export default function VercelNavigation() {
             </>
           )}
         </div>
+
+        {/* AI Assistant Modal */}
+        <AIAssistantModal
+          isOpen={aiModalOpen}
+          onClose={() => setAiModalOpen(false)}
+          onMinimize={handleAiModalMinimize}
+          initialPrompt={aiModalPrompt}
+        />
 
         {/* Search Modal */}
         {searchModalOpen && (
