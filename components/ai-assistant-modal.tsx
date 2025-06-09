@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { X, Minimize2, Send, Sparkles, Building, Calendar, MapPin, UserPlus } from "lucide-react"
+import { X, Minimize2, Send, Sparkles, Building, Calendar, MapPin, UserPlus, ExternalLink, Phone, Navigation } from "lucide-react"
 
 interface AIAssistantModalProps {
   isOpen: boolean
@@ -18,30 +18,112 @@ interface Message {
   type: 'user' | 'assistant'
   content: string
   timestamp: Date
+  cards?: Card[]
+}
+
+interface Card {
+  id: string
+  type: 'restaurant' | 'space' | 'event'
+  title: string
+  subtitle?: string
+  image: string
+  details: string[]
+  actions: CardAction[]
+}
+
+interface CardAction {
+  label: string
+  type: 'primary' | 'secondary'
+  icon?: any
+  onClick: () => void
+}
+
+const demoCards: Record<string, Card[]> = {
+  "Nearby lunch spots": [
+    {
+      id: "skyline-bistro",
+      type: "restaurant",
+      title: "Skyline Bistro",
+      subtitle: "Modern American • 15th Floor",
+      image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop",
+      details: ["$$-$$$", "Business lunch specials", "City views", "11:30 AM - 2:30 PM"],
+      actions: [
+        { label: "Book table", type: "primary", icon: Phone, onClick: () => console.log("Book Skyline Bistro") },
+        { label: "View menu", type: "secondary", icon: ExternalLink, onClick: () => console.log("View menu") },
+        { label: "Directions", type: "secondary", icon: Navigation, onClick: () => console.log("Get directions") }
+      ]
+    },
+    {
+      id: "metro-market",
+      type: "restaurant", 
+      title: "Metro Market",
+      subtitle: "Fresh & Healthy • Concourse Level",
+      image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop",
+      details: ["$-$$", "Grab & go options", "Salads & sandwiches", "7:00 AM - 7:00 PM"],
+      actions: [
+        { label: "Order ahead", type: "primary", icon: Phone, onClick: () => console.log("Order Metro Market") },
+        { label: "View menu", type: "secondary", icon: ExternalLink, onClick: () => console.log("View menu") },
+        { label: "Directions", type: "secondary", icon: Navigation, onClick: () => console.log("Get directions") }
+      ]
+    },
+    {
+      id: "halal-guys",
+      type: "restaurant",
+      title: "The Halal Guys", 
+      subtitle: "Middle Eastern • 2 min walk",
+      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop",
+      details: ["$-$$", "Famous platters", "Quick service", "Usually busy 12-1 PM"],
+      actions: [
+        { label: "Order ahead", type: "primary", icon: Phone, onClick: () => console.log("Order Halal Guys") },
+        { label: "Get directions", type: "secondary", icon: Navigation, onClick: () => console.log("Get directions") }
+      ]
+    }
+  ],
+  "Great spaces for large groups": [
+    {
+      id: "grand-hall",
+      type: "space",
+      title: "Grand Hall",
+      subtitle: "Main Floor • Up to 200 people",
+      image: "https://images.unsplash.com/photo-1497366412874-3415097a27e7?w=400&h=300&fit=crop",
+      details: ["State-of-the-art AV system", "Catering kitchen access", "Corporate events & galas", "Available: Tomorrow 2-6 PM"],
+      actions: [
+        { label: "Book now", type: "primary", icon: Calendar, onClick: () => console.log("Book Grand Hall") },
+        { label: "View details", type: "secondary", icon: ExternalLink, onClick: () => console.log("View Grand Hall details") },
+        { label: "Check availability", type: "secondary", icon: Calendar, onClick: () => console.log("Check availability") }
+      ]
+    },
+    {
+      id: "auditorium",
+      type: "space",
+      title: "Auditorium", 
+      subtitle: "15th Floor • Up to 150 people",
+      image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&h=300&fit=crop",
+      details: ["Theater-style seating", "Professional lighting & stage", "Conferences & training", "Available: Next week Tue-Thu"],
+      actions: [
+        { label: "Book now", type: "primary", icon: Calendar, onClick: () => console.log("Book Auditorium") },
+        { label: "View details", type: "secondary", icon: ExternalLink, onClick: () => console.log("View Auditorium details") },
+        { label: "Check availability", type: "secondary", icon: Calendar, onClick: () => console.log("Check availability") }
+      ]
+    },
+    {
+      id: "rooftop-terrace",
+      type: "space",
+      title: "Rooftop Terrace",
+      subtitle: "86th Floor • Up to 100 people",
+      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      details: ["Stunning city views", "Outdoor heaters", "Networking & celebrations", "Available: Weekend evenings"],
+      actions: [
+        { label: "Book now", type: "primary", icon: Calendar, onClick: () => console.log("Book Rooftop Terrace") },
+        { label: "View details", type: "secondary", icon: ExternalLink, onClick: () => console.log("View Rooftop details") },
+        { label: "Check availability", type: "secondary", icon: Calendar, onClick: () => console.log("Check availability") }
+      ]
+    }
+  ]
 }
 
 const demoResponses: Record<string, string> = {
-  "Great spaces for large groups": `I'd be happy to help you find great spaces for large groups! Here are some excellent options in the Empire State Building:
-
-**🏛️ Grand Hall (Main Floor)**
-• Capacity: 200 people
-• Features: State-of-the-art AV system, catering kitchen access
-• Perfect for: Corporate events, presentations, galas
-• Available: Tomorrow 2-6 PM, Thursday all day
-
-**🎭 Auditorium (15th Floor)**
-• Capacity: 150 people theater-style
-• Features: Professional lighting, built-in stage
-• Perfect for: Conferences, product launches, training
-• Available: Next week Tuesday-Thursday
-
-**🌟 Rooftop Terrace (86th Floor)**
-• Capacity: 100 people cocktail style
-• Features: Stunning city views, outdoor heaters
-• Perfect for: Networking events, celebrations
-• Available: Weekend evenings
-
-Would you like me to check availability for a specific date or get more details about any of these spaces?`,
+  "Great spaces for large groups": "I found several excellent spaces perfect for large groups in the Empire State Building. Here are your best options:",
 
   "Register a guest": `I'll help you register a guest! Here's what I need to get them set up:
 
@@ -103,46 +185,51 @@ Would you like to start the registration process now, or do you need help with s
 
 Would you like me to register you for any of these events or get more details?`,
 
-  "Nearby lunch spots": `Great question! Here are fantastic lunch options near the Empire State Building:
+  "Nearby lunch spots": "Here are some great lunch options near the Empire State Building:"
+}
 
-**🏢 In-Building Options:**
-
-**Skyline Bistro** (15th Floor)
-• Modern American cuisine with city views
-• Business lunch specials 11:30 AM - 2:30 PM
-• Reservations recommended: (212) 555-0123
-
-**Metro Market** (Concourse Level)
-• Fresh salads, sandwiches, grab-and-go options
-• Open 7:00 AM - 7:00 PM
-• Perfect for quick, healthy meals
-
-**Empire Coffee Co.** (Ground Floor)
-• Artisan coffee, pastries, light lunch items
-• Great for casual meetings
-• Mobile ordering available
-
-**🚶‍♂️ Within 2 Blocks:**
-
-**The Halal Guys** (2 min walk)
-• Famous platters and gyros
-• Quick service, outdoor seating
-
-**Shake Shack** (3 min walk)
-• Gourmet burgers and shakes
-• Usually busy 12-1 PM
-
-**Joe's Pizza** (1 min walk)
-• Classic NY pizza slices
-• Perfect for a quick bite
-
-**🍽️ Fine Dining (5 min walk):**
-
-**Keens Steakhouse**
-• Historic steakhouse since 1885
-• Reservations essential
-
-Would you like me to make a reservation, check wait times, or get more details about any of these options?`
+function ActionCard({ card }: { card: Card }) {
+  return (
+    <div className="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+      <div className="aspect-[4/3] relative overflow-hidden">
+        <img 
+          src={card.image} 
+          alt={card.title}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="p-4">
+        <div className="mb-2">
+          <h3 className="font-medium text-gray-900 text-sm">{card.title}</h3>
+          {card.subtitle && (
+            <p className="text-xs text-gray-600">{card.subtitle}</p>
+          )}
+        </div>
+        <div className="space-y-1 mb-4">
+          {card.details.map((detail, index) => (
+            <p key={index} className="text-xs text-gray-600">• {detail}</p>
+          ))}
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {card.actions.map((action, index) => {
+            const IconComponent = action.icon
+            return (
+              <Button
+                key={index}
+                variant={action.type === 'primary' ? 'default' : 'outline'}
+                size="sm"
+                className="h-8 text-xs"
+                onClick={action.onClick}
+              >
+                {IconComponent && <IconComponent className="h-3 w-3 mr-1" />}
+                {action.label}
+              </Button>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export function AIAssistantModal({ 
@@ -174,7 +261,8 @@ export function AIAssistantModal({
           id: (Date.now() + 1).toString(),
           type: 'assistant',
           content: demoResponses[initialPrompt] || "I'd be happy to help you with that! Let me gather some information for you.",
-          timestamp: new Date()
+          timestamp: new Date(),
+          cards: demoCards[initialPrompt] || undefined
         }
         setMessages(prev => [...prev, assistantMessage])
         setIsTyping(false)
@@ -273,19 +361,31 @@ export function AIAssistantModal({
                     className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     <div className="max-w-2xl">
-                      <div
-                        className={`rounded-2xl px-4 py-3 ${
-                          message.type === 'user'
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-gray-100 text-gray-900'
-                        }`}
-                      >
-                        <div className="whitespace-pre-wrap text-sm leading-relaxed">
-                          {message.content}
+                      <div>
+                        <div
+                          className={`rounded-2xl px-4 py-3 ${
+                            message.type === 'user'
+                              ? 'bg-blue-600 text-white'
+                              : 'bg-gray-100 text-gray-900'
+                          }`}
+                        >
+                          <div className="whitespace-pre-wrap text-sm leading-relaxed">
+                            {message.content}
+                          </div>
                         </div>
-                      </div>
-                      <div className={`text-xs text-gray-500 mt-1 ${message.type === 'user' ? 'text-right' : ''}`}>
-                        {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        
+                        {/* Cards */}
+                        {message.cards && message.cards.length > 0 && (
+                          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {message.cards.map((card) => (
+                              <ActionCard key={card.id} card={card} />
+                            ))}
+                          </div>
+                        )}
+                        
+                        <div className={`text-xs text-gray-500 mt-1 ${message.type === 'user' ? 'text-right' : ''}`}>
+                          {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </div>
                       </div>
                     </div>
                   </motion.div>
