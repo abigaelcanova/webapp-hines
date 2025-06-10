@@ -895,7 +895,7 @@ export default function VercelNavigation() {
                   ? "fixed inset-y-0 left-0 z-50 w-64 shadow-lg"
                   : "hidden"
                 : leftDrawerOpen
-                  ? "w-1/6"
+                  ? "w-1/6 max-w-[280px]"
                   : "w-0 overflow-hidden",
             )}
           >
