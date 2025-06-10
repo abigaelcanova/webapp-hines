@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { AlertTriangle, X } from "lucide-react"
-import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -35,56 +34,94 @@ export function Banner({
   }
 
   const variantStyles = {
-    default: "border-gray-200 bg-gray-50 text-gray-900",
-    warning: "border-amber-200 bg-amber-50 text-amber-900",
-    error: "border-red-200 bg-red-50 text-red-900",
-    info: "border-blue-200 bg-blue-50 text-blue-900"
+    default: "bg-gradient-to-r from-gray-50 to-gray-100 border-gray-200",
+    warning: "bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200",
+    error: "bg-gradient-to-r from-red-50 to-pink-50 border-red-200",
+    info: "bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200"
   }
 
-  const iconStyles = {
-    default: "text-gray-600",
-    warning: "text-amber-600",
-    error: "text-red-600",
-    info: "text-blue-600"
+  const iconContainerStyles = {
+    default: "bg-gray-100 text-gray-600",
+    warning: "bg-amber-100 text-amber-600",
+    error: "bg-red-100 text-red-600",
+    info: "bg-blue-100 text-blue-600"
+  }
+
+  const textStyles = {
+    default: "text-gray-900",
+    warning: "text-amber-900",
+    error: "text-red-900",
+    info: "text-blue-900"
   }
 
   const buttonStyles = {
-    default: "text-gray-700 hover:text-gray-900 hover:bg-gray-100",
-    warning: "text-amber-700 hover:text-amber-900 hover:bg-amber-100",
-    error: "text-red-700 hover:text-red-900 hover:bg-red-100",
-    info: "text-blue-700 hover:text-blue-900 hover:bg-blue-100"
+    default: "text-gray-500 hover:text-gray-700 hover:bg-gray-200/50",
+    warning: "text-amber-600 hover:text-amber-800 hover:bg-amber-200/50",
+    error: "text-red-600 hover:text-red-800 hover:bg-red-200/50",
+    info: "text-blue-600 hover:text-blue-800 hover:bg-blue-200/50"
   }
 
-  const defaultIcon = variant === "warning" ? <AlertTriangle className="h-4 w-4" /> : null
+  const defaultIcon = variant === "warning" ? <AlertTriangle className="h-5 w-5" /> : null
 
   return (
-    <Alert className={cn(variantStyles[variant], className)}>
-      {(icon || defaultIcon) && (
-        <div className={iconStyles[variant]}>
-          {icon || defaultIcon}
+    <div className={cn(
+      "relative rounded-xl border shadow-sm overflow-hidden",
+      variantStyles[variant],
+      className
+    )}>
+      {/* Decorative elements */}
+      <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
+        <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-current" />
+        <div className="absolute top-8 right-12 w-4 h-4 rounded-full bg-current" />
+        <div className="absolute top-12 right-8 w-6 h-6 rounded-full bg-current" />
+      </div>
+      
+      <div className="relative p-6">
+        <div className="flex items-start gap-4">
+          {/* Icon */}
+          {(icon || defaultIcon) && (
+            <div className={cn(
+              "flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center",
+              iconContainerStyles[variant]
+            )}>
+              {icon || defaultIcon}
+            </div>
+          )}
+          
+          {/* Content */}
+          <div className="flex-1 min-w-0">
+            <h3 className={cn(
+              "text-lg font-semibold mb-2",
+              textStyles[variant]
+            )}>
+              {title}
+            </h3>
+            <p className={cn(
+              "text-sm leading-relaxed",
+              textStyles[variant],
+              "opacity-80"
+            )}>
+              {description}
+            </p>
+          </div>
+          
+          {/* Dismiss button */}
+          {dismissible && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className={cn(
+                "h-8 w-8 rounded-lg flex-shrink-0 transition-colors",
+                buttonStyles[variant]
+              )}
+              onClick={handleDismiss}
+            >
+              <X className="h-4 w-4" />
+              <span className="sr-only">Dismiss alert</span>
+            </Button>
+          )}
         </div>
-      )}
-      <AlertDescription className="flex items-center justify-between">
-        <div>
-          <span className="font-medium">{title}</span>
-          <br />
-          <span className="text-sm">{description}</span>
-        </div>
-        {dismissible && (
-          <Button
-            variant="ghost"
-            size="icon"
-            className={cn(
-              "h-6 w-6 ml-4 flex-shrink-0",
-              buttonStyles[variant]
-            )}
-            onClick={handleDismiss}
-          >
-            <X className="h-4 w-4" />
-            <span className="sr-only">Dismiss alert</span>
-          </Button>
-        )}
-      </AlertDescription>
-    </Alert>
+      </div>
+    </div>
   )
 } 

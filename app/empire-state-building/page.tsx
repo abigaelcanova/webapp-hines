@@ -56,6 +56,7 @@ import AnimatedTestimonialsDemo from "@/components/animated-testimonials-demo"
 import { HeroCard } from "@/components/hero-card"
 import { AIAssistantModal } from "@/components/ai-assistant-modal"
 import { AssistantDrawer } from "@/components/assistant-drawer"
+import { Banner } from "@/components/ui/banner"
 
 export default function VercelNavigation() {
   const [teamDropdownOpen, setTeamDropdownOpen] = useState(false)
@@ -1095,36 +1096,19 @@ export default function VercelNavigation() {
           >
             {currentPage === "home" ? (
               <div className="space-y-6">
+                {/* Banner Alert */}
+                <Banner
+                  title="5 Lab | Boilers Down Last Night"
+                  description="Please be advised that the boilers were down last night so temperatures are low. Our team is working to restore as soon as possible—thank you!"
+                  variant="warning"
+                  onDismiss={() => setBannerDismissed(true)}
+                />
+
                 {/* Hero Card */}
                 <HeroCard
                   backgroundImage="https://images.unsplash.com/photo-1555109307-f7d9da25c244?w=1920&h=600&fit=crop&crop=faces,center"
                   onAssistantSubmit={handleAssistantSubmit}
                 />
-
-                {/* Banner Alert */}
-                {!bannerDismissed && (
-                  <Alert className="border-amber-200 bg-amber-50 text-amber-900">
-                    <AlertTriangle className="h-4 w-4 text-amber-600" />
-                    <AlertDescription className="flex items-center justify-between">
-                      <div>
-                        <span className="font-medium">5 Lab | Boilers Down Last Night</span>
-                        <br />
-                        <span className="text-sm">
-                          Please be advised that the boilers were down last night so temperatures are low. Our team is working to restore as soon as possible—thank you!
-                        </span>
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-6 w-6 text-amber-700 hover:text-amber-900 hover:bg-amber-100 ml-4 flex-shrink-0"
-                        onClick={() => setBannerDismissed(true)}
-                      >
-                        <X className="h-4 w-4" />
-                        <span className="sr-only">Dismiss alert</span>
-                      </Button>
-                    </AlertDescription>
-                  </Alert>
-                )}
 
                 {/* Quick Actions */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
