@@ -55,6 +55,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import AnimatedTestimonialsDemo from "@/components/animated-testimonials-demo"
 import { HeroCard } from "@/components/hero-card"
 import { AIAssistantModal } from "@/components/ai-assistant-modal"
+import { AssistantDrawer } from "@/components/assistant-drawer"
 
 export default function VercelNavigation() {
   const [teamDropdownOpen, setTeamDropdownOpen] = useState(false)
@@ -164,6 +165,11 @@ export default function VercelNavigation() {
       setAssistantDrawerOpen(true)
       setRightDrawerOpen(false)
     }
+  }
+
+  const handleAssistantMaximize = () => {
+    setAiModalOpen(true)
+    setAssistantDrawerOpen(false)
   }
 
   const openActivity = () => {
@@ -1914,61 +1920,11 @@ export default function VercelNavigation() {
                 )}
               </aside>
               <aside className={cn("transition-all duration-300 ease-in-out mr-4 sticky top-14 self-start", assistantDrawerOpen ? "w-[320px]" : "w-0")}>
-                {assistantDrawerOpen && (
-                  <div className="h-[calc(100vh-3.5rem-2rem)] bg-white rounded-xl border shadow-sm flex flex-col mt-4 overflow-hidden">
-                    {/* Header */}
-                    <div className="flex items-center justify-between p-4">
-                      <div className="flex items-center gap-3">
-                        <span className="font-regular text-gray-900">Assistant</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon" className="h-8 w-8" type="button">
-                          <Maximize2 className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon" className="h-8 w-8" type="button" onClick={() => setAssistantDrawerOpen(false)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setAssistantDrawerOpen(false) }}>
-                          <X className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1 p-4 flex flex-col overflow-y-auto">
-                      {/* Greeting */}
-                      <div className="mb-4">
-                        <p className="text-sm text-gray-600">How can I help you today?</p>
-                      </div>
-
-                      {/* Suggestion Card */}
-                      <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                        <p className="text-xs text-gray-600">What hours is the rooftop terrace open?</p>
-                      </div>
-
-                      <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                        <p className="text-xs text-gray-600">What's the food truck schedule for the week?</p>
-                      </div>
-
-                      {/* Chat Area - Spacer */}
-                      <div className="flex-1" />
-
-                      {/* Input Area */}
-                      <div className="space-y-3">
-                        <div className="relative">
-                          <Input placeholder="Ask anything" className="pr-12 py-3 text-sm" />
-                          <Button size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8" type="button">
-                            <Send className="h-4 w-4" />
-                          </Button>
-                        </div>
-                        <p className="text-[10px] text-gray-500 text-center">
-                          The assistant can make mistakes. It does not use your data to train its models.{" "}
-                          <button className="underline hover:no-underline" type="button">Learn more</button>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                <AssistantDrawer
+                  isOpen={assistantDrawerOpen}
+                  onClose={() => setAssistantDrawerOpen(false)}
+                  onMaximize={handleAssistantMaximize}
+                />
               </aside>
             </>
           )}
