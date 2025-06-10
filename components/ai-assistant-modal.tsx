@@ -40,6 +40,15 @@ interface CardAction {
   onClick: () => void
 }
 
+// Guest registration flow state
+interface GuestRegistrationState {
+  step: 'name' | 'datetime' | 'location' | 'space' | 'complete'
+  name?: string
+  datetime?: string
+  location?: string
+  space?: string
+}
+
 const demoCards: Record<string, Card[]> = {
   "Nearby lunch spots": [
     {
@@ -121,71 +130,82 @@ const demoCards: Record<string, Card[]> = {
         { label: "Check availability", type: "secondary", icon: Calendar, onClick: () => console.log("Check availability") }
       ]
     }
+  ],
+  "Upcoming events": [
+    {
+      id: "tech-mixer",
+      type: "event",
+      title: "Tech Networking Mixer",
+      subtitle: "Tuesday, June 10th • 6:00 PM",
+      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop",
+      details: ["Grand Hall", "Free registration", "Light refreshments", "Connect with tech professionals"],
+      actions: [
+        { label: "Register", type: "primary", icon: Calendar, onClick: () => console.log("Register for Tech Mixer") },
+        { label: "View details", type: "secondary", icon: ExternalLink, onClick: () => console.log("View Tech Mixer details") },
+        { label: "Add to calendar", type: "secondary", icon: Calendar, onClick: () => console.log("Add to calendar") }
+      ]
+    },
+    {
+      id: "wellness-workshop",
+      type: "event",
+      title: "Wellness Workshop",
+      subtitle: "Wednesday, June 11th • 8:00 AM",
+      image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&h=300&fit=crop",
+      details: ["Wellness Center", "$25 fee", "Meditation & healthy breakfast", "Limited to 25 participants"],
+      actions: [
+        { label: "Register", type: "primary", icon: Calendar, onClick: () => console.log("Register for Wellness Workshop") },
+        { label: "View details", type: "secondary", icon: ExternalLink, onClick: () => console.log("View Wellness details") },
+        { label: "Add to calendar", type: "secondary", icon: Calendar, onClick: () => console.log("Add to calendar") }
+      ]
+    },
+    {
+      id: "building-tour",
+      type: "event",
+      title: "Building Tour & History Talk",
+      subtitle: "Thursday, June 12th • 12:00 PM",
+      image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&h=300&fit=crop",
+      details: ["Starts at Lobby", "Free for tenants", "Learn building history", "Perfect for new employees"],
+      actions: [
+        { label: "Register", type: "primary", icon: Calendar, onClick: () => console.log("Register for Building Tour") },
+        { label: "View details", type: "secondary", icon: ExternalLink, onClick: () => console.log("View Tour details") },
+        { label: "Add to calendar", type: "secondary", icon: Calendar, onClick: () => console.log("Add to calendar") }
+      ]
+    },
+    {
+      id: "sustainability-summit",
+      type: "event",
+      title: "Sustainability Summit",
+      subtitle: "Monday, June 16th • 9:00 AM - 5:00 PM",
+      image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400&h=300&fit=crop",
+      details: ["Conference Center", "$150 fee", "Green building practices", "Keynote speakers"],
+      actions: [
+        { label: "Register", type: "primary", icon: Calendar, onClick: () => console.log("Register for Sustainability Summit") },
+        { label: "View details", type: "secondary", icon: ExternalLink, onClick: () => console.log("View Summit details") },
+        { label: "Add to calendar", type: "secondary", icon: Calendar, onClick: () => console.log("Add to calendar") }
+      ]
+    },
+    {
+      id: "rooftop-party",
+      type: "event",
+      title: "Summer Rooftop Party",
+      subtitle: "Friday, June 20th • 7:00 PM",
+      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      details: ["86th Floor Terrace", "$75 fee", "Live music & cocktails", "Stunning sunset views"],
+      actions: [
+        { label: "Register", type: "primary", icon: Calendar, onClick: () => console.log("Register for Rooftop Party") },
+        { label: "View details", type: "secondary", icon: ExternalLink, onClick: () => console.log("View Party details") },
+        { label: "Add to calendar", type: "secondary", icon: Calendar, onClick: () => console.log("Add to calendar") }
+      ]
+    }
   ]
 }
 
 const demoResponses: Record<string, string> = {
   "Great spaces for large groups": "I found several excellent spaces perfect for large groups in the Empire State Building. Here are your best options:",
 
-  "Register a guest": `I'll help you register a guest! Here's what I need to get them set up:
+  "Register a guest": "I'll help you register a guest for the Empire State Building. Let's start with some basic information.\n\nWhat is your guest's full name?",
 
-**👤 Guest Information:**
-• Full name
-• Company/organization
-• Purpose of visit
-• Host contact information
-• Expected arrival time
-• Duration of visit
-
-**🏢 Building Access:**
-• Which floors/areas they need access to
-• Any special equipment or assistance needed
-• Parking requirements
-
-**📋 Quick Registration Options:**
-• **Express Check-in**: For returning guests (2 minutes)
-• **Standard Registration**: For new visitors (5 minutes)
-• **Group Registration**: For multiple guests (bulk upload)
-
-**🔒 Security Requirements:**
-• Valid photo ID required
-• Background check for sensitive areas
-• Escort requirements for restricted floors
-
-Would you like to start the registration process now, or do you need help with something specific about guest access?`,
-
-  "Upcoming events": `Here are the exciting upcoming events at the Empire State Building:
-
-**🎉 This Week:**
-
-**Tuesday, June 10th**
-• **Tech Networking Mixer** - 6:00 PM
-  📍 Grand Hall | 🎫 Free registration
-  Connect with fellow tech professionals over cocktails
-
-**Wednesday, June 11th**
-• **Wellness Workshop: Mindful Mornings** - 8:00 AM
-  📍 Wellness Center | 🎫 $25
-  Start your day with meditation and healthy breakfast
-
-**Thursday, June 12th**
-• **Building Tour & History Talk** - 12:00 PM
-  📍 Lobby | 🎫 Free for tenants
-  Learn fascinating stories about our iconic building
-
-**🗓️ Next Week:**
-
-**Monday, June 16th**
-• **Sustainability Summit** - 9:00 AM - 5:00 PM
-  📍 Conference Center | 🎫 $150
-  Featuring keynotes on green building practices
-
-**Friday, June 20th**
-• **Summer Rooftop Party** - 7:00 PM
-  📍 86th Floor Terrace | 🎫 $75
-  Live music, cocktails, and stunning sunset views
-
-Would you like me to register you for any of these events or get more details?`,
+  "Upcoming events": "Here are the exciting upcoming events at the Empire State Building:",
 
   "Nearby lunch spots": "Here are some great lunch options near the Empire State Building:"
 }
@@ -245,6 +265,7 @@ export function AIAssistantModal({
   const [messages, setMessages] = useState<Message[]>(sharedMessages)
   const [inputValue, setInputValue] = useState(sharedInputValue)
   const [isTyping, setIsTyping] = useState(false)
+  const [guestRegistration, setGuestRegistration] = useState<GuestRegistrationState | null>(null)
 
   useEffect(() => {
     if (isOpen) {
@@ -275,6 +296,12 @@ export function AIAssistantModal({
             cards: demoCards[initialPrompt] || undefined
           }
           setMessages(prev => [...prev, assistantMessage])
+          
+          // Start guest registration flow if needed
+          if (initialPrompt === "Register a guest") {
+            setGuestRegistration({ step: 'name' })
+          }
+          
           setIsTyping(false)
         }, 2000)
       }
@@ -292,8 +319,15 @@ export function AIAssistantModal({
     }
 
     setMessages(prev => [...prev, userMessage])
+    const currentInput = inputValue
     setInputValue("")
     setIsTyping(true)
+
+    // Handle guest registration flow
+    if (guestRegistration) {
+      handleGuestRegistrationFlow(currentInput)
+      return
+    }
 
     // Simulate AI response
     setTimeout(() => {
@@ -301,6 +335,57 @@ export function AIAssistantModal({
         id: (Date.now() + 1).toString(),
         type: 'assistant',
         content: "Thanks for your question! In a real implementation, I would provide a helpful response based on your query. This is a demo showing the conversation flow.",
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, assistantMessage])
+      setIsTyping(false)
+    }, 1500)
+  }
+
+  const handleGuestRegistrationFlow = (userInput: string) => {
+    setTimeout(() => {
+      let responseContent = ""
+      let newRegistrationState = { ...guestRegistration! }
+
+      switch (guestRegistration!.step) {
+        case 'name':
+          newRegistrationState.name = userInput
+          newRegistrationState.step = 'datetime'
+          responseContent = `Perfect! I've noted that ${userInput} will be visiting.\n\nWhen would you like to schedule their visit? Please provide the date and time (e.g., "June 15th at 2:00 PM").`
+          break
+        
+        case 'datetime':
+          newRegistrationState.datetime = userInput
+          newRegistrationState.step = 'location'
+          responseContent = `Great! I've scheduled the visit for ${userInput}.\n\nWhich floor or area will ${newRegistrationState.name} be visiting? (e.g., "15th floor", "Conference Room A", "Marketing Department")`
+          break
+        
+        case 'location':
+          newRegistrationState.location = userInput
+          newRegistrationState.step = 'space'
+          responseContent = `Excellent! ${newRegistrationState.name} will visit ${userInput} on ${newRegistrationState.datetime}.\n\nWould you like to reserve any meeting spaces or conference rooms for this visit? (Type "yes" to see available spaces or "no" to complete registration)`
+          break
+        
+        case 'space':
+          if (userInput.toLowerCase().includes('yes')) {
+            newRegistrationState.space = "Meeting space requested"
+            responseContent = `Perfect! I'll include a meeting space reservation request.\n\n**Registration Summary:**\n• Guest: ${newRegistrationState.name}\n• Date & Time: ${newRegistrationState.datetime}\n• Location: ${newRegistrationState.location}\n• Meeting space: Requested\n\n✅ Guest registration completed! ${newRegistrationState.name} will receive an email confirmation with building access instructions and a QR code for entry.`
+          } else {
+            responseContent = `**Registration Summary:**\n• Guest: ${newRegistrationState.name}\n• Date & Time: ${newRegistrationState.datetime}\n• Location: ${newRegistrationState.location}\n• Meeting space: Not needed\n\n✅ Guest registration completed! ${newRegistrationState.name} will receive an email confirmation with building access instructions and a QR code for entry.`
+          }
+          newRegistrationState.step = 'complete'
+          setGuestRegistration(null) // Reset registration flow
+          break
+      }
+
+      if (newRegistrationState.step !== 'complete') {
+        setGuestRegistration(newRegistrationState)
+      }
+
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        type: 'assistant',
+        content: responseContent,
         timestamp: new Date()
       }
       setMessages(prev => [...prev, assistantMessage])
