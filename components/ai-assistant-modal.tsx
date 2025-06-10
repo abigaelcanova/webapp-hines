@@ -9,8 +9,10 @@ import { X, Minimize2, Send, Sparkles, Building, Calendar, MapPin, UserPlus, Ext
 interface AIAssistantModalProps {
   isOpen: boolean
   onClose: () => void
-  onMinimize: () => void
+  onMinimize: (messages: Message[], inputValue: string) => void
   initialPrompt?: string
+  sharedMessages?: Message[]
+  sharedInputValue?: string
 }
 
 interface Message {
@@ -236,39 +238,48 @@ export function AIAssistantModal({
   isOpen, 
   onClose, 
   onMinimize, 
-  initialPrompt 
+  initialPrompt,
+  sharedMessages = [],
+  sharedInputValue = ""
 }: AIAssistantModalProps) {
-  const [messages, setMessages] = useState<Message[]>([])
-  const [inputValue, setInputValue] = useState("")
+  const [messages, setMessages] = useState<Message[]>(sharedMessages)
+  const [inputValue, setInputValue] = useState(sharedInputValue)
   const [isTyping, setIsTyping] = useState(false)
 
   useEffect(() => {
-    if (isOpen && initialPrompt) {
-      // Add user message
-      const userMessage: Message = {
-        id: Date.now().toString(),
-        type: 'user',
-        content: initialPrompt,
-        timestamp: new Date()
-      }
+    if (isOpen) {
+      // Update state with shared values when modal opens
+      setMessages(sharedMessages)
+      setInputValue(sharedInputValue)
       
-      setMessages([userMessage])
-      setIsTyping(true)
-
-      // Simulate AI response delay
-      setTimeout(() => {
-        const assistantMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          type: 'assistant',
-          content: demoResponses[initialPrompt] || "I'd be happy to help you with that! Let me gather some information for you.",
-          timestamp: new Date(),
-          cards: demoCards[initialPrompt] || undefined
+      // Handle initial prompt if provided and no shared messages
+      if (initialPrompt && sharedMessages.length === 0) {
+        // Add user message
+        const userMessage: Message = {
+          id: Date.now().toString(),
+          type: 'user',
+          content: initialPrompt,
+          timestamp: new Date()
         }
-        setMessages(prev => [...prev, assistantMessage])
-        setIsTyping(false)
-      }, 2000)
+        
+        setMessages([userMessage])
+        setIsTyping(true)
+
+        // Simulate AI response delay
+        setTimeout(() => {
+          const assistantMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            type: 'assistant',
+            content: demoResponses[initialPrompt] || "I'd be happy to help you with that! Let me gather some information for you.",
+            timestamp: new Date(),
+            cards: demoCards[initialPrompt] || undefined
+          }
+          setMessages(prev => [...prev, assistantMessage])
+          setIsTyping(false)
+        }, 2000)
+      }
     }
-  }, [isOpen, initialPrompt])
+  }, [isOpen, initialPrompt, sharedMessages, sharedInputValue])
 
   const handleSendMessage = () => {
     if (!inputValue.trim()) return
@@ -331,7 +342,7 @@ export function AIAssistantModal({
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={onMinimize}
+                  onClick={() => onMinimize(messages, inputValue)}
                   className="h-10 w-10 hover:bg-white/50"
                 >
                   <Minimize2 className="h-4 w-4" />

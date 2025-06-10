@@ -85,6 +85,8 @@ export default function VercelNavigation() {
   const [bannerDismissed, setBannerDismissed] = useState(false)
   const [aiModalOpen, setAiModalOpen] = useState(false)
   const [aiModalPrompt, setAiModalPrompt] = useState("")
+  const [sharedMessages, setSharedMessages] = useState<any[]>([])
+  const [sharedInputValue, setSharedInputValue] = useState("")
 
   useEffect(() => {
     setCurrentMonthLabel(
@@ -153,10 +155,14 @@ export default function VercelNavigation() {
 
   const handleAssistantSubmit = (message: string) => {
     setAiModalPrompt(message)
+    setSharedMessages([]) // Clear shared messages for new conversation
+    setSharedInputValue("") // Clear shared input for new conversation
     setAiModalOpen(true)
   }
 
-  const handleAiModalMinimize = () => {
+  const handleAiModalMinimize = (messages: any[], inputValue: string) => {
+    setSharedMessages(messages)
+    setSharedInputValue(inputValue)
     setAiModalOpen(false)
     // Open the assistant drawer when minimizing
     if (isMobile) {
@@ -167,7 +173,8 @@ export default function VercelNavigation() {
     }
   }
 
-  const handleAssistantMaximize = () => {
+  const handleAssistantMaximize = (inputValue: string) => {
+    setSharedInputValue(inputValue)
     setAiModalOpen(true)
     setAssistantDrawerOpen(false)
   }
@@ -1924,6 +1931,8 @@ export default function VercelNavigation() {
                   isOpen={assistantDrawerOpen}
                   onClose={() => setAssistantDrawerOpen(false)}
                   onMaximize={handleAssistantMaximize}
+                  messages={sharedMessages}
+                  initialInputValue={sharedInputValue}
                 />
               </aside>
             </>
@@ -1936,6 +1945,8 @@ export default function VercelNavigation() {
           onClose={() => setAiModalOpen(false)}
           onMinimize={handleAiModalMinimize}
           initialPrompt={aiModalPrompt}
+          sharedMessages={sharedMessages}
+          sharedInputValue={sharedInputValue}
         />
 
         {/* Search Modal */}
