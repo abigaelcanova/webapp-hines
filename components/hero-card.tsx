@@ -7,6 +7,7 @@ import { Send, Users, UserPlus, Calendar, MapPin } from "lucide-react"
 
 interface HeroCardProps {
   backgroundImage: string
+  buildingName: string
   onAssistantSubmit?: (message: string) => void
   className?: string
 }
@@ -40,6 +41,7 @@ const suggestedPrompts = [
 
 export function HeroCard({
   backgroundImage,
+  buildingName,
   onAssistantSubmit,
   className = ""
 }: HeroCardProps) {
@@ -106,7 +108,7 @@ export function HeroCard({
       <div className="absolute inset-0 flex flex-col items-center justify-center p-8">
         <div className="text-center space-y-6 max-w-2xl">
           <h1 className="text-3xl font-bold text-white">
-            Welcome back to the Empire State Building, John
+            Welcome back to the {buildingName}, John
           </h1>
           
           {/* AI Assistant Prompt */}

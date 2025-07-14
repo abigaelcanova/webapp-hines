@@ -38,6 +38,9 @@ import {
   Users,
   Gift,
   NotebookTabs,
+  HelpCircle,
+  Dumbbell,
+  UserCheck,
 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -59,9 +62,8 @@ import { AssistantDrawer } from "@/components/assistant-drawer"
 import { Banner } from "@/components/ui/banner"
 
 export default function VercelNavigation() {
-  const [teamDropdownOpen, setTeamDropdownOpen] = useState(false)
   const [projectDropdownOpen, setProjectDropdownOpen] = useState(false)
-  const [primaryBuilding, setPrimaryBuilding] = useState<string>("Empire State Building")
+  const [primaryBuilding, setPrimaryBuilding] = useState<string>("ARE Demo Building")
   const [notificationCount, setNotificationCount] = useState(3)
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(true)
   const [rightDrawerOpen, setRightDrawerOpen] = useState(false)
@@ -205,32 +207,92 @@ export default function VercelNavigation() {
 
   const buildings = [
     {
-      name: "Empire State Building",
+      name: "100 Binney",
+      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "100 Technology Square",
       image: "https://images.unsplash.com/photo-1555109307-f7d9da25c244?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
-      name: "One World Trade Center",
-      image: "https://images.unsplash.com/photo-1582439170934-d2fbbe3f0937?w=120&h=120&fit=crop&crop=faces,center",
+      name: "201 Brookline",
+      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
-      name: "30 Hudson Yards",
+      name: "300 Technology Square",
       image: "https://images.unsplash.com/photo-1577351594944-ef7e7d394fc8?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
-      name: "Chrysler Building",
+      name: "399 Binney Street",
+      image: "https://images.unsplash.com/photo-1582439170934-d2fbbe3f0937?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "400 Technology Square",
+      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "50-60 Binney Street",
+      image: "https://images.unsplash.com/photo-1565123409695-7b5ef63a2efb?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "500 Technology Square",
+      image: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "75-125 Binney Street",
+      image: "https://images.unsplash.com/photo-1590725175499-15425f32e0c4?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "ARE Demo Building",
+      image: "https://images.unsplash.com/photo-1554638413-dbf3b0c6e1f7?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "Alexandria Center at One Kendall Square - Building 100",
+      image: "https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "Alexandria Center at One Kendall Square - Building 1400",
+      image: "https://images.unsplash.com/photo-1520637836862-4d197d17c983?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "Alexandria Center at One Kendall Square - Building 200",
+      image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "Alexandria Center at One Kendall Square - Building 600/650",
+      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "Building 10210",
       image: "https://images.unsplash.com/photo-1609619385002-f40f1f04888c?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
-      name: "Flatiron Building",
-      image: "https://images.unsplash.com/photo-1617688319108-cb3bdc88f587?w=120&h=120&fit=crop&crop=faces,center",
+      name: "Campus Point by Alexandria",
+      image: "https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
-      name: "MetLife Building",
+      name: "Lab Building",
+      image: "https://images.unsplash.com/photo-1581094287473-c9b0b9d2b1b6?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "Pacific Horizon Tower",
+      image: "https://images.unsplash.com/photo-1551887373-6edba6dacbb1?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "Pasadena HQ",
+      image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "Reserve Equipment",
       image: "https://images.unsplash.com/photo-1609619385639-63e765f28408?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
-      name: "Time Warner Center",
-      image: "https://images.unsplash.com/photo-1582439170934-d2fbbe3f0937?w=120&h=120&fit=crop&crop=faces,center",
+      name: "Reserve Transportation",
+      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "Seaside Innovation Center",
+      image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=120&h=120&fit=crop&crop=faces,center",
     },
   ]
 
@@ -307,7 +369,6 @@ export default function VercelNavigation() {
     "9 pm",
   ]
 
-  const selectedCity = cities.find((city) => city.selected)
   const selectedBuilding = buildings.find((building) => building.name === primaryBuilding) || buildings[0]
 
   // Carousel slides data
@@ -515,117 +576,16 @@ export default function VercelNavigation() {
             </Button>
 
             {/* Logo */}
-            <div className="h-8">
+            <div className="h-24">
               <img src="/logo.svg" alt="Logo" className="h-full w-auto" />
             </div>
           </div>
 
-          {/* Middle section - City & Building Selectors */}
-          <div className="col-span-8 flex items-center gap-4">
-            {/* City & Building Selector */}
-            <DropdownMenu open={teamDropdownOpen} onOpenChange={setTeamDropdownOpen}>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-auto p-2 gap-2 hover:bg-muted">
-                  <MapPin className="h-4 w-4 text-muted-foreground" />
-                  {!isMobile && <span className="font-medium">{selectedCity?.name}</span>}
-                  <ChevronDown className="h-4 w-4 text-muted-foreground" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-[600px] p-0 z-50">
-                <div className="grid grid-cols-2">
-                  {/* Cities Panel */}
-                  <div className="border-r">
-                    <div className="p-3 border-b">
-                      <div className="relative">
-                        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                        <Input placeholder="Find City..." className="pl-9" />
-                      </div>
-                    </div>
-                    <div className="p-2">
-                      <div className="px-2 py-1 text-sm font-medium text-muted-foreground">Cities</div>
-                      <div className="space-y-1">
-                        {cities.map((city) => (
-                          <Button key={city.name} variant="ghost" className="w-full justify-between h-auto p-2">
-                            <span className="truncate">{city.name}</span>
-                            {city.selected && <Check className="h-4 w-4 text-muted-foreground" />}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+          {/* Middle section - Spacer */}
+          <div className="col-span-8"></div>
 
-                  {/* Buildings Panel */}
-                  <div>
-                    <div className="p-3 border-b">
-                      <div className="relative">
-                        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                        <Input placeholder="Find Building..." className="pl-9" />
-                      </div>
-                    </div>
-                    <div className="p-2">
-                      {primaryBuilding && (
-                        <>
-                          <div className="px-2 py-1 text-sm font-medium text-muted-foreground">Primary</div>
-                          <div className="space-y-1 mb-2">
-                            <Button variant="ghost" className="w-full justify-start h-auto p-2">
-                              <Avatar className="h-6 w-6 mr-2">
-                                <AvatarImage
-                                  src={selectedBuilding.image || "/placeholder.svg"}
-                                  alt={selectedBuilding.name}
-                                />
-                                <AvatarFallback className="bg-black text-white text-xs font-medium">
-                                  <Building className="h-4 w-4" />
-                                </AvatarFallback>
-                              </Avatar>
-                              <span className="truncate">{primaryBuilding}</span>
-                            </Button>
-                          </div>
-                          <Separator className="my-2" />
-                        </>
-                      )}
-
-                      <div className="px-2 py-1 text-sm font-medium text-muted-foreground">Buildings</div>
-                      <div className="space-y-1">
-                        {buildings.map((building) => (
-                          <div
-                            key={building.name}
-                            className="group flex items-center justify-between rounded-md hover:bg-muted p-2"
-                          >
-                            <div className="flex items-center gap-2">
-                              <Avatar className="h-6 w-6">
-                                <AvatarImage src={building.image || "/placeholder.svg"} alt={building.name} />
-                                <AvatarFallback className="bg-black text-white text-xs font-medium">
-                                  <Building className="h-4 w-4" />
-                                </AvatarFallback>
-                              </Avatar>
-                              <span className="truncate">{building.name}</span>
-                            </div>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="opacity-0 group-hover:opacity-100 h-auto p-1"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                setPrimary(building.name)
-                              }}
-                            >
-                              <Star
-                                className={`h-4 w-4 ${
-                                  primaryBuilding === building.name
-                                    ? "fill-yellow-400 text-yellow-400"
-                                    : "text-muted-foreground hover:text-foreground"
-                                }`}
-                              />
-                            </Button>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
+          {/* Right side icons */}
+          <div className="col-span-2 flex items-center justify-end space-x-2">
             {/* Building Selector */}
             <DropdownMenu open={projectDropdownOpen} onOpenChange={setProjectDropdownOpen}>
               <DropdownMenuTrigger asChild>
@@ -640,7 +600,7 @@ export default function VercelNavigation() {
                   <ChevronDown className="h-4 w-4 text-muted-foreground" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-[346px] p-0 z-50">
+              <DropdownMenuContent align="end" className="w-[346px] p-0 z-50">
                 <div className="p-3 border-b">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -667,10 +627,9 @@ export default function VercelNavigation() {
                   )}
 
                   <div className="px-2 py-1 text-sm font-medium text-muted-foreground">Buildings</div>
-                  <div className="space-y-1">
+                  <div className="space-y-1 max-h-64 overflow-y-auto">
                     {buildings
                       .filter((b) => b.name !== primaryBuilding)
-                      .slice(0, 3)
                       .map((building) => (
                         <div
                           key={building.name}
@@ -708,10 +667,6 @@ export default function VercelNavigation() {
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
-          </div>
-
-          {/* Right side icons */}
-          <div className="col-span-2 flex items-center justify-end space-x-2">
             <Button variant="ghost" size="icon" className="h-9 w-9 p-2" onClick={() => setSearchModalOpen(true)}>
               <Search className="h-4 w-4" />
               <span className="sr-only">Search</span>
@@ -903,183 +858,165 @@ export default function VercelNavigation() {
               <div className="h-full p-4 flex flex-col overflow-hidden">
                 {/* Navigation Items */}
                 <div className="flex-1 overflow-y-auto">
-                  <nav className="space-y-0.5 mb-8">
+                  <nav className="space-y-1 mb-8">
+                    {/* Home - Active */}
                     <Button
                       variant="ghost"
                       className={cn(
-                        "w-full justify-start h-auto p-2 font-normal",
+                        "w-full justify-start h-10 px-3 font-normal text-sm",
                         currentPage === "home"
-                          ? "bg-gray-100 text-foreground"
-                          : "text-muted-foreground hover:text-foreground",
+                          ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                          : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
                       )}
                       onClick={() => setCurrentPage("home")}
                     >
                       <Home className="h-4 w-4 mr-3" />
-                      <span className="text-sm">Home</span>
+                      <span>Home</span>
                     </Button>
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
-                      onClick={() => setCurrentPage("about")}
-                    >
-                      <Info className="h-4 w-4 mr-3" />
-                      <span className="text-sm">About</span>
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
-                    >
-                      <Newspaper className="h-4 w-4 mr-3" />
-                      <span className="text-sm flex-1 text-left">Your feed</span>
-                      <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 rounded-full ml-auto">
-                        3
-                      </span>
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
-                    >
-                      <CalendarDays className="h-4 w-4 mr-3" />
-                      <span className="text-sm flex-1 text-left">Events</span>
-                      <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 rounded-full ml-auto">
-                        2
-                      </span>
-                    </Button>
+
+                    {/* Spaces */}
                     <Button
                       variant="ghost"
                       className={cn(
-                        "w-full justify-start h-auto p-2 font-normal",
+                        "w-full justify-start h-10 px-3 font-normal text-sm",
                         currentPage === "book-space"
-                          ? "bg-gray-100 text-foreground"
-                          : "text-muted-foreground hover:text-foreground",
+                          ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                          : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
                       )}
                       onClick={() => setCurrentPage("book-space")}
                     >
-                      <Building className="h-4 w-4 mr-3" />
-                      <span className="text-sm">Book a space</span>
+                      <MapPin className="h-4 w-4 mr-3" />
+                      <span>Spaces</span>
                     </Button>
+
+                    {/* Events & services */}
                     <Button
                       variant="ghost"
-                      className={cn(
-                        "w-full justify-start h-auto p-2 font-normal",
-                        currentPage === "directory"
-                          ? "bg-gray-100 text-foreground"
-                          : "text-muted-foreground hover:text-foreground",
-                      )}
-                      onClick={() => setCurrentPage("directory")}
+                      className="w-full justify-between h-10 px-3 font-normal text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                      onClick={() => setCurrentPage("events")}
                     >
-                      <NotebookTabs className="h-4 w-4 mr-3" />
-                      <span className="text-sm">Directory</span>
+                      <div className="flex items-center">
+                        <Dumbbell className="h-4 w-4 mr-3" />
+                        <span>Events & services</span>
+                      </div>
+                      <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-full">
+                        2
+                      </Badge>
                     </Button>
+
+                    {/* Service requests */}
                     <Button
                       variant="ghost"
-                      className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
+                      className="w-full justify-start h-10 px-3 font-normal text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                      onClick={() => setCurrentPage("service-requests")}
                     >
                       <Wrench className="h-4 w-4 mr-3" />
-                      <span className="text-sm">Click to fix</span>
+                      <span>Service requests</span>
                     </Button>
+
+                    {/* My feed */}
                     <Button
                       variant="ghost"
-                      className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
+                      className="w-full justify-between h-10 px-3 font-normal text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                      onClick={() => setCurrentPage("my-feed")}
                     >
-                      <UserPlus className="h-4 w-4 mr-3" />
-                      <span className="text-sm">Register a guest</span>
+                      <div className="flex items-center">
+                        <FileText className="h-4 w-4 mr-3" />
+                        <span>My feed</span>
+                      </div>
+                      <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-full">
+                        3
+                      </Badge>
                     </Button>
+
+                    {/* Visitor registration */}
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start h-10 px-3 font-normal text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                      onClick={() => setCurrentPage("visitor-registration")}
+                    >
+                      <UserCheck className="h-4 w-4 mr-3" />
+                      <span>Visitor registration</span>
+                    </Button>
+
+                    {/* About */}
                     <Button
                       variant="ghost"
                       className={cn(
-                        "w-full justify-start h-auto p-2 font-normal",
-                        currentPage === "perks-rewards"
-                          ? "bg-gray-100 text-foreground"
-                          : "text-muted-foreground hover:text-foreground",
+                        "w-full justify-start h-10 px-3 font-normal text-sm",
+                        currentPage === "about"
+                          ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                          : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
                       )}
-                      onClick={() => setCurrentPage("perks-rewards")}
+                      onClick={() => setCurrentPage("about")}
                     >
-                      <Gift className="h-4 w-4 mr-3" />
-                      <span className="text-sm">Perks & Rewards</span>
+                      <Info className="h-4 w-4 mr-3" />
+                      <span>About</span>
                     </Button>
+
+                    {/* Help */}
                     <Button
                       variant="ghost"
-                      className="w-full justify-start h-auto p-2 text-muted-foreground hover:text-foreground font-normal"
+                      className="w-full justify-start h-10 px-3 font-normal text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                      onClick={() => setCurrentPage("help")}
                     >
-                      <MessageSquare className="h-4 w-4 mr-3" />
-                      <span className="text-sm">Feedback</span>
+                      <HelpCircle className="h-4 w-4 mr-3" />
+                      <span>Help</span>
                     </Button>
                   </nav>
 
-                  {/* Quick Links Section */}
-                  <div className="mb-6">
-                    <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2 px-2">Helpful links</h4>
-                    <div className="space-y-1">
-                      <a
-                        href="https://example.com/resources"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block w-full text-left px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
-                      >
-                        Building Resources
-                      </a>
-                      <a
-                        href="https://example.com/policies"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block w-full text-left px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
-                      >
-                        Policies & Guidelines
-                      </a>
-                      <a
-                        href="https://example.com/emergency"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block w-full text-left px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
-                      >
-                        Emergency Procedures
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* Admin Section */}
-                  <div>
-                    <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2 px-2">Admin</h4>
-                    <div className="space-y-1">
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-start h-auto px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground font-normal"
-                      >
-                        User Management
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-start h-auto px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground font-normal"
-                      >
-                        Feature Management
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-start h-auto px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground font-normal"
-                      >
-                        General Settings
-                      </Button>
-                    </div>
-                  </div>
                 </div>
 
-                {/* Explore Card - Always visible at bottom */}
-                <div className="mt-4 flex-shrink-0">
-                  <Link href="/explore" className="relative bg-white rounded-lg p-4 text-gray-900 border shadow-sm cursor-pointer hover:bg-gray-50 block focus:outline-none focus:ring-2 focus:ring-blue-500 overflow-hidden">
-                    <div className="absolute inset-0">
-                      <img 
-                        src="/map-bg.png" 
-                        alt=""
-                        className="absolute inset-0 w-full h-full object-cover opacity-[0.15]"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-white/70" />
+                {/* App Download Section */}
+                <div className="mt-4 flex-shrink-0 space-y-4">
+                  <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 text-white">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <h4 className="text-sm font-medium mb-1">It's even better on the go.</h4>
+                        <p className="text-xs text-blue-100 mb-3">Download the app</p>
+                      </div>
+                      <div className="bg-white rounded p-2 ml-3">
+                        <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center">
+                          <div className="grid grid-cols-3 gap-0.5">
+                            {Array.from({ length: 9 }).map((_, i) => (
+                              <div key={i} className="w-1 h-1 bg-gray-800 rounded-sm" />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="relative z-10">
-                      <h4 className="text-xs font-medium text-gray-900 mb-1">Explore nearby</h4>
-                      <p className="text-xs text-gray-600 leading-relaxed">Spaces, events, food & more</p>
+                  </div>
+
+                  {/* Helpful Links */}
+                  <div>
+                    <h5 className="text-sm font-medium text-gray-900 mb-3">Helpful links</h5>
+                    <div className="space-y-2">
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
+                      >
+                        Building resources
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
+                      >
+                        Policies & guidelines
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
+                      >
+                        Emergency procedures
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
+                      >
+                        Contact directory
+                      </Button>
                     </div>
-                  </Link>
+                  </div>
                 </div>
               </div>
             )}
@@ -1106,236 +1043,238 @@ export default function VercelNavigation() {
 
                 {/* Hero Card */}
                 <HeroCard
-                  backgroundImage="https://images.unsplash.com/photo-1555109307-f7d9da25c244?w=1920&h=600&fit=crop&crop=faces,center"
+                  backgroundImage="https://images.unsplash.com/photo-1554638413-dbf3b0c6e1f7?w=1920&h=600&fit=crop&crop=faces,center"
+                  buildingName={primaryBuilding}
                   onAssistantSubmit={handleAssistantSubmit}
                 />
 
                 {/* Quick Actions */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="p-6 rounded-xl border bg-white shadow-sm">
-                    <Building className="h-6 w-6 mb-4 text-gray-500 stroke-[1.5]" />
-                    <h3 className="text-base font-medium mb-2">Book a space</h3>
-                    <p className="text-sm text-muted-foreground mb-4">Reserve meeting rooms, workspaces, and more.</p>
+                  {/* Book a space */}
+                  <div className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <h3 className="text-base font-medium mb-2 text-gray-900">Book a space</h3>
+                        <p className="text-sm text-gray-600">Reserve meeting rooms, workspaces, and more.</p>
+                      </div>
+                      <div className="ml-4 flex-shrink-0">
+                        <div className="w-16 h-16 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg flex items-center justify-center">
+                          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="w-12 h-12">
+                            <path d="M12 16L36 16L34 32L14 32L12 16Z" fill="#E3F2FD" stroke="#1976D2" strokeWidth="1.5"/>
+                            <rect x="16" y="20" width="16" height="8" fill="#BBDEFB" stroke="#1976D2" strokeWidth="1"/>
+                            <circle cx="20" cy="24" r="1" fill="#1976D2"/>
+                            <circle cx="28" cy="24" r="1" fill="#1976D2"/>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="p-6 rounded-xl border bg-white shadow-sm">
-                    <UserPlus className="h-6 w-6 mb-4 text-gray-500 stroke-[1.5]" />
-                    <h3 className="text-base font-medium mb-2">Register a guest</h3>
-                    <p className="text-sm text-muted-foreground mb-4">Pre-register visitors for easy check-in.</p>
+                  {/* Register a guest */}
+                  <div className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <h3 className="text-base font-medium mb-2 text-gray-900">Register a guest</h3>
+                        <p className="text-sm text-gray-600">Pre-register guest for easy check-in.</p>
+                      </div>
+                      <div className="ml-4 flex-shrink-0">
+                        <div className="w-16 h-16 bg-gradient-to-br from-green-50 to-green-100 rounded-lg flex items-center justify-center">
+                          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="w-12 h-12">
+                            <circle cx="18" cy="18" r="6" fill="#C8E6C9" stroke="#388E3C" strokeWidth="1.5"/>
+                            <circle cx="30" cy="22" r="4" fill="#A5D6A7" stroke="#388E3C" strokeWidth="1.5"/>
+                            <path d="M8 40C8 32 12 28 18 28C24 28 28 32 28 40" fill="#E8F5E8" stroke="#388E3C" strokeWidth="1.5"/>
+                            <path d="M22 40C22 36 24 34 30 34C36 34 38 36 38 40" fill="#C8E6C9" stroke="#388E3C" strokeWidth="1.5"/>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="p-6 rounded-xl border bg-white shadow-sm">
-                    <Wrench className="h-6 w-6 mb-4 text-gray-500 stroke-[1.5]" />
-                    <h3 className="text-base font-medium mb-2">Click to fix</h3>
-                    <p className="text-sm text-muted-foreground mb-4">Report and track maintenance issues.</p>
+                  {/* Service requests */}
+                  <div className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <h3 className="text-base font-medium mb-2 text-gray-900">Service requests</h3>
+                        <p className="text-sm text-gray-600">Report and track maintenance issues</p>
+                      </div>
+                      <div className="ml-4 flex-shrink-0">
+                        <div className="w-16 h-16 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg flex items-center justify-center">
+                          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="w-12 h-12">
+                            <circle cx="24" cy="28" r="6" fill="#FFE0B2" stroke="#F57C00" strokeWidth="1.5"/>
+                            <path d="M18 28L20 26L22 28" fill="none" stroke="#F57C00" strokeWidth="1.5"/>
+                            <path d="M26 28L28 26L30 28" fill="none" stroke="#F57C00" strokeWidth="1.5"/>
+                            <rect x="20" y="16" width="8" height="8" fill="#FFCC80" stroke="#F57C00" strokeWidth="1.5" rx="1"/>
+                            <path d="M22 18L26 18M22 20L26 20M22 22L24 22" stroke="#F57C00" strokeWidth="1"/>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="p-6 rounded-xl border bg-white shadow-sm">
-                    <CalendarDays className="h-6 w-6 mb-4 text-gray-500 stroke-[1.5]" />
-                    <h3 className="text-base font-medium mb-2">View events</h3>
-                    <p className="text-sm text-muted-foreground mb-4">See upcoming building events and activities.</p>
+                  {/* Events & services */}
+                  <div className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <h3 className="text-base font-medium mb-2 text-gray-900">Events & services</h3>
+                        <p className="text-sm text-gray-600">See upcoming events and services</p>
+                      </div>
+                      <div className="ml-4 flex-shrink-0">
+                        <div className="w-16 h-16 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg flex items-center justify-between">
+                          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="w-12 h-12">
+                            <rect x="12" y="18" width="24" height="18" fill="#E1BEE7" stroke="#7B1FA2" strokeWidth="1.5" rx="2"/>
+                            <rect x="16" y="22" width="4" height="3" fill="#CE93D8" rx="0.5"/>
+                            <rect x="22" y="22" width="4" height="3" fill="#CE93D8" rx="0.5"/>
+                            <rect x="28" y="22" width="4" height="3" fill="#CE93D8" rx="0.5"/>
+                            <rect x="16" y="27" width="4" height="3" fill="#CE93D8" rx="0.5"/>
+                            <rect x="22" y="27" width="4" height="3" fill="#CE93D8" rx="0.5"/>
+                            <path d="M18 14V18M30 14V18" stroke="#7B1FA2" strokeWidth="1.5"/>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                {/* Welcome Card with Carousel and Blog Posts */}
-                <div className="pt-16 mt-[80px]">
-                  <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-normal">What's Happening</h2>
-                    <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("your-feed")}>
-                      View all updates
-                      <ChevronRightIcon className="h-4 w-4" />
+                {/* What's happening */}
+                <div className="pt-16 mt-[80px] space-y-8">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-semibold">What's happening</h2>
+                    <Button variant="ghost" className="text-sm text-gray-600 hover:text-gray-900">
+                      View all updates →
                     </Button>
                   </div>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[400px]">
-                    {/* Carousel Half */}
-                    <div className="relative rounded-xl overflow-hidden bg-card border shadow-sm h-full">
-                      <ModernCarousel slides={carouselSlides} className="h-full" />
-                    </div>
-
-                    {/* Blog Posts Half */}
-                    <div className="flex flex-col justify-between h-full">
-                      {/* Blog Post 1 */}
-                      <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33%-0.5rem)]">
-                        <div className="w-1/3 relative">
-                          <img 
-                            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=400&fit=crop" 
-                            alt="Rooftop garden" 
-                            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
-                        </div>
-                        <div className="w-2/3 p-4">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="secondary" className="bg-green-50 text-green-700 hover:bg-green-50 text-xs">
-                              Sustainability
-                            </Badge>
-                            <span className="text-xs text-muted-foreground">2 days ago</span>
-                          </div>
-                          <h3 className="text-sm font-semibold mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">New Rooftop Garden Opening This Summer</h3>
-                          <p className="text-xs text-muted-foreground line-clamp-2">Experience our latest green initiative with stunning city views. Perfect for meetings, lunches, or quiet work time.</p>
-                        </div>
-                      </div>
-
-                      {/* Blog Post 2 */}
-                      <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33%-0.5rem)]">
-                        <div className="w-1/3 relative">
-                          <img 
-                            src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=600&fit=crop" 
-                            alt="Fitness center" 
-                            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
-                        </div>
-                        <div className="w-2/3 p-4">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="secondary" className="bg-purple-50 text-purple-700 hover:bg-purple-50 text-xs">
-                              Wellness
-                            </Badge>
-                            <span className="text-xs text-muted-foreground">4 days ago</span>
-                          </div>
-                          <h3 className="text-sm font-semibold mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">Expanded Fitness Center Hours</h3>
-                          <p className="text-xs text-muted-foreground line-clamp-2">Our newly renovated fitness center will now be open 24/7 with enhanced security and cleaning protocols.</p>
-                        </div>
-                      </div>
-
-                      {/* Blog Post 3 */}
-                      <div className="group rounded-xl border bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow flex h-[calc(33%-0.5rem)]">
-                        <div className="w-1/3 relative">
-                          <img 
-                            src="https://images.unsplash.com/photo-1577412647305-991150c7d163?w=800&h=400&fit=crop" 
-                            alt="Electric vehicle charging stations" 
-                            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
-                        </div>
-                        <div className="w-2/3 p-4">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="secondary" className="bg-blue-50 text-blue-700 hover:bg-blue-50 text-xs">
-                              Infrastructure
-                            </Badge>
-                            <span className="text-xs text-muted-foreground">1 week ago</span>
-                          </div>
-                          <h3 className="text-sm font-semibold mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">New EV Charging Stations Added</h3>
-                          <p className="text-xs text-muted-foreground line-clamp-2">Ten new electric vehicle charging stations have been installed in the parking garage, supporting our commitment to sustainability.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Testimonials Section */}
-                <div className="pt-16 mt-[80px]">
-                  <div className="flex items-center justify-center mb-0">
-                    <h1 className="text-2xl font-bold text-black">Meet the staff</h1>
-                  </div>
-                  <AnimatedTestimonialsDemo />
-                </div>
-
-                {/* Resources & Mobile App Cards */}
-                <div className="pt-16 mt-[80px]">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* Resources Card */}
-                    <div className="bg-white rounded-xl border shadow-sm p-6 hover:shadow-md transition-shadow">
-                      <div className="flex items-start gap-4">
-                        <div className="p-3 bg-blue-50 rounded-lg">
-                          <FileText className="h-6 w-6 text-blue-600" />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="text-lg font-semibold text-gray-900 mb-2">Resources</h3>
-                          <p className="text-sm text-gray-600 mb-4">
-                            Access important documents and forms for building services and amenities.
-                          </p>
-                          <div className="space-y-2">
-                            <a 
-                              href="/resources/gym-waiver.pdf" 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 transition-colors"
-                            >
-                              <FileText className="h-4 w-4" />
-                              Gym Waiver Form
-                            </a>
-                            <a 
-                              href="/resources/parking-pass.pdf" 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 transition-colors"
-                            >
-                              <FileText className="h-4 w-4" />
-                              Parking Pass Application
-                            </a>
-                            <a 
-                              href="/resources/building-policies.pdf" 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 transition-colors"
-                            >
-                              <FileText className="h-4 w-4" />
-                              Building Policies & Guidelines
-                            </a>
-                            <a 
-                              href="/resources/emergency-procedures.pdf" 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 transition-colors"
-                            >
-                              <FileText className="h-4 w-4" />
-                              Emergency Procedures
-                            </a>
+                    {/* Featured Event Card */}
+                    <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+                      <div className="aspect-[4/3] relative">
+                        <img 
+                          src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop" 
+                          alt="Summer Outing" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="p-6">
+                        <h3 className="text-2xl font-semibold mb-2">Summer Outing</h3>
+                        <p className="text-gray-600 mb-4">
+                          Join us for our annual Summer Outing on June 10, 2025, from 3:00 PM to 7:00 PM at Riverside Park. Enjoy food, games, and great company!
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium">Sat, June 10 • 3 PM</p>
+                            <p className="text-sm text-gray-600">Boston, MA</p>
                           </div>
-                          <Button variant="outline" className="mt-4 w-full">
-                            View all resources
+                          <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6">
+                            RSVP
                           </Button>
                         </div>
                       </div>
                     </div>
 
-                    {/* Mobile App Card */}
-                    <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl border shadow-sm p-6 text-white hover:shadow-md transition-shadow">
-                      <div className="flex items-start gap-4">
-                        <div className="p-3 bg-white/10 rounded-lg">
-                          <Smartphone className="h-6 w-6 text-white" />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="text-lg font-semibold mb-2">Get the Mobile App</h3>
-                          <p className="text-sm text-gray-300 mb-4">
-                            Access everything on the go with mobile check-in, space booking, and building services.
-                          </p>
-                          <div className="flex items-center gap-4">
-                            <div className="flex-1">
-                              <div className="space-y-2 text-sm text-gray-300">
-                                <div className="flex items-center gap-2">
-                                  <div className="w-1 h-1 bg-gray-400 rounded-full" />
-                                  <span>Mobile access & check-in</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <div className="w-1 h-1 bg-gray-400 rounded-full" />
-                                  <span>Book spaces on the go</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <div className="w-1 h-1 bg-gray-400 rounded-full" />
-                                  <span>Real-time notifications</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <div className="w-1 h-1 bg-gray-400 rounded-full" />
-                                  <span>Building directory</span>
-                                </div>
-                              </div>
+                    {/* Feed Items */}
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between p-4 bg-white rounded-lg border hover:shadow-sm transition-shadow">
+                        <div className="flex items-center space-x-3">
+                          <img 
+                            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=80&h=80&fit=crop" 
+                            alt="Food" 
+                            className="w-12 h-12 rounded-lg object-cover"
+                          />
+                          <div>
+                            <div className="flex items-center space-x-2 mb-1">
+                              <Badge className="bg-orange-100 text-orange-700 hover:bg-orange-100">Food</Badge>
+                              <span className="text-sm text-gray-500">2 days ago</span>
                             </div>
-                            <div className="flex-shrink-0">
-                              <div className="w-20 h-20 bg-white rounded-lg p-2 flex items-center justify-center">
-                                <img 
-                                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjRkZGRkZGIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iOCIgeT0iMCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSIxNiIgeT0iMCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSIyNCIgeT0iMCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSIzMiIgeT0iMCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSI0MCIgeT0iMCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSI0OCIgeT0iMCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSI1NiIgeT0iMCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSIwIiB5PSI4IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjE2IiB5PSI4IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjMyIiB5PSI4IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjQ4IiB5PSI4IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjU2IiB5PSI4IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjAiIHk9IjE2IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjE2IiB5PSIxNiIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSIyNCIgeT0iMTYiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iMzIiIHk9IjE2IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjQ4IiB5PSIxNiIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSI1NiIgeT0iMTYiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iMCIgeT0iMjQiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iMTYiIHk9IjI0IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjI0IiB5PSIyNCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSIzMiIgeT0iMjQiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iNDgiIHk9IjI0IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjU2IiB5PSIyNCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSIwIiB5PSIzMiIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSI4IiB5PSIzMiIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSIxNiIgeT0iMzIiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iMjQiIHk9IjMyIiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjMyIiB5PSIzMiIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSI0MCIgeT0iMzIiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iNDgiIHk9IjMyIiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjU2IiB5PSIzMiIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSI4IiB5PSI0MCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSIyNCIgeT0iNDAiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iNDAiIHk9IjQwIiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjU2IiB5PSI0MCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSIwIiB5PSI0OCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSIxNiIgeT0iNDgiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iMjQiIHk9IjQ4IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjMyIiB5PSI0OCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSI0OCIgeT0iNDgiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iNTYiIHk9IjQ4IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjAiIHk9IjU2IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjgiIHk9IjU2IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjE2IiB5PSI1NiIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSIyNCIgeT0iNTYiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iMzIiIHk9IjU2IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+CjxyZWN0IHg9IjQwIiB5PSI1NiIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8cmVjdCB4PSI0OCIgeT0iNTYiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iNTYiIHk9IjU2IiB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDAwMDAwIi8+Cjwvc3ZnPgo="
-                                  alt="QR Code"
-                                  className="w-full h-full object-contain"
-                                />
-                              </div>
-                              <p className="text-xs text-gray-400 text-center mt-2">Scan to download</p>
-                            </div>
+                            <h4 className="font-medium mb-1">Order lunch with Picnic!</h4>
+                            <p className="text-sm text-gray-600">Quantum City has partnered with Picnic, the leading provider of endless food options delivered effortlessly to your doorstep.</p>
                           </div>
-                          <Button variant="secondary" className="mt-4 w-full bg-white text-gray-900 hover:bg-gray-100">
-                            Download App
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between p-4 bg-white rounded-lg border hover:shadow-sm transition-shadow">
+                        <div className="flex items-center space-x-3">
+                          <img 
+                            src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=80&h=80&fit=crop" 
+                            alt="App update" 
+                            className="w-12 h-12 rounded-lg object-cover"
+                          />
+                          <div>
+                            <div className="flex items-center space-x-2 mb-1">
+                              <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100">Announcement</Badge>
+                              <span className="text-sm text-gray-500">4 days ago</span>
+                            </div>
+                            <h4 className="font-medium mb-1">Mobile app update</h4>
+                            <p className="text-sm text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad...</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between p-4 bg-white rounded-lg border hover:shadow-sm transition-shadow">
+                        <div className="flex items-center space-x-3">
+                          <img 
+                            src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=80&h=80&fit=crop" 
+                            alt="Food hall" 
+                            className="w-12 h-12 rounded-lg object-cover"
+                          />
+                          <div>
+                            <div className="flex items-center space-x-2 mb-1">
+                              <Badge className="bg-green-100 text-green-700 hover:bg-green-100">Amenities</Badge>
+                              <span className="text-sm text-gray-500">1 week ago</span>
+                            </div>
+                            <h4 className="font-medium mb-1">New food hall</h4>
+                            <p className="text-sm text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad...</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Upcoming events */}
+                <div className="pt-16 space-y-6">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-semibold">Upcoming events</h2>
+                    <Button variant="ghost" className="text-sm text-gray-600 hover:text-gray-900">
+                      View all events →
+                    </Button>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Tech Networking Mixer */}
+                    <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+                      <div className="aspect-[4/3] relative">
+                        <img 
+                          src="https://images.unsplash.com/photo-1515169067868-5387ec356754?w=800&h=600&fit=crop" 
+                          alt="Tech Networking Mixer" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="p-6">
+                        <h3 className="text-lg font-semibold mb-2">Tech Networking Mixer</h3>
+                        <div className="flex items-center justify-between">
+                          <p className="text-gray-600">June 15, 2025 • 6:00 PM</p>
+                          <Button variant="outline" className="text-blue-600 border-blue-600 hover:bg-blue-50">
+                            RSVP
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Summer Party */}
+                    <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+                      <div className="aspect-[4/3] relative">
+                        <img 
+                          src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&h=600&fit=crop" 
+                          alt="Summer Party" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="p-6">
+                        <h3 className="text-lg font-semibold mb-2">Summer Party</h3>
+                        <div className="flex items-center justify-between">
+                          <p className="text-gray-600">June 15, 2025 • 6:00 PM</p>
+                          <Button variant="outline" className="text-blue-600 border-blue-600 hover:bg-blue-50">
+                            RSVP
                           </Button>
                         </div>
                       </div>
@@ -1343,276 +1282,177 @@ export default function VercelNavigation() {
                   </div>
                 </div>
 
-                {/* Events Section */}
-                <div className="pt-16 mt-[80px]">
-                  <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-normal">Upcoming Events</h2>
-                    <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("events")}>
-                      View all events
-                      <ChevronRightIcon className="h-4 w-4" />
+                {/* Support materials */}
+                <div className="pt-16 space-y-6 mb-[88px]">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-semibold">Support materials</h2>
+                    <Button variant="ghost" className="text-sm text-gray-600 hover:text-gray-900">
+                      View all materials →
                     </Button>
                   </div>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {/* Event Card 1 */}
-                    <div className="group relative bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
-                      <img 
-                        src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=500&fit=crop" 
-                        alt="Networking event" 
-                        className="aspect-[4/3] object-cover w-full group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
-                        <p className="text-sm font-medium mb-1">Tech Networking Mixer</p>
-                        <p className="text-xs opacity-80">June 15, 2025 • 6:00 PM</p>
-                      </div>
-                      <div className="p-4 group-hover:opacity-0 transition-opacity">
-                        <p className="text-sm font-medium text-gray-900 mb-1">Tech Networking Mixer</p>
-                        <p className="text-xs text-gray-600">June 15, 2025 • 6:00 PM</p>
-                      </div>
-                    </div>
-
-                    {/* Event Card 2 */}
-                    <div className="group relative bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
-                      <img 
-                        src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&h=500&fit=crop" 
-                        alt="Wellness workshop" 
-                        className="aspect-[4/3] object-cover w-full group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
-                        <p className="text-sm font-medium mb-1">Wellness Workshop</p>
-                        <p className="text-xs opacity-80">June 20, 2025 • 12:00 PM</p>
-                      </div>
-                      <div className="p-4 group-hover:opacity-0 transition-opacity">
-                        <p className="text-sm font-medium text-gray-900 mb-1">Wellness Workshop</p>
-                        <p className="text-xs text-gray-600">June 20, 2025 • 12:00 PM</p>
-                      </div>
-                    </div>
-
-                    {/* Event Card 3 */}
-                    <div className="group relative bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
-                      <img 
-                        src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=500&fit=crop" 
-                        alt="Building tour" 
-                        className="aspect-[4/3] object-cover w-full group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
-                        <p className="text-sm font-medium mb-1">Building Tour & Happy Hour</p>
-                        <p className="text-xs opacity-80">June 25, 2025 • 4:00 PM</p>
-                      </div>
-                      <div className="p-4 group-hover:opacity-0 transition-opacity">
-                        <p className="text-sm font-medium text-gray-900 mb-1">Building Tour & Happy Hour</p>
-                        <p className="text-xs text-gray-600">June 25, 2025 • 4:00 PM</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* On-site Food and Retail Section */}
-                <div className="pt-16 mt-[80px]">
-                  <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-normal">On-site Food and Retail</h2>
-                    <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("food-retail")}>
-                      View all
-                      <ChevronRightIcon className="h-4 w-4" />
-                    </Button>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {/* Coffee Shop */}
-                    <div className="group relative bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
-                      <div className="aspect-[4/3] relative overflow-hidden">
-                        <img 
-                          src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800&h=600&fit=crop" 
-                          alt="Empire Coffee Co." 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        <div className="absolute top-3 left-3">
-                          <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100">
-                            <Coffee className="h-3 w-3 mr-1" />
-                            Coffee Shop
-                          </Badge>
+                    {/* Row 1 */}
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center mt-1">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-blue-600">
+                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 13H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 17H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M10 9H9H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
                         </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <div className="absolute bottom-3 left-3 right-3 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                          <p className="text-sm font-medium mb-1">Empire Coffee Co.</p>
-                          <p className="text-xs opacity-90">Premium coffee • Fresh pastries • Quick bites</p>
-                        </div>
-                      </div>
-                      <div className="p-4 group-hover:opacity-0 transition-opacity">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-sm font-medium text-gray-900">Empire Coffee Co.</h3>
-                          <div className="flex items-center gap-1">
-                            <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                            <span className="text-xs text-gray-600">4.8</span>
-                          </div>
-                        </div>
-                        <p className="text-xs text-gray-600 mb-3">Premium coffee • Fresh pastries • Quick bites</p>
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="text-green-600 font-medium">• Open now</span>
-                          <span className="text-gray-500">Ground floor</span>
+                        <div className="flex-1">
+                          <h3 className="font-medium text-gray-900 mb-1">Gym Waiver Form</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
                         </div>
                       </div>
                     </div>
 
-                    {/* Restaurant 1 */}
-                    <div className="group relative bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
-                      <div className="aspect-[4/3] relative overflow-hidden">
-                        <img 
-                          src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop" 
-                          alt="Skyline Bistro" 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        <div className="absolute top-3 left-3">
-                          <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">
-                            <UtensilsCrossed className="h-3 w-3 mr-1" />
-                            Restaurant
-                          </Badge>
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center mt-1">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-blue-600">
+                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 13H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 17H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M10 9H9H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
                         </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <div className="absolute bottom-3 left-3 right-3 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                          <p className="text-sm font-medium mb-1">Skyline Bistro</p>
-                          <p className="text-xs opacity-90">Modern American • Business lunch • City views</p>
-                        </div>
-                      </div>
-                      <div className="p-4 group-hover:opacity-0 transition-opacity">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-sm font-medium text-gray-900">Skyline Bistro</h3>
-                          <div className="flex items-center gap-1">
-                            <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                            <span className="text-xs text-gray-600">4.6</span>
-                          </div>
-                        </div>
-                        <p className="text-xs text-gray-600 mb-3">Modern American • Business lunch • City views</p>
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="text-green-600 font-medium">• Open now</span>
-                          <span className="text-gray-500">15th floor</span>
+                        <div className="flex-1">
+                          <h3 className="font-medium text-gray-900 mb-1">Emergency Procedures</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
                         </div>
                       </div>
                     </div>
 
-                    {/* Restaurant 2 */}
-                    <div className="group relative bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
-                      <div className="aspect-[4/3] relative overflow-hidden">
-                        <img 
-                          src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&h=600&fit=crop" 
-                          alt="Metro Market" 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        <div className="absolute top-3 left-3">
-                          <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
-                            <Store className="h-3 w-3 mr-1" />
-                            Market
-                          </Badge>
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center mt-1">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-blue-600">
+                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 13H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 17H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M10 9H9H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
                         </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <div className="absolute bottom-3 left-3 right-3 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                          <p className="text-sm font-medium mb-1">Metro Market</p>
-                          <p className="text-xs opacity-90">Fresh salads • Grab & go • Healthy options</p>
-                        </div>
-                      </div>
-                      <div className="p-4 group-hover:opacity-0 transition-opacity">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-sm font-medium text-gray-900">Metro Market</h3>
-                          <div className="flex items-center gap-1">
-                            <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                            <span className="text-xs text-gray-600">4.7</span>
-                          </div>
-                        </div>
-                        <p className="text-xs text-gray-600 mb-3">Fresh salads • Grab & go • Healthy options</p>
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="text-green-600 font-medium">• Open now</span>
-                          <span className="text-gray-500">Concourse level</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Spaces Section */}
-                <div className="pt-16 mt-[80px] mb-[88px]">
-                  <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-normal">Featured Spaces</h2>
-                    <Button variant="ghost" className="text-sm gap-2" onClick={() => setCurrentPage("book-space")}>
-                      View all spaces
-                      <ChevronRightIcon className="h-4 w-4" />
-                    </Button>
-                  </div>
-
-                  <div className="grid grid-cols-12 gap-6">
-                    {/* Large Featured Space */}
-                    <div className="col-span-12 md:col-span-8">
-                      <div className="group relative h-[300px] bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
-                        <div className="absolute inset-0">
-                          <img 
-                            src="https://images.unsplash.com/photo-1497366412874-3415097a27e7?w=1200&h=800&fit=crop" 
-                            alt="Conference center" 
-                            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
-                        </div>
-                        <div className="relative h-full flex flex-col justify-end p-6 text-white">
-                          <div className="space-y-2">
-                            <Badge className="bg-blue-500/20 text-blue-100 hover:bg-blue-500/30 transition-colors">
-                              Conference Center
-                            </Badge>
-                            <h3 className="text-2xl font-semibold">Grand Hall</h3>
-                            <p className="text-sm text-blue-100/80 max-w-md">
-                              Our flagship space perfect for large events, conferences, and gatherings up to 200 people
-                            </p>
-                          </div>
-                          <div className="flex items-center gap-4 mt-6">
-                            <Button 
-                              className="bg-white text-gray-900 hover:bg-white/90"
-                              onClick={() => setCurrentPage("book-space")}
-                            >
-                              Book now
-                            </Button>
-                            <Button variant="ghost" className="text-white hover:bg-white/20">
-                              Learn more
-                            </Button>
-                          </div>
+                        <div className="flex-1">
+                          <h3 className="font-medium text-gray-900 mb-1">Parking Pass Application</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
                         </div>
                       </div>
                     </div>
 
-                    {/* Side Spaces */}
-                    <div className="col-span-12 md:col-span-4 space-y-6">
-                      {/* Side Space 1 */}
-                      <div className="group relative h-[142px] bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
-                        <div className="absolute inset-0">
-                          <img 
-                            src="https://images.unsplash.com/photo-1497215842964-222b430dc094?w=600&h=400&fit=crop" 
-                            alt="Meeting room" 
-                            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/20" />
+                    {/* Row 2 */}
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center mt-1">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-blue-600">
+                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 13H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 17H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M10 9H9H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
                         </div>
-                        <div className="relative h-full flex flex-col justify-end p-4 text-white">
-                          <Badge className="w-fit bg-green-500/20 text-green-100 hover:bg-green-500/30 transition-colors mb-2">
-                            Meeting Room
-                          </Badge>
-                          <p className="text-sm font-medium">Executive Suite</p>
+                        <div className="flex-1">
+                          <h3 className="font-medium text-gray-900 mb-1">Building Policies</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
                         </div>
                       </div>
+                    </div>
 
-                      {/* Side Space 2 */}
-                      <div className="group relative h-[142px] bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
-                        <div className="absolute inset-0">
-                          <img 
-                            src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=600&h=400&fit=crop" 
-                            alt="Collaborative space" 
-                            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/20" />
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center mt-1">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-blue-600">
+                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 13H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 17H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M10 9H9H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
                         </div>
-                        <div className="relative h-full flex flex-col justify-end p-4 text-white">
-                          <Badge className="w-fit bg-purple-500/20 text-purple-100 hover:bg-purple-500/30 transition-colors mb-2">
-                            Collaborative
-                          </Badge>
-                          <p className="text-sm font-medium">Innovation Hub</p>
+                        <div className="flex-1">
+                          <h3 className="font-medium text-gray-900 mb-1">Safety Guidelines</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center mt-1">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-blue-600">
+                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 13H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 17H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M10 9H9H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-medium text-gray-900 mb-1">Visitor Guidelines</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Row 3 */}
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center mt-1">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-blue-600">
+                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 13H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 17H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M10 9H9H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-medium text-gray-900 mb-1">Event Request Form</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center mt-1">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-blue-600">
+                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 13H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 17H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M10 9H9H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-medium text-gray-900 mb-1">Facility Map</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center mt-1">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-blue-600">
+                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 13H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 17H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M10 9H9H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-medium text-gray-900 mb-1">Maintenance Request</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
                         </div>
                       </div>
                     </div>

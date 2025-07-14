@@ -25,7 +25,7 @@ export default function SignupPage() {
         <div className="w-full max-w-md space-y-8">
           {/* Logo */}
           <div className="flex justify-center">
-            <div className="h-12 w-auto">
+            <div className="h-36 w-auto">
               <img 
                 src="/logo.svg" 
                 alt="Logo" 

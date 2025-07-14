@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Roboto } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { SiteFooter } from "@/components/site-footer"
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -23,9 +24,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={roboto.className}>
+      <body className={`${roboto.className} min-h-screen flex flex-col`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          {children}
+          <div className="flex-1 flex flex-col">
+            {children}
+          </div>
+          <SiteFooter />
         </ThemeProvider>
       </body>
     </html>
