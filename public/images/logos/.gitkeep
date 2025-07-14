@@ -1,0 +1,10 @@
+# Logos Directory
+
+Add your logo files here:
+- Alexandria main logo (various sizes)
+- Partner logos
+- Client logos
+- Brand assets
+
+Example usage:
+<img src="/images/logos/alexandria-logo.svg" alt="Alexandria Logo" /> 

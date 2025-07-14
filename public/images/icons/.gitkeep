@@ -1,0 +1,10 @@
+# Icons Directory
+
+Add your icon images here:
+- UI icons and graphics
+- Custom illustrations
+- Navigation icons
+- Button icons
+
+Example usage:
+<img src="/images/icons/calendar-icon.svg" alt="Calendar" className="w-6 h-6" /> 

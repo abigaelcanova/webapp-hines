@@ -1,0 +1,12 @@
+# Avatars Directory
+
+Add your avatar images here:
+- User profile pictures
+- Team member photos
+- Default avatar images
+- Staff headshots
+
+Example usage:
+<Avatar>
+  <AvatarImage src="/images/avatars/john-doe.jpg" alt="John Doe" />
+</Avatar> 

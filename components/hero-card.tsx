@@ -99,7 +99,7 @@ export function HeroCard({
       {/* Background Image */}
       <img
         src={backgroundImage}
-        alt="Empire State Building"
+        alt="Alexandria Center"
         className="absolute inset-0 w-full h-full object-cover object-center rounded-2xl"
       />
       {/* Gradient Overlay */}

@@ -555,7 +555,7 @@ export default function VercelNavigation() {
   return (
     <div className="bg-[#F9FAFB]">
       <div className="flex flex-col min-h-screen w-full">
-        <header className="sticky top-0 z-40 grid grid-cols-12 items-center h-14 px-4 bg-[#F9FAFB]">
+        <header className="sticky top-0 z-40 grid grid-cols-12 items-center h-20 px-4 bg-[#F9FAFB]">
           {/* Left section - Menu and Logo */}
           <div className="col-span-2 flex items-center gap-4">
             {/* Menu Toggle */}
@@ -575,9 +575,12 @@ export default function VercelNavigation() {
               <span className="sr-only">Toggle navigation menu</span>
             </Button>
 
-            {/* Logo */}
-            <div className="h-24">
-              <img src="/logo.svg" alt="Logo" className="h-full w-auto" />
+            {/* Logo and Landlord Name */}
+            <div className="flex items-center gap-3">
+              <div className="h-8">
+                <img src="/images/logos/lighthouse.png" alt="Logo" className="h-full w-auto" />
+              </div>
+              <span className="text-lg font-semibold text-gray-900">Alexandria</span>
             </div>
           </div>
 
@@ -1043,7 +1046,7 @@ export default function VercelNavigation() {
 
                 {/* Hero Card */}
                 <HeroCard
-                  backgroundImage="https://images.unsplash.com/photo-1554638413-dbf3b0c6e1f7?w=1920&h=600&fit=crop&crop=faces,center"
+                  backgroundImage="/images/buildings/Program-Alexandria-Center-Gallery-Image-Photo-Evan-Joseph-Courtey-of-Alexandria-Center-0685.webp"
                   buildingName={primaryBuilding}
                   onAssistantSubmit={handleAssistantSubmit}
                 />
@@ -1461,57 +1464,72 @@ export default function VercelNavigation() {
               </div>
             ) : currentPage === "book-space" ? (
               <div className="space-y-6">
-                {/* Booking Header */}
+                {/* Header */}
+                <div className="space-y-2">
+                  <h2 className="text-xl font-semibold">Book a resource</h2>
+                  <p className="text-sm text-gray-600">Find and reserve what you need, when you need it. Drag to select time slots.</p>
+                </div>
+
+                {/* Date Navigation and Controls */}
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <h2 className="text-xl font-normal">Book a space</h2>
-                    <div className="flex items-center gap-2 ml-8">
-                      <Button variant="outline" size="sm" className="h-8">
-                        <ChevronLeftIcon className="h-4 w-4" />
-                        <span className="sr-only">Previous day</span>
-                      </Button>
-                      <Button variant="outline" size="sm" className="h-8 px-3 font-normal">
-                        {bookingDateLabel}
-                      </Button>
-                      <Button variant="outline" size="sm" className="h-8">
-                        <ChevronRightIcon className="h-4 w-4" />
-                        <span className="sr-only">Next day</span>
-                      </Button>
-                    </div>
+                  <div className="flex items-center gap-3">
+                    <Button variant="outline" size="sm" className="h-8">
+                      <ChevronLeftIcon className="h-4 w-4" />
+                      <span className="sr-only">Previous day</span>
+                    </Button>
+                    <span className="text-sm font-medium">May 25, 2025</span>
+                    <Button variant="outline" size="sm" className="h-8">
+                      <ChevronRightIcon className="h-4 w-4" />
+                      <span className="sr-only">Next day</span>
+                    </Button>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Button variant={bookingViewType === "day" ? "default" : "outline"} size="sm" onClick={() => setBookingViewType("day")}>
-                      Day
-                    </Button>
-                    <Button variant={bookingViewType === "week" ? "default" : "outline"} size="sm" onClick={() => setBookingViewType("week")}>
-                      Week
-                    </Button>
-                    <Button variant={bookingViewType === "month" ? "default" : "outline"} size="sm" onClick={() => setBookingViewType("month")}>
-                      Month
+                  <div className="flex items-center gap-3">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="outline" size="sm" className="h-8">
+                          Main Building
+                          <ChevronDown className="h-4 w-4 ml-1" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuItem>Main Building</DropdownMenuItem>
+                        <DropdownMenuItem>Science Wing</DropdownMenuItem>
+                        <DropdownMenuItem>East Tower</DropdownMenuItem>
+                        <DropdownMenuItem>North Building</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                    <Button variant="outline" size="sm" className="h-8">
+                      <svg className="h-4 w-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                      </svg>
+                      Filters
                     </Button>
                   </div>
                 </div>
 
                 {/* Resource Type Tabs */}
-                <div className="flex gap-2 border-b pb-3">
-                  <Button variant="ghost" size="sm" className="text-primary font-medium">
-                    Space
+                <div className="flex gap-1">
+                  <Button variant="default" size="sm" className="bg-primary text-white">
+                    All
                   </Button>
-                  <Button variant="ghost" size="sm" className="text-muted-foreground">
+                  <Button variant="ghost" size="sm" className="text-gray-600">
+                    Lab
+                  </Button>
+                  <Button variant="ghost" size="sm" className="text-gray-600">
+                    Conference space
+                  </Button>
+                  <Button variant="ghost" size="sm" className="text-gray-600">
                     Equipment
-                  </Button>
-                  <Button variant="ghost" size="sm" className="text-muted-foreground">
-                    Transportation
                   </Button>
                 </div>
 
-                {/* Calendar Grid */}
-                <div className="rounded-lg border bg-white shadow-sm">
+                {/* Time Slot Grid */}
+                <div className="rounded-lg border bg-white">
                   {/* Time Header */}
-                  <div className="grid grid-cols-[200px,repeat(14,1fr)] border-b">
+                  <div className="grid grid-cols-[200px,repeat(10,1fr)] border-b">
                     <div className="p-3 border-r text-sm font-medium">Resource</div>
-                    {timeSlots.map((time) => (
-                      <div key={time} className="p-3 text-center text-sm text-muted-foreground font-normal">
+                    {['9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM'].map((time) => (
+                      <div key={time} className="p-3 text-center text-sm text-gray-600 font-normal">
                         {time}
                       </div>
                     ))}
@@ -1519,22 +1537,40 @@ export default function VercelNavigation() {
 
                   {/* Resource Rows */}
                   <div className="divide-y">
-                    {bookingResources.map((resource) => (
-                      <div key={resource.id} className="grid grid-cols-[200px,repeat(14,1fr)]">
+                    {[
+                      { name: 'Conference room', location: 'Main Building', unavailable: [0, 1, 2, 3] },
+                      { name: 'Lab 3', location: 'Science Wing', unavailable: [] },
+                      { name: 'Telescope', location: 'Observatory', unavailable: [] },
+                      { name: 'Meeting room', location: 'East Tower', unavailable: [] },
+                      { name: 'The Lounge', location: 'Student Center', unavailable: [] },
+                      { name: 'Roof deck', location: 'North Building', unavailable: [] }
+                    ].map((resource, index) => (
+                      <div key={index} className="grid grid-cols-[200px,repeat(10,1fr)]">
                         <div className="p-3 border-r">
-                          <div className="flex items-center gap-2">
-                            <Checkbox id={resource.id} />
-                            <label htmlFor={resource.id} className="text-sm font-medium text-blue-600 cursor-pointer hover:text-blue-700">
-                              {resource.name}
-                            </label>
+                          <div className="space-y-1">
+                            <div className="text-sm font-medium">{resource.name}</div>
+                            <div className="text-xs text-gray-500 flex items-center gap-1">
+                              <Building className="h-3 w-3" />
+                              {resource.location}
+                            </div>
                           </div>
                         </div>
-                        {timeSlots.map((time) => (
+                        {['9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM'].map((time, timeIndex) => (
                           <div
-                            key={`${resource.id}-${time}`}
-                            className="p-3 border-r last:border-r-0 group cursor-pointer hover:bg-blue-50 transition-colors relative"
+                            key={`${resource.name}-${time}`}
+                            className={cn(
+                              "p-3 border-r last:border-r-0 h-16 relative",
+                              resource.unavailable.includes(timeIndex) ? "bg-gray-100" : "hover:bg-blue-50 cursor-pointer"
+                            )}
                           >
-                            <div className="absolute inset-1 rounded opacity-0 group-hover:opacity-100 border border-dashed border-blue-200 transition-opacity" />
+                            {timeIndex === 3 && index === 0 && (
+                              <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-red-500" />
+                            )}
+                            {resource.unavailable.includes(timeIndex) && (
+                              <div className="text-xs text-gray-400 absolute bottom-1 left-1">
+                                Unavailable
+                              </div>
+                            )}
                           </div>
                         ))}
                       </div>
@@ -1542,19 +1578,132 @@ export default function VercelNavigation() {
                   </div>
                 </div>
 
-                {/* Legend or Additional Info */}
-                <div className="flex items-center gap-6 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-sm bg-blue-100 border border-blue-300" />
-                    <span>Available</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-sm bg-blue-500" />
-                    <span>Booked</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-sm bg-gray-100 border border-gray-300" />
-                    <span>Unavailable</span>
+                {/* My Bookings Section */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">My bookings</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {/* Lab Equipment Booking */}
+                    <div className="border rounded-lg bg-white p-4 space-y-3">
+                      <div className="aspect-video rounded-lg overflow-hidden">
+                        <img 
+                          src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=400&h=200&fit=crop" 
+                          alt="Lab equipment" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <h4 className="font-medium">Lab equipment</h4>
+                        <p className="text-sm text-gray-600">Tests, experiments, equipment</p>
+                        <div className="flex items-center gap-3 text-xs text-gray-500">
+                          <span className="flex items-center gap-1">
+                            <Users className="h-3 w-3" />
+                            40
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                              <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                              <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                              <path d="M12 20h.01"></path>
+                            </svg>
+                            Wi-Fi
+                          </span>
+                          <span>+2</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2 text-sm text-blue-600">
+                            <CalendarDays className="h-4 w-4" />
+                            <span>May 25, 2025</span>
+                          </div>
+                          <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
+                            Cancel
+                          </Button>
+                        </div>
+                        <div className="text-xs text-gray-500">10:00 AM - 12:00 PM</div>
+                      </div>
+                    </div>
+
+                    {/* Large Conference Space Booking */}
+                    <div className="border rounded-lg bg-white p-4 space-y-3">
+                      <div className="aspect-video rounded-lg bg-gray-100 flex items-center justify-center">
+                        <svg className="h-12 w-12 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                          <path d="M21 15l-5-5L5 21"></path>
+                        </svg>
+                      </div>
+                      <div className="space-y-2">
+                        <h4 className="font-medium">Large conference space</h4>
+                        <p className="text-sm text-gray-600">Tests, experiments, equipment</p>
+                        <div className="flex items-center gap-3 text-xs text-gray-500">
+                          <span className="flex items-center gap-1">
+                            <Users className="h-3 w-3" />
+                            40
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                              <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                              <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                              <path d="M12 20h.01"></path>
+                            </svg>
+                            Wi-Fi
+                          </span>
+                          <span>+2</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2 text-sm text-blue-600">
+                            <CalendarDays className="h-4 w-4" />
+                            <span>May 25, 2025</span>
+                          </div>
+                          <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
+                            Cancel
+                          </Button>
+                        </div>
+                        <div className="text-xs text-gray-500">10:00 AM - 12:00 PM</div>
+                      </div>
+                    </div>
+
+                    {/* Co-working Space Booking */}
+                    <div className="border rounded-lg bg-white p-4 space-y-3">
+                      <div className="aspect-video rounded-lg bg-gray-100 flex items-center justify-center">
+                        <svg className="h-12 w-12 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                          <path d="M21 15l-5-5L5 21"></path>
+                        </svg>
+                      </div>
+                      <div className="space-y-2">
+                        <h4 className="font-medium">Co-working space</h4>
+                        <p className="text-sm text-gray-600">Tests, experiments, equipment</p>
+                        <div className="flex items-center gap-3 text-xs text-gray-500">
+                          <span className="flex items-center gap-1">
+                            <Users className="h-3 w-3" />
+                            40
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                              <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                              <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                              <path d="M12 20h.01"></path>
+                            </svg>
+                            Wi-Fi
+                          </span>
+                          <span>+2</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2 text-sm text-blue-600">
+                            <CalendarDays className="h-4 w-4" />
+                            <span>May 25, 2025</span>
+                          </div>
+                          <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
+                            Cancel
+                          </Button>
+                        </div>
+                        <div className="text-xs text-gray-500">10:00 AM - 12:00 PM</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -1,0 +1,10 @@
+# Hero Images Directory
+
+Add your hero/banner images here:
+- Main landing page hero
+- Section backgrounds
+- Large promotional images
+- Building hero banners
+
+Example usage:
+<HeroCard backgroundImage="/images/heroes/main-hero.jpg" /> 

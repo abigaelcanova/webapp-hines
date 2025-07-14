@@ -1,0 +1,10 @@
+# Building Images Directory
+
+Add your building photos here:
+- ARE Demo Building
+- 100 Binney
+- 100 Technology Square
+- etc.
+
+Example usage:
+<img src="/images/buildings/are-demo-building.jpg" alt="ARE Demo Building" /> 
