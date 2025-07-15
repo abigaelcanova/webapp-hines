@@ -95,7 +95,7 @@ export function HeroCard({
   }, [])
 
   return (
-    <div className={`relative w-full h-[300px] rounded-2xl ${className}`}>
+    <div className={`relative w-full h-[269px] rounded-2xl ${className}`}>
       {/* Background Image */}
       <img
         src={backgroundImage}

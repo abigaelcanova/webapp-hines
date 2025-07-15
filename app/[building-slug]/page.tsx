@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import { useParams } from "next/navigation"
 import {
   Check,
   Search,
@@ -76,9 +77,20 @@ import { Banner } from "@/components/ui/banner"
 import { SiteFooter } from "@/components/site-footer"
 
 export default function VercelNavigation() {
+  const params = useParams()
+  
+  // Convert slug to building name
+  const slugToBuildingName = (slug: string): string => {
+    return slug.split('-').map(word => 
+      word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ')
+  }
+  
+  const buildingName = slugToBuildingName(params['building-slug'] as string)
+  
   const [projectDropdownOpen, setProjectDropdownOpen] = useState(false)
-  const [primaryBuilding, setPrimaryBuilding] = useState<string>("ARE Demo Building")
-  const [notificationCount, setNotificationCount] = useState(3)
+  const [primaryBuilding, setPrimaryBuilding] = useState<string>(buildingName)
+  const [notificationCount, setNotificationCount] = useState(0)
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(true)
   const [rightDrawerOpen, setRightDrawerOpen] = useState(false)
   const [assistantDrawerOpen, setAssistantDrawerOpen] = useState(false)
@@ -961,8 +973,7 @@ export default function VercelNavigation() {
           <aside
             className={cn(
               "bg-white lg:bg-[#F9FAFB] transition-all duration-300 ease-in-out",
-              "fixed lg:sticky top-14 self-start h-[calc(100vh-3.5rem)]",
-              "lg:sticky lg:block",
+              "fixed top-20 left-0 h-[calc(100vh-300px)] z-30",
               isMobile
                 ? leftDrawerOpen
                   ? "fixed inset-y-0 left-0 z-50 w-64 shadow-lg"
@@ -973,9 +984,9 @@ export default function VercelNavigation() {
             )}
           >
             {leftDrawerOpen && (
-              <div className="h-full p-4 flex flex-col overflow-hidden">
+              <div className="h-full p-4 flex flex-col">
                 {/* Navigation Items */}
-                <div className="flex-1 overflow-y-auto">
+                <div className="flex-1 overflow-y-auto min-h-0">
                   <nav className="space-y-1 mb-8">
                     {/* Home - Active */}
                     <div className="relative">
@@ -1209,7 +1220,8 @@ export default function VercelNavigation() {
               "flex-1 min-w-0",
               "mx-auto max-w-[1024px] px-4",
               "py-4",
-              !leftDrawerOpen && !rightDrawerOpen && !assistantDrawerOpen && "lg:mx-auto"
+              !leftDrawerOpen && !rightDrawerOpen && !assistantDrawerOpen && "lg:mx-auto",
+              !isMobile && leftDrawerOpen && "ml-[280px]"
             )}
           >
             {currentPage === "home" ? (
@@ -1317,7 +1329,7 @@ export default function VercelNavigation() {
                 </div>
 
                 {/* What's happening */}
-                <div className="pt-16 mt-[80px] space-y-8">
+                <div className="pt-8 mt-[40px] space-y-8">
                   <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold">What's happening</h2>
                     <Button variant="ghost" className="text-sm text-gray-600 hover:text-gray-900">
@@ -1406,7 +1418,7 @@ export default function VercelNavigation() {
                 </div>
 
                 {/* Upcoming events */}
-                <div className="pt-16 space-y-6">
+                <div className="pt-8 space-y-6">
                   <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold">Upcoming events</h2>
                     <Button variant="ghost" className="text-sm text-gray-600 hover:text-gray-900">
@@ -1458,7 +1470,7 @@ export default function VercelNavigation() {
                 </div>
 
                 {/* Support materials */}
-                <div className="pt-16 space-y-6 mb-[88px]">
+                <div className="pt-8 space-y-6 mb-[88px]">
                   <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold">Support materials</h2>
                     <Button variant="ghost" className="text-sm text-gray-600 hover:text-gray-900">
