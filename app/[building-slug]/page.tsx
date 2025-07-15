@@ -65,6 +65,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Switch } from "@/components/ui/switch"
+import { Slider } from "@/components/ui/slider"
 import { cn } from "@/lib/utils"
 import { ModernCarousel } from "@/components/modern-carousel"
 import Link from "next/link"
@@ -97,6 +99,8 @@ export default function VercelNavigation() {
   const [currentMonth, setCurrentMonth] = useState(new Date(2025, 4)) // May 2025
   const [selectedDate, setSelectedDate] = useState(new Date(2025, 4, 30)) // May 30, 2025
   const [notificationPopoverOpen, setNotificationPopoverOpen] = useState(false)
+  const [searchExpanded, setSearchExpanded] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
   const [currentPage, setCurrentPage] = useState("home")
   const [bookingView, setBookingView] = useState("calendar")
   const [bookingDate, setBookingDate] = useState(new Date(2025, 4, 22)) // May 22, 2025
@@ -133,6 +137,29 @@ export default function VercelNavigation() {
     host: "",
     hostCompany: "",
     status: ""
+  })
+  const [filtersModalOpen, setFiltersModalOpen] = useState(false)
+  const [filters, setFilters] = useState({
+    availableNow: false,
+    date: "",
+    startTime: "",
+    endTime: "",
+    allDay: false,
+    resourceTypes: {
+      conferenceRoom: false,
+      laboratory: false,
+      equipment: false,
+      meetingRoom: false,
+      lounge: false,
+      outdoorSpace: false
+    },
+    capacity: 1,
+    amenities: {
+      wifi: false,
+      projector: false,
+      coffeeMachine: false,
+      parking: false
+    }
   })
 
   // Sample visitor data
@@ -255,8 +282,28 @@ export default function VercelNavigation() {
     );
   }, [selectedDate]);
 
-  // Handle mobile responsive behavior
+  // Handle mobile responsive behavior and search keyboard shortcuts
   useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && searchExpanded) {
+        setSearchExpanded(false)
+        setSearchQuery("")
+      }
+      if ((event.metaKey || event.ctrlKey) && event.key === "k") {
+        event.preventDefault()
+        setSearchExpanded(true)
+      }
+    }
+
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement
+      if (searchExpanded && !target.closest('.search-container')) {
+        if (!searchQuery.trim()) {
+          setSearchExpanded(false)
+        }
+      }
+    }
+
     const handleResize = () => {
       const mobile = window.innerWidth < 1024
       setIsMobile(mobile)
@@ -270,12 +317,16 @@ export default function VercelNavigation() {
     // Initial check
     handleResize()
 
+    document.addEventListener("keydown", handleKeyDown)
+    document.addEventListener("mousedown", handleClickOutside)
     window.addEventListener("resize", handleResize)
 
     return () => {
+      document.removeEventListener("keydown", handleKeyDown)
+      document.removeEventListener("mousedown", handleClickOutside)
       window.removeEventListener("resize", handleResize)
     }
-  }, [leftDrawerOpen])
+  }, [leftDrawerOpen, searchExpanded, searchQuery])
 
   const setPrimary = (buildingName: string) => {
     setPrimaryBuilding(buildingName)
@@ -806,10 +857,58 @@ export default function VercelNavigation() {
             </DropdownMenu>
 
             {/* Search */}
-            <Button variant="ghost" size="icon" className="h-8 w-8 p-1">
-              <Search className="h-4 w-4" />
-              <span className="sr-only">Search</span>
-            </Button>
+            <div className="relative search-container">
+              <div className={cn(
+                "flex items-center transition-all duration-300 ease-in-out",
+                searchExpanded ? "w-80" : "w-8"
+              )}>
+                {searchExpanded ? (
+                  <div className="flex items-center w-full bg-white border border-gray-200 rounded-md shadow-sm">
+                    <Search className="h-4 w-4 text-gray-400 ml-3" />
+                    <Input
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Search buildings, people, events, spaces..."
+                      className="flex-1 border-0 focus-visible:ring-0 h-8 px-3"
+                      autoFocus
+                      onBlur={() => {
+                        // Only close if there's no search query
+                        if (!searchQuery.trim()) {
+                          setSearchExpanded(false)
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Escape") {
+                          setSearchExpanded(false)
+                          setSearchQuery("")
+                        }
+                      }}
+                    />
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 p-1 mr-1"
+                      onClick={() => {
+                        setSearchExpanded(false)
+                        setSearchQuery("")
+                      }}
+                    >
+                      <X className="h-3 w-3" />
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 p-1"
+                    onClick={() => setSearchExpanded(true)}
+                  >
+                    <Search className="h-4 w-4" />
+                    <span className="sr-only">Search</span>
+                  </Button>
+                )}
+              </div>
+            </div>
 
             {/* Notifications */}
             <Popover open={notificationPopoverOpen} onOpenChange={setNotificationPopoverOpen}>
@@ -1700,7 +1799,7 @@ export default function VercelNavigation() {
                         <DropdownMenuItem>North Building</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                    <Button variant="outline" size="sm" className="h-8">
+                    <Button variant="outline" size="sm" className="h-8" onClick={() => setFiltersModalOpen(true)}>
                       <svg className="h-4 w-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                       </svg>
@@ -1726,7 +1825,7 @@ export default function VercelNavigation() {
                 </div>
 
                 {/* Time Slot Grid */}
-                <div className="rounded-lg border bg-white">
+                <div className="rounded-lg border bg-white relative">
                   {/* Time Header */}
                   <div className="grid grid-cols-[200px,repeat(10,1fr)] border-b">
                     <div className="p-3 border-r text-sm font-medium">Resource</div>
@@ -1738,7 +1837,7 @@ export default function VercelNavigation() {
                   </div>
 
                   {/* Resource Rows */}
-                  <div className="divide-y">
+                  <div className="divide-y relative">
                     {[
                       { name: 'Conference room', location: 'Main Building', unavailable: [0, 1, 2, 3] },
                       { name: 'Lab 3', location: 'Science Wing', unavailable: [] },
@@ -1746,7 +1845,13 @@ export default function VercelNavigation() {
                       { name: 'Meeting room', location: 'East Tower', unavailable: [] },
                       { name: 'The Lounge', location: 'Student Center', unavailable: [] },
                       { name: 'Roof deck', location: 'North Building', unavailable: [] }
-                    ].map((resource, index) => (
+                    ].map((resource, index) => {
+                      // Current time is at 12 PM (index 3), so indices 0, 1, 2 are in the past
+                      const currentTimeIndex = 3;
+                      const pastTimeSlots = Array.from({ length: currentTimeIndex }, (_, i) => i);
+                      const allUnavailable = [...new Set([...pastTimeSlots, ...resource.unavailable])];
+                      
+                      return (
                       <div key={index} className="grid grid-cols-[200px,repeat(10,1fr)]">
                         <div className="p-3 border-r">
                           <div className="space-y-1">
@@ -1762,22 +1867,31 @@ export default function VercelNavigation() {
                             key={`${resource.name}-${time}`}
                             className={cn(
                               "p-3 border-r last:border-r-0 h-16 relative",
-                              resource.unavailable.includes(timeIndex) ? "bg-gray-100" : "hover:bg-blue-50 cursor-pointer"
+                              allUnavailable.includes(timeIndex) ? "bg-gray-100" : "hover:bg-blue-50 cursor-pointer"
                             )}
                           >
-                            {timeIndex === 3 && index === 0 && (
-                              <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-red-500" />
-                            )}
-                            {resource.unavailable.includes(timeIndex) && (
-                              <div className="text-xs text-gray-400 absolute bottom-1 left-1">
-                                Unavailable
-                              </div>
-                            )}
                           </div>
                         ))}
                       </div>
-                    ))}
+                    );
+                    })}
+                    
+                    {/* Navy blue vertical line with dots spanning full height for 12 PM column */}
+                    <div className="absolute top-0 bottom-0 pointer-events-none" style={{ left: 'calc(200px + 3 * (100% - 200px) / 10)' }}>
+                      {/* Top dot */}
+                      <div className="absolute -top-1 -left-1 w-2 h-2 bg-blue-600 rounded-full" />
+                      {/* Vertical line */}
+                      <div className="absolute top-0 bottom-0 w-0.5 bg-blue-600 left-0" />
+                      {/* Bottom dot */}
+                      <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-blue-600 rounded-full" />
+                    </div>
                   </div>
+                </div>
+
+                {/* Legend */}
+                <div className="flex items-center gap-2 text-sm mb-16">
+                  <div className="w-4 h-4 bg-gray-100 border border-gray-300 rounded"></div>
+                  <span className="text-gray-700">Unavailable</span>
                 </div>
 
                 {/* My Bookings Section */}
@@ -3253,6 +3367,334 @@ export default function VercelNavigation() {
                   >
                     Enter required fields
                   </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Filters Modal */}
+        {filtersModalOpen && (
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+              <div className="w-full max-w-lg bg-white rounded-lg shadow-lg max-h-[90vh] overflow-y-auto">
+                {/* Modal Header */}
+                <div className="flex items-center justify-between p-6 border-b">
+                  <h2 className="text-xl font-semibold text-gray-900">Filters</h2>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setFilters({
+                        availableNow: false,
+                        date: "",
+                        startTime: "",
+                        endTime: "",
+                        allDay: false,
+                        resourceTypes: {
+                          conferenceRoom: false,
+                          laboratory: false,
+                          equipment: false,
+                          meetingRoom: false,
+                          lounge: false,
+                          outdoorSpace: false
+                        },
+                        capacity: 1,
+                        amenities: {
+                          wifi: false,
+                          projector: false,
+                          coffeeMachine: false,
+                          parking: false
+                        }
+                      })}
+                      className="text-sm text-gray-600 hover:text-gray-900"
+                    >
+                      Clear all
+                    </button>
+                    <button
+                      onClick={() => setFiltersModalOpen(false)}
+                      className="text-gray-400 hover:text-gray-600"
+                    >
+                      <X className="h-6 w-6" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Modal Content */}
+                <div className="p-6 space-y-6">
+                  {/* Available Now */}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        </div>
+                        <span className="font-medium text-gray-900">Available Now</span>
+                      </div>
+                      <p className="text-sm text-gray-600 mt-1">Show only resources available right now</p>
+                    </div>
+                    <Switch
+                      checked={filters.availableNow}
+                      onCheckedChange={(checked) => setFilters({...filters, availableNow: checked})}
+                    />
+                  </div>
+
+                  {/* Date & Time */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2">
+                      <CalendarDays className="h-5 w-5 text-gray-500" />
+                      <span className="font-medium text-gray-900">Date & Time</span>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="date" className="text-sm text-gray-700">Date</Label>
+                        <Input
+                          id="date"
+                          type="date"
+                          value={filters.date}
+                          onChange={(e) => setFilters({...filters, date: e.target.value})}
+                          className="mt-1"
+                        />
+                      </div>
+                      
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="startTime" className="text-sm text-gray-700">Start Time</Label>
+                          <Input
+                            id="startTime"
+                            type="time"
+                            value={filters.startTime}
+                            onChange={(e) => setFilters({...filters, startTime: e.target.value})}
+                            className="mt-1"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="endTime" className="text-sm text-gray-700">End Time</Label>
+                          <Input
+                            id="endTime"
+                            type="time"
+                            value={filters.endTime}
+                            onChange={(e) => setFilters({...filters, endTime: e.target.value})}
+                            className="mt-1"
+                          />
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-700">All Day</span>
+                        <Switch
+                          checked={filters.allDay}
+                          onCheckedChange={(checked) => setFilters({...filters, allDay: checked})}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Resource Type */}
+                  <div className="space-y-4">
+                    <span className="font-medium text-gray-900">Resource Type</span>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-700">Conference Room</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-gray-500">18</span>
+                                                     <Checkbox
+                             checked={filters.resourceTypes.conferenceRoom}
+                             onCheckedChange={(checked) => setFilters({
+                               ...filters,
+                               resourceTypes: {...filters.resourceTypes, conferenceRoom: !!checked}
+                             })}
+                           />
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-700">Laboratory</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-gray-500">12</span>
+                                                     <Checkbox
+                             checked={filters.resourceTypes.laboratory}
+                             onCheckedChange={(checked) => setFilters({
+                               ...filters,
+                               resourceTypes: {...filters.resourceTypes, laboratory: !!checked}
+                             })}
+                           />
+                         </div>
+                       </div>
+                       <div className="flex items-center justify-between">
+                         <span className="text-sm text-gray-700">Equipment</span>
+                         <div className="flex items-center gap-2">
+                           <span className="text-xs text-gray-500">8</span>
+                           <Checkbox
+                             checked={filters.resourceTypes.equipment}
+                             onCheckedChange={(checked) => setFilters({
+                               ...filters,
+                               resourceTypes: {...filters.resourceTypes, equipment: !!checked}
+                             })}
+                           />
+                         </div>
+                       </div>
+                       <div className="flex items-center justify-between">
+                         <span className="text-sm text-gray-700">Meeting Room</span>
+                         <div className="flex items-center gap-2">
+                           <span className="text-xs text-gray-500">22</span>
+                           <Checkbox
+                             checked={filters.resourceTypes.meetingRoom}
+                             onCheckedChange={(checked) => setFilters({
+                               ...filters,
+                               resourceTypes: {...filters.resourceTypes, meetingRoom: !!checked}
+                             })}
+                           />
+                         </div>
+                       </div>
+                       <div className="flex items-center justify-between">
+                         <span className="text-sm text-gray-700">Lounge</span>
+                         <div className="flex items-center gap-2">
+                           <span className="text-xs text-gray-500">5</span>
+                           <Checkbox
+                             checked={filters.resourceTypes.lounge}
+                             onCheckedChange={(checked) => setFilters({
+                               ...filters,
+                               resourceTypes: {...filters.resourceTypes, lounge: !!checked}
+                             })}
+                           />
+                         </div>
+                       </div>
+                       <div className="flex items-center justify-between">
+                         <span className="text-sm text-gray-700">Outdoor Space</span>
+                         <div className="flex items-center gap-2">
+                           <span className="text-xs text-gray-500">3</span>
+                           <Checkbox
+                             checked={filters.resourceTypes.outdoorSpace}
+                             onCheckedChange={(checked) => setFilters({
+                               ...filters,
+                               resourceTypes: {...filters.resourceTypes, outdoorSpace: !!checked}
+                             })}
+                           />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Capacity */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2">
+                      <Users className="h-5 w-5 text-gray-500" />
+                      <span className="font-medium text-gray-900">Capacity</span>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between text-sm text-gray-600">
+                        <span>1 people</span>
+                        <span>100+ people</span>
+                      </div>
+                      <Slider
+                        value={[filters.capacity]}
+                        onValueChange={(value) => setFilters({...filters, capacity: value[0]})}
+                        max={100}
+                        min={1}
+                        step={1}
+                        className="w-full"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Amenities */}
+                  <div className="space-y-4">
+                    <span className="font-medium text-gray-900">Amenities</span>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                          <svg className="h-4 w-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm text-gray-700">Wi-Fi</span>
+                                                         <Checkbox
+                               checked={filters.amenities.wifi}
+                               onCheckedChange={(checked) => setFilters({
+                                 ...filters,
+                                 amenities: {...filters.amenities, wifi: !!checked}
+                               })}
+                             />
+                           </div>
+                         </div>
+                       </div>
+                       <div className="flex items-center gap-3">
+                         <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                           <svg className="h-4 w-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 0h10m-10 0a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2" />
+                           </svg>
+                         </div>
+                         <div className="flex-1">
+                           <div className="flex items-center justify-between">
+                             <span className="text-sm text-gray-700">Projector</span>
+                             <Checkbox
+                               checked={filters.amenities.projector}
+                               onCheckedChange={(checked) => setFilters({
+                                 ...filters,
+                                 amenities: {...filters.amenities, projector: !!checked}
+                               })}
+                             />
+                           </div>
+                         </div>
+                       </div>
+                       <div className="flex items-center gap-3">
+                         <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                           <Coffee className="h-4 w-4 text-gray-600" />
+                         </div>
+                         <div className="flex-1">
+                           <div className="flex items-center justify-between">
+                             <span className="text-sm text-gray-700">Coffee Machine</span>
+                             <Checkbox
+                               checked={filters.amenities.coffeeMachine}
+                               onCheckedChange={(checked) => setFilters({
+                                 ...filters,
+                                 amenities: {...filters.amenities, coffeeMachine: !!checked}
+                               })}
+                             />
+                           </div>
+                         </div>
+                       </div>
+                       <div className="flex items-center gap-3">
+                         <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                           <svg className="h-4 w-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                           </svg>
+                         </div>
+                         <div className="flex-1">
+                           <div className="flex items-center justify-between">
+                             <span className="text-sm text-gray-700">Parking</span>
+                             <Checkbox
+                               checked={filters.amenities.parking}
+                               onCheckedChange={(checked) => setFilters({
+                                 ...filters,
+                                 amenities: {...filters.amenities, parking: !!checked}
+                               })}
+                             />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Modal Footer */}
+                <div className="flex items-center justify-between p-6 border-t bg-gray-50">
+                  <span className="text-sm text-gray-600">No filters applied</span>
+                  <div className="flex items-center gap-3">
+                    <Button
+                      variant="outline"
+                      onClick={() => setFiltersModalOpen(false)}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                      onClick={() => setFiltersModalOpen(false)}
+                    >
+                      Apply Filters
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
