@@ -1218,7 +1218,7 @@ export default function VercelNavigation() {
           {/* Middle Content */}
           <main
             className={cn(
-              "px-4 py-4 w-full max-w-[1024px]",
+              "px-4 py-4 w-full max-w-[1024px] flex-1",
               !isMobile && leftDrawerOpen ? "ml-[280px]" : "mx-auto"
             )}
           >
@@ -3367,6 +3367,9 @@ export default function VercelNavigation() {
           </div>
         )}
       </div>
+
+      {/* Spacer to push footer down with consistent 160px gap */}
+      <div className="flex-1 min-h-[160px]"></div>
 
       <div>
         {/* Site Footer */}
