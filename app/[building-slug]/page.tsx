@@ -1217,17 +1217,22 @@ export default function VercelNavigation() {
           {/* Middle Content */}
           <main
             className={cn(
-              "flex-1 min-w-0 px-4 py-4 max-w-[1024px]",
-              !isMobile && leftDrawerOpen ? "ml-[280px]" : "mx-auto"
+              "flex-1 min-w-0 px-4 py-4",
+              !isMobile && leftDrawerOpen ? "" : "mx-auto max-w-[1024px]"
             )}
             style={!isMobile && leftDrawerOpen ? {
               marginLeft: '280px',
-              marginRight: 'auto',
-              width: 'calc(100vw - 280px)',
-              maxWidth: '1024px',
-              display: 'block'
+              display: 'flex',
+              justifyContent: 'center',
+              width: 'calc(100vw - 280px)'
             } : {}}
           >
+            <div 
+              className={cn(
+                "w-full",
+                !isMobile && leftDrawerOpen ? "max-w-[1024px]" : ""
+              )}
+            >
             {currentPage === "home" ? (
               <div className="space-y-6">
                 {/* Banner Alert */}
@@ -2826,6 +2831,7 @@ export default function VercelNavigation() {
                   </div>
                 </div>
               ) : null}
+            </div>
           </main>
 
           {/* Right Drawers */}
