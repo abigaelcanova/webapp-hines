@@ -1242,7 +1242,10 @@ export default function VercelNavigation() {
                 {/* Quick Actions */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   {/* Book a space */}
-                  <div className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow">
+                  <div 
+                    className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                    onClick={() => setCurrentPage("book-space")}
+                  >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <h3 className="text-base font-medium mb-2 text-gray-900">Book a space</h3>
@@ -1263,7 +1266,10 @@ export default function VercelNavigation() {
                   </div>
 
                   {/* Visitor Management */}
-                  <div className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow">
+                  <div 
+                    className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                    onClick={() => setCurrentPage("visitor-management")}
+                  >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <h3 className="text-base font-medium mb-2 text-gray-900">Visitor Management</h3>
@@ -1284,7 +1290,10 @@ export default function VercelNavigation() {
                   </div>
 
                   {/* Service requests */}
-                  <div className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow">
+                  <div 
+                    className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                    onClick={() => setCurrentPage("service-requests")}
+                  >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <h3 className="text-base font-medium mb-2 text-gray-900">Service requests</h3>
@@ -1305,7 +1314,10 @@ export default function VercelNavigation() {
                   </div>
 
                   {/* Events & services */}
-                  <div className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow">
+                  <div 
+                    className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                    onClick={() => setCurrentPage("events")}
+                  >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <h3 className="text-base font-medium mb-2 text-gray-900">Events & services</h3>
