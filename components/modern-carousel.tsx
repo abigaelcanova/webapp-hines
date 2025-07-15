@@ -18,6 +18,20 @@ interface ModernCarouselProps {
 export function ModernCarousel({ slides, className = "" }: ModernCarouselProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
 
+  // Handle empty or undefined slides
+  if (!slides || slides.length === 0) {
+    return (
+      <div className={`relative w-full h-full rounded-xl overflow-hidden bg-gray-200 ${className}`}>
+        <div className="flex items-center justify-center h-full">
+          <p className="text-gray-500">No slides available</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Ensure currentSlide is within bounds
+  const safeCurrentSlide = Math.max(0, Math.min(currentSlide, slides.length - 1))
+
   const goToSlide = (index: number) => {
     setCurrentSlide(index)
   }
@@ -34,14 +48,14 @@ export function ModernCarousel({ slides, className = "" }: ModernCarouselProps) 
     <div className={`relative w-full h-full rounded-xl overflow-hidden ${className}`}>
       {/* Slide Image */}
       <img
-        src={slides[currentSlide].image}
-        alt={slides[currentSlide].title || 'Carousel image'}
+        src={slides[safeCurrentSlide].image}
+        alt={slides[safeCurrentSlide].title || 'Carousel image'}
         className="w-full h-full object-cover"
       />
       {/* Gradient and Text */}
       <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 via-black/10 to-transparent">
-        <h3 className="text-xl font-semibold text-white mb-1">{slides[currentSlide].title}</h3>
-        <p className="text-white/90 text-sm leading-relaxed">{slides[currentSlide].subtitle}</p>
+                      <h3 className="text-xl font-semibold text-white mb-1">{slides[safeCurrentSlide].title}</h3>
+              <p className="text-white/90 text-sm leading-relaxed">{slides[safeCurrentSlide].subtitle}</p>
       </div>
       {/* Left Arrow */}
       <button

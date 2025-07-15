@@ -3059,6 +3059,7 @@ export default function VercelNavigation() {
         {/* Site Footer */}
         <SiteFooter buildingName={primaryBuilding} />
       </div>
+    </div>
   )
 }
 
