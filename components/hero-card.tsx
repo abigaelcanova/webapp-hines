@@ -127,7 +127,7 @@ export function HeroCard({
                 <Button 
                   type="submit"
                   size="icon" 
-                  className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 bg-blue-600 hover:bg-blue-700 transition-colors"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 bg-blue-600 hover:bg-blue-700 transition-colors rounded-full"
                 >
                   <Send className="h-4 w-4" />
                 </Button>

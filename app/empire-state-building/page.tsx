@@ -62,11 +62,12 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Checkbox } from "@/components/ui/checkbox"
 import { cn } from "@/lib/utils"
 import { ModernCarousel } from "@/components/modern-carousel"
 import Link from "next/link"
 import { Drawer, DrawerContent } from "@/components/ui/drawer"
-import { Checkbox } from "@/components/ui/checkbox"
 import AnimatedTestimonialsDemo from "@/components/animated-testimonials-demo"
 import { HeroCard } from "@/components/hero-card"
 import { AIAssistantModal } from "@/components/ai-assistant-modal"
@@ -121,6 +122,108 @@ export default function VercelNavigation() {
     hostCompany: "",
     status: ""
   })
+
+  // Sample visitor data
+  const visitorData = [
+    {
+      id: 1,
+      name: "Olivia Rhye",
+      avatar: "/placeholder-user.jpg",
+      expected: "11/21/2024, 8:00 AM",
+      endTime: "6:00 PM",
+      host: "Orlando Diggs",
+      hostCompany: "HqO",
+      inviteStatus: "sent",
+      inviteTime: "2/18/25 12:30 PM",
+      status: "Checked-out",
+      statusColor: "bg-orange-100 text-orange-700",
+      badge: "Deactivated"
+    },
+    {
+      id: 2,
+      name: "Jay Long",
+      avatar: "/placeholder-user.jpg",
+      expected: "11/21/2024, 8:00 AM",
+      endTime: "6:00 PM",
+      host: "Orlando Diggs",
+      hostCompany: "HqO",
+      inviteStatus: "none",
+      status: "Cancelled",
+      statusColor: "bg-gray-100 text-gray-700",
+      badge: "Failed",
+      badgeColor: "text-red-600"
+    },
+    {
+      id: 3,
+      name: "Phoenix Baker",
+      avatar: "",
+      initials: "PB",
+      expected: "11/21/2024, 8:00 AM",
+      endTime: "6:00 PM",
+      host: "Orlando Diggs",
+      hostCompany: "HqO",
+      inviteStatus: "failed",
+      inviteTime: "2/18/25 12:30 PM",
+      status: "Checked-in",
+      statusColor: "bg-green-100 text-green-700",
+      badge: "Activated"
+    },
+    {
+      id: 4,
+      name: "Lana Steiner",
+      avatar: "/placeholder-user.jpg",
+      expected: "11/21/2024, 8:00 AM",
+      endTime: "6:00 PM",
+      host: "Orlando Diggs",
+      hostCompany: "HqO",
+      inviteStatus: "sent",
+      inviteTime: "2/18/25 12:30 PM",
+      status: "Expected",
+      statusColor: "bg-purple-100 text-purple-700",
+      badge: "activate"
+    },
+    {
+      id: 5,
+      name: "John Baker",
+      avatar: "/placeholder-user.jpg",
+      expected: "11/21/2024, 8:00 AM",
+      endTime: "6:00 PM",
+      host: "Orlando Diggs",
+      hostCompany: "HqO",
+      inviteStatus: "none",
+      status: "Expected",
+      statusColor: "bg-purple-100 text-purple-700",
+      badge: "activate"
+    },
+    {
+      id: 6,
+      name: "Demi Wilkinson",
+      avatar: "/placeholder-user.jpg",
+      expected: "11/21/2024, 8:00 AM",
+      endTime: "6:00 PM",
+      host: "Orlando Diggs",
+      hostCompany: "HqO",
+      inviteStatus: "sent",
+      inviteTime: "2/18/25 12:30 PM",
+      status: "Expected",
+      statusColor: "bg-purple-100 text-purple-700",
+      badge: "activate"
+    },
+    {
+      id: 7,
+      name: "Candice Wu",
+      avatar: "/placeholder-user.jpg",
+      expected: "11/21/2024, 8:00 AM",
+      endTime: "6:00 PM",
+      host: "Orlando Diggs",
+      hostCompany: "HqO",
+      inviteStatus: "failed",
+      inviteTime: "2/18/25 12:30 PM",
+      status: "Checked-in",
+      statusColor: "bg-green-100 text-green-700",
+      badge: "Activated"
+    }
+  ]
 
   useEffect(() => {
     setCurrentMonthLabel(
@@ -275,7 +378,7 @@ export default function VercelNavigation() {
     },
     {
       name: "ARE Demo Building",
-      image: "https://images.unsplash.com/photo-1554638413-dbf3b0c6e1f7?w=120&h=120&fit=crop&crop=faces,center",
+      image: "/images/buildings/Program-Alexandria-Center-Gallery-Image-Photo-Evan-Joseph-Courtey-of-Alexandria-Center-0685.webp",
     },
     {
       name: "Alexandria Center at One Kendall Square - Building 100",
@@ -619,14 +722,14 @@ export default function VercelNavigation() {
           <div className="col-span-8"></div>
 
           {/* Right side icons */}
-          <div className="col-span-2 flex items-center justify-end gap-8">
+          <div className="col-span-2 flex items-center justify-end gap-3">
             {/* Building Selector */}
             <DropdownMenu open={projectDropdownOpen} onOpenChange={setProjectDropdownOpen}>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-auto p-2 gap-2 hover:bg-muted">
+                <Button variant="ghost" className="h-8 px-1 py-1 gap-1 hover:bg-muted">
                   <Avatar className="h-6 w-6">
                     <AvatarImage src={selectedBuilding.image || "/placeholder.svg"} alt={selectedBuilding.name} />
-                    <AvatarFallback className="bg-black text-white text-xs font-medium">
+                    <AvatarFallback className="bg-blue-600 text-white text-xs font-medium">
                       <Building className="h-4 w-4" />
                     </AvatarFallback>
                   </Avatar>
@@ -649,7 +752,7 @@ export default function VercelNavigation() {
                         <Button variant="ghost" className="w-full justify-start h-auto p-2">
                           <Avatar className="h-6 w-6 mr-2">
                             <AvatarImage src={selectedBuilding.image || "/placeholder.svg"} alt={selectedBuilding.name} />
-                            <AvatarFallback className="bg-black text-white text-xs font-medium">
+                            <AvatarFallback className="bg-blue-600 text-white text-xs font-medium">
                               <Building className="h-4 w-4" />
                             </AvatarFallback>
                           </Avatar>
@@ -672,7 +775,7 @@ export default function VercelNavigation() {
                           <div className="flex items-center gap-2">
                             <Avatar className="h-6 w-6">
                               <AvatarImage src={building.image || "/placeholder.svg"} alt={building.name} />
-                              <AvatarFallback className="bg-black text-white text-xs font-medium">
+                              <AvatarFallback className="bg-blue-600 text-white text-xs font-medium">
                                 <Building className="h-4 w-4" />
                               </AvatarFallback>
                             </Avatar>
@@ -703,7 +806,7 @@ export default function VercelNavigation() {
             </DropdownMenu>
 
             {/* Search */}
-            <Button variant="ghost" size="icon" className="h-9 w-9 p-2" onClick={() => setSearchModalOpen(true)}>
+            <Button variant="ghost" size="icon" className="h-8 w-8 p-1" onClick={() => setSearchModalOpen(true)}>
               <Search className="h-4 w-4" />
               <span className="sr-only">Search</span>
             </Button>
@@ -711,7 +814,7 @@ export default function VercelNavigation() {
             {/* Notifications */}
             <Popover open={notificationPopoverOpen} onOpenChange={setNotificationPopoverOpen}>
               <PopoverTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-9 w-9 p-2 relative">
+                <Button variant="ghost" size="icon" className="h-8 w-8 p-1 relative">
                   <Bell className="h-4 w-4" />
                   <span className="sr-only">Notifications</span>
                   {notificationCount > 0 && (
@@ -784,14 +887,16 @@ export default function VercelNavigation() {
             {/* User Profile */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Avatar className="h-8 w-8 cursor-pointer">
-                  <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">PT</AvatarFallback>
-                </Avatar>
+                <div className="h-8 w-8 flex items-center justify-center cursor-pointer ml-3">
+                  <Avatar className="h-8 w-8">
+                    <AvatarFallback className="bg-blue-600 text-white">PT</AvatarFallback>
+                  </Avatar>
+                </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-64">
                 <div className="flex items-center gap-3 p-3">
                   <Avatar className="h-10 w-10">
-                    <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">PT</AvatarFallback>
+                    <AvatarFallback className="bg-blue-600 text-white">PT</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col">
                     <span className="font-medium text-sm">Pat Tobin</span>
@@ -1248,58 +1353,52 @@ export default function VercelNavigation() {
                     </div>
 
                     {/* Feed Items */}
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between p-4 bg-white rounded-lg border hover:shadow-sm transition-shadow">
-                        <div className="flex items-center space-x-3">
-                          <img 
-                            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=80&h=80&fit=crop" 
-                            alt="Food" 
-                            className="w-12 h-12 rounded-lg object-cover"
-                          />
-                          <div>
-                            <div className="flex items-center space-x-2 mb-1">
-                              <Badge className="bg-orange-100 text-orange-700 hover:bg-orange-100">Food</Badge>
-                              <span className="text-sm text-gray-500">2 days ago</span>
-                            </div>
-                            <h4 className="font-medium mb-1">Order lunch with Picnic!</h4>
-                            <p className="text-sm text-gray-600">Quantum City has partnered with Picnic, the leading provider of endless food options delivered effortlessly to your doorstep.</p>
+                    <div className="flex flex-col h-full gap-6">
+                      <div className="bg-white rounded-lg border shadow-sm p-6 flex items-start gap-4 flex-1">
+                        <img 
+                          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=80&h=80&fit=crop" 
+                          alt="Food" 
+                          className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
+                        />
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-2">
+                            <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100">Food</Badge>
+                            <span className="text-sm text-gray-500">2 days ago</span>
                           </div>
+                          <h4 className="font-semibold text-lg mb-2">Order lunch with Picnic!</h4>
+                          <p className="text-gray-600 leading-relaxed">Quantum City has partnered with Picnic, the leading provider of endless food options delivered effortlessly to your doorstep.</p>
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between p-4 bg-white rounded-lg border hover:shadow-sm transition-shadow">
-                        <div className="flex items-center space-x-3">
-                          <img 
-                            src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=80&h=80&fit=crop" 
-                            alt="App update" 
-                            className="w-12 h-12 rounded-lg object-cover"
-                          />
-                          <div>
-                            <div className="flex items-center space-x-2 mb-1">
-                              <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100">Announcement</Badge>
-                              <span className="text-sm text-gray-500">4 days ago</span>
-                            </div>
-                            <h4 className="font-medium mb-1">Mobile app update</h4>
-                            <p className="text-sm text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad...</p>
+                      <div className="bg-white rounded-lg border shadow-sm p-6 flex items-start gap-4 flex-1">
+                        <img 
+                          src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=80&h=80&fit=crop" 
+                          alt="App update" 
+                          className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
+                        />
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-2">
+                            <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100">Announcement</Badge>
+                            <span className="text-sm text-gray-500">4 days ago</span>
                           </div>
+                          <h4 className="font-semibold text-lg mb-2">Mobile app update</h4>
+                          <p className="text-gray-600 leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad...</p>
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between p-4 bg-white rounded-lg border hover:shadow-sm transition-shadow">
-                        <div className="flex items-center space-x-3">
-                          <img 
-                            src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=80&h=80&fit=crop" 
-                            alt="Food hall" 
-                            className="w-12 h-12 rounded-lg object-cover"
-                          />
-                          <div>
-                            <div className="flex items-center space-x-2 mb-1">
-                              <Badge className="bg-green-100 text-green-700 hover:bg-green-100">Amenities</Badge>
-                              <span className="text-sm text-gray-500">1 week ago</span>
-                            </div>
-                            <h4 className="font-medium mb-1">New food hall</h4>
-                            <p className="text-sm text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad...</p>
+                      <div className="bg-white rounded-lg border shadow-sm p-6 flex items-start gap-4 flex-1">
+                        <img 
+                          src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=80&h=80&fit=crop" 
+                          alt="Food hall" 
+                          className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
+                        />
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-2">
+                            <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100">Amenities</Badge>
+                            <span className="text-sm text-gray-500">1 week ago</span>
                           </div>
+                          <h4 className="font-semibold text-lg mb-2">New food hall</h4>
+                          <p className="text-gray-600 leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad...</p>
                         </div>
                       </div>
                     </div>
@@ -2020,7 +2119,7 @@ export default function VercelNavigation() {
                       className={cn(
                         "px-4 py-2 text-sm font-medium whitespace-nowrap rounded-full transition-colors",
                         feedActiveFilter === filter
-                          ? "bg-gray-900 text-white"
+                          ? "bg-blue-600 text-white hover:bg-blue-700"
                           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                       )}
                     >
@@ -2171,32 +2270,20 @@ export default function VercelNavigation() {
                       if (item.isEmployeeDiscount) {
                         return (
                           <div key={item.id} className="bg-white rounded-lg border shadow-sm overflow-hidden">
-                            <div className="aspect-[4/3] relative bg-blue-50 flex items-center justify-center">
-                              <div className="text-center">
-                                <div className="flex items-center justify-center gap-4 mb-4">
-                                  <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-                                    <Gift className="h-6 w-6 text-orange-600" />
-                                  </div>
-                                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                                    <span className="text-2xl font-bold text-blue-600">%</span>
-                                  </div>
-                                  <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center">
-                                    <Gift className="h-6 w-6 text-teal-600" />
-                                  </div>
-                                </div>
-                                <div className="bg-red-500 text-white px-4 py-2 rounded-full inline-block text-sm font-semibold">
-                                  EMPLOYEE DISCOUNT
-                                </div>
-                                <div className="text-2xl font-bold text-gray-900 mt-2">PROGRAM</div>
-                              </div>
+                            <div className="aspect-[4/3] relative">
+                              <img 
+                                src="https://images.unsplash.com/photo-1556740758-90de374c12ad?w=400&h=300&fit=crop" 
+                                alt={item.title} 
+                                className="w-full h-full object-cover"
+                              />
                             </div>
                             <div className="p-4">
                               <div className="flex items-center gap-2 mb-2">
                                 <Badge className={item.badgeStyle}>{item.category}</Badge>
                               </div>
-                              <h3 className="font-semibold text-gray-900 mb-2">Employee discount pro...</h3>
+                              <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
                               <p className="text-sm text-gray-600 mb-4">{item.description}</p>
-                              <div className="flex items-center gap-4 text-xs text-gray-500">
+                              <div className="flex items-center justify-between text-xs text-gray-500">
                                 <span className="flex items-center gap-1">
                                   <Calendar className="h-3 w-3" />
                                   {item.date}
@@ -2239,7 +2326,7 @@ export default function VercelNavigation() {
                                 </Button>
                               </div>
                             ) : (
-                              <div className="flex items-center gap-4 text-xs text-gray-500">
+                              <div className="flex items-center justify-between text-xs text-gray-500">
                                 <span className="flex items-center gap-1">
                                   <Calendar className="h-3 w-3" />
                                   {item.date}
@@ -2601,6 +2688,125 @@ export default function VercelNavigation() {
                         </DropdownMenu>
                       </div>
                     </div>
+                  </div>
+
+                  {/* Visitor Table */}
+                  <div className="bg-white rounded-lg border shadow-sm">
+                    <Table>
+                      <TableHeader>
+                        <TableRow className="border-b">
+                          <TableHead className="w-12">
+                            <Checkbox />
+                          </TableHead>
+                          <TableHead className="text-left font-medium text-gray-700">Visitor</TableHead>
+                          <TableHead className="text-left font-medium text-gray-700">
+                            <div className="flex items-center gap-1">
+                              Expected
+                              <ChevronDown className="h-4 w-4 rotate-180" />
+                            </div>
+                          </TableHead>
+                          <TableHead className="text-left font-medium text-gray-700">Host</TableHead>
+                          <TableHead className="text-left font-medium text-gray-700">Invite</TableHead>
+                          <TableHead className="text-left font-medium text-gray-700">Status</TableHead>
+                          <TableHead className="text-left font-medium text-gray-700">Badge</TableHead>
+                          <TableHead className="w-12"></TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {visitorData.map((visitor) => (
+                          <TableRow key={visitor.id} className="border-b hover:bg-gray-50">
+                            <TableCell>
+                              <Checkbox />
+                            </TableCell>
+                            <TableCell>
+                              <div className="flex items-center gap-3">
+                                <Avatar className="h-10 w-10">
+                                  <AvatarImage src={visitor.avatar} alt={visitor.name} />
+                                  <AvatarFallback className="bg-blue-600 text-white">
+                                    {visitor.initials || visitor.name.split(' ').map(n => n[0]).join('')}
+                                  </AvatarFallback>
+                                </Avatar>
+                                <div className="font-medium text-blue-600">{visitor.name}</div>
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <div className="space-y-1">
+                                <div className="font-medium text-gray-900">{visitor.expected}</div>
+                                <div className="text-sm text-gray-500">End time: {visitor.endTime}</div>
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <div className="space-y-1">
+                                <div className="font-medium text-blue-600">{visitor.host}</div>
+                                <div className="text-sm text-gray-500">{visitor.hostCompany}</div>
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <div className="space-y-1">
+                                {visitor.inviteStatus === "sent" && (
+                                  <>
+                                    <div className="flex items-center gap-2">
+                                      <Mail className="h-4 w-4 text-gray-400" />
+                                      <span className="text-sm text-gray-600">Sent {visitor.inviteTime}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <FileText className="h-4 w-4 text-gray-400" />
+                                      <span className="text-sm text-gray-600">Sent {visitor.inviteTime}</span>
+                                    </div>
+                                  </>
+                                )}
+                                {visitor.inviteStatus === "failed" && (
+                                  <>
+                                    <div className="flex items-center gap-2">
+                                      <Mail className="h-4 w-4 text-gray-400" />
+                                      <span className="text-sm text-gray-600">Sent {visitor.inviteTime}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <FileText className="h-4 w-4 text-red-500" />
+                                      <span className="text-sm text-red-600">Failed {visitor.inviteTime}</span>
+                                    </div>
+                                  </>
+                                )}
+                                {visitor.inviteStatus === "none" && (
+                                  <span className="text-sm text-gray-400">–</span>
+                                )}
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <Badge className={`${visitor.statusColor} hover:${visitor.statusColor}`}>
+                                <div className="w-2 h-2 rounded-full bg-current mr-2"></div>
+                                {visitor.status}
+                              </Badge>
+                            </TableCell>
+                            <TableCell>
+                              {visitor.badge === "activate" ? (
+                                <Button variant="outline" size="sm" className="text-blue-600 border-blue-600 hover:bg-blue-50">
+                                  Activate
+                                </Button>
+                              ) : (
+                                <span className={`text-sm ${visitor.badgeColor || 'text-gray-600'}`}>
+                                  {visitor.badge}
+                                </span>
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button variant="ghost" size="sm">
+                                    <MoreHorizontal className="h-4 w-4" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  <DropdownMenuItem>View details</DropdownMenuItem>
+                                  <DropdownMenuItem>Edit visit</DropdownMenuItem>
+                                  <DropdownMenuItem>Cancel visit</DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
                   </div>
                 </div>
               ) : null}
