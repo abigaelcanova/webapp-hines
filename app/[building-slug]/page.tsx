@@ -1236,14 +1236,19 @@ export default function VercelNavigation() {
                         <p className="text-sm text-gray-600">Reserve meeting rooms, workspaces, and more.</p>
                       </div>
                       <div className="ml-4 flex-shrink-0">
-                        <div className="w-16 h-16 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg flex items-center justify-center">
-                          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="w-12 h-12">
-                            <path d="M12 16L36 16L34 32L14 32L12 16Z" fill="#E3F2FD" stroke="#1976D2" strokeWidth="1.5"/>
-                            <rect x="16" y="20" width="16" height="8" fill="#BBDEFB" stroke="#1976D2" strokeWidth="1"/>
-                            <circle cx="20" cy="24" r="1" fill="#1976D2"/>
-                            <circle cx="28" cy="24" r="1" fill="#1976D2"/>
-                          </svg>
-                        </div>
+                        <div 
+                          className="w-16 h-16"
+                          style={{
+                            backgroundImage: 'url(/images/icons/bookaspace.png)',
+                            backgroundSize: 'contain',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
+                            border: 'none',
+                            outline: 'none',
+                            boxShadow: 'none'
+                          }}
+                          aria-label="Book a space"
+                        />
                       </div>
                     </div>
                   </div>
@@ -2980,7 +2985,19 @@ export default function VercelNavigation() {
                       <div className="grid grid-cols-2 gap-2">
                         <button className="flex items-center gap-3 p-3 rounded-md border hover:bg-muted text-left" type="button">
                           <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
-                            <Building className="h-4 w-4 text-blue-600" />
+                            <div 
+                              className="h-4 w-4"
+                              style={{
+                                backgroundImage: 'url(/images/icons/bookaspace.png)',
+                                backgroundSize: 'contain',
+                                backgroundRepeat: 'no-repeat',
+                                backgroundPosition: 'center',
+                                border: 'none',
+                                outline: 'none',
+                                boxShadow: 'none'
+                              }}
+                              aria-label="Book a space"
+                            />
                           </div>
                           <div>
                             <p className="text-sm font-medium">Book a space</p>
