@@ -1342,7 +1342,14 @@ export default function VercelNavigation() {
                 <div className="pt-8 mt-[40px] space-y-8">
                   <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold">What's happening</h2>
-                    <Button variant="ghost" className="text-sm text-gray-600 hover:text-gray-900">
+                    <Button 
+                      variant="ghost" 
+                      className="text-sm text-gray-600 hover:text-gray-900"
+                      onClick={() => {
+                        setCurrentPage("my-feed");
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                    >
                       View all updates →
                     </Button>
                   </div>
@@ -1431,7 +1438,14 @@ export default function VercelNavigation() {
                 <div className="pt-8 space-y-6">
                   <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold">Upcoming events</h2>
-                    <Button variant="ghost" className="text-sm text-gray-600 hover:text-gray-900">
+                    <Button 
+                      variant="ghost" 
+                      className="text-sm text-gray-600 hover:text-gray-900"
+                      onClick={() => {
+                        setCurrentPage("events");
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                    >
                       View all events →
                     </Button>
                   </div>
@@ -1483,7 +1497,14 @@ export default function VercelNavigation() {
                 <div className="pt-8 space-y-6 mb-[88px]">
                   <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold">Support materials</h2>
-                    <Button variant="ghost" className="text-sm text-gray-600 hover:text-gray-900">
+                    <Button 
+                      variant="ghost" 
+                      className="text-sm text-gray-600 hover:text-gray-900"
+                      onClick={() => {
+                        setCurrentPage("about");
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                    >
                       View all materials →
                     </Button>
                   </div>
