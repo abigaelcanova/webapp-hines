@@ -97,7 +97,6 @@ export default function VercelNavigation() {
   const [currentMonth, setCurrentMonth] = useState(new Date(2025, 4)) // May 2025
   const [selectedDate, setSelectedDate] = useState(new Date(2025, 4, 30)) // May 30, 2025
   const [notificationPopoverOpen, setNotificationPopoverOpen] = useState(false)
-  const [searchModalOpen, setSearchModalOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState("home")
   const [bookingView, setBookingView] = useState("calendar")
   const [bookingDate, setBookingDate] = useState(new Date(2025, 4, 22)) // May 22, 2025
@@ -256,18 +255,8 @@ export default function VercelNavigation() {
     );
   }, [selectedDate]);
 
-  // Keyboard shortcuts for search modal
+  // Handle mobile responsive behavior
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && searchModalOpen) {
-        setSearchModalOpen(false)
-      }
-      if ((event.metaKey || event.ctrlKey) && event.key === "k") {
-        event.preventDefault()
-        setSearchModalOpen(true)
-      }
-    }
-
     const handleResize = () => {
       const mobile = window.innerWidth < 1024
       setIsMobile(mobile)
@@ -281,14 +270,12 @@ export default function VercelNavigation() {
     // Initial check
     handleResize()
 
-    document.addEventListener("keydown", handleKeyDown)
     window.addEventListener("resize", handleResize)
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown)
       window.removeEventListener("resize", handleResize)
     }
-  }, [searchModalOpen, leftDrawerOpen])
+  }, [leftDrawerOpen])
 
   const setPrimary = (buildingName: string) => {
     setPrimaryBuilding(buildingName)
@@ -819,7 +806,7 @@ export default function VercelNavigation() {
             </DropdownMenu>
 
             {/* Search */}
-            <Button variant="ghost" size="icon" className="h-8 w-8 p-1" onClick={() => setSearchModalOpen(true)}>
+            <Button variant="ghost" size="icon" className="h-8 w-8 p-1">
               <Search className="h-4 w-4" />
               <span className="sr-only">Search</span>
             </Button>
@@ -3205,123 +3192,7 @@ export default function VercelNavigation() {
           sharedInputValue={sharedInputValue}
         />
 
-        {/* Search Modal */}
-        {searchModalOpen && (
-          <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm">
-            <div className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh]">
-              <div className="w-full max-w-2xl mx-4">
-                <div className="bg-white rounded-xl border shadow-lg overflow-hidden">
-                  {/* Search Header */}
-                  <div className="flex items-center gap-3 p-4 border-b">
-                    <Search className="h-5 w-5 text-muted-foreground" />
-                    <Input
-                      placeholder="Search buildings, people, events, spaces..."
-                      className="flex-1 border-0 focus-visible:ring-0 text-base"
-                      autoFocus
-                    />
-                    <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setSearchModalOpen(false)}>
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
 
-                  {/* Search Content */}
-                  <div className="max-h-96 overflow-y-auto">
-                    {/* Recent Searches */}
-                    <div className="p-4 border-b">
-                      <h3 className="text-sm font-medium text-muted-foreground mb-3">Recent searches</h3>
-                      <div className="space-y-2">
-                        <button type="button" className="flex items-center gap-3 w-full p-2 rounded-md hover:bg-muted text-left">
-                          <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
-                            <Building className="h-4 w-4 text-muted-foreground" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium">Conference Room A</p>
-                            <p className="text-xs text-muted-foreground">Meeting space</p>
-                          </div>
-                        </button>
-                        <button type="button" className="flex items-center gap-3 w-full p-2 rounded-md hover:bg-muted text-left">
-                          <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
-                            <User className="h-4 w-4 text-muted-foreground" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium">John Smith</p>
-                            <p className="text-xs text-muted-foreground">Building manager</p>
-                          </div>
-                        </button>
-                        <button type="button" className="flex items-center gap-3 w-full p-2 rounded-md hover:bg-muted text-left">
-                          <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
-                            <CalendarDays className="h-4 w-4 text-muted-foreground" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium">Townhall Meeting</p>
-                            <p className="text-xs text-muted-foreground">May 31, 2025</p>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Quick Actions */}
-                    <div className="p-4">
-                      <h3 className="text-sm font-medium text-muted-foreground mb-3">Quick actions</h3>
-                      <div className="grid grid-cols-2 gap-2">
-                        <button className="flex items-center gap-3 p-3 rounded-md border hover:bg-muted text-left" type="button">
-                          <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
-                            <Building className="h-4 w-4 text-blue-600" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium">Book a space</p>
-                            <p className="text-xs text-muted-foreground">Find and reserve</p>
-                          </div>
-                        </button>
-                        <button className="flex items-center gap-3 p-3 rounded-md border hover:bg-muted text-left" type="button">
-                          <div className="h-8 w-8 rounded-full bg-teal-100 flex items-center justify-center">
-                            <UserPlus className="h-4 w-4 text-teal-600"/>
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium">Register guest</p>
-                            <p className="text-xs text-muted-foreground">Add visitor</p>
-                          </div>
-                        </button>
-                        <button className="flex items-center gap-3 p-3 rounded-md border hover:bg-muted text-left" type="button">
-                          <div className="h-8 w-8 rounded-full bg-orange-100 flex items-center justify-center">
-                            <Wrench className="h-4 w-4 text-orange-600" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium">Report issue</p>
-                            <p className="text-xs text-muted-foreground">Click to fix</p>
-                          </div>
-                        </button>
-                        <button className="flex items-center gap-3 p-3 rounded-md border hover:bg-muted text-left" type="button">
-                          <div className="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center">
-                            <CalendarDays className="h-4 w-4 text-purple-600" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium">View events</p>
-                            <p className="text-xs text-muted-foreground">Upcoming</p>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Search Footer */}
-                  <div className="p-3 border-t bg-muted/30">
-                    <div className="flex items-center justify-between text-xs text-muted-foreground">
-                      <div className="flex items-center gap-4">
-                        <span>
-                          Press <kbd className="px-1.5 py-0.5 bg-background border rounded text-xs">↵</kbd> to search
-                        </span>
-                        <span>
-                          Press <kbd className="px-1.5 py-0.5 bg-background border rounded text-xs">Esc</kbd> to close
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Add Request Modal */}
         {isAddRequestModalOpen && (
