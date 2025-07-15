@@ -42,6 +42,14 @@ import {
   Dumbbell,
   UserCheck,
   Upload,
+  Settings,
+  QrCode,
+  CreditCard,
+  IdCard,
+  Plus,
+  ChevronLeft,
+  ChevronRight,
+  Download,
 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -102,6 +110,16 @@ export default function VercelNavigation() {
     subject: "",
     description: "",
     documents: [] as File[]
+  })
+  const [visitorActiveTab, setVisitorActiveTab] = useState("Visits")
+  const [visitorDate, setVisitorDate] = useState(new Date("2025-01-10"))
+  const [visitorSearchQuery, setVisitorSearchQuery] = useState("")
+  const [visitorFilters, setVisitorFilters] = useState({
+    type: "",
+    group: "",
+    host: "",
+    hostCompany: "",
+    status: ""
   })
 
   useEffect(() => {
@@ -855,115 +873,170 @@ export default function VercelNavigation() {
                 <div className="flex-1 overflow-y-auto">
                   <nav className="space-y-1 mb-8">
                     {/* Home - Active */}
-                    <Button
-                      variant="ghost"
-                      className={cn(
-                        "w-full justify-start h-10 px-3 font-normal text-sm",
-                        currentPage === "home"
-                          ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
-                          : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                    <div className="relative">
+                      {currentPage === "home" && (
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
                       )}
-                      onClick={() => setCurrentPage("home")}
-                    >
-                      <Home className="h-4 w-4 mr-3" />
-                      <span>Home</span>
-                    </Button>
+                      <Button
+                        variant="ghost"
+                        className={cn(
+                          "w-full justify-start h-10 px-3 font-normal text-sm",
+                          currentPage === "home"
+                            ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                        )}
+                        onClick={() => setCurrentPage("home")}
+                      >
+                        <Home className="h-4 w-4 mr-3" />
+                        <span>Home</span>
+                      </Button>
+                    </div>
 
                     {/* Spaces */}
-                    <Button
-                      variant="ghost"
-                      className={cn(
-                        "w-full justify-start h-10 px-3 font-normal text-sm",
-                        currentPage === "book-space"
-                          ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
-                          : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                    <div className="relative">
+                      {currentPage === "book-space" && (
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
                       )}
-                      onClick={() => setCurrentPage("book-space")}
-                    >
-                      <MapPin className="h-4 w-4 mr-3" />
-                      <span>Spaces</span>
-                    </Button>
+                      <Button
+                        variant="ghost"
+                        className={cn(
+                          "w-full justify-start h-10 px-3 font-normal text-sm",
+                          currentPage === "book-space"
+                            ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                        )}
+                        onClick={() => setCurrentPage("book-space")}
+                      >
+                        <MapPin className="h-4 w-4 mr-3" />
+                        <span>Spaces</span>
+                      </Button>
+                    </div>
 
                     {/* Events & services */}
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start h-10 px-3 font-normal text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                      onClick={() => setCurrentPage("events")}
-                    >
-                      <Dumbbell className="h-4 w-4 mr-3" />
-                      <span>Events & services</span>
-                      <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-full ml-auto">
-                        2
-                      </Badge>
-                    </Button>
+                    <div className="relative">
+                      {currentPage === "events" && (
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
+                      )}
+                      <Button
+                        variant="ghost"
+                        className={cn(
+                          "w-full justify-start h-10 px-3 font-normal text-sm",
+                          currentPage === "events"
+                            ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                        )}
+                        onClick={() => setCurrentPage("events")}
+                      >
+                        <Calendar className="h-4 w-4 mr-3" />
+                        <span>Events & services</span>
+                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-full ml-auto">
+                          2
+                        </Badge>
+                      </Button>
+                    </div>
 
                     {/* Service requests */}
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start h-10 px-3 font-normal text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                      onClick={() => setCurrentPage("service-requests")}
-                    >
-                      <Wrench className="h-4 w-4 mr-3" />
-                      <span>Service requests</span>
-                    </Button>
+                    <div className="relative">
+                      {currentPage === "service-requests" && (
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
+                      )}
+                      <Button
+                        variant="ghost"
+                        className={cn(
+                          "w-full justify-start h-10 px-3 font-normal text-sm",
+                          currentPage === "service-requests"
+                            ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                        )}
+                        onClick={() => setCurrentPage("service-requests")}
+                      >
+                        <Wrench className="h-4 w-4 mr-3" />
+                        <span>Service requests</span>
+                      </Button>
+                    </div>
 
                     {/* My feed */}
-                    <Button
-                      variant="ghost"
-                      className={cn(
-                        "w-full justify-start h-10 px-3 font-normal text-sm",
-                        currentPage === "my-feed"
-                          ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
-                          : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                    <div className="relative">
+                      {currentPage === "my-feed" && (
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
                       )}
-                      onClick={() => setCurrentPage("my-feed")}
-                    >
-                      <FileText className="h-4 w-4 mr-3" />
-                      <span>My feed</span>
-                      <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-full ml-auto">
-                        3
-                      </Badge>
-                    </Button>
+                      <Button
+                        variant="ghost"
+                        className={cn(
+                          "w-full justify-start h-10 px-3 font-normal text-sm",
+                          currentPage === "my-feed"
+                            ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                        )}
+                        onClick={() => setCurrentPage("my-feed")}
+                      >
+                        <FileText className="h-4 w-4 mr-3" />
+                        <span>My feed</span>
+                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-full ml-auto">
+                          3
+                        </Badge>
+                      </Button>
+                    </div>
 
                     {/* Visitor registration */}
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start h-10 px-3 font-normal text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                      onClick={() => setCurrentPage("visitor-registration")}
-                    >
-                      <UserCheck className="h-4 w-4 mr-3" />
-                      <span>Visitor registration</span>
-                    </Button>
+                    <div className="relative">
+                                              {currentPage === "visitor-management" && (
+                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
+                        )}
+                      <Button
+                        variant="ghost"
+                        className={cn(
+                          "w-full justify-start h-10 px-3 font-normal text-sm",
+                                                currentPage === "visitor-management"
+                        ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                        : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                        )}
+                        onClick={() => setCurrentPage("visitor-management")}
+                      >
+                        <UserCheck className="h-4 w-4 mr-3" />
+                        <span>Visitor management</span>
+                      </Button>
+                    </div>
 
                     {/* About */}
-                    <Button
-                      variant="ghost"
-                      className={cn(
-                        "w-full justify-start h-10 px-3 font-normal text-sm",
-                        currentPage === "about"
-                          ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
-                          : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                    <div className="relative">
+                      {currentPage === "about" && (
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
                       )}
-                      onClick={() => setCurrentPage("about")}
-                    >
-                      <Info className="h-4 w-4 mr-3" />
-                      <span>About</span>
-                    </Button>
+                      <Button
+                        variant="ghost"
+                        className={cn(
+                          "w-full justify-start h-10 px-3 font-normal text-sm",
+                          currentPage === "about"
+                            ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                        )}
+                        onClick={() => setCurrentPage("about")}
+                      >
+                        <Info className="h-4 w-4 mr-3" />
+                        <span>About</span>
+                      </Button>
+                    </div>
 
                     {/* Help */}
-                    <Button
-                      variant="ghost"
-                      className={cn(
-                        "w-full justify-start h-10 px-3 font-normal text-sm",
-                        currentPage === "help"
-                          ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
-                          : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                    <div className="relative">
+                      {currentPage === "help" && (
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
                       )}
-                      onClick={() => setCurrentPage("help")}
-                    >
-                      <HelpCircle className="h-4 w-4 mr-3" />
-                      <span>Help</span>
-                    </Button>
+                      <Button
+                        variant="ghost"
+                        className={cn(
+                          "w-full justify-start h-10 px-3 font-normal text-sm",
+                          currentPage === "help"
+                            ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                        )}
+                        onClick={() => setCurrentPage("help")}
+                      >
+                        <HelpCircle className="h-4 w-4 mr-3" />
+                        <span>Help</span>
+                      </Button>
+                    </div>
                   </nav>
 
                   {/* App Download Section */}
@@ -2291,6 +2364,244 @@ export default function VercelNavigation() {
                       </Button>
                     </div>
                   </form>
+                </div>
+              ) : currentPage === "visitor-management" ? (
+                <div className="space-y-6">
+                  {/* Header */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <h1 className="text-2xl font-semibold text-gray-900">Visitor Management</h1>
+                      <Settings className="h-5 w-5 text-gray-500" />
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Button variant="outline" className="flex items-center gap-2">
+                        <CreditCard className="h-4 w-4" />
+                        Scan LP
+                      </Button>
+                      <Button variant="outline" className="flex items-center gap-2">
+                        <QrCode className="h-4 w-4" />
+                        Scan QR
+                      </Button>
+                      <Button variant="outline" className="flex items-center gap-2">
+                        <IdCard className="h-4 w-4" />
+                        Scan ID
+                      </Button>
+                      <Button className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2">
+                        <Plus className="h-4 w-4" />
+                        Create visit
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Tab Navigation */}
+                  <div className="border-b">
+                    <nav className="flex space-x-8">
+                      {["Visits", "Visitors", "Vendors", "Tenant employees", "Requests", "Watchlist", "Groups"].map((tab) => (
+                        <button
+                          key={tab}
+                          onClick={() => setVisitorActiveTab(tab)}
+                          className={cn(
+                            "py-2 px-1 border-b-2 font-medium text-sm transition-colors",
+                            visitorActiveTab === tab
+                              ? "border-blue-500 text-blue-600"
+                              : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                          )}
+                        >
+                          {tab}
+                        </button>
+                      ))}
+                    </nav>
+                  </div>
+
+                  {/* Statistics Container */}
+                  <div className="bg-white rounded-lg border shadow-sm p-6">
+                    <div className="flex items-center gap-8">
+                      {/* Date Picker */}
+                      <div className="flex items-center gap-2">
+                        <CalendarDays className="h-5 w-5 text-gray-500" />
+                        <Button variant="outline" size="sm">
+                          <ChevronLeft className="h-4 w-4" />
+                        </Button>
+                        <Button variant="outline" className="flex items-center gap-2 min-w-[160px]">
+                          January 10, 2025
+                          <ChevronDown className="h-4 w-4" />
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <ChevronRight className="h-4 w-4" />
+                        </Button>
+                      </div>
+
+                      {/* Statistics */}
+                      <div className="text-center">
+                        <div className="text-3xl font-bold text-gray-900 mb-1">367</div>
+                        <div className="text-sm text-gray-600">Total visits</div>
+                      </div>
+                      
+                      <div className="text-center">
+                        <div className="flex items-center justify-center gap-2 mb-1">
+                          <div className="w-3 h-3 bg-purple-600 rounded-full"></div>
+                          <div className="text-3xl font-bold text-gray-900">201</div>
+                        </div>
+                        <div className="text-sm text-gray-600">Expected</div>
+                      </div>
+                      
+                      <div className="text-center">
+                        <div className="flex items-center justify-center gap-2 mb-1">
+                          <div className="w-3 h-3 bg-green-600 rounded-full"></div>
+                          <div className="text-3xl font-bold text-gray-900">12</div>
+                        </div>
+                        <div className="text-sm text-gray-600">Checked-in</div>
+                      </div>
+                      
+                      <div className="text-center">
+                        <div className="flex items-center justify-center gap-2 mb-1">
+                          <div className="w-3 h-3 bg-gray-500 rounded-full"></div>
+                          <div className="text-3xl font-bold text-gray-900">99</div>
+                        </div>
+                        <div className="text-sm text-gray-600">Cancelled</div>
+                      </div>
+
+                      {/* Progress Bar */}
+                      <div className="flex-1 ml-8">
+                        <div className="w-full bg-gray-200 rounded-full h-3">
+                          <div className="flex h-3 rounded-full overflow-hidden">
+                            <div className="bg-purple-600" style={{ width: "54.8%" }}></div>
+                            <div className="bg-green-600" style={{ width: "3.3%" }}></div>
+                            <div className="bg-gray-500" style={{ width: "27.0%" }}></div>
+                            <div className="bg-gray-300 flex-1"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Filters Section */}
+                  <div className="space-y-4">
+                    {/* Header with Title and Download */}
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-xl font-semibold text-gray-900">All visits</h2>
+                      <Button variant="outline" size="sm" className="flex items-center gap-2">
+                        <Download className="h-4 w-4" />
+                      </Button>
+                    </div>
+
+                    {/* Search and Filters */}
+                    <div className="flex items-center justify-between">
+                      {/* Search Bar */}
+                      <div className="relative flex-shrink-0 w-80">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                        <Input
+                          placeholder="Search"
+                          value={visitorSearchQuery}
+                          onChange={(e) => setVisitorSearchQuery(e.target.value)}
+                          className="pl-9"
+                        />
+                      </div>
+
+                      {/* Filter Dropdowns */}
+                      <div className="flex items-center gap-4">
+                        <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="outline" className="flex items-center gap-2">
+                            Type
+                            <ChevronDown className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem onClick={() => setVisitorFilters({...visitorFilters, type: "Meeting"})}>
+                            Meeting
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setVisitorFilters({...visitorFilters, type: "Delivery"})}>
+                            Delivery
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setVisitorFilters({...visitorFilters, type: "Interview"})}>
+                            Interview
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="outline" className="flex items-center gap-2">
+                            Group
+                            <ChevronDown className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem onClick={() => setVisitorFilters({...visitorFilters, group: "VIP"})}>
+                            VIP
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setVisitorFilters({...visitorFilters, group: "Contractor"})}>
+                            Contractor
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setVisitorFilters({...visitorFilters, group: "Vendor"})}>
+                            Vendor
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="outline" className="flex items-center gap-2">
+                            Host
+                            <ChevronDown className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem onClick={() => setVisitorFilters({...visitorFilters, host: "John Smith"})}>
+                            John Smith
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setVisitorFilters({...visitorFilters, host: "Jane Doe"})}>
+                            Jane Doe
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setVisitorFilters({...visitorFilters, host: "Mike Johnson"})}>
+                            Mike Johnson
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="outline" className="flex items-center gap-2">
+                            Host company
+                            <ChevronDown className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem onClick={() => setVisitorFilters({...visitorFilters, hostCompany: "Tech Corp"})}>
+                            Tech Corp
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setVisitorFilters({...visitorFilters, hostCompany: "Design Studio"})}>
+                            Design Studio
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setVisitorFilters({...visitorFilters, hostCompany: "Marketing Inc"})}>
+                            Marketing Inc
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="outline" className="flex items-center gap-2">
+                            Status
+                            <ChevronDown className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem onClick={() => setVisitorFilters({...visitorFilters, status: "Expected"})}>
+                            Expected
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setVisitorFilters({...visitorFilters, status: "Checked-in"})}>
+                            Checked-in
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setVisitorFilters({...visitorFilters, status: "Cancelled"})}>
+                            Cancelled
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ) : null}
           </main>
