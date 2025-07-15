@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
+import { SiteFooter } from "@/components/site-footer"
 
 export default function SignupPage() {
   const [firstName, setFirstName] = useState("")
@@ -19,7 +20,8 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex flex-col">
+      <div className="flex-1 flex">
       {/* Left side - Signup form */}
       <div className="flex-1 flex items-center justify-center px-8 py-12 bg-white">
         <div className="w-full max-w-md space-y-8">
@@ -139,6 +141,10 @@ export default function SignupPage() {
           <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-black/60" />
         </div>
       </div>
+      </div>
+      
+      {/* Site Footer */}
+      <SiteFooter />
     </div>
   )
 } 

@@ -60,6 +60,7 @@ import { HeroCard } from "@/components/hero-card"
 import { AIAssistantModal } from "@/components/ai-assistant-modal"
 import { AssistantDrawer } from "@/components/assistant-drawer"
 import { Banner } from "@/components/ui/banner"
+import { SiteFooter } from "@/components/site-footer"
 
 export default function VercelNavigation() {
   const [projectDropdownOpen, setProjectDropdownOpen] = useState(false)
@@ -968,59 +969,61 @@ export default function VercelNavigation() {
                     </Button>
                   </nav>
 
-                </div>
-
-                {/* App Download Section */}
-                <div className="mt-4 flex-shrink-0 space-y-4">
-                  <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 text-white">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h4 className="text-sm font-medium mb-1">It's even better on the go.</h4>
-                        <p className="text-xs text-blue-100 mb-3">Download the app</p>
-                      </div>
-                      <div className="bg-white rounded p-2 ml-3">
-                        <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center">
-                          <div className="grid grid-cols-3 gap-0.5">
-                            {Array.from({ length: 9 }).map((_, i) => (
-                              <div key={i} className="w-1 h-1 bg-gray-800 rounded-sm" />
-                            ))}
+                  {/* App Download Section */}
+                  <div className="space-y-4 mb-8">
+                    <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 text-white">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <h4 className="text-sm font-medium mb-1">It's even better on the go.</h4>
+                          <p className="text-xs text-blue-100 mb-3">Download the app</p>
+                        </div>
+                        <div className="bg-white rounded p-2 ml-3">
+                          <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center">
+                            <div className="grid grid-cols-3 gap-0.5">
+                              {Array.from({ length: 9 }).map((_, i) => (
+                                <div key={i} className="w-1 h-1 bg-gray-800 rounded-sm" />
+                              ))}
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Helpful Links */}
-                  <div>
-                    <h5 className="text-sm font-medium text-gray-900 mb-3">Helpful links</h5>
-                    <div className="space-y-2">
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
-                      >
-                        Building resources
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
-                      >
-                        Policies & guidelines
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
-                      >
-                        Emergency procedures
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
-                      >
-                        Contact directory
-                      </Button>
+                    {/* Helpful Links */}
+                    <div>
+                      <h5 className="text-sm font-medium text-gray-900 mb-3">Helpful links</h5>
+                      <div className="space-y-2">
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
+                        >
+                          Building resources
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
+                        >
+                          Policies & guidelines
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
+                        >
+                          Emergency procedures
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
+                        >
+                          Contact directory
+                        </Button>
+                      </div>
                     </div>
                   </div>
+
                 </div>
+
+
               </div>
             )}
           </aside>
@@ -1610,16 +1613,16 @@ export default function VercelNavigation() {
                           </span>
                           <span>+2</span>
                         </div>
+                        <div className="flex items-center gap-2 text-sm text-blue-600">
+                          <CalendarDays className="h-4 w-4" />
+                          <span>May 25, 2025</span>
+                        </div>
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2 text-sm text-blue-600">
-                            <CalendarDays className="h-4 w-4" />
-                            <span>May 25, 2025</span>
-                          </div>
+                          <div className="text-xs text-gray-500">10:00 AM - 12:00 PM</div>
                           <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
                             Cancel
                           </Button>
                         </div>
-                        <div className="text-xs text-gray-500">10:00 AM - 12:00 PM</div>
                       </div>
                     </div>
 
@@ -1651,16 +1654,16 @@ export default function VercelNavigation() {
                           </span>
                           <span>+2</span>
                         </div>
+                        <div className="flex items-center gap-2 text-sm text-blue-600">
+                          <CalendarDays className="h-4 w-4" />
+                          <span>May 25, 2025</span>
+                        </div>
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2 text-sm text-blue-600">
-                            <CalendarDays className="h-4 w-4" />
-                            <span>May 25, 2025</span>
-                          </div>
+                          <div className="text-xs text-gray-500">10:00 AM - 12:00 PM</div>
                           <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
                             Cancel
                           </Button>
                         </div>
-                        <div className="text-xs text-gray-500">10:00 AM - 12:00 PM</div>
                       </div>
                     </div>
 
@@ -1692,16 +1695,16 @@ export default function VercelNavigation() {
                           </span>
                           <span>+2</span>
                         </div>
+                        <div className="flex items-center gap-2 text-sm text-blue-600">
+                          <CalendarDays className="h-4 w-4" />
+                          <span>May 25, 2025</span>
+                        </div>
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2 text-sm text-blue-600">
-                            <CalendarDays className="h-4 w-4" />
-                            <span>May 25, 2025</span>
-                          </div>
+                          <div className="text-xs text-gray-500">10:00 AM - 12:00 PM</div>
                           <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
                             Cancel
                           </Button>
                         </div>
-                        <div className="text-xs text-gray-500">10:00 AM - 12:00 PM</div>
                       </div>
                     </div>
                   </div>
@@ -2040,6 +2043,9 @@ export default function VercelNavigation() {
           </div>
         )}
       </div>
+      
+      {/* Site Footer */}
+      <SiteFooter buildingName={primaryBuilding} />
     </div>
   )
 }
