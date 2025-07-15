@@ -41,6 +41,7 @@ import {
   HelpCircle,
   Dumbbell,
   UserCheck,
+  Upload,
 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -50,6 +51,9 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
 import { ModernCarousel } from "@/components/modern-carousel"
 import Link from "next/link"
@@ -91,6 +95,14 @@ export default function VercelNavigation() {
   const [aiModalPrompt, setAiModalPrompt] = useState("")
   const [sharedMessages, setSharedMessages] = useState<any[]>([])
   const [sharedInputValue, setSharedInputValue] = useState("")
+  const [feedSearchQuery, setFeedSearchQuery] = useState("")
+  const [feedActiveFilter, setFeedActiveFilter] = useState("All")
+  const [helpForm, setHelpForm] = useState({
+    requestType: "",
+    subject: "",
+    description: "",
+    documents: [] as File[]
+  })
 
   useEffect(() => {
     setCurrentMonthLabel(
@@ -589,7 +601,7 @@ export default function VercelNavigation() {
           <div className="col-span-8"></div>
 
           {/* Right side icons */}
-          <div className="col-span-2 flex items-center justify-end space-x-2">
+          <div className="col-span-2 flex items-center justify-end gap-8">
             {/* Building Selector */}
             <DropdownMenu open={projectDropdownOpen} onOpenChange={setProjectDropdownOpen}>
               <DropdownMenuTrigger asChild>
@@ -600,7 +612,7 @@ export default function VercelNavigation() {
                       <Building className="h-4 w-4" />
                     </AvatarFallback>
                   </Avatar>
-                  {!isMobile && <span className="font-medium">{selectedBuilding.name}</span>}
+                  <span className="font-medium">{primaryBuilding}</span>
                   <ChevronDown className="h-4 w-4 text-muted-foreground" />
                 </Button>
               </DropdownMenuTrigger>
@@ -671,19 +683,14 @@ export default function VercelNavigation() {
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
+
+            {/* Search */}
             <Button variant="ghost" size="icon" className="h-9 w-9 p-2" onClick={() => setSearchModalOpen(true)}>
               <Search className="h-4 w-4" />
               <span className="sr-only">Search</span>
             </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className={cn("h-9 w-9 p-2", assistantDrawerOpen && "bg-primary/10 text-primary")}
-              onClick={openAssistant}
-            >
-              <Sparkles className="h-4 w-4" />
-              <span className="sr-only">AI Features</span>
-            </Button>
+
+            {/* Notifications */}
             <Popover open={notificationPopoverOpen} onOpenChange={setNotificationPopoverOpen}>
               <PopoverTrigger asChild>
                 <Button variant="ghost" size="icon" className="h-9 w-9 p-2 relative">
@@ -756,37 +763,21 @@ export default function VercelNavigation() {
               </PopoverContent>
             </Popover>
 
-            {/* Separator */}
-            <div className="w-px h-6 bg-border mx-3" />
-
-            {/* Activity Button */}
-            <Button
-              variant={rightDrawerOpen ? "default" : "outline"}
-              size="sm"
-              className={cn(
-                "h-9 px-3 gap-2 rounded-full transition-colors",
-                rightDrawerOpen && "bg-primary/10 text-primary hover:bg-primary/20 border-primary/20",
-              )}
-              onClick={openActivity}
-            >
-              <Calendar className="h-4 w-4" />
-              {!isMobile && <span className="text-sm font-medium">Activity</span>}
-            </Button>
-
+            {/* User Profile */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Avatar className="h-8 w-8 ml-3 cursor-pointer">
-                  <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">JD</AvatarFallback>
+                <Avatar className="h-8 w-8 cursor-pointer">
+                  <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">PT</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-64">
                 <div className="flex items-center gap-3 p-3">
                   <Avatar className="h-10 w-10">
-                    <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">JD</AvatarFallback>
+                    <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">PT</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col">
-                    <span className="font-medium text-sm">John Doe</span>
-                    <span className="text-xs text-muted-foreground">john.doe@company.com</span>
+                    <span className="font-medium text-sm">Pat Tobin</span>
+                    <span className="text-xs text-muted-foreground">pat.tobin@are.com</span>
                   </div>
                 </div>
                 <DropdownMenuSeparator />
@@ -896,14 +887,12 @@ export default function VercelNavigation() {
                     {/* Events & services */}
                     <Button
                       variant="ghost"
-                      className="w-full justify-between h-10 px-3 font-normal text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                      className="w-full justify-start h-10 px-3 font-normal text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                       onClick={() => setCurrentPage("events")}
                     >
-                      <div className="flex items-center">
-                        <Dumbbell className="h-4 w-4 mr-3" />
-                        <span>Events & services</span>
-                      </div>
-                      <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-full">
+                      <Dumbbell className="h-4 w-4 mr-3" />
+                      <span>Events & services</span>
+                      <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-full ml-auto">
                         2
                       </Badge>
                     </Button>
@@ -921,14 +910,17 @@ export default function VercelNavigation() {
                     {/* My feed */}
                     <Button
                       variant="ghost"
-                      className="w-full justify-between h-10 px-3 font-normal text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                      className={cn(
+                        "w-full justify-start h-10 px-3 font-normal text-sm",
+                        currentPage === "my-feed"
+                          ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                          : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                      )}
                       onClick={() => setCurrentPage("my-feed")}
                     >
-                      <div className="flex items-center">
-                        <FileText className="h-4 w-4 mr-3" />
-                        <span>My feed</span>
-                      </div>
-                      <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-full">
+                      <FileText className="h-4 w-4 mr-3" />
+                      <span>My feed</span>
+                      <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-full ml-auto">
                         3
                       </Badge>
                     </Button>
@@ -961,7 +953,12 @@ export default function VercelNavigation() {
                     {/* Help */}
                     <Button
                       variant="ghost"
-                      className="w-full justify-start h-10 px-3 font-normal text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                      className={cn(
+                        "w-full justify-start h-10 px-3 font-normal text-sm",
+                        currentPage === "help"
+                          ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                          : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                      )}
                       onClick={() => setCurrentPage("help")}
                     >
                       <HelpCircle className="h-4 w-4 mr-3" />
@@ -1711,90 +1708,199 @@ export default function VercelNavigation() {
                 </div>
               </div>
             ) : currentPage === "about" ? (
-              <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-medium">About</h2>
+              <div className="space-y-8">
+                {/* Header */}
+                <div>
+                  <h1 className="text-3xl font-bold text-gray-900 mb-2">About ARE Demo Building</h1>
                 </div>
-                <div className="flex gap-4 border-b">
-                  {['Overview', 'Amenities', 'Transportation', 'Contact'].map((tab) => (
-                    <button
-                      key={tab}
-                      type="button"
-                      className={cn(
-                        'px-4 py-2 text-sm font-medium border-b-2 -mb-px transition-colors',
-                        aboutTab === tab
-                          ? 'border-primary text-primary'
-                          : 'border-transparent text-muted-foreground hover:text-foreground'
-                      )}
-                      onClick={() => setAboutTab(tab)}
-                    >
-                      {tab}
-                    </button>
-                  ))}
-                </div>
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  <div className="lg:col-span-2 space-y-6">
-                    <div className="aspect-video rounded-xl border bg-white shadow-sm overflow-hidden">
-                      <img
-                        src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=400&fit=crop"
-                        alt="Building exterior"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
+
+                {/* Building Overview Section */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* Building Image */}
+                  <div className="aspect-[4/3] rounded-xl overflow-hidden">
+                    <img
+                      src="/images/buildings/Program-Alexandria-Center-Gallery-Image-Photo-Evan-Joseph-Courtey-of-Alexandria-Center-0685.webp"
+                      alt="ARE Demo Building"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  {/* Building Description */}
+                  <div className="flex flex-col">
                     <div className="prose max-w-none">
-                      <p>
-                        Welcome to our state-of-the-art building, where modern design meets functionality. Our space is
-                        designed to inspire creativity, foster collaboration, and provide a comfortable environment for all
-                        occupants.
+                      <p className="text-gray-700 leading-relaxed">
+                        The Alexandria Center for Life Science, located at 29th St and 1st Ave between Bellevue Hospital and NYU Medical Center, is a state-of-the-art research and development campus that serves as the flagship location for New York City's expanding life sciences sector.
                       </p>
-                      <p>
-                        With a focus on sustainability and innovation, we offer a range of amenities and services to meet
-                        the diverse needs of our community. From flexible workspaces to cutting-edge technology
-                        infrastructure, every detail has been carefully considered.
+                      <p className="text-gray-700 leading-relaxed mt-4">
+                        Strategically located along Manhattan's East Side Medical Corridor, The Alexandria Center™ capitalizes on its proximity to the City's top academic, medical institutions and major hospitals. Upon completion of the North Tower will provide 1.3 million-square-feet of first-class office and laboratory space in a campus setting designed to foster cross-institutional collaboration.
                       </p>
                     </div>
                   </div>
+                </div>
+
+                {/* Building Hours and Map Section */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* Building Hours */}
                   <div className="space-y-6">
+                    <h2 className="text-xl font-semibold text-gray-900">Building hours</h2>
                     <div className="rounded-xl border bg-white shadow-sm">
                       <div className="p-6">
-                        <h3 className="text-base font-medium mb-4">Quick facts</h3>
                         <dl className="space-y-4">
                           <div>
-                            <dt className="text-sm text-muted-foreground">Year built</dt>
-                            <dd className="text-sm font-medium">2020</dd>
+                            <dt className="text-sm text-muted-foreground">Monday-Thursday:</dt>
+                            <dd className="text-sm font-medium">8:00 AM - 6:00 PM</dd>
                           </div>
                           <div>
-                            <dt className="text-sm text-muted-foreground">Square footage</dt>
-                            <dd className="text-sm font-medium">250,000 sq ft</dd>
+                            <dt className="text-sm text-muted-foreground">Friday:</dt>
+                            <dd className="text-sm font-medium">8:00 AM - 5:00 PM</dd>
                           </div>
                           <div>
-                            <dt className="text-sm text-muted-foreground">Number of floors</dt>
-                            <dd className="text-sm font-medium">25</dd>
+                            <dt className="text-sm text-muted-foreground">Saturday:</dt>
+                            <dd className="text-sm font-medium">10:00 AM - 4:00 PM</dd>
                           </div>
                           <div>
-                            <dt className="text-sm text-muted-foreground">Parking spaces</dt>
-                            <dd className="text-sm font-medium">500</dd>
+                            <dt className="text-sm text-muted-foreground">Sunday:</dt>
+                            <dd className="text-sm font-medium">Closed</dd>
+                          </div>
+                          <div>
+                            <dt className="text-sm text-muted-foreground">Holidays:</dt>
+                            <dd className="text-sm font-medium">Closed for all major holiday</dd>
                           </div>
                         </dl>
                       </div>
                     </div>
-                    <div className="rounded-xl border bg-white shadow-sm">
-                      <div className="p-6">
-                        <h3 className="text-base font-medium mb-4">Hours of operation</h3>
-                        <dl className="space-y-4">
-                          <div>
-                            <dt className="text-sm text-muted-foreground">Monday - Friday</dt>
-                            <dd className="text-sm font-medium">6:00 AM - 10:00 PM</dd>
-                          </div>
-                          <div>
-                            <dt className="text-sm text-muted-foreground">Saturday</dt>
-                            <dd className="text-sm font-medium">8:00 AM - 6:00 PM</dd>
-                          </div>
-                          <div>
-                            <dt className="text-sm text-muted-foreground">Sunday</dt>
-                            <dd className="text-sm font-medium">Closed</dd>
-                          </div>
-                        </dl>
+                  </div>
+
+                  {/* Map Section */}
+                  <div className="space-y-6">
+                    <div className="h-6"></div>
+                    <div className="rounded-xl overflow-hidden shadow-sm bg-white border">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095344!2d-73.9899!3d40.7424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0x274d24df1dbe2fc5!2sE%2029th%20St%2C%20New%20York%2C%20NY%2010016!5e0!3m2!1sen!2sus!4v1709760000000!5m2!1sen!2sus"
+                        width="100%"
+                        height="390"
+                        style={{ border: 0 }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Building Location Map"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Support Materials Section */}
+                <div className="space-y-6">
+                  <h2 className="text-xl font-semibold text-gray-900">Support materials</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {/* Row 1 */}
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow cursor-pointer">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                          <FileText className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium text-gray-900">Gym Waiver Form</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow cursor-pointer">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                          <FileText className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium text-gray-900">Emergency Procedures</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow cursor-pointer">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                          <FileText className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium text-gray-900">Emergency Procedures</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Row 2 */}
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow cursor-pointer">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                          <FileText className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium text-gray-900">Parking Pass Application</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow cursor-pointer">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                          <FileText className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium text-gray-900">Emergency Procedures</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow cursor-pointer">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                          <FileText className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium text-gray-900">Emergency Procedures</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Row 3 */}
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow cursor-pointer">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                          <FileText className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium text-gray-900">Building Policies</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow cursor-pointer">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                          <FileText className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium text-gray-900">Emergency Procedures</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-lg border shadow-sm p-4 hover:shadow-md transition-shadow cursor-pointer">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                          <FileText className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium text-gray-900">Emergency Procedures</h3>
+                          <p className="text-sm text-gray-500">Last updated June 3, 2025 8 AM</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1813,7 +1919,380 @@ export default function VercelNavigation() {
                   />
                 </div>
               </div>
-            ) : null}
+            ) : currentPage === "my-feed" ? (
+              <div className="space-y-6">
+                {/* Header */}
+                <div className="space-y-2">
+                  <h1 className="text-2xl font-semibold text-gray-900">My feed</h1>
+                  <p className="text-gray-600">Explore our latest articles, tutorials, and insights</p>
+                </div>
+
+                {/* Search Bar */}
+                <div className="relative w-full">
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                  <Input
+                    placeholder="Search"
+                    value={feedSearchQuery}
+                    onChange={(e) => setFeedSearchQuery(e.target.value)}
+                    className="pl-10 bg-white border-gray-200"
+                  />
+                </div>
+
+                {/* Filter Tabs */}
+                <div className="flex gap-2 overflow-x-auto">
+                  {["All", "In the neighborhood", "News", "What's happening", "Deals", "Employee offers"].map((filter) => (
+                    <button
+                      key={filter}
+                      onClick={() => setFeedActiveFilter(filter)}
+                      className={cn(
+                        "px-4 py-2 text-sm font-medium whitespace-nowrap rounded-full transition-colors",
+                        feedActiveFilter === filter
+                          ? "bg-gray-900 text-white"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      )}
+                    >
+                      {filter}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Content Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {(() => {
+                                         const feedItems = [
+                       {
+                         id: 1,
+                         title: "New park opening",
+                         description: "The city is opening a new community park with playgrounds and walking trails this weekend.",
+                         category: "In the neighborhood",
+                         image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+                         date: "June 15, 2025",
+                         readTime: "5 min read",
+                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
+                       },
+                       {
+                         id: 2,
+                         title: "Local business",
+                         description: "The city is opening a new community park with playgrounds and walking trails this weekend.",
+                         category: "In the neighborhood",
+                         image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=300&fit=crop",
+                         date: "June 15, 2025",
+                         readTime: "5 min read",
+                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
+                       },
+                       {
+                         id: 3,
+                         title: "Tech Networking Mixer",
+                         description: "Join us this weekend for our first annual Tech Networking Mixer",
+                         category: "What's happening",
+                         image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=300&fit=crop",
+                         date: "June 15, 2025",
+                         readTime: null,
+                         badgeStyle: "bg-green-100 text-green-700 hover:bg-green-100",
+                         hasButton: true
+                       },
+                       {
+                         id: 4,
+                         title: "Community cleanup",
+                         description: "The city is opening a new community park with playgrounds and walking trails this weekend.",
+                         category: "In the neighborhood",
+                         image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=300&fit=crop",
+                         date: "June 15, 2025",
+                         readTime: "5 min read",
+                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
+                       },
+                       {
+                         id: 5,
+                         title: "50% off local restaurants",
+                         description: "The city is opening a new community park with playgrounds and walking trails this weekend.",
+                         category: "Deals",
+                         image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop",
+                         date: "June 15, 2025",
+                         readTime: "5 min read",
+                         badgeStyle: "bg-orange-100 text-orange-700 hover:bg-orange-100"
+                       },
+                       {
+                         id: 6,
+                         title: "Employee discount program",
+                         description: "The city is opening a new community park with playgrounds and walking trails this weekend.",
+                         category: "Employee offers",
+                         image: null,
+                         date: "June 15, 2025",
+                         readTime: "5 min read",
+                         badgeStyle: "bg-purple-100 text-purple-700 hover:bg-purple-100",
+                         isEmployeeDiscount: true
+                       },
+                       {
+                         id: 7,
+                         title: "Building security updates",
+                         description: "New security protocols and access card updates will be implemented next week for all tenants.",
+                         category: "News",
+                         image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop",
+                         date: "June 12, 2025",
+                         readTime: "3 min read",
+                         badgeStyle: "bg-gray-100 text-gray-700 hover:bg-gray-100"
+                       },
+                       {
+                         id: 8,
+                         title: "New tenant welcome package",
+                         description: "Welcome to our newest tenants! Learn about building amenities and services available to you.",
+                         category: "News",
+                         image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop",
+                         date: "June 10, 2025",
+                         readTime: "4 min read",
+                         badgeStyle: "bg-gray-100 text-gray-700 hover:bg-gray-100"
+                       },
+                       {
+                         id: 9,
+                         title: "Quarterly newsletter",
+                         description: "Check out our latest quarterly newsletter featuring tenant spotlights and upcoming events.",
+                         category: "News",
+                         image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=300&fit=crop",
+                         date: "June 8, 2025",
+                         readTime: "8 min read",
+                         badgeStyle: "bg-gray-100 text-gray-700 hover:bg-gray-100"
+                       },
+                       {
+                         id: 10,
+                         title: "Wellness program enrollment",
+                         description: "Sign up for our comprehensive wellness program with gym memberships and health screenings.",
+                         category: "Employee offers",
+                         image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+                         date: "June 14, 2025",
+                         readTime: "6 min read",
+                         badgeStyle: "bg-purple-100 text-purple-700 hover:bg-purple-100"
+                       },
+                       {
+                         id: 11,
+                         title: "Free coffee week",
+                         description: "Enjoy complimentary coffee and pastries all week long at our lobby café.",
+                         category: "Deals",
+                         image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop",
+                         date: "June 13, 2025",
+                         readTime: "2 min read",
+                         badgeStyle: "bg-orange-100 text-orange-700 hover:bg-orange-100"
+                       },
+                       {
+                         id: 12,
+                         title: "Summer rooftop party",
+                         description: "Join us for our annual summer rooftop party with live music, food, and networking opportunities.",
+                         category: "What's happening",
+                         image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&h=300&fit=crop",
+                         date: "June 20, 2025",
+                         readTime: null,
+                         badgeStyle: "bg-green-100 text-green-700 hover:bg-green-100",
+                         hasButton: true
+                       }
+                     ];
+
+                    // Filter items based on active filter and search query
+                    const filteredItems = feedItems.filter(item => {
+                      const matchesFilter = feedActiveFilter === "All" || item.category === feedActiveFilter;
+                      const matchesSearch = feedSearchQuery === "" || 
+                        item.title.toLowerCase().includes(feedSearchQuery.toLowerCase()) ||
+                        item.description.toLowerCase().includes(feedSearchQuery.toLowerCase());
+                      return matchesFilter && matchesSearch;
+                    });
+
+                    return filteredItems.map(item => {
+                      if (item.isEmployeeDiscount) {
+                        return (
+                          <div key={item.id} className="bg-white rounded-lg border shadow-sm overflow-hidden">
+                            <div className="aspect-[4/3] relative bg-blue-50 flex items-center justify-center">
+                              <div className="text-center">
+                                <div className="flex items-center justify-center gap-4 mb-4">
+                                  <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                                    <Gift className="h-6 w-6 text-orange-600" />
+                                  </div>
+                                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <span className="text-2xl font-bold text-blue-600">%</span>
+                                  </div>
+                                  <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center">
+                                    <Gift className="h-6 w-6 text-teal-600" />
+                                  </div>
+                                </div>
+                                <div className="bg-red-500 text-white px-4 py-2 rounded-full inline-block text-sm font-semibold">
+                                  EMPLOYEE DISCOUNT
+                                </div>
+                                <div className="text-2xl font-bold text-gray-900 mt-2">PROGRAM</div>
+                              </div>
+                            </div>
+                            <div className="p-4">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Badge className={item.badgeStyle}>{item.category}</Badge>
+                              </div>
+                              <h3 className="font-semibold text-gray-900 mb-2">Employee discount pro...</h3>
+                              <p className="text-sm text-gray-600 mb-4">{item.description}</p>
+                              <div className="flex items-center gap-4 text-xs text-gray-500">
+                                <span className="flex items-center gap-1">
+                                  <Calendar className="h-3 w-3" />
+                                  {item.date}
+                                </span>
+                                <span className="flex items-center gap-1">
+                                  <BookOpen className="h-3 w-3" />
+                                  {item.readTime}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      }
+
+                                             return (
+                         <div key={item.id} className="bg-white rounded-lg border shadow-sm overflow-hidden">
+                           <div className="aspect-[4/3] relative">
+                             <img 
+                               src={item.image || "/placeholder.svg"} 
+                               alt={item.title} 
+                               className="w-full h-full object-cover"
+                             />
+                           </div>
+                          <div className="p-4">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Badge className={item.badgeStyle}>{item.category}</Badge>
+                            </div>
+                            <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                            <p className="text-sm text-gray-600 mb-4">{item.description}</p>
+                            {item.hasButton ? (
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-4 text-xs text-gray-500">
+                                  <span className="flex items-center gap-1">
+                                    <Calendar className="h-3 w-3" />
+                                    {item.date}
+                                  </span>
+                                </div>
+                                <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">
+                                  View
+                                </Button>
+                              </div>
+                            ) : (
+                              <div className="flex items-center gap-4 text-xs text-gray-500">
+                                <span className="flex items-center gap-1">
+                                  <Calendar className="h-3 w-3" />
+                                  {item.date}
+                                </span>
+                                {item.readTime && (
+                                  <span className="flex items-center gap-1">
+                                    <BookOpen className="h-3 w-3" />
+                                    {item.readTime}
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    });
+                  })()}
+                </div>
+              </div>
+            ) : currentPage === "help" ? (
+              <div className="space-y-6">
+                {/* Header */}
+                <div className="space-y-2">
+                  <h1 className="text-2xl font-semibold text-gray-900">Help</h1>
+                  <p className="text-gray-600">Need assistance? Submit a support request and our team will get back to you.</p>
+                </div>
+
+                {/* Help Form */}
+                <form className="space-y-6">
+                    {/* Request Type */}
+                    <div className="space-y-2">
+                      <Label htmlFor="request-type" className="text-sm font-medium text-gray-700">
+                        What is the general nature of your request? <span className="text-red-500">*</span>
+                      </Label>
+                      <Select value={helpForm.requestType} onValueChange={(value) => setHelpForm({...helpForm, requestType: value})}>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select request type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="technical">Technical Support</SelectItem>
+                          <SelectItem value="billing">Billing Issue</SelectItem>
+                          <SelectItem value="access">Access Request</SelectItem>
+                          <SelectItem value="maintenance">Maintenance Request</SelectItem>
+                          <SelectItem value="general">General Inquiry</SelectItem>
+                          <SelectItem value="other">Other</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Subject */}
+                    <div className="space-y-2">
+                      <Label htmlFor="subject" className="text-sm font-medium text-gray-700">
+                        Subject <span className="text-red-500">*</span>
+                      </Label>
+                      <Input
+                        id="subject"
+                        placeholder="Brief description of your issue"
+                        value={helpForm.subject}
+                        onChange={(e) => setHelpForm({...helpForm, subject: e.target.value})}
+                        className="w-full"
+                        required
+                      />
+                    </div>
+
+                    {/* Description */}
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <Label htmlFor="description" className="text-sm font-medium text-gray-700">
+                          Description <span className="text-red-500">*</span>
+                        </Label>
+                        <Info className="h-4 w-4 text-gray-400" />
+                      </div>
+                      <Textarea
+                        id="description"
+                        placeholder="Please provide detailed information about your request..."
+                        value={helpForm.description}
+                        onChange={(e) => setHelpForm({...helpForm, description: e.target.value})}
+                        className="w-full min-h-[120px] resize-none"
+                        maxLength={100}
+                      />
+                      <div className="flex items-center justify-between text-xs text-gray-500">
+                        <span>This is a hint text to help user.</span>
+                        <span>{helpForm.description.length}/100</span>
+                      </div>
+                    </div>
+
+                    {/* Documents */}
+                    <div className="space-y-4">
+                      <div className="space-y-1">
+                        <h3 className="text-sm font-medium text-gray-900">Documents</h3>
+                        <p className="text-sm text-gray-600">Upload the document and enter the details</p>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label className="text-sm font-medium text-gray-700">Document uploader</Label>
+                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-16 text-center hover:border-gray-400 transition-colors bg-white">
+                          <Upload className="h-8 w-8 text-gray-400 mx-auto mb-4" />
+                          <p className="text-sm text-gray-600 mb-2">Drag and drop your documents here</p>
+                          <p className="text-sm text-gray-600">
+                            or{" "}
+                            <button type="button" className="text-blue-600 hover:text-blue-700 underline">
+                              browse
+                            </button>
+                            {" "}to upload
+                          </p>
+                          <p className="text-xs text-gray-500 mt-2">PDF (max. 30 MB)</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Form Actions */}
+                    <div className="flex items-center justify-end gap-3 pt-6">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setHelpForm({requestType: "", subject: "", description: "", documents: []})}
+                      >
+                        Clear form
+                      </Button>
+                      <Button type="submit" className="bg-blue-600 hover:bg-blue-700">
+                        Submit request
+                      </Button>
+                    </div>
+                  </form>
+                </div>
+              ) : null}
           </main>
 
           {/* Right Drawers */}
@@ -2049,3 +2528,4 @@ export default function VercelNavigation() {
     </div>
   )
 }
+

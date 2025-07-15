@@ -105,14 +105,14 @@ export function HeroCard({
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10 rounded-2xl" />
       {/* Content */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-8">
-        <div className="text-center space-y-6 max-w-2xl">
+      <div className="absolute inset-0 flex flex-col items-start justify-end p-8">
+        <div className="space-y-4 max-w-2xl">
           <h1 className="text-3xl font-bold text-white">
-            Welcome back to the {buildingName}, John
+            Welcome back to the {buildingName}, Pat
           </h1>
           
           {/* AI Assistant Prompt */}
-          <div className="relative w-full max-w-md mx-auto">
+          <div className="relative w-full max-w-md">
             <form onSubmit={handleSubmit}>
               <div className="relative">
                 <Input
@@ -121,7 +121,7 @@ export function HeroCard({
                   onChange={(e) => setInputValue(e.target.value)}
                   onFocus={handleInputFocus}
                   onBlur={handleInputBlur}
-                  placeholder="How can we help you today?"
+                  placeholder="Search for events and building information..."
                   className="w-full bg-white/95 backdrop-blur-sm border-0 text-gray-900 placeholder:text-gray-500 pr-12 py-3 text-base rounded-xl shadow-lg focus:ring-2 focus:ring-blue-500/50 transition-all"
                 />
                 <Button 

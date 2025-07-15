@@ -69,14 +69,7 @@ export function Banner({
       variantStyles[variant],
       className
     )}>
-      {/* Decorative elements */}
-      <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
-        <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-current" />
-        <div className="absolute top-8 right-12 w-4 h-4 rounded-full bg-current" />
-        <div className="absolute top-12 right-8 w-6 h-6 rounded-full bg-current" />
-      </div>
-      
-      <div className="relative p-6">
+      <div className="p-6">
         <div className="flex items-start gap-4">
           {/* Icon */}
           {(icon || defaultIcon) && (
