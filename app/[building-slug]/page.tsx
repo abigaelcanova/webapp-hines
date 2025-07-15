@@ -114,6 +114,7 @@ export default function VercelNavigation() {
   const [bannerDismissed, setBannerDismissed] = useState(false)
   const [aiModalOpen, setAiModalOpen] = useState(false)
   const [aiModalPrompt, setAiModalPrompt] = useState("")
+  const [isAddRequestModalOpen, setIsAddRequestModalOpen] = useState(false)
   const [sharedMessages, setSharedMessages] = useState<any[]>([])
   const [sharedInputValue, setSharedInputValue] = useState("")
   const [feedSearchQuery, setFeedSearchQuery] = useState("")
@@ -2985,6 +2986,80 @@ export default function VercelNavigation() {
                     </div>
                   </div>
                 </div>
+              ) : currentPage === "service-requests" ? (
+                <div className="space-y-6">
+                  {/* Header */}
+                  <div className="flex items-center justify-between">
+                    <h1 className="text-2xl font-semibold text-gray-900">Service requests</h1>
+                    <Button 
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                      onClick={() => setIsAddRequestModalOpen(true)}
+                    >
+                      Add new request
+                    </Button>
+                  </div>
+
+                  {/* Tabs */}
+                  <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg max-w-md">
+                    <button className="flex-1 px-4 py-2 text-sm font-medium text-gray-900 bg-white rounded-md shadow-sm">
+                      Open
+                    </button>
+                    <button className="flex-1 px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700">
+                      Closed
+                    </button>
+                  </div>
+
+                  {/* Service Requests List */}
+                  <div className="space-y-4">
+                    {/* Service Request Item */}
+                    <div className="bg-white border rounded-lg p-4 shadow-sm">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <h3 className="text-lg font-medium text-gray-900 mb-1">Bin request</h3>
+                          <div className="flex items-center text-sm text-gray-500 mb-2">
+                            <MapPin className="h-4 w-4 mr-1" />
+                            <span>Cobblestone Collaborative</span>
+                          </div>
+                        </div>
+                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
+                          Open
+                        </Badge>
+                      </div>
+                    </div>
+
+                    {/* Additional Sample Service Request */}
+                    <div className="bg-white border rounded-lg p-4 shadow-sm">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <h3 className="text-lg font-medium text-gray-900 mb-1">Maintenance request</h3>
+                          <div className="flex items-center text-sm text-gray-500 mb-2">
+                            <MapPin className="h-4 w-4 mr-1" />
+                            <span>Cobblestone Collaborative</span>
+                          </div>
+                        </div>
+                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
+                          Open
+                        </Badge>
+                      </div>
+                    </div>
+
+                    {/* Another Sample Service Request */}
+                    <div className="bg-white border rounded-lg p-4 shadow-sm">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <h3 className="text-lg font-medium text-gray-900 mb-1">Lighting issue</h3>
+                          <div className="flex items-center text-sm text-gray-500 mb-2">
+                            <MapPin className="h-4 w-4 mr-1" />
+                            <span>Cobblestone Collaborative</span>
+                          </div>
+                        </div>
+                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
+                          Open
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               ) : null}
           </main>
 
@@ -3209,6 +3284,71 @@ export default function VercelNavigation() {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Add Request Modal */}
+        {isAddRequestModalOpen && (
+          <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+              <div className="w-full max-w-md bg-white rounded-lg shadow-lg">
+                {/* Modal Header */}
+                <div className="flex items-center justify-between p-6 border-b">
+                  <h2 className="text-xl font-semibold text-gray-900">Add new request</h2>
+                  <button
+                    onClick={() => setIsAddRequestModalOpen(false)}
+                    className="text-gray-400 hover:text-gray-600"
+                  >
+                    <X className="h-6 w-6" />
+                  </button>
+                </div>
+
+                {/* Modal Content */}
+                <div className="p-6">
+                  <p className="text-sm text-gray-600 mb-6">
+                    Please provide the information requested in order to complete your request.
+                  </p>
+
+                  <div className="space-y-4">
+                    {/* Request Type */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Request Type <span className="text-red-500">*</span>
+                      </label>
+                      <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Select request type</option>
+                        <option value="maintenance">Maintenance</option>
+                        <option value="cleaning">Cleaning</option>
+                        <option value="security">Security</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+
+                    {/* Location */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Location <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Enter location"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Modal Footer */}
+                <div className="p-6 border-t">
+                  <Button 
+                    className="w-full bg-gray-300 text-gray-500 cursor-not-allowed"
+                    disabled
+                  >
+                    Enter required fields
+                  </Button>
                 </div>
               </div>
             </div>
