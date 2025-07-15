@@ -21,7 +21,7 @@ const suggestedPrompts = [
   },
   {
     id: 2,
-    text: "Register a guest",
+    text: "Visitor Management",
     icon: UserPlus,
     category: "Services"
   },

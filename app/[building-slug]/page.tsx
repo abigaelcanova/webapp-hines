@@ -925,6 +925,30 @@ export default function VercelNavigation() {
                   My buildings
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
+                
+                {/* Email Call-out */}
+                <div className="p-3 bg-blue-50 border border-blue-200 rounded-md mx-2 my-2">
+                  <div className="flex items-start gap-3">
+                    <div className="p-1.5 bg-blue-100 rounded-md">
+                      <Mail className="h-3.5 w-3.5 text-blue-600" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-medium text-blue-900 mb-1">Add personal email</p>
+                      <p className="text-xs text-blue-700 leading-relaxed">
+                        Connect your personal email to see all buildings you have access to across organizations.
+                      </p>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="mt-2 h-6 px-2 text-xs border-blue-300 text-blue-700 hover:bg-blue-100"
+                      >
+                        Add email
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+                
+                <DropdownMenuSeparator />
                 <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
                   <LogOut className="h-4 w-4 mr-2" />
                   Log out
@@ -935,7 +959,7 @@ export default function VercelNavigation() {
         </header>
 
         {/* Main Content */}
-        <div className="flex flex-1">
+        <div className="flex flex-1 justify-center">
           {/* Left Drawer */}
           {isMobile && leftDrawerOpen && (
             <div 
@@ -1193,22 +1217,10 @@ export default function VercelNavigation() {
           {/* Middle Content */}
           <main
             className={cn(
-              "flex-1 min-w-0 px-4 py-4",
-              !isMobile && leftDrawerOpen ? "" : "mx-auto max-w-[1024px]"
+              "px-4 py-4 w-full max-w-[1024px]",
+              !isMobile && leftDrawerOpen ? "ml-[280px]" : "mx-auto"
             )}
-            style={!isMobile && leftDrawerOpen ? {
-              marginLeft: '280px',
-              display: 'flex',
-              justifyContent: 'center',
-              width: 'calc(100vw - 280px)'
-            } : {}}
           >
-            <div 
-              className={cn(
-                "w-full",
-                !isMobile && leftDrawerOpen ? "max-w-[1024px]" : ""
-              )}
-            >
             {currentPage === "home" ? (
               <div className="space-y-6">
                 {/* Banner Alert */}
@@ -1242,33 +1254,30 @@ export default function VercelNavigation() {
                             backgroundImage: 'url(/images/icons/bookaspace.png)',
                             backgroundSize: 'contain',
                             backgroundRepeat: 'no-repeat',
-                            backgroundPosition: 'center',
-                            border: 'none',
-                            outline: 'none',
-                            boxShadow: 'none'
+                            backgroundPosition: 'center'
                           }}
-                          aria-label="Book a space"
                         />
                       </div>
                     </div>
                   </div>
 
-                  {/* Register a guest */}
+                  {/* Visitor Management */}
                   <div className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <h3 className="text-base font-medium mb-2 text-gray-900">Register a guest</h3>
-                        <p className="text-sm text-gray-600">Pre-register guest for easy check-in.</p>
+                        <h3 className="text-base font-medium mb-2 text-gray-900">Visitor Management</h3>
+                        <p className="text-sm text-gray-600">Manage visitors and guest access.</p>
                       </div>
                       <div className="ml-4 flex-shrink-0">
-                        <div className="w-16 h-16 bg-gradient-to-br from-green-50 to-green-100 rounded-lg flex items-center justify-center">
-                          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="w-12 h-12">
-                            <circle cx="18" cy="18" r="6" fill="#C8E6C9" stroke="#388E3C" strokeWidth="1.5"/>
-                            <circle cx="30" cy="22" r="4" fill="#A5D6A7" stroke="#388E3C" strokeWidth="1.5"/>
-                            <path d="M8 40C8 32 12 28 18 28C24 28 28 32 28 40" fill="#E8F5E8" stroke="#388E3C" strokeWidth="1.5"/>
-                            <path d="M22 40C22 36 24 34 30 34C36 34 38 36 38 40" fill="#C8E6C9" stroke="#388E3C" strokeWidth="1.5"/>
-                          </svg>
-                        </div>
+                        <div 
+                          className="w-16 h-16"
+                          style={{
+                            backgroundImage: 'url(/images/icons/VM.png)',
+                            backgroundSize: 'contain',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center'
+                          }}
+                        />
                       </div>
                     </div>
                   </div>
@@ -1281,15 +1290,15 @@ export default function VercelNavigation() {
                         <p className="text-sm text-gray-600">Report and track maintenance issues</p>
                       </div>
                       <div className="ml-4 flex-shrink-0">
-                        <div className="w-16 h-16 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg flex items-center justify-center">
-                          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="w-12 h-12">
-                            <circle cx="24" cy="28" r="6" fill="#FFE0B2" stroke="#F57C00" strokeWidth="1.5"/>
-                            <path d="M18 28L20 26L22 28" fill="none" stroke="#F57C00" strokeWidth="1.5"/>
-                            <path d="M26 28L28 26L30 28" fill="none" stroke="#F57C00" strokeWidth="1.5"/>
-                            <rect x="20" y="16" width="8" height="8" fill="#FFCC80" stroke="#F57C00" strokeWidth="1.5" rx="1"/>
-                            <path d="M22 18L26 18M22 20L26 20M22 22L24 22" stroke="#F57C00" strokeWidth="1"/>
-                          </svg>
-                        </div>
+                        <div 
+                          className="w-16 h-16"
+                          style={{
+                            backgroundImage: 'url(/images/icons/SR.png)',
+                            backgroundSize: 'contain',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center'
+                          }}
+                        />
                       </div>
                     </div>
                   </div>
@@ -1302,17 +1311,15 @@ export default function VercelNavigation() {
                         <p className="text-sm text-gray-600">See upcoming events and services</p>
                       </div>
                       <div className="ml-4 flex-shrink-0">
-                        <div className="w-16 h-16 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg flex items-center justify-between">
-                          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="w-12 h-12">
-                            <rect x="12" y="18" width="24" height="18" fill="#E1BEE7" stroke="#7B1FA2" strokeWidth="1.5" rx="2"/>
-                            <rect x="16" y="22" width="4" height="3" fill="#CE93D8" rx="0.5"/>
-                            <rect x="22" y="22" width="4" height="3" fill="#CE93D8" rx="0.5"/>
-                            <rect x="28" y="22" width="4" height="3" fill="#CE93D8" rx="0.5"/>
-                            <rect x="16" y="27" width="4" height="3" fill="#CE93D8" rx="0.5"/>
-                            <rect x="22" y="27" width="4" height="3" fill="#CE93D8" rx="0.5"/>
-                            <path d="M18 14V18M30 14V18" stroke="#7B1FA2" strokeWidth="1.5"/>
-                          </svg>
-                        </div>
+                        <div 
+                          className="w-16 h-16"
+                          style={{
+                            backgroundImage: 'url(/images/icons/events.png)',
+                            backgroundSize: 'contain',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center'
+                          }}
+                        />
                       </div>
                     </div>
                   </div>
@@ -2812,7 +2819,6 @@ export default function VercelNavigation() {
                   </div>
                 </div>
               ) : null}
-            </div>
           </main>
 
           {/* Right Drawers */}
@@ -2985,19 +2991,7 @@ export default function VercelNavigation() {
                       <div className="grid grid-cols-2 gap-2">
                         <button className="flex items-center gap-3 p-3 rounded-md border hover:bg-muted text-left" type="button">
                           <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
-                            <div 
-                              className="h-4 w-4"
-                              style={{
-                                backgroundImage: 'url(/images/icons/bookaspace.png)',
-                                backgroundSize: 'contain',
-                                backgroundRepeat: 'no-repeat',
-                                backgroundPosition: 'center',
-                                border: 'none',
-                                outline: 'none',
-                                boxShadow: 'none'
-                              }}
-                              aria-label="Book a space"
-                            />
+                            <Building className="h-4 w-4 text-blue-600" />
                           </div>
                           <div>
                             <p className="text-sm font-medium">Book a space</p>
@@ -3055,9 +3049,11 @@ export default function VercelNavigation() {
         )}
       </div>
 
+      <div>
         {/* Site Footer */}
         <SiteFooter buildingName={primaryBuilding} />
       </div>
+    </div>
   )
 }
 
