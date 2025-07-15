@@ -1164,12 +1164,12 @@ export default function VercelNavigation() {
                           <p className="text-xs text-blue-100 mb-3">Download the app</p>
                         </div>
                         <div className="bg-white rounded p-2 ml-3">
-                          <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center">
-                            <div className="grid grid-cols-3 gap-0.5">
-                              {Array.from({ length: 9 }).map((_, i) => (
-                                <div key={i} className="w-1 h-1 bg-gray-800 rounded-sm" />
-                              ))}
-                            </div>
+                          <div className="w-12 h-12 rounded flex items-center justify-center">
+                            <img 
+                              src="/images/logos/QRfinal.png" 
+                              alt="QR Code" 
+                              className="w-full h-full object-contain"
+                            />
                           </div>
                         </div>
                       </div>
