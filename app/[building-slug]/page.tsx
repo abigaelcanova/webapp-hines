@@ -2818,6 +2818,173 @@ export default function VercelNavigation() {
                     </Table>
                   </div>
                 </div>
+              ) : currentPage === "events" ? (
+                <div className="space-y-6">
+                  {/* Header */}
+                  <div className="space-y-2">
+                    <h1 className="text-2xl font-semibold text-gray-900">Events & services</h1>
+                    <p className="text-gray-600">View your upcoming and past events & services</p>
+                  </div>
+
+                  {/* Search Bar */}
+                  <div className="relative w-full">
+                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                    <Input
+                      placeholder="Search"
+                      className="pl-10 bg-white border-gray-200"
+                    />
+                  </div>
+
+                  {/* Upcoming Events */}
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {/* Event 1 */}
+                      <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+                        <div className="aspect-[4/3] relative">
+                          <img 
+                            src="https://images.unsplash.com/photo-1515169067868-5387ec356754?w=800&h=600&fit=crop" 
+                            alt="Tech Networking Mixer" 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="p-6">
+                          <div className="mb-2">
+                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
+                              Event
+                            </Badge>
+                          </div>
+                          <h3 className="text-lg font-semibold mb-2">Tech Networking Mixer</h3>
+                          <p className="text-gray-600 text-sm mb-4">Join us this weekend for our first annual Tech Networking Mixer</p>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <Calendar className="h-4 w-4 text-gray-500" />
+                              <span className="text-sm text-gray-600">June 15, 2025</span>
+                            </div>
+                            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                              RSVP
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Service 1 - Wellness Facial */}
+                      <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+                        <div className="aspect-[4/3] relative">
+                          <img 
+                            src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&h=600&fit=crop" 
+                            alt="Wellness Facial Service" 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="p-6">
+                          <div className="mb-2">
+                            <Badge className="bg-green-100 text-green-600 hover:bg-green-100 text-xs font-medium">
+                              Service
+                            </Badge>
+                          </div>
+                          <h3 className="text-lg font-semibold mb-2">Wellness Facial</h3>
+                          <p className="text-gray-600 text-sm mb-4">Rejuvenating facial treatment with organic products and relaxation</p>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <Calendar className="h-4 w-4 text-gray-500" />
+                              <span className="text-sm text-gray-600">Available Daily</span>
+                            </div>
+                            <Button className="bg-green-600 hover:bg-green-700 text-white">
+                              Book Now
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Service 2 - Therapeutic Massage */}
+                      <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+                        <div className="aspect-[4/3] relative">
+                          <img 
+                            src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&h=600&fit=crop" 
+                            alt="Therapeutic Massage Service" 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="p-6">
+                          <div className="mb-2">
+                            <Badge className="bg-purple-100 text-purple-600 hover:bg-purple-100 text-xs font-medium">
+                              Service
+                            </Badge>
+                          </div>
+                          <h3 className="text-lg font-semibold mb-2">Therapeutic Massage</h3>
+                          <p className="text-gray-600 text-sm mb-4">Professional massage therapy for stress relief and muscle recovery</p>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <Calendar className="h-4 w-4 text-gray-500" />
+                              <span className="text-sm text-gray-600">Mon-Fri</span>
+                            </div>
+                            <Button className="bg-purple-600 hover:bg-purple-700 text-white">
+                              Book Now
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Service 3 - Personal Training */}
+                      <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+                        <div className="aspect-[4/3] relative">
+                          <img 
+                            src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop" 
+                            alt="Personal Training Service" 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="p-6">
+                          <div className="mb-2">
+                            <Badge className="bg-orange-100 text-orange-600 hover:bg-orange-100 text-xs font-medium">
+                              Service
+                            </Badge>
+                          </div>
+                          <h3 className="text-lg font-semibold mb-2">Personal Training</h3>
+                          <p className="text-gray-600 text-sm mb-4">One-on-one fitness coaching tailored to your goals</p>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <Calendar className="h-4 w-4 text-gray-500" />
+                              <span className="text-sm text-gray-600">By Appointment</span>
+                            </div>
+                            <Button className="bg-orange-600 hover:bg-orange-700 text-white">
+                              Book Now
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Past Events & Services */}
+                  <div className="space-y-4">
+                    <h2 className="text-xl font-semibold text-gray-900">Past events & services</h2>
+                    <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+                      <div className="flex">
+                        <div className="w-48 aspect-[4/3] relative">
+                          <img 
+                            src="https://images.unsplash.com/photo-1515169067868-5387ec356754?w=800&h=600&fit=crop" 
+                            alt="Tech Networking Mixer" 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 p-6">
+                          <div className="mb-2">
+                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
+                              Event
+                            </Badge>
+                          </div>
+                          <h3 className="text-lg font-semibold mb-2">Tech Networking Mixer</h3>
+                          <p className="text-gray-600 text-sm mb-4">Join us this weekend for our first annual Tech Networking Mixer</p>
+                          <div className="flex items-center gap-2">
+                            <Calendar className="h-4 w-4 text-gray-500" />
+                            <span className="text-sm text-gray-600">June 15, 2025</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               ) : null}
           </main>
 
