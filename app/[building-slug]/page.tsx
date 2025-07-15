@@ -925,30 +925,6 @@ export default function VercelNavigation() {
                   My buildings
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                
-                {/* Email Call-out */}
-                <div className="p-3 bg-blue-50 border border-blue-200 rounded-md mx-2 my-2">
-                  <div className="flex items-start gap-3">
-                    <div className="p-1.5 bg-blue-100 rounded-md">
-                      <Mail className="h-3.5 w-3.5 text-blue-600" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs font-medium text-blue-900 mb-1">Add personal email</p>
-                      <p className="text-xs text-blue-700 leading-relaxed">
-                        Connect your personal email to see all buildings you have access to across organizations.
-                      </p>
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="mt-2 h-6 px-2 text-xs border-blue-300 text-blue-700 hover:bg-blue-100"
-                      >
-                        Add email
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-                
-                <DropdownMenuSeparator />
                 <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
                   <LogOut className="h-4 w-4 mr-2" />
                   Log out
