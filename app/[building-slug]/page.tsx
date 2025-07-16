@@ -51,6 +51,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Download,
+  Eye,
 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -83,9 +84,13 @@ export default function VercelNavigation() {
   
   // Convert slug to building name
   const slugToBuildingName = (slug: string): string => {
-    return slug.split('-').map(word => 
-      word.charAt(0).toUpperCase() + word.slice(1)
-    ).join(' ')
+    return slug.split('-').map(word => {
+      // Special case for "are" - should be "ARE" in all caps
+      if (word.toLowerCase() === 'are') {
+        return 'ARE'
+      }
+      return word.charAt(0).toUpperCase() + word.slice(1)
+    }).join(' ')
   }
   
   const buildingName = slugToBuildingName(params['building-slug'] as string)
@@ -163,6 +168,14 @@ export default function VercelNavigation() {
   })
   const [serviceRequestsActiveTab, setServiceRequestsActiveTab] = useState("Open")
   const [accountSettingsModalOpen, setAccountSettingsModalOpen] = useState(false)
+  const [updatePasswordModalOpen, setUpdatePasswordModalOpen] = useState(false)
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  })
+  const [showNewPassword, setShowNewPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   
   // Drag selection state for time slots
   const [isDragging, setIsDragging] = useState(false)
@@ -4108,7 +4121,13 @@ export default function VercelNavigation() {
                     <button className="block text-sm text-blue-600 hover:text-blue-700 underline">
                       Privacy policy
                     </button>
-                    <button className="block text-sm text-blue-600 hover:text-blue-700 underline">
+                    <button 
+                      className="block text-sm text-blue-600 hover:text-blue-700 underline"
+                      onClick={() => {
+                        setAccountSettingsModalOpen(false)
+                        setUpdatePasswordModalOpen(true)
+                      }}
+                    >
                       Update password
                     </button>
                   </div>
@@ -4124,6 +4143,148 @@ export default function VercelNavigation() {
                   </Button>
                   <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                     Save
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Update Password Modal */}
+        {updatePasswordModalOpen && (
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+              <div className="w-full max-w-md bg-white rounded-lg shadow-lg">
+                {/* Modal Header */}
+                <div className="flex items-center justify-between p-6 border-b">
+                  <h2 className="text-xl font-semibold text-gray-900">Update Password</h2>
+                  <button
+                    onClick={() => {
+                      setUpdatePasswordModalOpen(false)
+                      setPasswordForm({
+                        currentPassword: '',
+                        newPassword: '',
+                        confirmPassword: ''
+                      })
+                      setShowNewPassword(false)
+                      setShowConfirmPassword(false)
+                    }}
+                    className="text-gray-400 hover:text-gray-600"
+                  >
+                    <X className="h-6 w-6" />
+                  </button>
+                </div>
+
+                {/* Modal Content */}
+                <div className="p-6 space-y-6">
+                  {/* Current Password */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Current Password
+                    </label>
+                    <input
+                      type="password"
+                      placeholder="Enter your current password here..."
+                      value={passwordForm.currentPassword}
+                      onChange={(e) => setPasswordForm({...passwordForm, currentPassword: e.target.value})}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  </div>
+
+                  {/* New Password */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      New Password
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showNewPassword ? "text" : "password"}
+                        placeholder="Enter your new password here..."
+                        value={passwordForm.newPassword}
+                        onChange={(e) => setPasswordForm({...passwordForm, newPassword: e.target.value})}
+                        className="w-full px-3 py-2 pr-16 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowNewPassword(!showNewPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-blue-600 hover:text-blue-700"
+                      >
+                        show
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Confirm New Password */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Confirm New Password
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showConfirmPassword ? "text" : "password"}
+                        placeholder="Confirm new password here..."
+                        value={passwordForm.confirmPassword}
+                        onChange={(e) => setPasswordForm({...passwordForm, confirmPassword: e.target.value})}
+                        className="w-full px-3 py-2 pr-16 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-blue-600 hover:text-blue-700"
+                      >
+                        show
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Password Requirements */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                        <Check className="h-3 w-3 text-white" />
+                      </div>
+                      <span className="text-sm text-gray-600">Both upper and lower cases</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                        <Check className="h-3 w-3 text-white" />
+                      </div>
+                      <span className="text-sm text-gray-600">At least one number</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                        <Check className="h-3 w-3 text-white" />
+                      </div>
+                      <span className="text-sm text-gray-600">At least one special character</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                        <Check className="h-3 w-3 text-white" />
+                      </div>
+                      <span className="text-sm text-gray-600">At least 8 characters</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Modal Footer */}
+                <div className="flex items-center justify-end gap-3 p-6 border-t">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setUpdatePasswordModalOpen(false)
+                      setPasswordForm({
+                        currentPassword: '',
+                        newPassword: '',
+                        confirmPassword: ''
+                      })
+                      setShowNewPassword(false)
+                      setShowConfirmPassword(false)
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                    Update Password
                   </Button>
                 </div>
               </div>
