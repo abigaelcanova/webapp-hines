@@ -1270,7 +1270,7 @@ export default function VercelNavigation() {
                       >
                         <Calendar className="h-4 w-4 mr-3" />
                         <span>Events & services</span>
-                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-full ml-auto">
+                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-md ml-auto">
                           2
                         </Badge>
                       </Button>
@@ -1313,7 +1313,7 @@ export default function VercelNavigation() {
                       >
                         <FileText className="h-4 w-4 mr-3" />
                         <span>My feed</span>
-                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-full ml-auto">
+                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-md ml-auto">
                           3
                         </Badge>
                       </Button>
