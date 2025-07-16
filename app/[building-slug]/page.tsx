@@ -78,6 +78,7 @@ import Link from "next/link"
 import { Drawer, DrawerContent } from "@/components/ui/drawer"
 import AnimatedTestimonialsDemo from "@/components/animated-testimonials-demo"
 import { HeroCard } from "@/components/hero-card"
+import { ContentCard } from "@/components/content-card"
 import { AIAssistantModal } from "@/components/ai-assistant-modal"
 import { AssistantDrawer } from "@/components/assistant-drawer"
 
@@ -1765,21 +1766,16 @@ export default function VercelNavigation() {
 
                     {/* Feed Items */}
                     <div className="flex flex-col h-full gap-6">
-                      <div className="bg-white rounded-lg border shadow-sm p-6 flex items-start gap-4 flex-1">
-                        <img 
-                          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=80&h=80&fit=crop" 
-                          alt="Food" 
-                          className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
-                        />
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between mb-2">
-                            <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100">Food</Badge>
-                            <span className="text-sm text-gray-500">2 days ago</span>
-                          </div>
-                          <h4 className="font-semibold text-lg mb-2">Order lunch with Picnic!</h4>
-                          <p className="text-gray-600 leading-relaxed">Quantum City has partnered with Picnic, the leading provider of endless food options delivered effortlessly to your doorstep.</p>
-                        </div>
-                      </div>
+                      <ContentCard
+                        image="/images/content/exos-1-1.jpg"
+                        imageAlt="Gym facility"
+                        category="News"
+                        categoryColor="bg-blue-100 text-blue-700"
+                        timestamp="2 days ago"
+                        headline="Explore all our gym amenity has to offer"
+                        description="Exos is a performance training company that focuses on helping individuals and organizations reach their full potential."
+                        className="flex-1"
+                      />
 
                       <div className="bg-white rounded-lg border shadow-sm p-6 flex items-start gap-4 flex-1">
                         <img 
