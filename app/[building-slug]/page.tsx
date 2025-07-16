@@ -653,11 +653,19 @@ export default function VercelNavigation() {
 
   const isCellSelected = (resourceIndex: number, timeIndex: number) => {
     const key = getTimeSlotKey(resourceIndex, timeIndex)
+    
+    // Always check if the cell is in selectedTimeSlots first
+    if (selectedTimeSlots.has(key)) {
+      return true
+    }
+    
+    // If dragging, also check if it's in the current drag selection
     if (isDragging && dragStart && dragEnd) {
       const draggedCells = getSelectedCells(dragStart, dragEnd)
-      return draggedCells.has(key) || selectedTimeSlots.has(key)
+      return draggedCells.has(key)
     }
-    return selectedTimeSlots.has(key)
+    
+    return false
   }
 
   const handleTimeSlotMouseDown = (resourceIndex: number, timeIndex: number) => {
@@ -684,11 +692,13 @@ export default function VercelNavigation() {
       setSelectedTimeSlots(prev => {
         const newSet = new Set(prev)
         newSet.delete(cellKey)
+        console.log('Deselected cell:', cellKey)
         return newSet
       })
       return
     }
     
+    console.log('Starting drag from:', resourceIndex, timeIndex)
     setIsDragging(true)
     setDragStart({ resourceIndex, timeIndex })
     setDragEnd({ resourceIndex, timeIndex })
@@ -696,23 +706,31 @@ export default function VercelNavigation() {
 
   const handleTimeSlotMouseEnter = (resourceIndex: number, timeIndex: number) => {
     if (isDragging && dragStart) {
+      console.log('Drag continuing to:', resourceIndex, timeIndex)
       setDragEnd({ resourceIndex, timeIndex })
     }
   }
 
   const handleTimeSlotMouseUp = () => {
+    console.log('Mouse up triggered. isDragging:', isDragging, 'dragStart:', dragStart, 'dragEnd:', dragEnd)
     if (isDragging && dragStart && dragEnd) {
       const newSelectedCells = getSelectedCells(dragStart, dragEnd)
+      console.log('Drag ended. Adding cells:', Array.from(newSelectedCells))
       // Merge with existing selected cells instead of replacing
       setSelectedTimeSlots(prev => {
         const merged = new Set([...prev, ...newSelectedCells])
-        console.log('Selected cells after drag:', Array.from(merged))
+        console.log('Total selected cells after drag:', Array.from(merged))
         return merged
       })
     }
-    setIsDragging(false)
-    setDragStart(null)
-    setDragEnd(null)
+    
+    // Always reset drag state
+    if (isDragging) {
+      console.log('Resetting drag state')
+      setIsDragging(false)
+      setDragStart(null)
+      setDragEnd(null)
+    }
   }
 
   // Carousel slides data
@@ -1990,7 +2008,11 @@ export default function VercelNavigation() {
                 </div>
 
                 {/* Time Slot Grid */}
-                <div className={cn("rounded-lg border bg-white relative", isDragging && "select-none")}>
+                <div 
+                  className={cn("rounded-lg border bg-white relative", isDragging && "select-none")}
+                  onMouseUp={handleTimeSlotMouseUp}
+                  onMouseLeave={handleTimeSlotMouseUp}
+                >
                   {isDragging && (
                     <div className="absolute inset-0 bg-transparent pointer-events-none z-10" />
                   )}
@@ -2091,9 +2113,6 @@ export default function VercelNavigation() {
                   
                   {selectedTimeSlots.size > 0 && (
                     <div className="flex items-center gap-3">
-                      <span className="text-sm text-gray-600">
-                        {selectedTimeSlots.size} time slot{selectedTimeSlots.size !== 1 ? 's' : ''} selected
-                      </span>
                       <Button
                         variant="outline"
                         size="sm"
