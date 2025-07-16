@@ -3760,7 +3760,7 @@ export default function VercelNavigation() {
                       </label>
                       <input
                         type="text"
-                        defaultValue="Ellie"
+                        defaultValue="Pat"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       />
                     </div>
@@ -3770,7 +3770,7 @@ export default function VercelNavigation() {
                       </label>
                       <input
                         type="text"
-                        defaultValue="Sanders"
+                        defaultValue="Tobin"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       />
                     </div>
@@ -3785,7 +3785,8 @@ export default function VercelNavigation() {
                       <input
                         type="text"
                         defaultValue="HqO"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        disabled
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-600 cursor-not-allowed"
                       />
                     </div>
                     <div>
@@ -3794,8 +3795,9 @@ export default function VercelNavigation() {
                       </label>
                       <input
                         type="email"
-                        defaultValue="ellie.sanders@hqo.co"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        defaultValue="pat.tobin@are.com"
+                        disabled
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-600 cursor-not-allowed"
                       />
                     </div>
                   </div>
@@ -3805,10 +3807,12 @@ export default function VercelNavigation() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Default building
                     </label>
-                    <select className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                      <option value="the-hive">The Hive</option>
-                      <option value="main-building">Main Building</option>
-                      <option value="east-tower">East Tower</option>
+                    <select defaultValue="ARE Demo Building" className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                      {buildings.map((building) => (
+                        <option key={building.name} value={building.name}>
+                          {building.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
