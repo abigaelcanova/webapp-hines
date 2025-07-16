@@ -185,7 +185,7 @@ export default function VercelNavigation() {
   const [confirmedBooking, setConfirmedBooking] = useState<any>(null)
   const [searchModalOpen, setSearchModalOpen] = useState(false)
   const [locationsModalOpen, setLocationsModalOpen] = useState(false)
-  const [selectedLocations, setSelectedLocations] = useState<string[]>(["Main Building"])
+  const [selectedLocations, setSelectedLocations] = useState<string[]>(["ARE Demo Building"])
   
   // Drag selection state for time slots
   const [isDragging, setIsDragging] = useState(false)
@@ -645,39 +645,39 @@ export default function VercelNavigation() {
   const locations = [
     {
       id: 1,
-      name: "Main Building",
-      address: "125 Lincoln Street",
-      checked: selectedLocations.includes("Main Building")
+      name: "ARE Demo Building",
+      address: "29 1st Ave, New York, NY 10003",
+      checked: selectedLocations.includes("ARE Demo Building")
     },
     {
       id: 2,
-      name: "Science Wing",
-      address: "Research Campus",
-      checked: selectedLocations.includes("Science Wing")
+      name: "100 Binney",
+      address: "100 Binney Street, Cambridge, MA",
+      checked: selectedLocations.includes("100 Binney")
     },
     {
       id: 3,
-      name: "Observatory",
-      address: "Hilltop Campus",
-      checked: selectedLocations.includes("Observatory")
+      name: "100 Technology Square",
+      address: "100 Technology Square, Cambridge, MA",
+      checked: selectedLocations.includes("100 Technology Square")
     },
     {
       id: 4,
-      name: "East Tower",
-      address: "Business District",
-      checked: selectedLocations.includes("East Tower")
+      name: "201 Brookline",
+      address: "201 Brookline Avenue, Boston, MA",
+      checked: selectedLocations.includes("201 Brookline")
     },
     {
       id: 5,
-      name: "Student Center",
-      address: "Campus Commons",
-      checked: selectedLocations.includes("Student Center")
+      name: "300 Technology Square",
+      address: "300 Technology Square, Cambridge, MA",
+      checked: selectedLocations.includes("300 Technology Square")
     },
     {
       id: 6,
-      name: "North Building",
-      address: "Innovation Hub",
-      checked: selectedLocations.includes("North Building")
+      name: "Alexandria Center at One Kendall Square - Building 100",
+      address: "One Kendall Square, Cambridge, MA",
+      checked: selectedLocations.includes("Alexandria Center at One Kendall Square - Building 100")
     }
   ]
 
