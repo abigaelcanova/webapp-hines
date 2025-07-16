@@ -2482,7 +2482,7 @@ export default function VercelNavigation() {
                       key={filter}
                       onClick={() => setFeedActiveFilter(filter)}
                       className={cn(
-                        "px-4 py-2 text-sm font-medium whitespace-nowrap rounded-full transition-colors",
+                        "px-4 py-2 text-sm font-medium whitespace-nowrap rounded-lg transition-colors",
                         feedActiveFilter === filter
                           ? "bg-blue-600 text-white hover:bg-blue-700"
                           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
