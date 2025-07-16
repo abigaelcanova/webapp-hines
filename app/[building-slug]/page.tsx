@@ -75,7 +75,7 @@ import AnimatedTestimonialsDemo from "@/components/animated-testimonials-demo"
 import { HeroCard } from "@/components/hero-card"
 import { AIAssistantModal } from "@/components/ai-assistant-modal"
 import { AssistantDrawer } from "@/components/assistant-drawer"
-import { Banner } from "@/components/ui/banner"
+
 import { SiteFooter } from "@/components/site-footer"
 
 export default function VercelNavigation() {
@@ -114,7 +114,7 @@ export default function VercelNavigation() {
   const prevIsMobile = useRef(false)
   const [mobileAssistantDrawerOpen, setMobileAssistantDrawerOpen] = useState(false)
   const [mobileActivityDrawerOpen, setMobileActivityDrawerOpen] = useState(false)
-  const [bannerDismissed, setBannerDismissed] = useState(false)
+
   const [aiModalOpen, setAiModalOpen] = useState(false)
   const [aiModalPrompt, setAiModalPrompt] = useState("")
   const [isAddRequestModalOpen, setIsAddRequestModalOpen] = useState(false)
@@ -1383,14 +1383,6 @@ export default function VercelNavigation() {
           >
             {currentPage === "home" ? (
               <div className="space-y-6">
-                {/* Banner Alert */}
-                <Banner
-                  title="5 Lab | Boilers Down Last Night"
-                  description="Please be advised that the boilers were down last night so temperatures are low. Our team is working to restore as soon as possible—thank you!"
-                  variant="warning"
-                  onDismiss={() => setBannerDismissed(true)}
-                />
-
                 {/* Hero Card */}
                 <HeroCard
                   backgroundImage="/images/buildings/Program-Alexandria-Center-Gallery-Image-Photo-Evan-Joseph-Courtey-of-Alexandria-Center-0685.webp"
