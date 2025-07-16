@@ -163,6 +163,12 @@ export default function VercelNavigation() {
   })
   const [serviceRequestsActiveTab, setServiceRequestsActiveTab] = useState("Open")
   const [accountSettingsModalOpen, setAccountSettingsModalOpen] = useState(false)
+  
+  // Drag selection state for time slots
+  const [isDragging, setIsDragging] = useState(false)
+  const [dragStart, setDragStart] = useState<{resourceIndex: number, timeIndex: number} | null>(null)
+  const [dragEnd, setDragEnd] = useState<{resourceIndex: number, timeIndex: number} | null>(null)
+  const [selectedTimeSlots, setSelectedTimeSlots] = useState<Set<string>>(new Set())
 
   // Sample visitor data
   const visitorData = [
@@ -321,11 +327,13 @@ export default function VercelNavigation() {
 
     document.addEventListener("keydown", handleKeyDown)
     document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mouseup", handleTimeSlotMouseUp)
     window.addEventListener("resize", handleResize)
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown)
       document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("mouseup", handleTimeSlotMouseUp)
       window.removeEventListener("resize", handleResize)
     }
   }, [leftDrawerOpen, searchExpanded, searchQuery])
@@ -557,6 +565,90 @@ export default function VercelNavigation() {
   ]
 
   const selectedBuilding = buildings.find((building) => building.name === primaryBuilding) || buildings[0]
+
+  // Helper functions for drag selection
+  const getTimeSlotKey = (resourceIndex: number, timeIndex: number) => {
+    return `${resourceIndex}-${timeIndex}`
+  }
+
+  const getSelectedCells = (start: {resourceIndex: number, timeIndex: number}, end: {resourceIndex: number, timeIndex: number}) => {
+    const cells = new Set<string>()
+    const minResource = Math.min(start.resourceIndex, end.resourceIndex)
+    const maxResource = Math.max(start.resourceIndex, end.resourceIndex)
+    const minTime = Math.min(start.timeIndex, end.timeIndex)
+    const maxTime = Math.max(start.timeIndex, end.timeIndex)
+
+    for (let resourceIndex = minResource; resourceIndex <= maxResource; resourceIndex++) {
+      for (let timeIndex = minTime; timeIndex <= maxTime; timeIndex++) {
+        cells.add(getTimeSlotKey(resourceIndex, timeIndex))
+      }
+    }
+    return cells
+  }
+
+  const isCellSelected = (resourceIndex: number, timeIndex: number) => {
+    const key = getTimeSlotKey(resourceIndex, timeIndex)
+    if (isDragging && dragStart && dragEnd) {
+      const draggedCells = getSelectedCells(dragStart, dragEnd)
+      return draggedCells.has(key) || selectedTimeSlots.has(key)
+    }
+    return selectedTimeSlots.has(key)
+  }
+
+  const handleTimeSlotMouseDown = (resourceIndex: number, timeIndex: number) => {
+    // Don't start drag on unavailable slots
+    const resources = [
+      { name: 'Conference room', location: 'Main Building', unavailable: [0, 1, 2, 3] },
+      { name: 'Lab 3', location: 'Science Wing', unavailable: [] },
+      { name: 'Telescope', location: 'Observatory', unavailable: [] },
+      { name: 'Meeting room', location: 'East Tower', unavailable: [] },
+      { name: 'The Lounge', location: 'Student Center', unavailable: [] },
+      { name: 'Roof deck', location: 'North Building', unavailable: [] }
+    ]
+    
+    const currentTimeIndex = 3
+    const pastTimeSlots = Array.from({ length: currentTimeIndex }, (_, i) => i)
+    const allUnavailable = [...new Set([...pastTimeSlots, ...resources[resourceIndex].unavailable])]
+    
+    if (allUnavailable.includes(timeIndex)) return
+    
+    const cellKey = getTimeSlotKey(resourceIndex, timeIndex)
+    
+    // If already selected, deselect it
+    if (selectedTimeSlots.has(cellKey)) {
+      setSelectedTimeSlots(prev => {
+        const newSet = new Set(prev)
+        newSet.delete(cellKey)
+        return newSet
+      })
+      return
+    }
+    
+    setIsDragging(true)
+    setDragStart({ resourceIndex, timeIndex })
+    setDragEnd({ resourceIndex, timeIndex })
+  }
+
+  const handleTimeSlotMouseEnter = (resourceIndex: number, timeIndex: number) => {
+    if (isDragging && dragStart) {
+      setDragEnd({ resourceIndex, timeIndex })
+    }
+  }
+
+  const handleTimeSlotMouseUp = () => {
+    if (isDragging && dragStart && dragEnd) {
+      const newSelectedCells = getSelectedCells(dragStart, dragEnd)
+      // Merge with existing selected cells instead of replacing
+      setSelectedTimeSlots(prev => {
+        const merged = new Set([...prev, ...newSelectedCells])
+        console.log('Selected cells after drag:', Array.from(merged))
+        return merged
+      })
+    }
+    setIsDragging(false)
+    setDragStart(null)
+    setDragEnd(null)
+  }
 
   // Carousel slides data
   const carouselSlides = [
@@ -1076,7 +1168,7 @@ export default function VercelNavigation() {
                       </Button>
                     </div>
 
-                    {/* Spaces */}
+                    {/* Book a space */}
                     <div className="relative">
                       {currentPage === "book-space" && (
                         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
@@ -1092,7 +1184,7 @@ export default function VercelNavigation() {
                         onClick={() => setCurrentPage("book-space")}
                       >
                         <MapPin className="h-4 w-4 mr-3" />
-                        <span>Spaces</span>
+                        <span>Book a space</span>
                       </Button>
                     </div>
 
@@ -1806,7 +1898,10 @@ export default function VercelNavigation() {
                 </div>
 
                 {/* Time Slot Grid */}
-                <div className="rounded-lg border bg-white relative">
+                <div className={cn("rounded-lg border bg-white relative", isDragging && "select-none")}>
+                  {isDragging && (
+                    <div className="absolute inset-0 bg-transparent pointer-events-none z-10" />
+                  )}
                   {/* Time Header */}
                   <div className="grid grid-cols-[200px,repeat(10,1fr)] border-b">
                     <div className="p-3 border-r text-sm font-medium">Resource</div>
@@ -1843,16 +1938,36 @@ export default function VercelNavigation() {
                             </div>
                           </div>
                         </div>
-                        {['9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM'].map((time, timeIndex) => (
-                          <div
-                            key={`${resource.name}-${time}`}
-                            className={cn(
-                              "p-3 border-r last:border-r-0 h-16 relative",
-                              allUnavailable.includes(timeIndex) ? "bg-gray-100" : "hover:bg-blue-50 cursor-pointer"
-                            )}
-                          >
-                          </div>
-                        ))}
+                        {['9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM'].map((time, timeIndex) => {
+                          const isSelected = isCellSelected(index, timeIndex)
+                          const isUnavailable = allUnavailable.includes(timeIndex)
+                          
+                          return (
+                            <div
+                              key={`${resource.name}-${time}`}
+                              className={cn(
+                                "p-3 border-r last:border-r-0 h-16 relative select-none",
+                                isUnavailable 
+                                  ? "bg-gray-100 cursor-not-allowed" 
+                                  : isSelected 
+                                    ? "bg-blue-500 border-blue-600 text-white" 
+                                    : "hover:bg-blue-50 cursor-pointer"
+                              )}
+                              onMouseDown={(e) => {
+                                e.preventDefault()
+                                handleTimeSlotMouseDown(index, timeIndex)
+                              }}
+                              onMouseEnter={() => handleTimeSlotMouseEnter(index, timeIndex)}
+                              style={{ userSelect: 'none' }}
+                            >
+                              {isSelected && !isUnavailable && (
+                                <div className="absolute inset-0 bg-blue-600 bg-opacity-90 rounded-sm pointer-events-none border border-blue-700">
+                                  <div className="absolute top-1 left-1 w-2 h-2 bg-white rounded-full opacity-80" />
+                                </div>
+                              )}
+                            </div>
+                          )
+                        })}
                       </div>
                     );
                     })}
@@ -1869,10 +1984,43 @@ export default function VercelNavigation() {
                   </div>
                 </div>
 
-                {/* Legend */}
-                <div className="flex items-center gap-2 text-sm mb-16">
-                  <div className="w-4 h-4 bg-gray-100 border border-gray-300 rounded"></div>
-                  <span className="text-gray-700">Unavailable</span>
+                {/* Legend and Selection Controls */}
+                <div className="flex items-center justify-between mb-16">
+                  <div className="flex items-center gap-6 text-sm">
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 bg-gray-100 border border-gray-300 rounded"></div>
+                      <span className="text-gray-700">Unavailable</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 bg-blue-500 border border-blue-600 rounded"></div>
+                      <span className="text-gray-700">Selected</span>
+                    </div>
+                  </div>
+                  
+                  {selectedTimeSlots.size > 0 && (
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm text-gray-600">
+                        {selectedTimeSlots.size} time slot{selectedTimeSlots.size !== 1 ? 's' : ''} selected
+                      </span>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setSelectedTimeSlots(new Set())}
+                      >
+                        Clear Selection
+                      </Button>
+                      <Button
+                        size="sm"
+                        className="bg-blue-600 hover:bg-blue-700"
+                        onClick={() => {
+                          // Handle booking logic here
+                          console.log('Booking selected time slots:', Array.from(selectedTimeSlots))
+                        }}
+                      >
+                        Book Selected
+                      </Button>
+                    </div>
+                  )}
                 </div>
 
                 {/* My Bookings Section */}
