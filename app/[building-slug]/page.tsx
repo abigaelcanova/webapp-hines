@@ -1320,13 +1320,13 @@ export default function VercelNavigation() {
                     <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 text-white">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <h4 className="text-sm font-medium mb-1">It's even better on the go.</h4>
+                          <h4 className="text-xs font-medium mb-1">It's even better on the go.</h4>
                           <p className="text-xs text-blue-100 mb-3">Download the app</p>
                         </div>
-                        <div className="bg-white rounded p-2 ml-3">
+                        <div className="bg-white rounded ml-3">
                           <div className="w-12 h-12 rounded flex items-center justify-center">
                             <img 
-                              src="/images/logos/QRfinal.png" 
+                              src="/images/logos/QR_code_white.png" 
                               alt="QR Code" 
                               className="w-full h-full object-contain"
                             />

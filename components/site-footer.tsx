@@ -23,10 +23,10 @@ export function SiteFooter({ buildingName = "125 Lincoln" }: SiteFooterProps) {
                 <h4 className="text-sm font-medium mb-1">It's even better on the go.</h4>
                 <p className="text-xs text-blue-100">Download the app</p>
               </div>
-              <div className="bg-white rounded p-2">
+              <div className="bg-white rounded">
                 <div className="w-12 h-12 rounded flex items-center justify-center">
                   <img 
-                    src="/images/logos/QRfinal.png" 
+                    src="/images/logos/QR_code_white.png" 
                     alt="QR Code" 
                     className="w-full h-full object-contain"
                   />
