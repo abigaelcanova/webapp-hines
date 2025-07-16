@@ -161,6 +161,7 @@ export default function VercelNavigation() {
       parking: false
     }
   })
+  const [serviceRequestsActiveTab, setServiceRequestsActiveTab] = useState("Open")
 
   // Sample visitor data
   const visitorData = [
@@ -3024,7 +3025,7 @@ export default function VercelNavigation() {
                               <Calendar className="h-4 w-4 text-gray-500" />
                               <span className="text-sm text-gray-600">Available Daily</span>
                             </div>
-                            <Button className="bg-green-600 hover:bg-green-700 text-white">
+                            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                               Book Now
                             </Button>
                           </div>
@@ -3053,7 +3054,7 @@ export default function VercelNavigation() {
                               <Calendar className="h-4 w-4 text-gray-500" />
                               <span className="text-sm text-gray-600">Mon-Fri</span>
                             </div>
-                            <Button className="bg-purple-600 hover:bg-purple-700 text-white">
+                            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                               Book Now
                             </Button>
                           </div>
@@ -3082,7 +3083,7 @@ export default function VercelNavigation() {
                               <Calendar className="h-4 w-4 text-gray-500" />
                               <span className="text-sm text-gray-600">By Appointment</span>
                             </div>
-                            <Button className="bg-orange-600 hover:bg-orange-700 text-white">
+                            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                               Book Now
                             </Button>
                           </div>
@@ -3135,63 +3136,115 @@ export default function VercelNavigation() {
 
                   {/* Tabs */}
                   <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg max-w-md">
-                    <button className="flex-1 px-4 py-2 text-sm font-medium text-gray-900 bg-white rounded-md shadow-sm">
+                    <button 
+                      onClick={() => setServiceRequestsActiveTab("Open")}
+                      className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+                        serviceRequestsActiveTab === "Open"
+                          ? "text-gray-900 bg-white shadow-sm"
+                          : "text-gray-500 hover:text-gray-700"
+                      }`}
+                    >
                       Open
                     </button>
-                    <button className="flex-1 px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700">
+                    <button 
+                      onClick={() => setServiceRequestsActiveTab("Closed")}
+                      className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+                        serviceRequestsActiveTab === "Closed"
+                          ? "text-gray-900 bg-white shadow-sm"
+                          : "text-gray-500 hover:text-gray-700"
+                      }`}
+                    >
                       Closed
                     </button>
                   </div>
 
                   {/* Service Requests List */}
                   <div className="space-y-4">
-                    {/* Service Request Item */}
-                    <div className="bg-white border rounded-lg p-4 shadow-sm">
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <h3 className="text-lg font-medium text-gray-900 mb-1">Bin request</h3>
-                          <div className="flex items-center text-sm text-gray-500 mb-2">
-                            <MapPin className="h-4 w-4 mr-1" />
-                            <span>Cobblestone Collaborative</span>
+                    {serviceRequestsActiveTab === "Open" ? (
+                      <>
+                        {/* Service Request Item */}
+                        <div className="bg-white border rounded-lg p-4 shadow-sm">
+                          <div className="flex items-center justify-between">
+                            <div className="flex-1">
+                              <h3 className="text-lg font-medium text-gray-900 mb-1">Bin request</h3>
+                              <div className="flex items-center text-sm text-gray-500 mb-2">
+                                <MapPin className="h-4 w-4 mr-1" />
+                                <span>Cobblestone Collaborative</span>
+                              </div>
+                            </div>
+                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
+                              Open
+                            </Badge>
                           </div>
                         </div>
-                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
-                          Open
-                        </Badge>
-                      </div>
-                    </div>
 
-                    {/* Additional Sample Service Request */}
-                    <div className="bg-white border rounded-lg p-4 shadow-sm">
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <h3 className="text-lg font-medium text-gray-900 mb-1">Maintenance request</h3>
-                          <div className="flex items-center text-sm text-gray-500 mb-2">
-                            <MapPin className="h-4 w-4 mr-1" />
-                            <span>Cobblestone Collaborative</span>
+                        {/* Additional Sample Service Request */}
+                        <div className="bg-white border rounded-lg p-4 shadow-sm">
+                          <div className="flex items-center justify-between">
+                            <div className="flex-1">
+                              <h3 className="text-lg font-medium text-gray-900 mb-1">Maintenance request</h3>
+                              <div className="flex items-center text-sm text-gray-500 mb-2">
+                                <MapPin className="h-4 w-4 mr-1" />
+                                <span>Cobblestone Collaborative</span>
+                              </div>
+                            </div>
+                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
+                              Open
+                            </Badge>
                           </div>
                         </div>
-                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
-                          Open
-                        </Badge>
-                      </div>
-                    </div>
 
-                    {/* Another Sample Service Request */}
-                    <div className="bg-white border rounded-lg p-4 shadow-sm">
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <h3 className="text-lg font-medium text-gray-900 mb-1">Lighting issue</h3>
-                          <div className="flex items-center text-sm text-gray-500 mb-2">
-                            <MapPin className="h-4 w-4 mr-1" />
-                            <span>Cobblestone Collaborative</span>
+                        {/* Another Sample Service Request */}
+                        <div className="bg-white border rounded-lg p-4 shadow-sm">
+                          <div className="flex items-center justify-between">
+                            <div className="flex-1">
+                              <h3 className="text-lg font-medium text-gray-900 mb-1">Lighting issue</h3>
+                              <div className="flex items-center text-sm text-gray-500 mb-2">
+                                <MapPin className="h-4 w-4 mr-1" />
+                                <span>Cobblestone Collaborative</span>
+                              </div>
+                            </div>
+                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
+                              Open
+                            </Badge>
                           </div>
                         </div>
-                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
-                          Open
-                        </Badge>
-                      </div>
-                    </div>
+                      </>
+                    ) : (
+                      <>
+                        {/* Closed Service Request 1 */}
+                        <div className="bg-white border rounded-lg p-4 shadow-sm">
+                          <div className="flex items-center justify-between">
+                            <div className="flex-1">
+                              <h3 className="text-lg font-medium text-gray-900 mb-1">HVAC temperature control</h3>
+                              <div className="flex items-center text-sm text-gray-500 mb-2">
+                                <MapPin className="h-4 w-4 mr-1" />
+                                <span>Cobblestone Collaborative</span>
+                              </div>
+                            </div>
+                            <Badge className="bg-gray-100 text-gray-600 hover:bg-gray-100">
+                              Closed
+                            </Badge>
+                          </div>
+                        </div>
+
+                        {/* Closed Service Request 2 */}
+                        <div className="bg-white border rounded-lg p-4 shadow-sm">
+                          <div className="flex items-center justify-between">
+                            <div className="flex-1">
+                              <h3 className="text-lg font-medium text-gray-900 mb-1">WiFi connectivity issue</h3>
+                              <div className="flex items-center text-sm text-gray-500 mb-2">
+                                <MapPin className="h-4 w-4 mr-1" />
+                                <span>Cobblestone Collaborative</span>
+                              </div>
+                            </div>
+                            <Badge className="bg-gray-100 text-gray-600 hover:bg-gray-100">
+                              Closed
+                            </Badge>
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               ) : null}
