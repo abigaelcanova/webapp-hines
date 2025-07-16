@@ -170,6 +170,58 @@ export default function VercelNavigation() {
   const [dragEnd, setDragEnd] = useState<{resourceIndex: number, timeIndex: number} | null>(null)
   const [selectedTimeSlots, setSelectedTimeSlots] = useState<Set<string>>(new Set())
 
+  // Carousel state for what's happening section
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  // Carousel data for what's happening section
+  const happeningSlides = [
+    {
+      id: 1,
+      title: "Summer Outing",
+      description: "Join us for our annual Summer Outing on June 10, 2025, from 3:00 PM to 7:00 PM at Riverside Park. Enjoy food, games, and great company!",
+      image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop",
+      date: "Sat, June 10 • 3 PM",
+      location: "Boston, MA",
+      buttonText: "RSVP"
+    },
+    {
+      id: 2,
+      title: "Tech Networking Mixer",
+      description: "Connect with fellow professionals in the tech industry. Join us for an evening of networking, discussions, and collaboration opportunities.",
+      image: "https://images.unsplash.com/photo-1515169067868-5387ec356754?w=800&h=600&fit=crop",
+      date: "Fri, June 15 • 6 PM",
+      location: "Boston, MA",
+      buttonText: "Register"
+    },
+    {
+      id: 3,
+      title: "Wellness Workshop",
+      description: "Take a break from your busy schedule and join us for a wellness workshop focused on mindfulness, stress management, and work-life balance.",
+      image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&h=600&fit=crop",
+      date: "Wed, June 20 • 12 PM",
+      location: "Boston, MA",
+      buttonText: "Join"
+    },
+    {
+      id: 4,
+      title: "Building Tour",
+      description: "Discover the history and architecture of our building with a guided tour. Perfect for new tenants and those interested in our building's story.",
+      image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=600&fit=crop",
+      date: "Thu, June 25 • 2 PM",
+      location: "Boston, MA",
+      buttonText: "Book"
+    },
+    {
+      id: 5,
+      title: "Rooftop Party",
+      description: "Join us for our summer rooftop party with live music, food, and stunning views of the city. A perfect way to unwind and socialize.",
+      image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&h=600&fit=crop",
+      date: "Sat, June 30 • 7 PM",
+      location: "Boston, MA",
+      buttonText: "RSVP"
+    }
+  ]
+
   // Sample visitor data
   const visitorData = [
     {
@@ -565,6 +617,19 @@ export default function VercelNavigation() {
   ]
 
   const selectedBuilding = buildings.find((building) => building.name === primaryBuilding) || buildings[0]
+
+  // Carousel navigation functions
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % happeningSlides.length)
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + happeningSlides.length) % happeningSlides.length)
+  }
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index)
+  }
 
   // Helper functions for drag selection
   const getTimeSlotKey = (resourceIndex: number, timeIndex: number) => {
@@ -1506,29 +1571,64 @@ export default function VercelNavigation() {
                   </div>
 
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* Featured Event Card */}
-                    <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
-                      <div className="aspect-[4/3] relative">
-                        <img 
-                          src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop" 
-                          alt="Summer Outing" 
-                          className="w-full h-full object-cover"
-                        />
+                    {/* Featured Event Carousel */}
+                    <div className="bg-white rounded-lg border shadow-sm overflow-hidden relative">
+                      {/* Carousel Container */}
+                      <div className="relative">
+                        {/* Left Arrow */}
+                        <button
+                          onClick={prevSlide}
+                          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 rounded-full p-2 shadow-md transition-colors"
+                        >
+                          <ChevronLeft className="h-5 w-5 text-gray-700" />
+                        </button>
+
+                        {/* Right Arrow */}
+                        <button
+                          onClick={nextSlide}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 rounded-full p-2 shadow-md transition-colors"
+                        >
+                          <ChevronRight className="h-5 w-5 text-gray-700" />
+                        </button>
+
+                        {/* Slide Content */}
+                        <div className="aspect-[4/3] relative">
+                          <img 
+                            src={happeningSlides[currentSlide].image} 
+                            alt={happeningSlides[currentSlide].title} 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
                       </div>
+
+                      {/* Slide Information */}
                       <div className="p-6">
-                        <h3 className="text-2xl font-semibold mb-2">Summer Outing</h3>
+                        <h3 className="text-2xl font-semibold mb-2">{happeningSlides[currentSlide].title}</h3>
                         <p className="text-gray-600 mb-4">
-                          Join us for our annual Summer Outing on June 10, 2025, from 3:00 PM to 7:00 PM at Riverside Park. Enjoy food, games, and great company!
+                          {happeningSlides[currentSlide].description}
                         </p>
                         <div className="flex items-center justify-between">
                           <div>
-                            <p className="font-medium">Sat, June 10 • 3 PM</p>
-                            <p className="text-sm text-gray-600">Boston, MA</p>
+                            <p className="font-medium">{happeningSlides[currentSlide].date}</p>
+                            <p className="text-sm text-gray-600">{happeningSlides[currentSlide].location}</p>
                           </div>
                           <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6">
-                            RSVP
+                            {happeningSlides[currentSlide].buttonText}
                           </Button>
                         </div>
+                      </div>
+
+                      {/* Navigation Dots */}
+                      <div className="flex justify-center space-x-2 pb-4">
+                        {happeningSlides.map((_, index) => (
+                          <button
+                            key={index}
+                            onClick={() => goToSlide(index)}
+                            className={`w-2 h-2 rounded-full transition-colors ${
+                              index === currentSlide ? 'bg-blue-600' : 'bg-gray-300'
+                            }`}
+                          />
+                        ))}
                       </div>
                     </div>
 
