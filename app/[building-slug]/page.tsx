@@ -987,16 +987,16 @@ export default function VercelNavigation() {
             {/* User Profile */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <div className="h-8 w-8 flex items-center justify-center cursor-pointer ml-3">
-                  <Avatar className="h-8 w-8">
-                    <AvatarFallback className="bg-blue-600 text-white">PT</AvatarFallback>
+                <div className="h-10 w-10 flex items-center justify-center cursor-pointer ml-3">
+                  <Avatar className="h-10 w-10">
+                    <AvatarFallback className="bg-blue-600 text-white text-sm">PT</AvatarFallback>
                   </Avatar>
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-64">
                 <div className="flex items-center gap-3 p-3">
-                  <Avatar className="h-10 w-10">
-                    <AvatarFallback className="bg-blue-600 text-white">PT</AvatarFallback>
+                  <Avatar className="h-12 w-12">
+                    <AvatarFallback className="bg-blue-600 text-white text-sm">PT</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col">
                     <span className="font-medium text-sm">Pat Tobin</span>
@@ -1012,30 +1012,6 @@ export default function VercelNavigation() {
                   <Building className="h-4 w-4 mr-2" />
                   My buildings
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                
-                {/* Email Call-out */}
-                <div className="p-3 bg-blue-50 border border-blue-200 rounded-md mx-2 my-2">
-                  <div className="flex items-start gap-3">
-                    <div className="p-1.5 bg-blue-100 rounded-md">
-                      <Mail className="h-3.5 w-3.5 text-blue-600" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs font-medium text-blue-900 mb-1">Add personal email</p>
-                      <p className="text-xs text-blue-700 leading-relaxed">
-                        Connect your personal email to see all buildings you have access to across organizations.
-                      </p>
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="mt-2 h-6 px-2 text-xs border-blue-300 text-blue-700 hover:bg-blue-100"
-                      >
-                        Add email
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-                
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
                   <LogOut className="h-4 w-4 mr-2" />
@@ -2865,9 +2841,9 @@ export default function VercelNavigation() {
                             </TableCell>
                             <TableCell>
                               <div className="flex items-center gap-3">
-                                <Avatar className="h-10 w-10">
+                                <Avatar className="h-12 w-12">
                                   <AvatarImage src={visitor.avatar} alt={visitor.name} />
-                                  <AvatarFallback className="bg-blue-600 text-white">
+                                  <AvatarFallback className="bg-blue-600 text-white text-sm">
                                     {visitor.initials || visitor.name.split(' ').map(n => n[0]).join('')}
                                   </AvatarFallback>
                                 </Avatar>
