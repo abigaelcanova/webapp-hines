@@ -869,7 +869,7 @@ export default function VercelNavigation() {
                     <Input
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Search buildings, people, events, spaces..."
+                      placeholder="Search"
                       className="flex-1 border-0 focus-visible:ring-0 h-8 px-3"
                       autoFocus
                       onBlur={() => {
