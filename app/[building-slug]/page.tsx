@@ -162,6 +162,7 @@ export default function VercelNavigation() {
     }
   })
   const [serviceRequestsActiveTab, setServiceRequestsActiveTab] = useState("Open")
+  const [accountSettingsModalOpen, setAccountSettingsModalOpen] = useState(false)
 
   // Sample visitor data
   const visitorData = [
@@ -1004,7 +1005,7 @@ export default function VercelNavigation() {
                   </div>
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer">
+                <DropdownMenuItem className="cursor-pointer" onClick={() => setAccountSettingsModalOpen(true)}>
                   <Settings className="h-4 w-4 mr-2" />
                   Manage my account
                 </DropdownMenuItem>
@@ -3727,6 +3728,115 @@ export default function VercelNavigation() {
                       Apply Filters
                     </Button>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Account Settings Modal */}
+        {accountSettingsModalOpen && (
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+              <div className="w-full max-w-md bg-white rounded-lg shadow-lg">
+                {/* Modal Header */}
+                <div className="flex items-center justify-between p-6 border-b">
+                  <h2 className="text-xl font-semibold text-gray-900">Account settings</h2>
+                  <button
+                    onClick={() => setAccountSettingsModalOpen(false)}
+                    className="text-gray-400 hover:text-gray-600"
+                  >
+                    <X className="h-6 w-6" />
+                  </button>
+                </div>
+
+                {/* Modal Content */}
+                <div className="p-6 space-y-6">
+                  {/* Name Fields */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        First name
+                      </label>
+                      <input
+                        type="text"
+                        defaultValue="Ellie"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Last name
+                      </label>
+                      <input
+                        type="text"
+                        defaultValue="Sanders"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Company and Email */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Company
+                      </label>
+                      <input
+                        type="text"
+                        defaultValue="HqO"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        defaultValue="ellie.sanders@hqo.co"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Default Building */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Default building
+                    </label>
+                    <select className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                      <option value="the-hive">The Hive</option>
+                      <option value="main-building">Main Building</option>
+                      <option value="east-tower">East Tower</option>
+                    </select>
+                  </div>
+
+                  {/* Links */}
+                  <div className="space-y-3">
+                    <button className="block text-sm text-blue-600 hover:text-blue-700 underline">
+                      Terms of service
+                    </button>
+                    <button className="block text-sm text-blue-600 hover:text-blue-700 underline">
+                      Privacy policy
+                    </button>
+                    <button className="block text-sm text-blue-600 hover:text-blue-700 underline">
+                      Update password
+                    </button>
+                  </div>
+                </div>
+
+                {/* Modal Footer */}
+                <div className="flex items-center justify-end gap-3 p-6 border-t">
+                  <Button
+                    variant="outline"
+                    onClick={() => setAccountSettingsModalOpen(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                    Save
+                  </Button>
                 </div>
               </div>
             </div>
