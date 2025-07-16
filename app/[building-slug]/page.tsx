@@ -4036,9 +4036,9 @@ export default function VercelNavigation() {
         {bookingModalOpen && (
           <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-              <div className="w-full max-w-lg bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="w-full max-w-lg max-h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
                 {/* Header with back button */}
-                <div className="relative">
+                <div className="relative flex-shrink-0">
                   <button
                     onClick={() => setBookingModalOpen(false)}
                     className="absolute top-4 left-4 z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-shadow"
@@ -4074,7 +4074,7 @@ export default function VercelNavigation() {
                 </div>
 
                 {/* Content */}
-                <div className="p-6 space-y-6">
+                <div className="p-6 space-y-6 overflow-y-auto flex-1">
                   {/* Title and subtitle */}
                   <div>
                     {(() => {
@@ -4257,7 +4257,7 @@ export default function VercelNavigation() {
                 </div>
 
                 {/* Footer */}
-                <div className="p-6 border-t bg-gray-50 space-y-4">
+                <div className="p-6 border-t bg-gray-50 space-y-4 flex-shrink-0">
                   <div className="text-center">
                     <p className="text-sm text-gray-600 mb-2">Additional information required for this booking</p>
                     <p className="text-sm font-medium text-gray-900">
