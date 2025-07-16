@@ -183,6 +183,9 @@ export default function VercelNavigation() {
   const [bookingModalOpen, setBookingModalOpen] = useState(false)
   const [bookingConfirmationModalOpen, setBookingConfirmationModalOpen] = useState(false)
   const [confirmedBooking, setConfirmedBooking] = useState<any>(null)
+  const [searchModalOpen, setSearchModalOpen] = useState(false)
+  const [locationsModalOpen, setLocationsModalOpen] = useState(false)
+  const [selectedLocations, setSelectedLocations] = useState<string[]>(["Main Building"])
   
   // Drag selection state for time slots
   const [isDragging, setIsDragging] = useState(false)
@@ -638,6 +641,46 @@ export default function VercelNavigation() {
 
   const selectedBuilding = buildings.find((building) => building.name === primaryBuilding) || buildings[0]
 
+  // Location data for the locations modal
+  const locations = [
+    {
+      id: 1,
+      name: "Main Building",
+      address: "125 Lincoln Street",
+      checked: selectedLocations.includes("Main Building")
+    },
+    {
+      id: 2,
+      name: "Science Wing",
+      address: "Research Campus",
+      checked: selectedLocations.includes("Science Wing")
+    },
+    {
+      id: 3,
+      name: "Observatory",
+      address: "Hilltop Campus",
+      checked: selectedLocations.includes("Observatory")
+    },
+    {
+      id: 4,
+      name: "East Tower",
+      address: "Business District",
+      checked: selectedLocations.includes("East Tower")
+    },
+    {
+      id: 5,
+      name: "Student Center",
+      address: "Campus Commons",
+      checked: selectedLocations.includes("Student Center")
+    },
+    {
+      id: 6,
+      name: "North Building",
+      address: "Innovation Hub",
+      checked: selectedLocations.includes("North Building")
+    }
+  ]
+
   // Carousel navigation functions
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % happeningSlides.length)
@@ -776,6 +819,31 @@ export default function VercelNavigation() {
       setDragStart(null)
       setDragEnd(null)
     }
+  }
+
+  // Location modal functions
+  const toggleLocation = (locationName: string) => {
+    setSelectedLocations(prev => {
+      if (prev.includes(locationName)) {
+        return prev.filter(loc => loc !== locationName)
+      } else {
+        return [...prev, locationName]
+      }
+    })
+  }
+
+  const toggleAllLocations = () => {
+    const allLocationNames = locations.map(loc => loc.name)
+    if (selectedLocations.length === allLocationNames.length) {
+      setSelectedLocations([])
+    } else {
+      setSelectedLocations(allLocationNames)
+    }
+  }
+
+  const handleLocationsDone = () => {
+    setLocationsModalOpen(false)
+    // You can add additional logic here if needed
   }
 
   // Carousel slides data
@@ -2013,20 +2081,19 @@ export default function VercelNavigation() {
                     </Button>
                   </div>
                   <div className="flex items-center gap-3">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="outline" size="sm" className="h-8">
-                          Main Building
-                          <ChevronDown className="h-4 w-4 ml-1" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuItem>Main Building</DropdownMenuItem>
-                        <DropdownMenuItem>Science Wing</DropdownMenuItem>
-                        <DropdownMenuItem>East Tower</DropdownMenuItem>
-                        <DropdownMenuItem>North Building</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="h-8"
+                      onClick={() => setLocationsModalOpen(true)}
+                    >
+                      {selectedLocations.length === 1 
+                        ? selectedLocations[0] 
+                        : selectedLocations.length > 1 
+                        ? `${selectedLocations.length} locations` 
+                        : "Select locations"}
+                      <ChevronDown className="h-4 w-4 ml-1" />
+                    </Button>
                     <Button variant="outline" size="sm" className="h-8" onClick={() => setFiltersModalOpen(true)}>
                       <svg className="h-4 w-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
@@ -4697,6 +4764,95 @@ export default function VercelNavigation() {
                   </Button>
                   <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                     Update Password
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Locations Modal */}
+        {locationsModalOpen && (
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+              <div className="w-full max-w-md bg-white rounded-lg shadow-lg">
+                {/* Modal Header */}
+                <div className="flex items-center justify-between p-6 border-b">
+                  <h2 className="text-xl font-semibold text-gray-900">Locations</h2>
+                  <button
+                    onClick={() => setLocationsModalOpen(false)}
+                    className="text-gray-400 hover:text-gray-600"
+                  >
+                    <X className="h-6 w-6" />
+                  </button>
+                </div>
+
+                {/* Modal Content */}
+                <div className="p-6 space-y-6">
+                  {/* Select all locations toggle */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-700">Select all locations</span>
+                    <button
+                      onClick={toggleAllLocations}
+                      className={`w-11 h-6 rounded-full transition-colors ${
+                        selectedLocations.length === locations.length
+                          ? 'bg-blue-600'
+                          : 'bg-gray-200'
+                      }`}
+                    >
+                      <div
+                        className={`w-5 h-5 rounded-full bg-white shadow-md transform transition-transform ${
+                          selectedLocations.length === locations.length
+                            ? 'translate-x-5'
+                            : 'translate-x-0'
+                        }`}
+                      />
+                    </button>
+                  </div>
+
+                  {/* Location List */}
+                  <div className="space-y-3">
+                    {locations.map((location) => (
+                      <div
+                        key={location.id}
+                        className={`p-4 rounded-lg border cursor-pointer transition-colors ${
+                          location.checked
+                            ? 'border-blue-500 bg-blue-50'
+                            : 'border-gray-200 hover:border-gray-300'
+                        }`}
+                        onClick={() => toggleLocation(location.name)}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex-1">
+                            <div className="font-medium text-gray-900">{location.name}</div>
+                            <div className="text-sm text-gray-500 flex items-center gap-1">
+                              <MapPin className="h-3 w-3" />
+                              {location.address}
+                            </div>
+                          </div>
+                          {location.checked && (
+                            <div className="flex items-center justify-center w-5 h-5 bg-blue-500 rounded-sm">
+                              <Check className="h-3 w-3 text-white" />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Selected count */}
+                  <div className="text-sm text-gray-600">
+                    {selectedLocations.length} selected
+                  </div>
+                </div>
+
+                {/* Modal Footer */}
+                <div className="p-6 border-t bg-gray-50">
+                  <Button 
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                    onClick={handleLocationsDone}
+                  >
+                    Done
                   </Button>
                 </div>
               </div>
