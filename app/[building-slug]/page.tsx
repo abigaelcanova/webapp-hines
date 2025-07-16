@@ -55,6 +55,7 @@ import {
   Clock,
   Wifi,
   Monitor,
+  Phone,
 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -180,6 +181,8 @@ export default function VercelNavigation() {
   const [showNewPassword, setShowNewPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [bookingModalOpen, setBookingModalOpen] = useState(false)
+  const [bookingConfirmationModalOpen, setBookingConfirmationModalOpen] = useState(false)
+  const [confirmedBooking, setConfirmedBooking] = useState<any>(null)
   
   // Drag selection state for time slots
   const [isDragging, setIsDragging] = useState(false)
@@ -4284,13 +4287,155 @@ export default function VercelNavigation() {
                   <Button 
                     className="w-full bg-orange-600 hover:bg-orange-700 text-white"
                     onClick={() => {
-                      // Handle booking confirmation
-                      console.log('Booking confirmed for:', Array.from(selectedTimeSlots))
+                      // Create booking confirmation data
+                      const slots = Array.from(selectedTimeSlots)
+                      if (slots.length > 0) {
+                        const firstSlot = slots[0]
+                        const [resourceIndex] = firstSlot.split('-').map(Number)
+                        const resources = [
+                          { name: 'Conference room', subtitle: 'The Hive Conference Room', type: 'Conference Center (Small)' },
+                          { name: 'Lab 3', subtitle: 'Science Wing Laboratory', type: 'Laboratory Space' },
+                          { name: 'Telescope', subtitle: 'Observatory Viewing Station', type: 'Telescope Access' },
+                          { name: 'Meeting room', subtitle: 'East Tower Conference Room', type: 'Meeting Space' },
+                          { name: 'The Lounge', subtitle: 'Student Center Lounge', type: 'Lounge Area' },
+                          { name: 'Roof deck', subtitle: 'North Building Roof Deck', type: 'Outdoor Space' }
+                        ]
+                        const resource = resources[resourceIndex]
+                        
+                        const timeSlots = ['9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM']
+                        const timeIndexes = slots.map(slot => parseInt(slot.split('-')[1])).sort((a, b) => a - b)
+                        const startTime = timeSlots[timeIndexes[0]]
+                        const endTime = timeSlots[timeIndexes[timeIndexes.length - 1] + 1] || '7 PM'
+                        
+                        setConfirmedBooking({
+                          resource: resource,
+                          date: 'May 25',
+                          startTime: startTime,
+                          endTime: endTime,
+                          slots: slots
+                        })
+                      }
+                      
                       setBookingModalOpen(false)
-                      setSelectedTimeSlots(new Set())
+                      setBookingConfirmationModalOpen(true)
                     }}
                   >
                     Book
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Booking Confirmation Modal */}
+        {bookingConfirmationModalOpen && confirmedBooking && (
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+              <div className="w-full max-w-lg max-h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+                {/* Header */}
+                <div className="flex items-center justify-between p-6 border-b flex-shrink-0">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                      <Check className="h-5 w-5 text-green-600" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-gray-900">Booking confirmed</h2>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setBookingConfirmationModalOpen(false)
+                      setConfirmedBooking(null)
+                      setSelectedTimeSlots(new Set())
+                    }}
+                    className="p-2 hover:bg-gray-100 rounded-full"
+                  >
+                    <X className="h-5 w-5 text-gray-500" />
+                  </button>
+                </div>
+
+                {/* Content */}
+                <div className="p-6 space-y-6 overflow-y-auto flex-1">
+                  {/* Confirmation message */}
+                  <p className="text-gray-700">
+                    Your booking for {confirmedBooking.resource.name} is confirmed for Wednesday, July 16. You will receive an email confirmation with details.
+                  </p>
+
+                  {/* Details Section */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-900">Details</h3>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="h-4 w-4 text-gray-600" />
+                        <span className="font-medium text-gray-900">Wednesday, July 16, 2025</span>
+                      </div>
+                      
+                      <div className="ml-6 text-gray-600">
+                        {(() => {
+                          const formatTime = (time: string) => {
+                            const [hour, period] = time.split(' ')
+                            const hourNum = parseInt(hour)
+                            return `${hourNum}:45 ${period}`
+                          }
+                          return `${formatTime(confirmedBooking.startTime)} - ${formatTime(confirmedBooking.endTime)}`
+                        })()}
+                      </div>
+                      
+                      <button className="ml-6 text-orange-600 hover:text-orange-700 text-sm underline">
+                        Cancel booking
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Location */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <MapPin className="h-4 w-4 text-gray-600" />
+                      <span className="font-medium text-gray-900">Cobblestone Collaborative</span>
+                    </div>
+                    <div className="ml-6 text-gray-600">{confirmedBooking.resource.name}</div>
+                  </div>
+
+                  {/* Amenities */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-900">Amenities</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3">
+                        <Monitor className="h-4 w-4 text-gray-600" />
+                        <span className="text-gray-900">TV / Projector</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Phone className="h-4 w-4 text-gray-600" />
+                        <span className="text-gray-900">Phone</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Wifi className="h-4 w-4 text-gray-600" />
+                        <span className="text-gray-900">Wi-Fi</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Payment Details */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-900">Payment details</h3>
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-900">{confirmedBooking.resource.name}</span>
+                      <span className="text-gray-900 font-medium">$20.00</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div className="p-6 border-t bg-gray-50 flex-shrink-0">
+                  <Button 
+                    className="w-full bg-orange-600 hover:bg-orange-700 text-white"
+                    onClick={() => {
+                      setBookingConfirmationModalOpen(false)
+                      setConfirmedBooking(null)
+                      setSelectedTimeSlots(new Set())
+                    }}
+                  >
+                    Done
                   </Button>
                 </div>
               </div>
