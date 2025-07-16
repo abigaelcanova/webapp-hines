@@ -52,6 +52,9 @@ import {
   ChevronRight,
   Download,
   Eye,
+  Clock,
+  Wifi,
+  Monitor,
 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -176,6 +179,7 @@ export default function VercelNavigation() {
   })
   const [showNewPassword, setShowNewPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [bookingModalOpen, setBookingModalOpen] = useState(false)
   
   // Drag selection state for time slots
   const [isDragging, setIsDragging] = useState(false)
@@ -2161,10 +2165,7 @@ export default function VercelNavigation() {
                       <Button
                         size="sm"
                         className="bg-blue-600 hover:bg-blue-700"
-                        onClick={() => {
-                          // Handle booking logic here
-                          console.log('Booking selected time slots:', Array.from(selectedTimeSlots))
-                        }}
+                        onClick={() => setBookingModalOpen(true)}
                       >
                         Book Selected
                       </Button>
@@ -4025,6 +4026,272 @@ export default function VercelNavigation() {
                       Apply Filters
                     </Button>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Booking Modal */}
+        {bookingModalOpen && (
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+              <div className="w-full max-w-lg bg-white rounded-lg shadow-lg overflow-hidden">
+                {/* Header with back button */}
+                <div className="relative">
+                  <button
+                    onClick={() => setBookingModalOpen(false)}
+                    className="absolute top-4 left-4 z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-shadow"
+                  >
+                    <ChevronLeft className="h-5 w-5 text-gray-600" />
+                  </button>
+                  
+                  {/* Room Image */}
+                  <div className="h-48 bg-gray-200 overflow-hidden">
+                    {(() => {
+                      const firstSlot = Array.from(selectedTimeSlots)[0]
+                      if (firstSlot) {
+                        const [resourceIndex] = firstSlot.split('-').map(Number)
+                        const resourceImages = [
+                          "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=400&fit=crop", // Conference room
+                          "/images/content/Lab3.jpg", // Lab 3
+                          "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800&h=400&fit=crop", // Telescope
+                          "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=400&fit=crop", // Meeting room
+                          "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=400&fit=crop", // The Lounge
+                          "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=800&h=400&fit=crop" // Roof deck
+                        ]
+                        return (
+                          <img 
+                            src={resourceImages[resourceIndex]} 
+                            alt="Space" 
+                            className="w-full h-full object-cover"
+                          />
+                        )
+                      }
+                      return <div className="w-full h-full bg-gray-100" />
+                    })()}
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6 space-y-6">
+                  {/* Title and subtitle */}
+                  <div>
+                    {(() => {
+                      const firstSlot = Array.from(selectedTimeSlots)[0]
+                      if (firstSlot) {
+                        const [resourceIndex] = firstSlot.split('-').map(Number)
+                        const resources = [
+                          { name: 'Conference room', subtitle: 'The Hive Conference Room', type: 'Conference Center (Small)' },
+                          { name: 'Lab 3', subtitle: 'Science Wing Laboratory', type: 'Laboratory Space' },
+                          { name: 'Telescope', subtitle: 'Observatory Viewing Station', type: 'Telescope Access' },
+                          { name: 'Meeting room', subtitle: 'East Tower Conference Room', type: 'Meeting Space' },
+                          { name: 'The Lounge', subtitle: 'Student Center Lounge', type: 'Lounge Area' },
+                          { name: 'Roof deck', subtitle: 'North Building Roof Deck', type: 'Outdoor Space' }
+                        ]
+                        const resource = resources[resourceIndex]
+                        return (
+                          <>
+                            <h2 className="text-2xl font-bold text-gray-900">{resource.type}</h2>
+                            <p className="text-gray-600 text-lg">{resource.subtitle}</p>
+                          </>
+                        )
+                      }
+                      return <h2 className="text-2xl font-bold text-gray-900">Select a resource</h2>
+                    })()}
+                  </div>
+
+                  {/* Date and Time Selection */}
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-5 w-5 text-gray-400" />
+                      <div className="relative">
+                        <select className="border border-gray-300 rounded-md px-3 py-2 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none">
+                          <option>May 25</option>
+                        </select>
+                        <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-5 w-5 text-gray-400" />
+                      <span className="text-lg font-medium">
+                        {(() => {
+                          const slots = Array.from(selectedTimeSlots)
+                          if (slots.length === 0) return "Select time"
+                          
+                          const timeSlots = ['9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM']
+                          const timeIndexes = slots.map(slot => parseInt(slot.split('-')[1])).sort((a, b) => a - b)
+                          const startTime = timeSlots[timeIndexes[0]]
+                          const endTime = timeSlots[timeIndexes[timeIndexes.length - 1] + 1] || '7 PM'
+                          
+                          return `${startTime} - ${endTime}`
+                        })()}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Time Schedule Visual */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-sm text-gray-600">
+                      <span>9 AM</span>
+                      <span>12 PM</span>
+                      <span>3 PM</span>
+                      <span>6 PM</span>
+                    </div>
+                    <div className="relative h-16 bg-gray-100 rounded-lg overflow-hidden">
+                      {/* Time slots visual */}
+                      <div className="absolute inset-0 flex">
+                        {Array.from({ length: 9 }, (_, i) => {
+                          const timeIndex = i + 1 // Skip 9 AM for visual purposes
+                          const isSelected = Array.from(selectedTimeSlots).some(slot => 
+                            slot.split('-')[1] === timeIndex.toString()
+                          )
+                          const isPast = timeIndex < 3 // Before 12 PM
+                          const isUnavailable = timeIndex > 8 // After 6 PM
+                          
+                          return (
+                            <div
+                              key={i}
+                              className={`flex-1 h-full border-r border-gray-200 ${
+                                isSelected 
+                                  ? 'bg-blue-500' 
+                                  : isPast 
+                                    ? 'bg-gray-300 bg-opacity-50' 
+                                    : isUnavailable
+                                      ? 'bg-gray-200'
+                                      : 'bg-white'
+                              }`}
+                            />
+                          )
+                        })}
+                      </div>
+                      
+                      {/* Selected time indicator */}
+                      {Array.from(selectedTimeSlots).length > 0 && (
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-xs font-medium">
+                          {Array.from(selectedTimeSlots).length} slot{Array.from(selectedTimeSlots).length > 1 ? 's' : ''}
+                        </div>
+                      )}
+                    </div>
+                    <div className="text-sm text-gray-500 text-right">
+                      Not available after 6:00 PM
+                    </div>
+                  </div>
+
+                  {/* Address */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-gray-600">
+                      <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      <span>ARE Demo Building, 29 1st Ave, New York, NY 10003, USA</span>
+                    </div>
+                    <button className="text-blue-600 hover:text-blue-700 text-sm underline">
+                      Open in maps
+                    </button>
+                  </div>
+
+                  {/* Amenities */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-900">Amenities</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex items-center gap-3">
+                        <Wifi className="h-5 w-5 text-gray-600" />
+                        <span className="text-gray-900">Wi-Fi</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Monitor className="h-5 w-5 text-gray-600" />
+                        <span className="text-gray-900">TV / Projector</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-900">Description</h3>
+                    <div className="text-gray-700 space-y-4">
+                      <p>
+                        Great ideas come through collaboration, which is why ARE Demo Building offers a fully amenitized conference center to incubate your next great idea.
+                      </p>
+                      <p>
+                        Holds up to 6 people (comfortably 4).
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Opening Hours */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-900">Opening hours</h3>
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <span className="text-gray-700">Sun</span>
+                        <span className="text-gray-700">Closed</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-700">Mon</span>
+                        <span className="text-gray-700">08:00 AM - 05:00 PM</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-700">Tue</span>
+                        <span className="text-gray-700">08:00 AM - 05:00 PM</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-700">Wed</span>
+                        <span className="text-gray-700">08:00 AM - 05:00 PM</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-700">Thu</span>
+                        <span className="text-gray-700">08:00 AM - 05:00 PM</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-700">Fri</span>
+                        <span className="text-gray-700">08:00 AM - 05:00 PM</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-700">Sat</span>
+                        <span className="text-gray-700">Closed</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div className="p-6 border-t bg-gray-50 space-y-4">
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600 mb-2">Additional information required for this booking</p>
+                    <p className="text-sm font-medium text-gray-900">
+                      {(() => {
+                        const slots = Array.from(selectedTimeSlots)
+                        if (slots.length === 0) return "May 25 • Select time"
+                        
+                        const timeSlots = ['9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM']
+                        const timeIndexes = slots.map(slot => parseInt(slot.split('-')[1])).sort((a, b) => a - b)
+                        const startTime = timeSlots[timeIndexes[0]]
+                        const endTime = timeSlots[timeIndexes[timeIndexes.length - 1] + 1] || '7 PM'
+                        
+                        const formatTime = (time: string) => {
+                          const [hour, period] = time.split(' ')
+                          const hourNum = parseInt(hour)
+                          return `${hourNum}:00 ${period.toLowerCase()}`
+                        }
+                        
+                        return `May 25 • ${formatTime(startTime)} - ${formatTime(endTime)}`
+                      })()}
+                    </p>
+                  </div>
+                  
+                  <Button 
+                    className="w-full bg-orange-600 hover:bg-orange-700 text-white"
+                    onClick={() => {
+                      // Handle booking confirmation
+                      console.log('Booking confirmed for:', Array.from(selectedTimeSlots))
+                      setBookingModalOpen(false)
+                      setSelectedTimeSlots(new Set())
+                    }}
+                  >
+                    Book
+                  </Button>
                 </div>
               </div>
             </div>
