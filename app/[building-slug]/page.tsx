@@ -1778,13 +1778,13 @@ export default function VercelNavigation() {
                       />
 
                       <ContentCard
-                        image="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=200&fit=crop"
-                        imageAlt="App update"
-                        category="Announcement"
-                        categoryColor="bg-blue-100 text-blue-700"
+                        image="/images/content/Taco.png"
+                        imageAlt="Taco Trot event"
+                        category="Event"
+                        categoryColor="bg-green-100 text-green-700"
                         timestamp="4 days ago"
-                        headline="Mobile app update"
-                        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad..."
+                        headline="Taco Trot"
+                        description="Join us for our annual Taco Trot event! A fun-filled afternoon of delicious tacos, live music, and community spirit. Don't miss out on this tasty celebration!"
                         className="flex-1"
                       />
 
