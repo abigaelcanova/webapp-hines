@@ -638,15 +638,19 @@ export default function VercelNavigation() {
 
   const getSelectedCells = (start: {resourceIndex: number, timeIndex: number}, end: {resourceIndex: number, timeIndex: number}) => {
     const cells = new Set<string>()
-    const minResource = Math.min(start.resourceIndex, end.resourceIndex)
-    const maxResource = Math.max(start.resourceIndex, end.resourceIndex)
+    // Only allow selection within the same resource
+    if (start.resourceIndex !== end.resourceIndex) {
+      // If different resources, only select the start cell
+      cells.add(getTimeSlotKey(start.resourceIndex, start.timeIndex))
+      return cells
+    }
+    
     const minTime = Math.min(start.timeIndex, end.timeIndex)
     const maxTime = Math.max(start.timeIndex, end.timeIndex)
 
-    for (let resourceIndex = minResource; resourceIndex <= maxResource; resourceIndex++) {
-      for (let timeIndex = minTime; timeIndex <= maxTime; timeIndex++) {
-        cells.add(getTimeSlotKey(resourceIndex, timeIndex))
-      }
+    // Only select cells from the same resource
+    for (let timeIndex = minTime; timeIndex <= maxTime; timeIndex++) {
+      cells.add(getTimeSlotKey(start.resourceIndex, timeIndex))
     }
     return cells
   }
@@ -698,6 +702,22 @@ export default function VercelNavigation() {
       return
     }
     
+    // Check if we're starting a drag on a different resource than existing selections
+    const hasExistingSelections = selectedTimeSlots.size > 0
+    if (hasExistingSelections) {
+      // Check if any existing selections are from a different resource
+      const existingResourceIndex = Array.from(selectedTimeSlots).some(key => {
+        const [existingResource] = key.split('-').map(Number)
+        return existingResource !== resourceIndex
+      })
+      
+      if (existingResourceIndex) {
+        // Clear existing selections when starting on a different resource
+        setSelectedTimeSlots(new Set())
+        console.log('Cleared existing selections - starting on different resource')
+      }
+    }
+    
     console.log('Starting drag from:', resourceIndex, timeIndex)
     setIsDragging(true)
     setDragStart({ resourceIndex, timeIndex })
@@ -706,8 +726,13 @@ export default function VercelNavigation() {
 
   const handleTimeSlotMouseEnter = (resourceIndex: number, timeIndex: number) => {
     if (isDragging && dragStart) {
-      console.log('Drag continuing to:', resourceIndex, timeIndex)
-      setDragEnd({ resourceIndex, timeIndex })
+      // Only allow drag continuation within the same resource
+      if (resourceIndex === dragStart.resourceIndex) {
+        console.log('Drag continuing to:', resourceIndex, timeIndex)
+        setDragEnd({ resourceIndex, timeIndex })
+      } else {
+        console.log('Drag blocked - different resource:', resourceIndex, 'vs', dragStart.resourceIndex)
+      }
     }
   }
 
