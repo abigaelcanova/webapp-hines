@@ -1041,7 +1041,7 @@ export default function VercelNavigation() {
           <aside
             className={cn(
               "bg-white lg:bg-[#F9FAFB] transition-all duration-300 ease-in-out",
-              "fixed top-20 left-0 h-[calc(100vh-300px)] z-30",
+              "fixed top-20 left-0 bottom-0 z-30",
               isMobile
                 ? leftDrawerOpen
                   ? "fixed inset-y-0 left-0 z-50 w-64 shadow-lg"
@@ -1054,7 +1054,7 @@ export default function VercelNavigation() {
             {leftDrawerOpen && (
               <div className="h-full p-4 flex flex-col">
                 {/* Navigation Items */}
-                <div className="flex-1 overflow-y-auto min-h-0">
+                <div className="flex-1 min-h-0">
                   <nav className="space-y-1 mb-8">
                     {/* Home - Active */}
                     <div className="relative">
@@ -3851,9 +3851,14 @@ export default function VercelNavigation() {
       {/* Spacer to push footer down with consistent 160px gap */}
       <div className="flex-1 min-h-[160px]"></div>
 
-      <div>
-        {/* Site Footer */}
-        <SiteFooter buildingName={primaryBuilding} />
+      {/* Footer positioned to align with main content */}
+      <div className="flex flex-1 justify-center">
+        <div className={cn(
+          "px-4 py-4 w-full max-w-[1024px]",
+          !isMobile && leftDrawerOpen ? "ml-[280px]" : "mx-auto"
+        )}>
+          <SiteFooter buildingName={primaryBuilding} />
+        </div>
       </div>
     </div>
   )
