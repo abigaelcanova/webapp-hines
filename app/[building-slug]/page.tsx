@@ -1005,12 +1005,15 @@ export default function VercelNavigation() {
                 </div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="cursor-pointer">
-                  <User className="h-4 w-4 mr-2" />
-                  Profile
+                  <Settings className="h-4 w-4 mr-2" />
+                  Manage my account
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">
-                  <Building className="h-4 w-4 mr-2" />
-                  My buildings
+                <DropdownMenuItem className="cursor-pointer text-blue-600 hover:text-blue-700">
+                  <svg className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M7 17L17 7" />
+                    <path d="M7 7h10v10" />
+                  </svg>
+                  Launch admin
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
