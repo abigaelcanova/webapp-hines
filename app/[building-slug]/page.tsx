@@ -3234,7 +3234,7 @@ export default function VercelNavigation() {
                         </div>
                         <div className="p-6">
                           <div className="mb-2">
-                            <Badge className="bg-green-100 text-green-600 hover:bg-green-100 text-xs font-medium">
+                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
                               Service
                             </Badge>
                           </div>
@@ -3263,7 +3263,7 @@ export default function VercelNavigation() {
                         </div>
                         <div className="p-6">
                           <div className="mb-2">
-                            <Badge className="bg-purple-100 text-purple-600 hover:bg-purple-100 text-xs font-medium">
+                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
                               Service
                             </Badge>
                           </div>
@@ -3292,7 +3292,7 @@ export default function VercelNavigation() {
                         </div>
                         <div className="p-6">
                           <div className="mb-2">
-                            <Badge className="bg-orange-100 text-orange-600 hover:bg-orange-100 text-xs font-medium">
+                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
                               Service
                             </Badge>
                           </div>
