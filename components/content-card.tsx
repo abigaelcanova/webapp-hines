@@ -35,7 +35,7 @@ export function ContentCard({
         </div>
         <div className="p-4">
           <div className="flex items-center justify-between mb-2">
-            <Badge className={`${categoryColor} text-xs px-2 py-1 rounded-full`}>
+            <Badge className={`${categoryColor} text-xs px-2 py-1`}>
               {category}
             </Badge>
             <span className="text-xs text-gray-500">{timestamp}</span>
@@ -56,7 +56,7 @@ export function ContentCard({
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-2">
-            <Badge className={`${categoryColor} text-xs px-2 py-1 rounded-full`}>
+            <Badge className={`${categoryColor} text-xs px-2 py-1`}>
               {category}
             </Badge>
             <span className="text-xs text-gray-500">{timestamp}</span>

@@ -1769,7 +1769,7 @@ export default function VercelNavigation() {
                       <ContentCard
                         image="/images/content/exos-1-1.jpg"
                         imageAlt="Gym facility"
-                        category="News"
+                        category="Announcement"
                         categoryColor="bg-blue-100 text-blue-700"
                         timestamp="2 days ago"
                         headline="Explore all our gym amenity has to offer"
@@ -1777,37 +1777,27 @@ export default function VercelNavigation() {
                         className="flex-1"
                       />
 
-                      <div className="bg-white rounded-lg border shadow-sm p-6 flex items-start gap-4 flex-1">
-                        <img 
-                          src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=80&h=80&fit=crop" 
-                          alt="App update" 
-                          className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
-                        />
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between mb-2">
-                            <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100">Announcement</Badge>
-                            <span className="text-sm text-gray-500">4 days ago</span>
-                          </div>
-                          <h4 className="font-semibold text-lg mb-2">Mobile app update</h4>
-                          <p className="text-gray-600 leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad...</p>
-                        </div>
-                      </div>
+                      <ContentCard
+                        image="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=200&fit=crop"
+                        imageAlt="App update"
+                        category="Announcement"
+                        categoryColor="bg-blue-100 text-blue-700"
+                        timestamp="4 days ago"
+                        headline="Mobile app update"
+                        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad..."
+                        className="flex-1"
+                      />
 
-                      <div className="bg-white rounded-lg border shadow-sm p-6 flex items-start gap-4 flex-1">
-                        <img 
-                          src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=80&h=80&fit=crop" 
-                          alt="Food hall" 
-                          className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
-                        />
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between mb-2">
-                            <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100">Amenities</Badge>
-                            <span className="text-sm text-gray-500">1 week ago</span>
-                          </div>
-                          <h4 className="font-semibold text-lg mb-2">New food hall</h4>
-                          <p className="text-gray-600 leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad...</p>
-                        </div>
-                      </div>
+                      <ContentCard
+                        image="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=200&h=200&fit=crop"
+                        imageAlt="Food hall"
+                        category="Amenities"
+                        categoryColor="bg-blue-100 text-blue-700"
+                        timestamp="1 week ago"
+                        headline="New food hall"
+                        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad..."
+                        className="flex-1"
+                      />
                     </div>
                   </div>
                 </div>
