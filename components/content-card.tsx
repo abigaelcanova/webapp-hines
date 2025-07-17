@@ -41,7 +41,7 @@ export function ContentCard({
             <span className="text-xs text-gray-500">{timestamp}</span>
           </div>
           <h3 className="font-semibold text-sm mb-1 line-clamp-2">{headline}</h3>
-          <p className="text-xs text-gray-600 line-clamp-3">{description}</p>
+          <p className="text-xs text-gray-600 line-clamp-4">{description}</p>
         </div>
       </div>
 
@@ -65,7 +65,7 @@ export function ContentCard({
             <span className="text-xs text-gray-500">{timestamp}</span>
           </div>
           <h3 className="font-semibold text-sm mb-2 line-clamp-2">{headline}</h3>
-          <p className="text-xs text-gray-600 line-clamp-2">{description}</p>
+          <p className="text-xs text-gray-600 line-clamp-4">{description}</p>
         </div>
       </div>
     </div>

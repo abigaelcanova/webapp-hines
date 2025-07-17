@@ -1773,7 +1773,7 @@ export default function VercelNavigation() {
                         categoryColor="bg-blue-100 text-blue-700"
                         timestamp="2 days ago"
                         headline="Explore all our gym amenity has to offer"
-                        description="Exos is a performance training company that focuses on helping individuals and organizations reach their full potential."
+                        description="Exos is a performance training company that focuses on helping individuals and organizations reach their full potential. Our state-of-the-art fitness facility offers personalized training programs, cutting-edge equipment, and expert coaching to help you achieve your wellness goals. From strength training to cardio workouts, recovery services, and nutritional guidance, we provide everything you need for a comprehensive fitness experience."
                         className="flex-1"
                       />
 
@@ -1784,7 +1784,7 @@ export default function VercelNavigation() {
                         categoryColor="bg-green-100 text-green-700"
                         timestamp="4 days ago"
                         headline="Taco Trot"
-                        description="Join us for our annual Taco Trot event! A fun-filled afternoon of delicious tacos, live music, and community spirit. Don't miss out on this tasty celebration!"
+                        description="Join us for our annual Taco Trot event! A fun-filled afternoon of delicious tacos, live music, and community spirit. This popular gathering brings together our building community for an afternoon of authentic Mexican cuisine from local food trucks, live entertainment, networking opportunities, and family-friendly activities. Come hungry and ready to connect with your neighbors while enjoying some of the best tacos in the city. Don't miss out on this tasty celebration!"
                         className="flex-1"
                       />
 
@@ -1795,7 +1795,7 @@ export default function VercelNavigation() {
                         categoryColor="bg-blue-100 text-blue-700"
                         timestamp="1 week ago"
                         headline="New microscopes in every lab"
-                        description="We've upgraded all our laboratory spaces with state-of-the-art microscopes to enhance research capabilities and provide cutting-edge equipment for our scientific community."
+                        description="We've upgraded all our laboratory spaces with state-of-the-art microscopes to enhance research capabilities and provide cutting-edge equipment for our scientific community. These advanced instruments feature high-resolution imaging, digital connectivity, and automated sample handling systems. The new microscopes support a wide range of research applications including cell biology, materials science, and biomedical research. Our tenants now have access to professional-grade equipment that was previously only available in specialized research facilities."
                         className="flex-1"
                       />
                     </div>
