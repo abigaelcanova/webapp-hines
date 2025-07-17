@@ -1823,15 +1823,15 @@ export default function VercelNavigation() {
                     <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
                       <div className="aspect-[4/3] relative">
                         <img 
-                          src="https://images.unsplash.com/photo-1515169067868-5387ec356754?w=800&h=600&fit=crop" 
+                          src="/images/content/innovationevent.jpg" 
                           alt="Tech Networking Mixer" 
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="p-6">
-                        <h3 className="text-lg font-semibold mb-2">Tech Networking Mixer</h3>
+                        <h3 className="text-lg font-semibold mb-2">Alexandria Innovation Event</h3>
                         <div className="flex items-center justify-between">
-                          <p className="text-gray-600">June 15, 2025 • 6:00 PM</p>
+                          <p className="text-gray-600">August 2, 2025 • 6:00 PM</p>
                           <Button variant="outline" className="text-blue-600 border-blue-600 hover:bg-blue-50">
                             RSVP
                           </Button>
