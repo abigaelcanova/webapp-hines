@@ -201,18 +201,18 @@ export default function VercelNavigation() {
   const happeningSlides = [
     {
       id: 1,
-      title: "Summer Outing",
-      description: "Join us for our annual Summer Outing on June 10, 2025, from 3:00 PM to 7:00 PM at Riverside Park. Enjoy food, games, and great company!",
-      image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop",
-      date: "Sat, June 10 • 3 PM",
+      title: "ARE Networking Event",
+      description: "Join us for an exclusive networking event for ARE community members. Connect with professionals, enjoy refreshments, and build meaningful relationships within our building community.",
+      image: "/images/content/ARENetworkingEvent.jpg",
+      date: "Fri, June 14 • 6 PM",
       location: "Boston, MA",
       buttonText: "RSVP"
     },
     {
       id: 2,
-      title: "Tech Networking Mixer",
-      description: "Connect with fellow professionals in the tech industry. Join us for an evening of networking, discussions, and collaboration opportunities.",
-      image: "https://images.unsplash.com/photo-1515169067868-5387ec356754?w=800&h=600&fit=crop",
+      title: "ARE Innovation Event",
+      description: "Join us for an inspiring innovation event showcasing groundbreaking ideas, cutting-edge technologies, and forward-thinking solutions within our ARE community.",
+      image: "/images/content/innovationevent.jpg",
       date: "Fri, June 15 • 6 PM",
       location: "Boston, MA",
       buttonText: "Register"
@@ -1194,9 +1194,9 @@ export default function VercelNavigation() {
                     className="h-8 w-8 p-1"
                     onClick={() => setSearchExpanded(true)}
                   >
-                    <Search className="h-4 w-4" />
-                    <span className="sr-only">Search</span>
-                  </Button>
+              <Search className="h-4 w-4" />
+              <span className="sr-only">Search</span>
+            </Button>
                 )}
               </div>
             </div>
@@ -1724,13 +1724,13 @@ export default function VercelNavigation() {
                         </button>
 
                         {/* Slide Content */}
-                        <div className="aspect-[4/3] relative">
-                          <img 
+                      <div className="aspect-[4/3] relative">
+                        <img 
                             src={happeningSlides[currentSlide].image} 
                             alt={happeningSlides[currentSlide].title} 
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
                       </div>
 
                       {/* Slide Information */}
@@ -2078,8 +2078,8 @@ export default function VercelNavigation() {
                         : selectedLocations.length > 1 
                         ? `${selectedLocations.length} locations` 
                         : "Select locations"}
-                      <ChevronDown className="h-4 w-4 ml-1" />
-                    </Button>
+                          <ChevronDown className="h-4 w-4 ml-1" />
+                        </Button>
                     <Button variant="outline" size="sm" className="h-8" onClick={() => setFiltersModalOpen(true)}>
                       <svg className="h-4 w-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
@@ -2155,9 +2155,9 @@ export default function VercelNavigation() {
                           const isUnavailable = allUnavailable.includes(timeIndex)
                           
                           return (
-                            <div
-                              key={`${resource.name}-${time}`}
-                              className={cn(
+                          <div
+                            key={`${resource.name}-${time}`}
+                            className={cn(
                                 "p-3 border-r last:border-r-0 h-16 relative select-none",
                                 isUnavailable 
                                   ? "bg-gray-100 cursor-not-allowed" 
@@ -2175,9 +2175,9 @@ export default function VercelNavigation() {
                               {isSelected && !isUnavailable && (
                                 <div className="absolute inset-0 bg-blue-600 bg-opacity-90 rounded-sm pointer-events-none border border-blue-700">
                                   <div className="absolute top-1 left-1 w-2 h-2 bg-white rounded-full opacity-80" />
-                                </div>
-                              )}
-                            </div>
+                              </div>
+                            )}
+                          </div>
                           )
                         })}
                       </div>
@@ -3496,53 +3496,53 @@ export default function VercelNavigation() {
                   <div className="space-y-4">
                     {serviceRequestsActiveTab === "Open" ? (
                       <>
-                        {/* Service Request Item */}
-                        <div className="bg-white border rounded-lg p-4 shadow-sm">
-                          <div className="flex items-center justify-between">
-                            <div className="flex-1">
-                              <h3 className="text-lg font-medium text-gray-900 mb-1">Bin request</h3>
-                              <div className="flex items-center text-sm text-gray-500 mb-2">
-                                <MapPin className="h-4 w-4 mr-1" />
-                                <span>Cobblestone Collaborative</span>
-                              </div>
-                            </div>
-                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
-                              Open
-                            </Badge>
+                    {/* Service Request Item */}
+                    <div className="bg-white border rounded-lg p-4 shadow-sm">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <h3 className="text-lg font-medium text-gray-900 mb-1">Bin request</h3>
+                          <div className="flex items-center text-sm text-gray-500 mb-2">
+                            <MapPin className="h-4 w-4 mr-1" />
+                            <span>Cobblestone Collaborative</span>
                           </div>
                         </div>
+                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
+                          Open
+                        </Badge>
+                      </div>
+                    </div>
 
-                        {/* Additional Sample Service Request */}
-                        <div className="bg-white border rounded-lg p-4 shadow-sm">
-                          <div className="flex items-center justify-between">
-                            <div className="flex-1">
-                              <h3 className="text-lg font-medium text-gray-900 mb-1">Maintenance request</h3>
-                              <div className="flex items-center text-sm text-gray-500 mb-2">
-                                <MapPin className="h-4 w-4 mr-1" />
-                                <span>Cobblestone Collaborative</span>
-                              </div>
-                            </div>
-                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
-                              Open
-                            </Badge>
+                    {/* Additional Sample Service Request */}
+                    <div className="bg-white border rounded-lg p-4 shadow-sm">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <h3 className="text-lg font-medium text-gray-900 mb-1">Maintenance request</h3>
+                          <div className="flex items-center text-sm text-gray-500 mb-2">
+                            <MapPin className="h-4 w-4 mr-1" />
+                            <span>Cobblestone Collaborative</span>
                           </div>
                         </div>
+                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
+                          Open
+                        </Badge>
+                      </div>
+                    </div>
 
-                        {/* Another Sample Service Request */}
-                        <div className="bg-white border rounded-lg p-4 shadow-sm">
-                          <div className="flex items-center justify-between">
-                            <div className="flex-1">
-                              <h3 className="text-lg font-medium text-gray-900 mb-1">Lighting issue</h3>
-                              <div className="flex items-center text-sm text-gray-500 mb-2">
-                                <MapPin className="h-4 w-4 mr-1" />
-                                <span>Cobblestone Collaborative</span>
-                              </div>
-                            </div>
-                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
-                              Open
-                            </Badge>
+                    {/* Another Sample Service Request */}
+                    <div className="bg-white border rounded-lg p-4 shadow-sm">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <h3 className="text-lg font-medium text-gray-900 mb-1">Lighting issue</h3>
+                          <div className="flex items-center text-sm text-gray-500 mb-2">
+                            <MapPin className="h-4 w-4 mr-1" />
+                            <span>Cobblestone Collaborative</span>
                           </div>
                         </div>
+                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
+                          Open
+                        </Badge>
+                      </div>
+                    </div>
                       </>
                     ) : (
                       <>
@@ -3753,8 +3753,8 @@ export default function VercelNavigation() {
                     disabled
                   >
                     Enter required fields
-                  </Button>
-                </div>
+                    </Button>
+                  </div>
               </div>
             </div>
           </div>
@@ -3802,20 +3802,20 @@ export default function VercelNavigation() {
                     >
                       <X className="h-6 w-6" />
                     </button>
-                  </div>
+                          </div>
                 </div>
 
                 {/* Modal Content */}
                 <div className="p-6 space-y-6">
                   {/* Available Now */}
                   <div className="flex items-center justify-between">
-                    <div>
+                          <div>
                       <div className="flex items-center gap-2">
                         <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center">
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        </div>
+                          </div>
                         <span className="font-medium text-gray-900">Available Now</span>
-                      </div>
+                          </div>
                       <p className="text-sm text-gray-600 mt-1">Show only resources available right now</p>
                     </div>
                     <Switch
@@ -3832,7 +3832,7 @@ export default function VercelNavigation() {
                     </div>
                     
                     <div className="space-y-4">
-                      <div>
+                          <div>
                         <Label htmlFor="date" className="text-sm text-gray-700">Date</Label>
                         <Input
                           id="date"
@@ -3841,7 +3841,7 @@ export default function VercelNavigation() {
                           onChange={(e) => setFilters({...filters, date: e.target.value})}
                           className="mt-1"
                         />
-                      </div>
+                          </div>
                       
                       <div className="grid grid-cols-2 gap-4">
                         <div>
@@ -3853,8 +3853,8 @@ export default function VercelNavigation() {
                             onChange={(e) => setFilters({...filters, startTime: e.target.value})}
                             className="mt-1"
                           />
-                        </div>
-                        <div>
+                          </div>
+                          <div>
                           <Label htmlFor="endTime" className="text-sm text-gray-700">End Time</Label>
                           <Input
                             id="endTime"
@@ -3863,7 +3863,7 @@ export default function VercelNavigation() {
                             onChange={(e) => setFilters({...filters, endTime: e.target.value})}
                             className="mt-1"
                           />
-                        </div>
+                          </div>
                       </div>
                       
                       <div className="flex items-center justify-between">
@@ -3873,8 +3873,8 @@ export default function VercelNavigation() {
                           onCheckedChange={(checked) => setFilters({...filters, allDay: checked})}
                         />
                       </div>
+                      </div>
                     </div>
-                  </div>
 
                   {/* Resource Type */}
                   <div className="space-y-4">
@@ -3891,8 +3891,8 @@ export default function VercelNavigation() {
                                resourceTypes: {...filters.resourceTypes, conferenceRoom: !!checked}
                              })}
                            />
-                        </div>
-                      </div>
+                          </div>
+                          </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-700">Laboratory</span>
                         <div className="flex items-center gap-2">
@@ -4100,7 +4100,7 @@ export default function VercelNavigation() {
                     className="absolute top-4 left-4 z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-shadow"
                   >
                     <ChevronLeft className="h-5 w-5 text-gray-600" />
-                  </button>
+                        </button>
                   
                   {/* Room Image */}
                   <div className="h-48 bg-gray-200 overflow-hidden">
@@ -4126,13 +4126,13 @@ export default function VercelNavigation() {
                       }
                       return <div className="w-full h-full bg-gray-100" />
                     })()}
-                  </div>
+                          </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-6 space-y-6 overflow-y-auto flex-1">
                   {/* Title and subtitle */}
-                  <div>
+                          <div>
                     {(() => {
                       const firstSlot = Array.from(selectedTimeSlots)[0]
                       if (firstSlot) {
@@ -4155,7 +4155,7 @@ export default function VercelNavigation() {
                       }
                       return <h2 className="text-2xl font-bold text-gray-900">Select a resource</h2>
                     })()}
-                  </div>
+                          </div>
 
                   {/* Date and Time Selection */}
                   <div className="flex items-center gap-4">
@@ -4245,8 +4245,8 @@ export default function VercelNavigation() {
                     </div>
                     <button className="text-blue-600 hover:text-blue-700 text-sm underline">
                       Open in maps
-                    </button>
-                  </div>
+                        </button>
+                          </div>
 
                   {/* Amenities */}
                   <div className="space-y-4">
@@ -4255,7 +4255,7 @@ export default function VercelNavigation() {
                       <div className="flex items-center gap-3">
                         <Wifi className="h-5 w-5 text-gray-600" />
                         <span className="text-gray-900">Wi-Fi</span>
-                      </div>
+                          </div>
                       <div className="flex items-center gap-3">
                         <Monitor className="h-5 w-5 text-gray-600" />
                         <span className="text-gray-900">TV / Projector</span>
@@ -4403,8 +4403,8 @@ export default function VercelNavigation() {
                     className="p-2 hover:bg-gray-100 rounded-full"
                   >
                     <X className="h-5 w-5 text-gray-500" />
-                  </button>
-                </div>
+                        </button>
+                          </div>
 
                 {/* Content */}
                 <div className="p-6 space-y-6 overflow-y-auto flex-1">
@@ -4421,7 +4421,7 @@ export default function VercelNavigation() {
                       <div className="flex items-center gap-2">
                         <Calendar className="h-4 w-4 text-gray-600" />
                         <span className="font-medium text-gray-900">Wednesday, July 16, 2025</span>
-                      </div>
+                          </div>
                       
                       <div className="ml-6 text-gray-600">
                         {(() => {
@@ -4436,9 +4436,9 @@ export default function VercelNavigation() {
                       
                       <button className="ml-6 text-orange-600 hover:text-orange-700 text-sm underline">
                         Cancel booking
-                      </button>
+                        </button>
+                      </div>
                     </div>
-                  </div>
 
                   {/* Location */}
                   <div className="space-y-2">
@@ -4460,11 +4460,11 @@ export default function VercelNavigation() {
                       <div className="flex items-center gap-3">
                         <Phone className="h-4 w-4 text-gray-600" />
                         <span className="text-gray-900">Phone</span>
-                      </div>
+                    </div>
                       <div className="flex items-center gap-3">
                         <Wifi className="h-4 w-4 text-gray-600" />
                         <span className="text-gray-900">Wi-Fi</span>
-                      </div>
+                  </div>
                     </div>
                   </div>
 
@@ -4536,7 +4536,7 @@ export default function VercelNavigation() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       />
                     </div>
-                  </div>
+                    </div>
 
                   {/* Company and Email */}
                   <div className="grid grid-cols-2 gap-4">
@@ -4600,7 +4600,7 @@ export default function VercelNavigation() {
 
                 {/* Modal Footer */}
                 <div className="flex items-center justify-end gap-3 p-6 border-t">
-                  <Button
+                  <Button 
                     variant="outline"
                     onClick={() => setAccountSettingsModalOpen(false)}
                   >
@@ -4856,7 +4856,7 @@ export default function VercelNavigation() {
           "px-4 py-4 w-full max-w-[1024px]",
           !isMobile && leftDrawerOpen ? "ml-[280px]" : "mx-auto"
         )}>
-          <SiteFooter buildingName={primaryBuilding} />
+        <SiteFooter buildingName={primaryBuilding} />
         </div>
       </div>
     </div>
