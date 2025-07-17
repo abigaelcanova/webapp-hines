@@ -1843,15 +1843,15 @@ export default function VercelNavigation() {
                     <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
                       <div className="aspect-[4/3] relative">
                         <img 
-                          src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&h=600&fit=crop" 
+                          src="/images/content/EntireSpace-1.png" 
                           alt="Summer Party" 
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="p-6">
-                        <h3 className="text-lg font-semibold mb-2">Summer Party</h3>
+                        <h3 className="text-lg font-semibold mb-2">Monthly All-Hands</h3>
                         <div className="flex items-center justify-between">
-                          <p className="text-gray-600">June 15, 2025 • 6:00 PM</p>
+                          <p className="text-gray-600">September 1, 2025 • 6:00 PM</p>
                           <Button variant="outline" className="text-blue-600 border-blue-600 hover:bg-blue-50">
                             RSVP
                           </Button>
