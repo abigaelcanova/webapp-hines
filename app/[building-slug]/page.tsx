@@ -1789,13 +1789,13 @@ export default function VercelNavigation() {
                       />
 
                       <ContentCard
-                        image="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=200&h=200&fit=crop"
-                        imageAlt="Food hall"
+                        image="/images/content/Microscope.jpg"
+                        imageAlt="Microscope"
                         category="Amenities"
                         categoryColor="bg-blue-100 text-blue-700"
                         timestamp="1 week ago"
-                        headline="New food hall"
-                        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad..."
+                        headline="New microscopes in every lab"
+                        description="We've upgraded all our laboratory spaces with state-of-the-art microscopes to enhance research capabilities and provide cutting-edge equipment for our scientific community."
                         className="flex-1"
                       />
                     </div>
