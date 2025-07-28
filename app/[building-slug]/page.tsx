@@ -1781,7 +1781,7 @@ export default function VercelNavigation() {
                         image="/images/content/Taco.png"
                         imageAlt="Taco Trot event"
                         category="Event"
-                        categoryColor="bg-green-100 text-green-700"
+                        categoryColor="bg-blue-100 text-blue-700"
                         timestamp="4 days ago"
                         headline="Taco Trot"
                         description="Join us for our annual Taco Trot event! A fun-filled afternoon of delicious tacos, live music, and community spirit. This popular gathering brings together our building community for an afternoon of authentic Mexican cuisine from local food trucks, live entertainment, networking opportunities, and family-friendly activities. Come hungry and ready to connect with your neighbors while enjoying some of the best tacos in the city. Don't miss out on this tasty celebration!"
@@ -2617,7 +2617,7 @@ export default function VercelNavigation() {
                          description: "The city is opening a new community park with playgrounds and walking trails this weekend.",
                          category: "In the neighborhood",
                          image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
-                         date: "June 15, 2025",
+                         date: "2 days ago",
                          readTime: "5 min read",
                          badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
                        },
@@ -2627,7 +2627,7 @@ export default function VercelNavigation() {
                          description: "The city is opening a new community park with playgrounds and walking trails this weekend.",
                          category: "In the neighborhood",
                          image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=300&fit=crop",
-                         date: "June 15, 2025",
+                         date: "1 day ago",
                          readTime: "5 min read",
                          badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
                        },
@@ -2637,10 +2637,9 @@ export default function VercelNavigation() {
                          description: "Join us this weekend for our first annual Tech Networking Mixer",
                          category: "What's happening",
                          image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=300&fit=crop",
-                         date: "June 15, 2025",
-                         readTime: null,
-                         badgeStyle: "bg-green-100 text-green-700 hover:bg-green-100",
-                         hasButton: true
+                         date: "3 days ago",
+                         readTime: "3 min read",
+                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
                        },
                        {
                          id: 4,
@@ -2648,7 +2647,7 @@ export default function VercelNavigation() {
                          description: "The city is opening a new community park with playgrounds and walking trails this weekend.",
                          category: "In the neighborhood",
                          image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=300&fit=crop",
-                         date: "June 15, 2025",
+                         date: "5 days ago",
                          readTime: "5 min read",
                          badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
                        },
@@ -2658,9 +2657,9 @@ export default function VercelNavigation() {
                          description: "The city is opening a new community park with playgrounds and walking trails this weekend.",
                          category: "Deals",
                          image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop",
-                         date: "June 15, 2025",
+                         date: "1 week ago",
                          readTime: "5 min read",
-                         badgeStyle: "bg-orange-100 text-orange-700 hover:bg-orange-100"
+                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
                        },
                        {
                          id: 6,
@@ -2668,9 +2667,9 @@ export default function VercelNavigation() {
                          description: "The city is opening a new community park with playgrounds and walking trails this weekend.",
                          category: "Employee offers",
                          image: null,
-                         date: "June 15, 2025",
+                         date: "2 weeks ago",
                          readTime: "5 min read",
-                         badgeStyle: "bg-purple-100 text-purple-700 hover:bg-purple-100",
+                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100",
                          isEmployeeDiscount: true
                        },
                        {
@@ -2679,9 +2678,9 @@ export default function VercelNavigation() {
                          description: "New security protocols and access card updates will be implemented next week for all tenants.",
                          category: "News",
                          image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop",
-                         date: "June 12, 2025",
+                         date: "6 days ago",
                          readTime: "3 min read",
-                         badgeStyle: "bg-gray-100 text-gray-700 hover:bg-gray-100"
+                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
                        },
                        {
                          id: 8,
@@ -2689,9 +2688,9 @@ export default function VercelNavigation() {
                          description: "Welcome to our newest tenants! Learn about building amenities and services available to you.",
                          category: "News",
                          image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop",
-                         date: "June 10, 2025",
+                         date: "1 week ago",
                          readTime: "4 min read",
-                         badgeStyle: "bg-gray-100 text-gray-700 hover:bg-gray-100"
+                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
                        },
                        {
                          id: 9,
@@ -2699,9 +2698,9 @@ export default function VercelNavigation() {
                          description: "Check out our latest quarterly newsletter featuring tenant spotlights and upcoming events.",
                          category: "News",
                          image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=300&fit=crop",
-                         date: "June 8, 2025",
+                         date: "2 weeks ago",
                          readTime: "8 min read",
-                         badgeStyle: "bg-gray-100 text-gray-700 hover:bg-gray-100"
+                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
                        },
                        {
                          id: 10,
@@ -2709,9 +2708,9 @@ export default function VercelNavigation() {
                          description: "Sign up for our comprehensive wellness program with gym memberships and health screenings.",
                          category: "Employee offers",
                          image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
-                         date: "June 14, 2025",
+                         date: "4 days ago",
                          readTime: "6 min read",
-                         badgeStyle: "bg-purple-100 text-purple-700 hover:bg-purple-100"
+                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
                        },
                        {
                          id: 11,
@@ -2719,9 +2718,9 @@ export default function VercelNavigation() {
                          description: "Enjoy complimentary coffee and pastries all week long at our lobby café.",
                          category: "Deals",
                          image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop",
-                         date: "June 13, 2025",
+                         date: "3 weeks ago",
                          readTime: "2 min read",
-                         badgeStyle: "bg-orange-100 text-orange-700 hover:bg-orange-100"
+                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
                        },
                        {
                          id: 12,
@@ -2729,10 +2728,9 @@ export default function VercelNavigation() {
                          description: "Join us for our annual summer rooftop party with live music, food, and networking opportunities.",
                          category: "What's happening",
                          image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&h=300&fit=crop",
-                         date: "June 20, 2025",
-                         readTime: null,
-                         badgeStyle: "bg-green-100 text-green-700 hover:bg-green-100",
-                         hasButton: true
+                         date: "1 month ago",
+                         readTime: "4 min read",
+                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
                        }
                      ];
 
@@ -2792,32 +2790,18 @@ export default function VercelNavigation() {
                             </div>
                             <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
                             <p className="text-sm text-gray-600 mb-4">{item.description}</p>
-                            {item.hasButton ? (
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4 text-xs text-gray-500">
-                                  <span className="flex items-center gap-1">
-                                    <Calendar className="h-3 w-3" />
-                                    {item.date}
-                                  </span>
-                                </div>
-                                <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">
-                                  View
-                                </Button>
-                              </div>
-                            ) : (
-                              <div className="flex items-center justify-between text-xs text-gray-500">
+                            <div className="flex items-center justify-between text-xs text-gray-500">
+                              <span className="flex items-center gap-1">
+                                <Calendar className="h-3 w-3" />
+                                {item.date}
+                              </span>
+                              {item.readTime && (
                                 <span className="flex items-center gap-1">
-                                  <Calendar className="h-3 w-3" />
-                                  {item.date}
+                                  <BookOpen className="h-3 w-3" />
+                                  {item.readTime}
                                 </span>
-                                {item.readTime && (
-                                  <span className="flex items-center gap-1">
-                                    <BookOpen className="h-3 w-3" />
-                                    {item.readTime}
-                                  </span>
-                                )}
-                              </div>
-                            )}
+                              )}
+                            </div>
                           </div>
                         </div>
                       );
