@@ -2415,7 +2415,7 @@ export default function VercelNavigation() {
                           </div>
                           <div>
                             <dt className="text-sm text-muted-foreground">Holidays:</dt>
-                            <dd className="text-sm font-medium">Closed for all major holiday</dd>
+                            <dd className="text-sm font-medium">Closed for all major holidays</dd>
                           </div>
                         </dl>
                       </div>
