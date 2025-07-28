@@ -3320,6 +3320,7 @@ export default function VercelNavigation() {
                         <div className="p-6">
                           <div className="mb-2">
                             <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
+                              <Calendar className="h-3 w-3 mr-1" />
                               Event
                             </Badge>
                           </div>
@@ -3354,11 +3355,7 @@ export default function VercelNavigation() {
                           </div>
                           <h3 className="text-lg font-semibold mb-2">Wellness Facial</h3>
                           <p className="text-gray-600 text-sm mb-4">Rejuvenating facial treatment with organic products and relaxation</p>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <Calendar className="h-4 w-4 text-gray-500" />
-                              <span className="text-sm text-gray-600">Available Daily</span>
-                            </div>
+                          <div className="flex justify-end">
                             <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                               Book Now
                             </Button>
@@ -3383,11 +3380,7 @@ export default function VercelNavigation() {
                           </div>
                           <h3 className="text-lg font-semibold mb-2">Therapeutic Massage</h3>
                           <p className="text-gray-600 text-sm mb-4">Professional massage therapy for stress relief and muscle recovery</p>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <Calendar className="h-4 w-4 text-gray-500" />
-                              <span className="text-sm text-gray-600">Mon-Fri</span>
-                            </div>
+                          <div className="flex justify-end">
                             <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                               Book Now
                             </Button>
@@ -3412,11 +3405,7 @@ export default function VercelNavigation() {
                           </div>
                           <h3 className="text-lg font-semibold mb-2">Personal Training</h3>
                           <p className="text-gray-600 text-sm mb-4">One-on-one fitness coaching tailored to your goals</p>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <Calendar className="h-4 w-4 text-gray-500" />
-                              <span className="text-sm text-gray-600">By Appointment</span>
-                            </div>
+                          <div className="flex justify-end">
                             <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                               Book Now
                             </Button>
@@ -3429,27 +3418,71 @@ export default function VercelNavigation() {
                   {/* Past Events & Services */}
                   <div className="space-y-4">
                     <h2 className="text-xl font-semibold text-gray-900">Past events & services</h2>
-                    <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
-                      <div className="flex">
-                        <div className="w-48 aspect-[4/3] relative">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {/* Past Event 1 */}
+                      <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+                        <div className="aspect-[4/3] relative">
                           <img 
                             src="https://images.unsplash.com/photo-1515169067868-5387ec356754?w=800&h=600&fit=crop" 
                             alt="Tech Networking Mixer" 
                             className="w-full h-full object-cover"
                           />
                         </div>
-                        <div className="flex-1 p-6">
+                        <div className="p-6">
                           <div className="mb-2">
                             <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
+                              <Calendar className="h-3 w-3 mr-1" />
                               Event
                             </Badge>
                           </div>
                           <h3 className="text-lg font-semibold mb-2">Tech Networking Mixer</h3>
                           <p className="text-gray-600 text-sm mb-4">Join us this weekend for our first annual Tech Networking Mixer</p>
-                          <div className="flex items-center gap-2">
-                            <Calendar className="h-4 w-4 text-gray-500" />
-                            <span className="text-sm text-gray-600">June 15, 2025</span>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <Calendar className="h-4 w-4 text-gray-500" />
+                              <span className="text-sm text-gray-600">June 15, 2025</span>
+                            </div>
                           </div>
+                        </div>
+                      </div>
+
+                      {/* Past Service 1 */}
+                      <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+                        <div className="aspect-[4/3] relative">
+                          <img 
+                            src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&h=600&fit=crop" 
+                            alt="Wellness Facial Service" 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="p-6">
+                          <div className="mb-2">
+                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
+                              Service
+                            </Badge>
+                          </div>
+                          <h3 className="text-lg font-semibold mb-2">Wellness Facial</h3>
+                          <p className="text-gray-600 text-sm mb-4">Rejuvenating facial treatment with organic products and relaxation</p>
+                        </div>
+                      </div>
+
+                      {/* Past Service 2 */}
+                      <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+                        <div className="aspect-[4/3] relative">
+                          <img 
+                            src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&h=600&fit=crop" 
+                            alt="Therapeutic Massage Service" 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="p-6">
+                          <div className="mb-2">
+                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
+                              Service
+                            </Badge>
+                          </div>
+                          <h3 className="text-lg font-semibold mb-2">Therapeutic Massage</h3>
+                          <p className="text-gray-600 text-sm mb-4">Professional massage therapy for stress relief and muscle recovery</p>
                         </div>
                       </div>
                     </div>
