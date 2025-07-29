@@ -131,6 +131,20 @@ export default function VercelNavigation() {
     { id: 'events-services', title: 'Events & services', description: 'See upcoming events and services', icon: 'events.png', page: 'events' }
   ])
   const [draggedCard, setDraggedCard] = useState<string | null>(null)
+  const [advancedSettingsModalOpen, setAdvancedSettingsModalOpen] = useState(false)
+  const [selectedCardForSettings, setSelectedCardForSettings] = useState<string | null>(null)
+  
+  // All available card options for the settings modal
+  const allCardOptions = [
+    { id: 'book-space', title: 'Book a space', description: 'Space booking', icon: 'bookaspace.png', page: 'book-space', color: 'bg-blue-100' },
+    { id: 'visitor-management', title: 'Register a guest', description: 'Guest registration', icon: 'VM.png', page: 'visitor-management', color: 'bg-teal-100' },
+    { id: 'service-requests', title: 'Service Requests', description: 'Request services', icon: 'SR.png', page: 'service-requests', color: 'bg-orange-100' },
+    { id: 'events-services', title: 'Payments', description: 'Payment system', icon: 'events.png', page: 'events', color: 'bg-purple-100' },
+    { id: 'my-feed', title: 'My Feed', description: 'Personal feed', icon: 'bookaspace.png', page: 'my-feed', color: 'bg-gray-100' },
+    { id: 'events-alt', title: 'Events & services', description: 'Events and services', icon: 'VM.png', page: 'events', color: 'bg-teal-100' },
+    { id: 'about', title: 'About', description: 'About information', icon: 'SR.png', page: 'about', color: 'bg-orange-100' },
+    { id: 'help', title: 'Help', description: 'Help and support', icon: 'events.png', page: 'help', color: 'bg-purple-100' }
+  ]
   const [mobileActivityDrawerOpen, setMobileActivityDrawerOpen] = useState(false)
 
   const [aiModalOpen, setAiModalOpen] = useState(false)
@@ -885,6 +899,12 @@ export default function VercelNavigation() {
 
   const handleDragEnd = () => {
     setDraggedCard(null);
+  };
+
+  const handleGearClick = (e: React.MouseEvent, cardId: string) => {
+    e.stopPropagation(); // Prevent card click/drag
+    setSelectedCardForSettings(cardId);
+    setAdvancedSettingsModalOpen(true);
   };
 
   // Carousel slides data
@@ -1706,7 +1726,10 @@ export default function VercelNavigation() {
                       {/* Gear icon for customize mode */}
                       {customizeBannerVisible && (
                         <div className="absolute top-2 right-2 z-10">
-                          <div className="w-5 h-5 bg-gray-100 rounded-full flex items-center justify-center">
+                          <div 
+                            className="w-5 h-5 bg-gray-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors"
+                            onClick={(e) => handleGearClick(e, card.id)}
+                          >
                             <svg className="h-3 w-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -4926,6 +4949,124 @@ export default function VercelNavigation() {
         <SiteFooter buildingName={primaryBuilding} />
         </div>
       </div>
+
+      {/* Advanced Settings Modal */}
+      {advancedSettingsModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b">
+              <h2 className="text-lg font-semibold text-gray-900">Advanced settings</h2>
+              <button
+                onClick={() => setAdvancedSettingsModalOpen(false)}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6 space-y-8">
+              {/* Quick action cards section */}
+              <div>
+                <h3 className="text-base font-medium text-gray-900 mb-2">Quick action cards</h3>
+                <p className="text-sm text-gray-600 mb-6">
+                  These cards show up on the Quick Actions section for easy access, but don't worry—they're also in the main navigation. Drag and drop to arrange them however you like. If you skip one, we'll fill it in for you with this default order: My feed, Events & services, About, and Help.
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  {allCardOptions.slice(0, 4).map((card) => (
+                    <div key={card.id} className="relative bg-white border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow">
+                      {/* Edit icon */}
+                      <div className="absolute top-2 right-2">
+                        <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                        </svg>
+                      </div>
+                      
+                      <div className="flex items-start space-x-3">
+                        {/* Icon */}
+                        <div className={`w-10 h-10 rounded-lg ${card.color} flex items-center justify-center flex-shrink-0`}>
+                          <div 
+                            className="w-6 h-6"
+                            style={{
+                              backgroundImage: `url(/images/icons/${card.icon})`,
+                              backgroundSize: 'contain',
+                              backgroundRepeat: 'no-repeat',
+                              backgroundPosition: 'center'
+                            }}
+                          />
+                        </div>
+                        
+                        {/* Content */}
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-sm font-medium text-gray-900">{card.title}</h3>
+                          <p className="text-xs text-gray-500 mt-1">{card.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* All options section */}
+              <div>
+                <h3 className="text-base font-medium text-gray-900 mb-4">All options</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  {allCardOptions.slice(4).map((card) => (
+                    <div key={card.id} className="relative bg-white border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow">
+                      {/* Edit icon */}
+                      <div className="absolute top-2 right-2">
+                        <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                        </svg>
+                      </div>
+                      
+                      <div className="flex items-start space-x-3">
+                        {/* Icon */}
+                        <div className={`w-10 h-10 rounded-lg ${card.color} flex items-center justify-center flex-shrink-0`}>
+                          <div 
+                            className="w-6 h-6"
+                            style={{
+                              backgroundImage: `url(/images/icons/${card.icon})`,
+                              backgroundSize: 'contain',
+                              backgroundRepeat: 'no-repeat',
+                              backgroundPosition: 'center'
+                            }}
+                          />
+                        </div>
+                        
+                        {/* Content */}
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-sm font-medium text-gray-900">{card.title}</h3>
+                          <p className="text-xs text-gray-500 mt-1">{card.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="flex items-center justify-end gap-3 p-6 border-t bg-gray-50">
+              <Button 
+                variant="outline"
+                onClick={() => setAdvancedSettingsModalOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button 
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={() => setAdvancedSettingsModalOpen(false)}
+              >
+                Save
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
