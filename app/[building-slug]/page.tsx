@@ -124,6 +124,13 @@ export default function VercelNavigation() {
   const prevIsMobile = useRef(false)
   const [mobileAssistantDrawerOpen, setMobileAssistantDrawerOpen] = useState(false)
   const [customizeBannerVisible, setCustomizeBannerVisible] = useState(false)
+  const [cardOrder, setCardOrder] = useState([
+    { id: 'book-space', title: 'Book a space', description: 'Reserve meeting rooms, workspaces, and more.', icon: 'bookaspace.png', page: 'book-space' },
+    { id: 'visitor-management', title: 'Visitor Management', description: 'Manage visitors and guest access.', icon: 'VM.png', page: 'visitor-management' },
+    { id: 'service-requests', title: 'Service requests', description: 'Report and track maintenance issues', icon: 'SR.png', page: 'service-requests' },
+    { id: 'events-services', title: 'Events & services', description: 'See upcoming events and services', icon: 'events.png', page: 'events' }
+  ])
+  const [draggedCard, setDraggedCard] = useState<string | null>(null)
   const [mobileActivityDrawerOpen, setMobileActivityDrawerOpen] = useState(false)
 
   const [aiModalOpen, setAiModalOpen] = useState(false)
@@ -847,6 +854,38 @@ export default function VercelNavigation() {
     setLocationsModalOpen(false)
     // You can add additional logic here if needed
   }
+
+  // Drag and drop handlers for card reordering
+  const handleDragStart = (e: React.DragEvent, cardId: string) => {
+    setDraggedCard(cardId);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDrop = (e: React.DragEvent, targetCardId: string) => {
+    e.preventDefault();
+    
+    if (!draggedCard || draggedCard === targetCardId) return;
+
+    const newOrder = [...cardOrder];
+    const draggedIndex = newOrder.findIndex(card => card.id === draggedCard);
+    const targetIndex = newOrder.findIndex(card => card.id === targetCardId);
+
+    // Remove dragged item and insert at target position
+    const [draggedItem] = newOrder.splice(draggedIndex, 1);
+    newOrder.splice(targetIndex, 0, draggedItem);
+
+    setCardOrder(newOrder);
+    setDraggedCard(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedCard(null);
+  };
 
   // Carousel slides data
   const carouselSlides = [
@@ -1595,6 +1634,12 @@ export default function VercelNavigation() {
                       variant="outline" 
                       size="sm"
                       className="bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 h-8 px-3 text-xs font-medium"
+                      onClick={() => setCardOrder([
+                        { id: 'book-space', title: 'Book a space', description: 'Reserve meeting rooms, workspaces, and more.', icon: 'bookaspace.png', page: 'book-space' },
+                        { id: 'visitor-management', title: 'Visitor Management', description: 'Manage visitors and guest access.', icon: 'VM.png', page: 'visitor-management' },
+                        { id: 'service-requests', title: 'Service requests', description: 'Report and track maintenance issues', icon: 'SR.png', page: 'service-requests' },
+                        { id: 'events-services', title: 'Events & services', description: 'See upcoming events and services', icon: 'events.png', page: 'events' }
+                      ])}
                     >
                       Reset to default
                     </Button>
@@ -1623,7 +1668,7 @@ export default function VercelNavigation() {
                       </div>
                       <div className="ml-3">
                         <p className="text-sm text-blue-800">
-                          <span className="font-medium">Customize your quick links:</span> Drag and drop the cards below to reorder them according to your preferences. You can have up to 4 quick links on your dashboard.
+                          Drag and drop the cards below to reorder them according to your preferences. You can have up to 4 quick links on your dashboard.
                         </p>
                       </div>
                     </div>
@@ -1632,101 +1677,40 @@ export default function VercelNavigation() {
 
                 {/* Quick Actions */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {/* Book a space */}
-                  <div 
-                    className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-                    onClick={() => setCurrentPage("book-space")}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="text-base font-medium mb-2 text-gray-900">Book a space</h3>
-                        <p className="text-sm text-gray-600">Reserve meeting rooms, workspaces, and more.</p>
-                      </div>
-                      <div className="ml-4 flex-shrink-0">
-                        <div 
-                          className="w-16 h-16"
-                          style={{
-                            backgroundImage: 'url(/images/icons/bookaspace.png)',
-                            backgroundSize: 'contain',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundPosition: 'center'
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Visitor Management */}
-                  <div 
-                    className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-                    onClick={() => setCurrentPage("visitor-management")}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="text-base font-medium mb-2 text-gray-900">Visitor Management</h3>
-                        <p className="text-sm text-gray-600">Manage visitors and guest access.</p>
-                      </div>
-                      <div className="ml-4 flex-shrink-0">
-                        <div 
-                          className="w-16 h-16"
-                          style={{
-                            backgroundImage: 'url(/images/icons/VM.png)',
-                            backgroundSize: 'contain',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundPosition: 'center'
-                          }}
-                        />
+                  {cardOrder.map((card) => (
+                    <div 
+                      key={card.id}
+                      draggable={customizeBannerVisible}
+                      onDragStart={(e) => customizeBannerVisible && handleDragStart(e, card.id)}
+                      onDragOver={customizeBannerVisible ? handleDragOver : undefined}
+                      onDrop={(e) => customizeBannerVisible && handleDrop(e, card.id)}
+                      onDragEnd={customizeBannerVisible ? handleDragEnd : undefined}
+                      className={cn(
+                        "p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer",
+                        customizeBannerVisible ? "cursor-grab" : "",
+                        draggedCard === card.id ? "opacity-50" : ""
+                      )}
+                      onClick={() => !customizeBannerVisible && setCurrentPage(card.page)}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <h3 className="text-base font-medium mb-2 text-gray-900">{card.title}</h3>
+                          <p className="text-sm text-gray-600">{card.description}</p>
+                        </div>
+                        <div className="ml-4 flex-shrink-0">
+                          <div 
+                            className="w-16 h-16"
+                            style={{
+                              backgroundImage: `url(/images/icons/${card.icon})`,
+                              backgroundSize: 'contain',
+                              backgroundRepeat: 'no-repeat',
+                              backgroundPosition: 'center'
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-
-                  {/* Service requests */}
-                  <div 
-                    className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-                    onClick={() => setCurrentPage("service-requests")}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="text-base font-medium mb-2 text-gray-900">Service requests</h3>
-                        <p className="text-sm text-gray-600">Report and track maintenance issues</p>
-                      </div>
-                      <div className="ml-4 flex-shrink-0">
-                        <div 
-                          className="w-16 h-16"
-                          style={{
-                            backgroundImage: 'url(/images/icons/SR.png)',
-                            backgroundSize: 'contain',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundPosition: 'center'
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Events & services */}
-                  <div 
-                    className="p-6 rounded-xl border bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-                    onClick={() => setCurrentPage("events")}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="text-base font-medium mb-2 text-gray-900">Events & services</h3>
-                        <p className="text-sm text-gray-600">See upcoming events and services</p>
-                      </div>
-                      <div className="ml-4 flex-shrink-0">
-                        <div 
-                          className="w-16 h-16"
-                          style={{
-                            backgroundImage: 'url(/images/icons/events.png)',
-                            backgroundSize: 'contain',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundPosition: 'center'
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
                 {/* What's happening */}
