@@ -134,17 +134,16 @@ export default function VercelNavigation() {
   const [advancedSettingsModalOpen, setAdvancedSettingsModalOpen] = useState(false)
   const [selectedCardForSettings, setSelectedCardForSettings] = useState<string | null>(null)
   
-  // All available card options for the settings modal
-  const allCardOptions = [
-    { id: 'book-space', title: 'Book a space', description: 'Space booking', icon: 'bookaspace.png', page: 'book-space', color: 'bg-blue-100' },
-    { id: 'visitor-management', title: 'Register a guest', description: 'Guest registration', icon: 'VM.png', page: 'visitor-management', color: 'bg-teal-100' },
-    { id: 'service-requests', title: 'Service Requests', description: 'Request services', icon: 'SR.png', page: 'service-requests', color: 'bg-orange-100' },
-    { id: 'events-services', title: 'Payments', description: 'Payment system', icon: 'events.png', page: 'events', color: 'bg-purple-100' },
-    { id: 'my-feed', title: 'My Feed', description: 'Personal feed', icon: 'bookaspace.png', page: 'my-feed', color: 'bg-gray-100' },
-    { id: 'events-alt', title: 'Events & services', description: 'Events and services', icon: 'VM.png', page: 'events', color: 'bg-teal-100' },
-    { id: 'about', title: 'About', description: 'About information', icon: 'SR.png', page: 'about', color: 'bg-orange-100' },
-    { id: 'help', title: 'Help', description: 'Help and support', icon: 'events.png', page: 'help', color: 'bg-purple-100' }
-  ]
+  // Modal-specific state for drag and drop
+  const [modalQuickActions, setModalQuickActions] = useState(cardOrder)
+  const [modalAllOptions, setModalAllOptions] = useState([
+    { id: 'my-feed', title: 'My Feed', description: 'Personal feed', icon: 'bookaspace.png', page: 'my-feed' },
+    { id: 'about', title: 'About', description: 'About information', icon: 'SR.png', page: 'about' },
+    { id: 'help', title: 'Help', description: 'Help and support', icon: 'events.png', page: 'help' },
+    { id: 'payments', title: 'Payments', description: 'Payment system', icon: 'events.png', page: 'payments' }
+  ])
+  const [modalDraggedCard, setModalDraggedCard] = useState<string | null>(null)
+  const [modalDragSource, setModalDragSource] = useState<'quick' | 'all' | null>(null)
   const [mobileActivityDrawerOpen, setMobileActivityDrawerOpen] = useState(false)
 
   const [aiModalOpen, setAiModalOpen] = useState(false)
@@ -904,7 +903,93 @@ export default function VercelNavigation() {
   const handleGearClick = (e: React.MouseEvent, cardId: string) => {
     e.stopPropagation(); // Prevent card click/drag
     setSelectedCardForSettings(cardId);
+    setModalQuickActions([...cardOrder]); // Reset modal state to current homepage state
     setAdvancedSettingsModalOpen(true);
+  };
+
+  // Modal drag and drop handlers
+  const handleModalDragStart = (e: React.DragEvent, cardId: string, source: 'quick' | 'all') => {
+    setModalDraggedCard(cardId);
+    setModalDragSource(source);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleModalDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleModalDrop = (e: React.DragEvent, targetSection: 'quick' | 'all', targetIndex?: number) => {
+    e.preventDefault();
+    
+    if (!modalDraggedCard || !modalDragSource) return;
+
+    if (modalDragSource === 'quick' && targetSection === 'all') {
+      // Move card from quick actions to all options
+      const draggedCardData = modalQuickActions.find(card => card.id === modalDraggedCard);
+      if (draggedCardData) {
+        const newQuickActions = modalQuickActions.filter(card => card.id !== modalDraggedCard);
+        const newAllOptions = [...modalAllOptions, draggedCardData].sort((a, b) => a.title.localeCompare(b.title));
+        
+        setModalQuickActions(newQuickActions);
+        setModalAllOptions(newAllOptions);
+      }
+    } else if (modalDragSource === 'all' && targetSection === 'quick') {
+      // Move card from all options to quick actions
+      const draggedCardData = modalAllOptions.find(card => card.id === modalDraggedCard);
+      if (draggedCardData) {
+        if (modalQuickActions.length < 4) {
+          // Add to quick actions if there's space
+          const newAllOptions = modalAllOptions.filter(card => card.id !== modalDraggedCard);
+          const newQuickActions = [...modalQuickActions, draggedCardData];
+          
+          setModalAllOptions(newAllOptions);
+          setModalQuickActions(newQuickActions);
+        } else if (targetIndex !== undefined) {
+          // Replace card at specific index
+          const replacedCard = modalQuickActions[targetIndex];
+          const newAllOptions = [...modalAllOptions.filter(card => card.id !== modalDraggedCard), replacedCard]
+            .sort((a, b) => a.title.localeCompare(b.title));
+          const newQuickActions = [...modalQuickActions];
+          newQuickActions[targetIndex] = draggedCardData;
+          
+          setModalAllOptions(newAllOptions);
+          setModalQuickActions(newQuickActions);
+        }
+      }
+    } else if (modalDragSource === 'quick' && targetSection === 'quick' && targetIndex !== undefined) {
+      // Reorder within quick actions
+      const newQuickActions = [...modalQuickActions];
+      const draggedIndex = newQuickActions.findIndex(card => card.id === modalDraggedCard);
+      const [draggedItem] = newQuickActions.splice(draggedIndex, 1);
+      newQuickActions.splice(targetIndex, 0, draggedItem);
+      
+      setModalQuickActions(newQuickActions);
+    }
+
+    setModalDraggedCard(null);
+    setModalDragSource(null);
+  };
+
+  const handleModalDragEnd = () => {
+    setModalDraggedCard(null);
+    setModalDragSource(null);
+  };
+
+  const handleRemoveFromQuickActions = (cardId: string) => {
+    // Find the card to remove
+    const cardToRemove = modalQuickActions.find(card => card.id === cardId);
+    if (!cardToRemove) return;
+
+    // Remove from quick actions
+    setModalQuickActions(prev => prev.filter(card => card.id !== cardId));
+    
+    // Add to all options if not already there
+    setModalAllOptions(prev => {
+      const exists = prev.some(card => card.id === cardId);
+      if (exists) return prev;
+      return [...prev, cardToRemove];
+    });
   };
 
   // Carousel slides data
@@ -4953,7 +5038,7 @@ export default function VercelNavigation() {
       {/* Advanced Settings Modal */}
       {advancedSettingsModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-6xl max-h-[90vh] overflow-y-auto">
             {/* Modal Header */}
             <div className="flex items-center justify-between p-6 border-b">
               <h2 className="text-lg font-semibold text-gray-900">Advanced settings</h2>
@@ -4968,28 +5053,54 @@ export default function VercelNavigation() {
             </div>
 
             {/* Modal Content */}
-            <div className="p-6 space-y-8">
+            <div className="p-6 space-y-16">
               {/* Quick action cards section */}
               <div>
                 <h3 className="text-base font-medium text-gray-900 mb-2">Quick action cards</h3>
                 <p className="text-sm text-gray-600 mb-6">
                   These cards show up on the Quick Actions section for easy access, but don't worry—they're also in the main navigation. Drag and drop to arrange them however you like. If you skip one, we'll fill it in for you with this default order: My feed, Events & services, About, and Help.
                 </p>
-                <div className="grid grid-cols-2 gap-4">
-                  {allCardOptions.slice(0, 4).map((card) => (
-                    <div key={card.id} className="relative bg-white border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow">
-                      {/* Edit icon */}
-                      <div className="absolute top-2 right-2">
-                        <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                        </svg>
+                <div 
+                  className="grid grid-cols-4 gap-4"
+                  onDragOver={handleModalDragOver}
+                  onDrop={(e) => handleModalDrop(e, 'quick')}
+                >
+                  {modalQuickActions.map((card, index) => (
+                    <div 
+                      key={card.id} 
+                      draggable
+                      onDragStart={(e) => handleModalDragStart(e, card.id, 'quick')}
+                      onDragOver={handleModalDragOver}
+                      onDrop={(e) => handleModalDrop(e, 'quick', index)}
+                      onDragEnd={handleModalDragEnd}
+                      className={cn(
+                        "relative bg-white border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow cursor-grab",
+                        modalDraggedCard === card.id ? "opacity-50" : ""
+                      )}
+                    >
+                      {/* Minus icon to remove from quick actions */}
+                      <div className="absolute top-2 right-2 z-10">
+                        <div 
+                          className="w-5 h-5 bg-red-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-200 transition-colors"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemoveFromQuickActions(card.id);
+                          }}
+                        >
+                          <svg className="h-3 w-3 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                          </svg>
+                        </div>
                       </div>
-                      
-                      <div className="flex items-start space-x-3">
-                        {/* Icon */}
-                        <div className={`w-10 h-10 rounded-lg ${card.color} flex items-center justify-center flex-shrink-0`}>
+
+                      <div className="flex items-start">
+                        <div className="flex-1 min-w-0 pr-2">
+                          <h3 className="text-sm font-medium mb-2 text-gray-900">{card.title}</h3>
+                          <p className="text-xs text-gray-600">{card.description}</p>
+                        </div>
+                        <div className="ml-2 flex-shrink-0">
                           <div 
-                            className="w-6 h-6"
+                            className="w-12 h-12"
                             style={{
                               backgroundImage: `url(/images/icons/${card.icon})`,
                               backgroundSize: 'contain',
@@ -4998,12 +5109,32 @@ export default function VercelNavigation() {
                             }}
                           />
                         </div>
-                        
-                        {/* Content */}
-                        <div className="flex-1 min-w-0">
-                          <h3 className="text-sm font-medium text-gray-900">{card.title}</h3>
-                          <p className="text-xs text-gray-500 mt-1">{card.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                  
+                  {/* Empty slots if less than 4 cards */}
+                  {modalQuickActions.length < 4 && Array.from({ length: 4 - modalQuickActions.length }).map((_, index) => (
+                    <div key={`empty-${index}`} className="relative">
+                      <div 
+                        className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-4 h-[104px] flex flex-col items-center justify-center"
+                        onDragOver={handleModalDragOver}
+                        onDrop={(e) => handleModalDrop(e, 'quick', modalQuickActions.length + index)}
+                      >
+                        <div className="flex flex-col items-center text-center space-y-2">
+                          <div className="w-6 h-6 flex items-center justify-center">
+                            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                          </div>
+                          <p className="text-xs text-gray-500 font-medium">Drag a card here</p>
                         </div>
+                      </div>
+                      {/* Helper text positioned absolutely below this specific empty card */}
+                      <div className="absolute top-full left-0 right-0 mt-2 z-10">
+                        <p className="text-xs text-gray-400 leading-tight">
+                          We'll automatically fill this slot with the default card: My feed. Want something different? Just drag in another feature action card.
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -5013,21 +5144,30 @@ export default function VercelNavigation() {
               {/* All options section */}
               <div>
                 <h3 className="text-base font-medium text-gray-900 mb-4">All options</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {allCardOptions.slice(4).map((card) => (
-                    <div key={card.id} className="relative bg-white border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow">
-                      {/* Edit icon */}
-                      <div className="absolute top-2 right-2">
-                        <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                        </svg>
-                      </div>
-                      
-                      <div className="flex items-start space-x-3">
-                        {/* Icon */}
-                        <div className={`w-10 h-10 rounded-lg ${card.color} flex items-center justify-center flex-shrink-0`}>
+                <div 
+                  className="grid grid-cols-4 gap-4"
+                  onDragOver={handleModalDragOver}
+                  onDrop={(e) => handleModalDrop(e, 'all')}
+                >
+                  {modalAllOptions.map((card) => (
+                    <div 
+                      key={card.id} 
+                      draggable
+                      onDragStart={(e) => handleModalDragStart(e, card.id, 'all')}
+                      onDragEnd={handleModalDragEnd}
+                      className={cn(
+                        "bg-white border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow cursor-grab",
+                        modalDraggedCard === card.id ? "opacity-50" : ""
+                      )}
+                    >
+                      <div className="flex items-start">
+                        <div className="flex-1 min-w-0 pr-2">
+                          <h3 className="text-sm font-medium mb-2 text-gray-900">{card.title}</h3>
+                          <p className="text-xs text-gray-600">{card.description}</p>
+                        </div>
+                        <div className="ml-2 flex-shrink-0">
                           <div 
-                            className="w-6 h-6"
+                            className="w-12 h-12"
                             style={{
                               backgroundImage: `url(/images/icons/${card.icon})`,
                               backgroundSize: 'contain',
@@ -5035,12 +5175,6 @@ export default function VercelNavigation() {
                               backgroundPosition: 'center'
                             }}
                           />
-                        </div>
-                        
-                        {/* Content */}
-                        <div className="flex-1 min-w-0">
-                          <h3 className="text-sm font-medium text-gray-900">{card.title}</h3>
-                          <p className="text-xs text-gray-500 mt-1">{card.description}</p>
                         </div>
                       </div>
                     </div>
@@ -5059,7 +5193,11 @@ export default function VercelNavigation() {
               </Button>
               <Button 
                 className="bg-blue-600 hover:bg-blue-700 text-white"
-                onClick={() => setAdvancedSettingsModalOpen(false)}
+                onClick={() => {
+                  // Apply changes to the main cardOrder state
+                  setCardOrder([...modalQuickActions]);
+                  setAdvancedSettingsModalOpen(false);
+                }}
               >
                 Save
               </Button>
