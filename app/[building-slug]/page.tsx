@@ -5061,10 +5061,22 @@ export default function VercelNavigation() {
                   These cards show up on the Quick Actions section for easy access, but don't worry—they're also in the main navigation. Drag and drop to arrange them however you like. If you skip one, we'll fill it in for you with this default order: My feed, Events & services, About, and Help.
                 </p>
                 <div 
-                  className="grid grid-cols-4 gap-4"
+                  className="grid grid-cols-4 gap-4 relative"
                   onDragOver={handleModalDragOver}
                   onDrop={(e) => handleModalDrop(e, 'quick')}
                 >
+                  {/* Skeleton grid - visible during drag operations */}
+                  {modalDraggedCard && (
+                    <div className="absolute inset-0 grid grid-cols-4 gap-4 pointer-events-none z-0">
+                      {Array.from({ length: 4 }).map((_, skeletonIndex) => (
+                        <div 
+                          key={`skeleton-quick-${skeletonIndex}`}
+                          className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg h-[104px] opacity-60"
+                        />
+                      ))}
+                    </div>
+                  )}
+
                   {modalQuickActions.map((card, index) => (
                     <div 
                       key={card.id} 
@@ -5074,7 +5086,7 @@ export default function VercelNavigation() {
                       onDrop={(e) => handleModalDrop(e, 'quick', index)}
                       onDragEnd={handleModalDragEnd}
                       className={cn(
-                        "relative bg-white border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow cursor-grab",
+                        "relative z-10 bg-white border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow cursor-grab",
                         modalDraggedCard === card.id ? "opacity-50" : ""
                       )}
                     >
@@ -5115,7 +5127,7 @@ export default function VercelNavigation() {
                   
                   {/* Empty slots if less than 4 cards */}
                   {modalQuickActions.length < 4 && Array.from({ length: 4 - modalQuickActions.length }).map((_, index) => (
-                    <div key={`empty-${index}`} className="relative">
+                    <div key={`empty-${index}`} className="relative z-10">
                       <div 
                         className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-4 h-[104px] flex flex-col items-center justify-center"
                         onDragOver={handleModalDragOver}
@@ -5145,10 +5157,22 @@ export default function VercelNavigation() {
               <div>
                 <h3 className="text-base font-medium text-gray-900 mb-4">All options</h3>
                 <div 
-                  className="grid grid-cols-4 gap-4"
+                  className="grid grid-cols-4 gap-4 relative"
                   onDragOver={handleModalDragOver}
                   onDrop={(e) => handleModalDrop(e, 'all')}
                 >
+                  {/* Skeleton grid - visible during drag operations */}
+                  {modalDraggedCard && (
+                    <div className="absolute inset-0 grid grid-cols-4 gap-4 pointer-events-none z-0">
+                      {Array.from({ length: Math.ceil(modalAllOptions.length / 4) * 4 }).map((_, skeletonIndex) => (
+                        <div 
+                          key={`skeleton-all-${skeletonIndex}`}
+                          className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg h-[104px] opacity-60"
+                        />
+                      ))}
+                    </div>
+                  )}
+
                   {modalAllOptions.map((card) => (
                     <div 
                       key={card.id} 
@@ -5156,7 +5180,7 @@ export default function VercelNavigation() {
                       onDragStart={(e) => handleModalDragStart(e, card.id, 'all')}
                       onDragEnd={handleModalDragEnd}
                       className={cn(
-                        "bg-white border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow cursor-grab",
+                        "relative z-10 bg-white border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow cursor-grab",
                         modalDraggedCard === card.id ? "opacity-50" : ""
                       )}
                     >
