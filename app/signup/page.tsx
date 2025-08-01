@@ -38,7 +38,7 @@ export default function SignupPage() {
 
           <div className="space-y-2 text-center">
             <h1 className="text-3xl font-semibold text-gray-900">Request account</h1>
-            <p className="text-gray-600">Request access to Empire State Building</p>
+            <p className="text-gray-600">Request access to Hines Demo Building</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">

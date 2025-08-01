@@ -36,7 +36,7 @@ export default function LoginPage() {
 
             <div className="space-y-2 text-center">
               <h1 className="text-3xl font-semibold text-gray-900">Welcome back</h1>
-              <p className="text-gray-600">Sign in to access Hines Center</p>
+              <p className="text-gray-600">Sign in to access Hines Demo Building</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -50,7 +50,7 @@ export default function LoginPage() {
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   autoComplete="off"
                   autoCorrect="off"
                   autoCapitalize="off"
@@ -69,7 +69,7 @@ export default function LoginPage() {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   autoComplete="new-password"
                   autoCorrect="off"
                   autoCapitalize="off"
@@ -89,7 +89,7 @@ export default function LoginPage() {
 
               <Button
                 type="submit"
-                className="w-full bg-primary text-white py-3 rounded-md hover:bg-primary/90 transition-colors font-medium"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-md transition-colors font-medium"
               >
                 Sign in
               </Button>

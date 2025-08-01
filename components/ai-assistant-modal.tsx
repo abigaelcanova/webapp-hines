@@ -201,13 +201,13 @@ const demoCards: Record<string, Card[]> = {
 }
 
 const demoResponses: Record<string, string> = {
-  "Great spaces for large groups": "I found several excellent spaces perfect for large groups in the Empire State Building. Here are your best options:",
+          "Great spaces for large groups": "I found several excellent spaces perfect for large groups in the Hines Demo Building. Here are your best options:",
 
-  "Register a guest": "I'll help you register a guest for the Empire State Building. Let's start with some basic information.\n\nWhat is your guest's full name?",
+          "Register a guest": "I'll help you register a guest for the Hines Demo Building. Let's start with some basic information.\n\nWhat is your guest's full name?",
 
-  "Upcoming events": "Here are the exciting upcoming events at the Empire State Building:",
+          "Upcoming events": "Here are the exciting upcoming events at the Hines Demo Building:",
 
-  "Nearby lunch spots": "Here are some great lunch options near the Empire State Building:"
+          "Nearby lunch spots": "Here are some great lunch options near the Hines Demo Building:"
 }
 
 function ActionCard({ card }: { card: Card }) {
@@ -421,7 +421,7 @@ export function AIAssistantModal({
             <div className="flex items-center justify-between p-6 border-b bg-white">
               <div>
                 <h2 className="text-xl font-semibold text-gray-900">AI Assistant</h2>
-                <p className="text-sm text-gray-600">Empire State Building</p>
+                                  <p className="text-sm text-gray-600">Hines Demo Building</p>
               </div>
               <div className="flex items-center gap-2">
                 <Button
