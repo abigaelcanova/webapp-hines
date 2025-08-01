@@ -89,10 +89,15 @@ export default function VercelNavigation() {
   
   // Convert slug to building name
   const slugToBuildingName = (slug: string): string => {
+    // Special case for the rebranded ARE Demo Building -> Hines Demo Building
+    if (slug === 'are-demo-building') {
+      return 'Hines Demo Building'
+    }
+    
     return slug.split('-').map(word => {
-      // Special case for "are" - should be "ARE" in all caps
-      if (word.toLowerCase() === 'are') {
-        return 'ARE'
+      // Special case for "hines" - should be "Hines" 
+      if (word.toLowerCase() === 'hines') {
+        return 'Hines'
       }
       return word.charAt(0).toUpperCase() + word.slice(1)
     }).join(' ')
@@ -207,7 +212,7 @@ export default function VercelNavigation() {
   const [confirmedBooking, setConfirmedBooking] = useState<any>(null)
   const [searchModalOpen, setSearchModalOpen] = useState(false)
   const [locationsModalOpen, setLocationsModalOpen] = useState(false)
-  const [selectedLocations, setSelectedLocations] = useState<string[]>(["ARE Demo Building"])
+  const [selectedLocations, setSelectedLocations] = useState<string[]>(["Hines Demo Building"])
   
   // Drag selection state for time slots
   const [isDragging, setIsDragging] = useState(false)
@@ -535,23 +540,23 @@ export default function VercelNavigation() {
       image: "https://images.unsplash.com/photo-1590725175499-15425f32e0c4?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
-      name: "ARE Demo Building",
+      name: "Hines Demo Building",
       image: "/images/buildings/Program-Alexandria-Center-Gallery-Image-Photo-Evan-Joseph-Courtey-of-Alexandria-Center-0685.webp",
     },
     {
-      name: "Alexandria Center at One Kendall Square - Building 100",
+      name: "Hines Center at One Kendall Square - Building 100",
       image: "https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
-      name: "Alexandria Center at One Kendall Square - Building 1400",
+      name: "Hines Center at One Kendall Square - Building 1400",
       image: "https://images.unsplash.com/photo-1520637836862-4d197d17c983?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
-      name: "Alexandria Center at One Kendall Square - Building 200",
+      name: "Hines Center at One Kendall Square - Building 200",
       image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
-      name: "Alexandria Center at One Kendall Square - Building 600/650",
+      name: "Hines Center at One Kendall Square - Building 600/650",
       image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
@@ -559,7 +564,7 @@ export default function VercelNavigation() {
       image: "https://images.unsplash.com/photo-1609619385002-f40f1f04888c?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
-      name: "Campus Point by Alexandria",
+      name: "Campus Point by Hines",
       image: "https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
@@ -667,9 +672,9 @@ export default function VercelNavigation() {
   const locations = [
     {
       id: 1,
-      name: "ARE Demo Building",
+      name: "Hines Demo Building",
       address: "29 1st Ave, New York, NY 10003",
-      checked: selectedLocations.includes("ARE Demo Building")
+              checked: selectedLocations.includes("Hines Demo Building")
     },
     {
       id: 2,
@@ -697,9 +702,9 @@ export default function VercelNavigation() {
     },
     {
       id: 6,
-      name: "Alexandria Center at One Kendall Square - Building 100",
+      name: "Hines Center at One Kendall Square - Building 100",
       address: "One Kendall Square, Cambridge, MA",
-      checked: selectedLocations.includes("Alexandria Center at One Kendall Square - Building 100")
+      checked: selectedLocations.includes("Hines Center at One Kendall Square - Building 100")
     }
   ]
 
@@ -1201,7 +1206,7 @@ export default function VercelNavigation() {
               <div className="h-8">
                 <img src="/images/logos/lighthouse.png" alt="Logo" className="h-full w-auto" />
               </div>
-              <span className="text-lg font-semibold text-gray-900">Alexandria</span>
+              <span className="text-lg font-semibold text-gray-900">Hines</span>
             </div>
           </div>
 
@@ -1987,7 +1992,7 @@ export default function VercelNavigation() {
                         />
                       </div>
                       <div className="p-6">
-                        <h3 className="text-lg font-semibold mb-2">Alexandria Innovation Event</h3>
+                        <h3 className="text-lg font-semibold mb-2">Hines Innovation Event</h3>
                         <div className="flex items-center justify-between">
                           <p className="text-gray-600">August 2, 2025 • 6:00 PM</p>
                           <Button variant="outline" className="text-blue-600 border-blue-600 hover:bg-blue-50">
@@ -2520,7 +2525,7 @@ export default function VercelNavigation() {
               <div className="space-y-8">
                 {/* Header */}
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-900 mb-2">About ARE Demo Building</h1>
+                  <h1 className="text-3xl font-bold text-gray-900 mb-2">About Hines Demo Building</h1>
                 </div>
 
                 {/* Building Overview Section */}
@@ -2529,7 +2534,7 @@ export default function VercelNavigation() {
                   <div className="aspect-[4/3] rounded-xl overflow-hidden">
                     <img
                       src="/images/buildings/Program-Alexandria-Center-Gallery-Image-Photo-Evan-Joseph-Courtey-of-Alexandria-Center-0685.webp"
-                      alt="ARE Demo Building"
+                      alt="Hines Demo Building"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -2538,10 +2543,10 @@ export default function VercelNavigation() {
                   <div className="flex flex-col">
                     <div className="prose max-w-none">
                       <p className="text-gray-700 leading-relaxed">
-                        The Alexandria Center for Life Science, located at 29th St and 1st Ave between Bellevue Hospital and NYU Medical Center, is a state-of-the-art research and development campus that serves as the flagship location for New York City's expanding life sciences sector.
+                        The Hines Center for Life Science, located at 29th St and 1st Ave between Bellevue Hospital and NYU Medical Center, is a state-of-the-art research and development campus that serves as the flagship location for New York City's expanding life sciences sector.
                       </p>
                       <p className="text-gray-700 leading-relaxed mt-4">
-                        Strategically located along Manhattan's East Side Medical Corridor, The Alexandria Center™ capitalizes on its proximity to the City's top academic, medical institutions and major hospitals. Upon completion of the North Tower will provide 1.3 million-square-feet of first-class office and laboratory space in a campus setting designed to foster cross-institutional collaboration.
+                        Strategically located along Manhattan's East Side Medical Corridor, The Hines Center™ capitalizes on its proximity to the City's top academic, medical institutions and major hospitals. Upon completion of the North Tower will provide 1.3 million-square-feet of first-class office and laboratory space in a campus setting designed to foster cross-institutional collaboration.
                       </p>
                     </div>
                   </div>
@@ -4416,7 +4421,7 @@ export default function VercelNavigation() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
-                      <span>ARE Demo Building, 29 1st Ave, New York, NY 10003, USA</span>
+                      <span>Hines Demo Building, 29 1st Ave, New York, NY 10003, USA</span>
                     </div>
                     <button className="text-blue-600 hover:text-blue-700 text-sm underline">
                       Open in maps
@@ -4443,7 +4448,7 @@ export default function VercelNavigation() {
                     <h3 className="text-lg font-semibold text-gray-900">Description</h3>
                     <div className="text-gray-700 space-y-4">
                       <p>
-                        Great ideas come through collaboration, which is why ARE Demo Building offers a fully amenitized conference center to incubate your next great idea.
+                        Great ideas come through collaboration, which is why Hines Demo Building offers a fully amenitized conference center to incubate your next great idea.
                       </p>
                       <p>
                         Holds up to 6 people (comfortably 4).
@@ -4744,7 +4749,7 @@ export default function VercelNavigation() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Default building
                     </label>
-                    <select defaultValue="ARE Demo Building" className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <select defaultValue="Hines Demo Building" className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500">
                       {buildings.map((building) => (
                         <option key={building.name} value={building.name}>
                           {building.name}

@@ -129,12 +129,12 @@ export default function SignupPage() {
         </div>
       </div>
 
-      {/* Right side - Alexandria Center image */}
+                {/* Right side - Hines Center image */}
       <div className="flex-1 relative overflow-hidden">
         <div className="absolute inset-0">
           <img
             src="/images/buildings/Program-Alexandria-Center-Gallery-Image-Photo-Evan-Joseph-Courtey-of-Alexandria-Center-0685.webp"
-            alt="Alexandria Center"
+            alt="Hines Center"
             className="w-full h-full object-cover"
           />
           {/* Gradient overlay for better contrast */}

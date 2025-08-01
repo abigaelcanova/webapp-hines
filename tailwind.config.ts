@@ -11,19 +11,19 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
-  			// Override default blue colors with Alexandria brand colors
+  			// Override default blue colors with Hines brand colors
   			blue: {
-  				'50': '#f0f4f8',
-  				'100': '#d9e2ec',
-  				'200': '#bcccdc',
-  				'300': '#9fb3c8',
-  				'400': '#829ab1',
-  				'500': '#627d98',
-  				'600': '#486581',
-  				'700': '#334e68',
-  				'800': '#243b53',
-  				'900': '#0C223F',
-  				'950': '#081a2e',
+  				'50': '#fef2f3',
+  				'100': '#fde6e8',
+  				'200': '#fad2d6',
+  				'300': '#f5a8b0',
+  				'400': '#ee7a88',
+  				'500': '#e24c61',
+  				'600': '#d03247',
+  				'700': '#BF1231',
+  				'800': '#9f0e28',
+  				'900': '#7a0b1f',
+  				'950': '#4a0612',
   			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

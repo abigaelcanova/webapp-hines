@@ -1,7 +1,7 @@
 <svg width="600" height="360" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
-      .alexandria-text { font-family: 'Times New Roman', serif; font-size: 14px; font-weight: 400; letter-spacing: 2px; fill: #1F2937; }
+      .hines-text { font-family: 'Times New Roman', serif; font-size: 14px; font-weight: 400; letter-spacing: 2px; fill: #1F2937; }
     </style>
   </defs>
   
@@ -41,6 +41,6 @@
     </g>
   </g>
   
-  <!-- ALEXANDRIA Text -->
-  <text x="100" y="85" text-anchor="middle" class="alexandria-text">A L E X A N D R I A</text>
+  <!-- HINES Text -->
+  <text x="100" y="85" text-anchor="middle" class="hines-text">H I N E S</text>
 </svg>
