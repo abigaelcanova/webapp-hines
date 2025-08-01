@@ -541,7 +541,7 @@ export default function VercelNavigation() {
     },
     {
       name: "Hines Demo Building",
-      image: "/images/buildings/Program-Alexandria-Center-Gallery-Image-Photo-Evan-Joseph-Courtey-of-Alexandria-Center-0685.webp",
+      image: "/Hines.jpg",
     },
     {
       name: "Hines Center at One Kendall Square - Building 100",
@@ -673,7 +673,7 @@ export default function VercelNavigation() {
     {
       id: 1,
       name: "Hines Demo Building",
-      address: "29 1st Ave, New York, NY 10003",
+      address: "845 Texas Ave, Houston, TX 77002",
               checked: selectedLocations.includes("Hines Demo Building")
     },
     {
@@ -1201,12 +1201,11 @@ export default function VercelNavigation() {
               <span className="sr-only">Toggle navigation menu</span>
             </Button>
 
-            {/* Logo and Landlord Name */}
+            {/* Logo */}
             <div className="flex items-center gap-3">
               <div className="h-8">
-                <img src="/images/logos/lighthouse.png" alt="Logo" className="h-full w-auto" />
+                <img src="/images/logos/Hines-Red-Logo-PNG.png" alt="Hines Logo" className="h-full w-auto" />
               </div>
-              <span className="text-lg font-semibold text-gray-900">Hines</span>
             </div>
           </div>
 
@@ -1429,18 +1428,18 @@ export default function VercelNavigation() {
               <DropdownMenuTrigger asChild>
                 <div className="h-10 w-10 flex items-center justify-center cursor-pointer ml-3">
                   <Avatar className="h-10 w-10">
-                    <AvatarFallback className="bg-blue-600 text-white text-sm">PT</AvatarFallback>
+                    <AvatarFallback className="bg-blue-600 text-white text-sm">RH</AvatarFallback>
                   </Avatar>
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-64">
                 <div className="flex items-center gap-3 p-3">
                   <Avatar className="h-12 w-12">
-                    <AvatarFallback className="bg-blue-600 text-white text-sm">PT</AvatarFallback>
+                    <AvatarFallback className="bg-blue-600 text-white text-sm">RH</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col">
-                    <span className="font-medium text-sm">Pat Tobin</span>
-                    <span className="text-xs text-muted-foreground">pat.tobin@are.com</span>
+                                  <span className="font-medium text-sm">Rita Hosdaghian</span>
+              <span className="text-xs text-muted-foreground">rita.hosdaghian@hines.com</span>
                   </div>
                 </div>
                 <DropdownMenuSeparator />
@@ -1732,7 +1731,7 @@ export default function VercelNavigation() {
               <div className="space-y-6">
                 {/* Hero Card */}
                 <HeroCard
-                  backgroundImage="/images/buildings/Program-Alexandria-Center-Gallery-Image-Photo-Evan-Joseph-Courtey-of-Alexandria-Center-0685.webp"
+                  backgroundImage="/Hines.jpg"
                   buildingName={primaryBuilding}
                   onAssistantSubmit={handleAssistantSubmit}
                 />
@@ -2533,7 +2532,7 @@ export default function VercelNavigation() {
                   {/* Building Image */}
                   <div className="aspect-[4/3] rounded-xl overflow-hidden">
                     <img
-                      src="/images/buildings/Program-Alexandria-Center-Gallery-Image-Photo-Evan-Joseph-Courtey-of-Alexandria-Center-0685.webp"
+                      src="/Hines.jpg"
                       alt="Hines Demo Building"
                       className="w-full h-full object-cover"
                     />
@@ -2543,10 +2542,7 @@ export default function VercelNavigation() {
                   <div className="flex flex-col">
                     <div className="prose max-w-none">
                       <p className="text-gray-700 leading-relaxed">
-                        The Hines Center for Life Science, located at 29th St and 1st Ave between Bellevue Hospital and NYU Medical Center, is a state-of-the-art research and development campus that serves as the flagship location for New York City's expanding life sciences sector.
-                      </p>
-                      <p className="text-gray-700 leading-relaxed mt-4">
-                        Strategically located along Manhattan's East Side Medical Corridor, The Hines Center™ capitalizes on its proximity to the City's top academic, medical institutions and major hospitals. Upon completion of the North Tower will provide 1.3 million-square-feet of first-class office and laboratory space in a campus setting designed to foster cross-institutional collaboration.
+                        Texas Tower is a next-generation office skyscraper redefining the workplace experience in downtown Houston. Developed by Hines and Ivanhoé Cambridge and designed by renowned architecture firm Pelli Clarke & Partners, this 47-story, 1.2 million-square-foot tower is located at the heart of the city—where the Central Business District, Theater District, and Historic District converge. With a striking diagonal orientation, expansive floorplates, and hospitality-inspired amenities, Texas Tower offers an elevated, wellness-forward environment for modern companies. Certified LEED Platinum, WELL, and WiredScore Platinum, the building is home to Hines' global headquarters and leading firms across law, energy, and finance. From dynamic communal spaces to panoramic terraces and flexible work zones, Texas Tower sets the standard for innovative, sustainable, and people-centric office design.
                       </p>
                     </div>
                   </div>
@@ -2590,7 +2586,7 @@ export default function VercelNavigation() {
                     <div className="h-6"></div>
                     <div className="rounded-xl overflow-hidden shadow-sm bg-white border">
                       <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095344!2d-73.9899!3d40.7424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0x274d24df1dbe2fc5!2sE%2029th%20St%2C%20New%20York%2C%20NY%2010016!5e0!3m2!1sen!2sus!4v1709760000000!5m2!1sen!2sus"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3464.2!2d-95.3698!3d29.7604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640bf48b1aa5729%3A0x3c1a0d95e5dce1f8!2s845%20Texas%20Ave%2C%20Houston%2C%20TX%2077002!5e0!3m2!1sen!2sus!4v1709760000000!5m2!1sen!2sus"
                         width="100%"
                         height="390"
                         style={{ border: 0 }}
@@ -4421,7 +4417,7 @@ export default function VercelNavigation() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
-                      <span>Hines Demo Building, 29 1st Ave, New York, NY 10003, USA</span>
+                      <span>845 Texas Ave, Houston, TX 77002, USA</span>
                     </div>
                     <button className="text-blue-600 hover:text-blue-700 text-sm underline">
                       Open in maps
@@ -4702,7 +4698,7 @@ export default function VercelNavigation() {
                       </label>
                       <input
                         type="text"
-                        defaultValue="Pat"
+                        defaultValue="Rita"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       />
                     </div>
@@ -4737,7 +4733,7 @@ export default function VercelNavigation() {
                       </label>
                       <input
                         type="email"
-                        defaultValue="pat.tobin@are.com"
+                        defaultValue="rita.hosdaghian@hines.com"
                         disabled
                         className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-600 cursor-not-allowed"
                       />

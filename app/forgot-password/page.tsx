@@ -28,8 +28,8 @@ export default function ForgotPasswordPage() {
               <div className="flex justify-center">
                 <div className="h-36 w-auto">
                   <img 
-                    src="/logo.svg" 
-                    alt="Logo" 
+                    src="/images/logos/Hines-Red-Logo-PNG.png" 
+                    alt="Hines Logo" 
                     className="h-full w-auto"
                   />
                 </div>
@@ -55,7 +55,7 @@ export default function ForgotPasswordPage() {
           <div className="flex-1 relative overflow-hidden">
             <div className="absolute inset-0">
               <img
-                src="/images/buildings/Program-Alexandria-Center-Gallery-Image-Photo-Evan-Joseph-Courtey-of-Alexandria-Center-0685.webp"
+                src="/Hines.jpg"
                 alt="Hines Center"
                 className="w-full h-full object-cover"
               />
@@ -79,8 +79,8 @@ export default function ForgotPasswordPage() {
             <div className="flex justify-center">
               <div className="h-36 w-auto">
                 <img 
-                  src="/logo.svg" 
-                  alt="Logo" 
+                  src="/images/logos/Hines-Red-Logo-PNG.png" 
+                  alt="Hines Logo" 
                   className="h-full w-auto"
                 />
               </div>
@@ -138,7 +138,7 @@ export default function ForgotPasswordPage() {
         <div className="flex-1 relative overflow-hidden">
           <div className="absolute inset-0">
             <img
-              src="/images/buildings/Program-Alexandria-Center-Gallery-Image-Photo-Evan-Joseph-Courtey-of-Alexandria-Center-0685.webp"
+              src="/Hines.jpg"
               alt="Hines Center"
               className="w-full h-full object-cover"
             />

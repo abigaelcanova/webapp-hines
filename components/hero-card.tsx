@@ -42,7 +42,7 @@ export function HeroCard({
       <div className="absolute inset-0 flex flex-col items-start justify-end p-8">
         <div className="space-y-4 max-w-2xl">
           <h1 className="text-3xl font-bold text-white">
-            Welcome back to the {buildingName}, Pat
+            Welcome back to the {buildingName}, Rita
           </h1>
           
           {/* AI Assistant Prompt */}
