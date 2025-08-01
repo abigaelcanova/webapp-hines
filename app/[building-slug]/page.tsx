@@ -504,92 +504,32 @@ export default function VercelNavigation() {
 
   const buildings = [
     {
-      name: "100 Binney",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "100 Technology Square",
-      image: "https://images.unsplash.com/photo-1555109307-f7d9da25c244?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "201 Brookline",
-      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "300 Technology Square",
-      image: "https://images.unsplash.com/photo-1577351594944-ef7e7d394fc8?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "399 Binney Street",
-      image: "https://images.unsplash.com/photo-1582439170934-d2fbbe3f0937?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "400 Technology Square",
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "50-60 Binney Street",
-      image: "https://images.unsplash.com/photo-1565123409695-7b5ef63a2efb?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "500 Technology Square",
-      image: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "75-125 Binney Street",
-      image: "https://images.unsplash.com/photo-1590725175499-15425f32e0c4?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
       name: "Hines Demo Building",
       image: "/Hines.jpg",
     },
     {
-      name: "Hines Center at One Kendall Square - Building 100",
-      image: "https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?w=120&h=120&fit=crop&crop=faces,center",
+      name: "Williams Tower",
+      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
-      name: "Hines Center at One Kendall Square - Building 1400",
-      image: "https://images.unsplash.com/photo-1520637836862-4d197d17c983?w=120&h=120&fit=crop&crop=faces,center",
+      name: "JPMorgan Chase Tower",
+      image: "https://images.unsplash.com/photo-1555109307-f7d9da25c244?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
-      name: "Hines Center at One Kendall Square - Building 200",
-      image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "Hines Center at One Kendall Square - Building 600/650",
-      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "Building 10210",
-      image: "https://images.unsplash.com/photo-1609619385002-f40f1f04888c?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "Campus Point by Hines",
-      image: "https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "Lab Building",
-      image: "https://images.unsplash.com/photo-1581094287473-c9b0b9d2b1b6?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "Pacific Horizon Tower",
-      image: "https://images.unsplash.com/photo-1551887373-6edba6dacbb1?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "Pasadena HQ",
-      image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "Reserve Equipment",
-      image: "https://images.unsplash.com/photo-1609619385639-63e765f28408?w=120&h=120&fit=crop&crop=faces,center",
-    },
-    {
-      name: "Reserve Transportation",
+      name: "717 Texas",
       image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=120&h=120&fit=crop&crop=faces,center",
     },
     {
-      name: "Seaside Innovation Center",
-      image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=120&h=120&fit=crop&crop=faces,center",
+      name: "Salesforce Tower Chicago",
+      image: "https://images.unsplash.com/photo-1577351594944-ef7e7d394fc8?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "T3 Minneapolis",
+      image: "https://images.unsplash.com/photo-1582439170934-d2fbbe3f0937?w=120&h=120&fit=crop&crop=faces,center",
+    },
+    {
+      name: "CityCenterDC",
+      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=120&h=120&fit=crop&crop=faces,center",
     },
   ]
 
@@ -674,37 +614,43 @@ export default function VercelNavigation() {
       id: 1,
       name: "Hines Demo Building",
       address: "845 Texas Ave, Houston, TX 77002",
-              checked: selectedLocations.includes("Hines Demo Building")
+      checked: selectedLocations.includes("Hines Demo Building")
     },
     {
       id: 2,
-      name: "100 Binney",
-      address: "100 Binney Street, Cambridge, MA",
-      checked: selectedLocations.includes("100 Binney")
+      name: "Williams Tower",
+      address: "2800 Post Oak Blvd, Houston, TX 77056",
+      checked: selectedLocations.includes("Williams Tower")
     },
     {
       id: 3,
-      name: "100 Technology Square",
-      address: "100 Technology Square, Cambridge, MA",
-      checked: selectedLocations.includes("100 Technology Square")
+      name: "JPMorgan Chase Tower",
+      address: "600 Travis St, Houston, TX 77002",
+      checked: selectedLocations.includes("JPMorgan Chase Tower")
     },
     {
       id: 4,
-      name: "201 Brookline",
-      address: "201 Brookline Avenue, Boston, MA",
-      checked: selectedLocations.includes("201 Brookline")
+      name: "717 Texas",
+      address: "717 Texas Ave, Houston, TX 77002",
+      checked: selectedLocations.includes("717 Texas")
     },
     {
       id: 5,
-      name: "300 Technology Square",
-      address: "300 Technology Square, Cambridge, MA",
-      checked: selectedLocations.includes("300 Technology Square")
+      name: "Salesforce Tower Chicago",
+      address: "415 N LaSalle St, Chicago, IL 60654",
+      checked: selectedLocations.includes("Salesforce Tower Chicago")
     },
     {
       id: 6,
-      name: "Hines Center at One Kendall Square - Building 100",
-      address: "One Kendall Square, Cambridge, MA",
-      checked: selectedLocations.includes("Hines Center at One Kendall Square - Building 100")
+      name: "T3 Minneapolis",
+      address: "745 Hennepin Ave, Minneapolis, MN 55403",
+      checked: selectedLocations.includes("T3 Minneapolis")
+    },
+    {
+      id: 7,
+      name: "CityCenterDC",
+      address: "825 10th St NW, Washington, DC 20001",
+      checked: selectedLocations.includes("CityCenterDC")
     }
   ]
 
