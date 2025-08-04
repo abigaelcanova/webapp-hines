@@ -238,7 +238,7 @@ export default function VercelNavigation() {
       id: 2,
       title: "Hines Global Real Estate Summit",
       description: "Join industry leaders and Hines executives for an exclusive summit exploring the future of commercial real estate...",
-      image: "https://images.unsplash.com/photo-1559223607-b4d0555ae227?w=800&h=600&fit=crop",
+      image: "/Hines/event1.jpg",
       date: "Thu, June 15 • 2 PM",
       location: "Houston, TX",
       buttonText: "Register"
