@@ -228,7 +228,7 @@ export default function VercelNavigation() {
     {
       id: 1,
       title: "HiFive",
-      description: "HiFive is powered by Workhuman, a Workday partner that focuses specifically on driving engagement by creating cultures of recognition. HiFive will support not only tenure recognition and gifting, but also life milestone achievements and peer-to-peer recognition.",
+      description: "HiFive is powered by Workhuman, a Workday partner that focuses specifically on driving engagement by creating cultures...",
       image: "/Hines/hifive.png",
       date: "Fri, June 14 • 6 PM",
       location: "Boston, MA",
@@ -236,38 +236,38 @@ export default function VercelNavigation() {
     },
     {
       id: 2,
-      title: "ARE Innovation Event",
-      description: "Join us for an inspiring innovation event showcasing groundbreaking ideas, cutting-edge technologies, and forward-thinking solutions within our ARE community.",
-      image: "/images/content/innovationevent.jpg",
-      date: "Fri, June 15 • 6 PM",
-      location: "Boston, MA",
+      title: "Hines Global Real Estate Summit",
+      description: "Join industry leaders and Hines executives for an exclusive summit exploring the future of commercial real estate...",
+      image: "https://images.unsplash.com/photo-1559223607-b4d0555ae227?w=800&h=600&fit=crop",
+      date: "Thu, June 15 • 2 PM",
+      location: "Houston, TX",
       buttonText: "Register"
     },
     {
       id: 3,
-      title: "Wellness Workshop",
-      description: "Take a break from your busy schedule and join us for a wellness workshop focused on mindfulness, stress management, and work-life balance.",
-      image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&h=600&fit=crop",
+      title: "Executive Wellness & Mental Health Series",
+      description: "Prioritize your well-being with our comprehensive wellness program designed for busy professionals. Learn evidence-bas...",
+      image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&h=600&fit=crop",
       date: "Wed, June 20 • 12 PM",
-      location: "Boston, MA",
+      location: "Houston, TX",
       buttonText: "Join"
     },
     {
       id: 4,
-      title: "Building Tour",
-      description: "Discover the history and architecture of our building with a guided tour. Perfect for new tenants and those interested in our building's story.",
-      image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=600&fit=crop",
+      title: "Texas Tower Architecture & Design Tour",
+      description: "Experience the award-winning design of Texas Tower with an exclusive guided tour led by our building architects...",
+      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop",
       date: "Thu, June 25 • 2 PM",
-      location: "Boston, MA",
+      location: "Houston, TX",
       buttonText: "Book"
     },
     {
       id: 5,
-      title: "Rooftop Party",
-      description: "Join us for our summer rooftop party with live music, food, and stunning views of the city. A perfect way to unwind and socialize.",
-      image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&h=600&fit=crop",
-      date: "Sat, June 30 • 7 PM",
-      location: "Boston, MA",
+      title: "Skyline Terrace Executive Reception",
+      description: "Join fellow executives and distinguished guests for an elegant evening reception on our panoramic 47th-floor terrace...",
+      image: "https://images.unsplash.com/photo-1566737236500-c8ac43014a8b?w=800&h=600&fit=crop",
+      date: "Fri, June 30 • 6 PM",
+      location: "Houston, TX",
       buttonText: "RSVP"
     }
   ]
@@ -1875,35 +1875,35 @@ export default function VercelNavigation() {
                     {/* Feed Items */}
                     <div className="flex flex-col h-full gap-6">
                       <ContentCard
-                        image="/images/content/exos-1-1.jpg"
-                        imageAlt="Gym facility"
+                        image="https://images.unsplash.com/photo-1518098268026-4e89f1a2cd8e?w=800&h=400&fit=crop"
+                        imageAlt="Green building with sustainable architecture"
                         category="Announcement"
                         categoryColor="bg-red-100 text-[#BF1231]"
                         timestamp="2 days ago"
-                        headline="Explore all our gym amenity has to offer"
-                        description="Exos is a performance training company that focuses on helping individuals and organizations reach their full potential. Our state-of-the-art fitness facility offers personalized training programs, cutting-edge equipment, and expert coaching to help you achieve your wellness goals. From strength training to cardio workouts, recovery services, and nutritional guidance, we provide everything you need for a comprehensive fitness experience."
+                        headline="Texas Tower Achieves LEED Platinum Certification"
+                        description="We're proud to announce that Texas Tower has officially received LEED Platinum certification, the highest standard for green building design and construction. This achievement reflects our commitment to sustainability through energy-efficient systems, water conservation, improved indoor air quality, and reduced environmental impact. Our tenants benefit from a healthier workspace while contributing to a more sustainable future. The building features smart lighting, advanced HVAC systems, and renewable energy sources that reduce our carbon footprint by 40%."
                         className="flex-1"
                       />
 
                       <ContentCard
-                        image="/images/content/Taco.png"
-                        imageAlt="Taco Trot event"
+                        image="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&h=400&fit=crop"
+                        imageAlt="Professional networking event in modern office space"
                         category="Event"
                         categoryColor="bg-red-100 text-[#BF1231]"
                         timestamp="4 days ago"
-                        headline="Taco Trot"
-                        description="Join us for our annual Taco Trot event! A fun-filled afternoon of delicious tacos, live music, and community spirit. This popular gathering brings together our building community for an afternoon of authentic Mexican cuisine from local food trucks, live entertainment, networking opportunities, and family-friendly activities. Come hungry and ready to connect with your neighbors while enjoying some of the best tacos in the city. Don't miss out on this tasty celebration!"
+                        headline="Houston Business Leaders Networking Mixer"
+                        description="Join us for an exclusive networking mixer bringing together Houston's top business leaders, entrepreneurs, and innovators. This quarterly event provides an opportunity to connect with fellow professionals, share insights, and explore potential collaborations. Enjoy premium hors d'oeuvres and cocktails while engaging in meaningful conversations that drive business growth. The event takes place in our executive conference center with stunning views of downtown Houston. Registration is required and space is limited to ensure quality networking opportunities."
                         className="flex-1"
                       />
 
                       <ContentCard
-                        image="/images/content/Microscope.jpg"
-                        imageAlt="Microscope"
+                        image="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=400&fit=crop"
+                        imageAlt="Modern office workspace with advanced technology"
                         category="Amenities"
                         categoryColor="bg-red-100 text-[#BF1231]"
                         timestamp="1 week ago"
-                        headline="New microscopes in every lab"
-                        description="We've upgraded all our laboratory spaces with state-of-the-art microscopes to enhance research capabilities and provide cutting-edge equipment for our scientific community. These advanced instruments feature high-resolution imaging, digital connectivity, and automated sample handling systems. The new microscopes support a wide range of research applications including cell biology, materials science, and biomedical research. Our tenants now have access to professional-grade equipment that was previously only available in specialized research facilities."
+                        headline="Smart Workspace Technology Upgrade Complete"
+                        description="We've completed a comprehensive technology upgrade across all floors, introducing smart workspace solutions that enhance productivity and collaboration. New features include wireless presentation systems in every conference room, height-adjustable smart desks with integrated charging stations, IoT-enabled climate control, and high-speed Wi-Fi 6E throughout the building. Our digital wayfinding system helps visitors navigate the building efficiently, while the mobile app allows tenants to book meeting rooms, request services, and access building information seamlessly. These improvements support the future of hybrid work environments."
                         className="flex-1"
                       />
                     </div>
@@ -1927,19 +1927,19 @@ export default function VercelNavigation() {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Tech Networking Mixer */}
+                    {/* Executive Leadership Forum */}
                     <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
                       <div className="aspect-[4/3] relative">
                         <img 
-                          src="/images/content/innovationevent.jpg" 
-                          alt="Tech Networking Mixer" 
+                          src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop" 
+                          alt="Executive Leadership Forum" 
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="p-6">
-                        <h3 className="text-lg font-semibold mb-2">Hines Innovation Event</h3>
+                        <h3 className="text-lg font-semibold mb-2">Executive Leadership Forum</h3>
                         <div className="flex items-center justify-between">
-                          <p className="text-gray-600">August 2, 2025 • 6:00 PM</p>
+                          <p className="text-gray-600">July 18, 2025 • 2:00 PM</p>
                           <Button variant="outline" className="text-[#BF1231] border-[#BF1231] hover:bg-red-50 hover:text-[#BF1231]">
                             RSVP
                           </Button>
@@ -1947,19 +1947,19 @@ export default function VercelNavigation() {
                       </div>
                     </div>
 
-                    {/* Summer Party */}
+                    {/* Sustainable Development Panel */}
                     <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
                       <div className="aspect-[4/3] relative">
                         <img 
-                          src="/images/content/EntireSpace-1.png" 
-                          alt="Summer Party" 
+                          src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=600&fit=crop" 
+                          alt="Sustainable Development Panel" 
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="p-6">
-                        <h3 className="text-lg font-semibold mb-2">Monthly All-Hands</h3>
+                        <h3 className="text-lg font-semibold mb-2">Sustainable Development Panel</h3>
                         <div className="flex items-center justify-between">
-                          <p className="text-gray-600">September 1, 2025 • 6:00 PM</p>
+                          <p className="text-gray-600">July 25, 2025 • 3:30 PM</p>
                           <Button variant="outline" className="text-[#BF1231] border-[#BF1231] hover:bg-red-50 hover:text-[#BF1231]">
                             RSVP
                           </Button>
