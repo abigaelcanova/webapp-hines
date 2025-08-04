@@ -1940,7 +1940,7 @@ export default function VercelNavigation() {
                         <h3 className="text-lg font-semibold mb-2">Hines Innovation Event</h3>
                         <div className="flex items-center justify-between">
                           <p className="text-gray-600">August 2, 2025 • 6:00 PM</p>
-                          <Button variant="outline" className="text-[#BF1231] border-[#BF1231] hover:bg-red-50">
+                          <Button variant="outline" className="text-[#BF1231] border-[#BF1231] hover:bg-red-50 hover:text-[#BF1231]">
                             RSVP
                           </Button>
                         </div>
@@ -1960,7 +1960,7 @@ export default function VercelNavigation() {
                         <h3 className="text-lg font-semibold mb-2">Monthly All-Hands</h3>
                         <div className="flex items-center justify-between">
                           <p className="text-gray-600">September 1, 2025 • 6:00 PM</p>
-                          <Button variant="outline" className="text-[#BF1231] border-[#BF1231] hover:bg-red-50">
+                          <Button variant="outline" className="text-[#BF1231] border-[#BF1231] hover:bg-red-50 hover:text-[#BF1231]">
                             RSVP
                           </Button>
                         </div>
@@ -3348,7 +3348,7 @@ export default function VercelNavigation() {
                             </TableCell>
                             <TableCell>
                               {visitor.badge === "activate" ? (
-                                <Button variant="outline" size="sm" className="text-[#BF1231] border-[#BF1231] hover:bg-red-50">
+                                <Button variant="outline" size="sm" className="text-[#BF1231] border-[#BF1231] hover:bg-red-50 hover:text-[#BF1231]">
                                   Activate
                                 </Button>
                               ) : (
