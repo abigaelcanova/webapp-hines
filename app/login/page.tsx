@@ -25,7 +25,7 @@ export default function LoginPage() {
           <div className="w-full max-w-md space-y-8">
             {/* Logo */}
             <div className="flex justify-center">
-              <div className="h-36 w-auto">
+              <div className="h-[32px] w-auto">
                 <img 
                   src="/images/logos/Hines-Red-Logo-PNG.png" 
                   alt="Hines Logo" 
