@@ -89,8 +89,8 @@ export default function VercelNavigation() {
   
   // Convert slug to building name
   const slugToBuildingName = (slug: string): string => {
-    // Special case for the rebranded ARE Demo Building -> Hines Demo Building
-    if (slug === 'are-demo-building') {
+    // Special case for the Hines Demo Building
+    if (slug === 'hines-demo-building') {
       return 'Hines Demo Building'
     }
     
@@ -130,9 +130,9 @@ export default function VercelNavigation() {
   const [mobileAssistantDrawerOpen, setMobileAssistantDrawerOpen] = useState(false)
   const [customizeBannerVisible, setCustomizeBannerVisible] = useState(false)
   const [cardOrder, setCardOrder] = useState([
-    { id: 'book-space', title: 'Book a space', description: 'Reserve meeting rooms, workspaces, and more.', icon: 'bookaspace.png', page: 'book-space' },
-    { id: 'visitor-management', title: 'Visitor Management', description: 'Manage visitors and guest access.', icon: 'VM.png', page: 'visitor-management' },
-    { id: 'service-requests', title: 'Service requests', description: 'Report and track maintenance issues', icon: 'SR.png', page: 'service-requests' },
+    { id: 'book-space', title: 'Book a Desk/Room', description: 'Reserve meeting rooms, workspaces, and more.', icon: 'bookaspace.png', page: 'book-space' },
+    { id: 'visitor-management', title: 'Register a Guest', description: 'Manage visitors and guest access.', icon: 'VM.png', page: 'visitor-management' },
+    { id: 'service-requests', title: 'Click-to-Fix', description: 'Report and track maintenance issues', icon: 'SR.png', page: 'service-requests' },
     { id: 'events-services', title: 'Events & services', description: 'See upcoming events and services', icon: 'events.png', page: 'events' }
   ])
   const [draggedCard, setDraggedCard] = useState<string | null>(null)
@@ -577,16 +577,16 @@ export default function VercelNavigation() {
   ]
 
   const bookingResources = [
-    { id: "conf-a", name: "Conference Room A", type: "conference" },
-    { id: "meeting", name: "Meeting Room", type: "meeting" },
-    { id: "lab-101", name: "Lab 101", type: "lab" },
-    { id: "research", name: "Research Lab", type: "lab" },
-    { id: "auditorium", name: "Auditorium", type: "presentation" },
-    { id: "training", name: "Training Room", type: "training" },
-    { id: "board", name: "Board Room", type: "meeting" },
-    { id: "innovation", name: "Innovation Hub", type: "workspace" },
-    { id: "collaboration", name: "Collaboration Space", type: "workspace" },
-    { id: "quiet", name: "Quiet Zone", type: "workspace" },
+    { id: "conf-a", name: "Room 1", type: "conference" },
+    { id: "meeting", name: "Room 2", type: "meeting" },
+    { id: "lab-101", name: "Room 3", type: "lab" },
+    { id: "research", name: "Room 4", type: "lab" },
+    { id: "auditorium", name: "Room 5", type: "presentation" },
+    { id: "training", name: "Room 6", type: "training" },
+    { id: "board", name: "Room 7", type: "meeting" },
+    { id: "innovation", name: "Room 8", type: "workspace" },
+    { id: "collaboration", name: "Room 9", type: "workspace" },
+    { id: "quiet", name: "Room 10", type: "workspace" },
   ]
 
   const timeSlots = [
@@ -711,12 +711,12 @@ export default function VercelNavigation() {
   const handleTimeSlotMouseDown = (resourceIndex: number, timeIndex: number) => {
     // Don't start drag on unavailable slots
     const resources = [
-      { name: 'Conference room', location: 'Main Building', unavailable: [0, 1, 2, 3] },
-      { name: 'Lab 3', location: 'Science Wing', unavailable: [] },
-      { name: 'Telescope', location: 'Observatory', unavailable: [] },
-      { name: 'Meeting room', location: 'East Tower', unavailable: [] },
-      { name: 'The Lounge', location: 'Student Center', unavailable: [] },
-      { name: 'Roof deck', location: 'North Building', unavailable: [] }
+      { name: 'Room 1', location: 'Texas Tower', unavailable: [0, 1, 2, 3] },
+      { name: 'Room 2', location: 'Texas Tower', unavailable: [] },
+      { name: 'Room 3', location: 'Texas Tower', unavailable: [] },
+      { name: 'Room 4', location: 'Texas Tower', unavailable: [] },
+      { name: 'Room 5', location: 'Texas Tower', unavailable: [] },
+      { name: 'Room 6', location: 'Texas Tower', unavailable: [] }
     ]
     
     const currentTimeIndex = 3
@@ -1476,7 +1476,7 @@ export default function VercelNavigation() {
                         onClick={() => setCurrentPage("book-space")}
                       >
                         <MapPin className="h-4 w-4 mr-3" />
-                        <span>Book a space</span>
+                        <span>Book a Desk/Room</span>
                       </Button>
                     </div>
 
@@ -1519,7 +1519,7 @@ export default function VercelNavigation() {
                         onClick={() => setCurrentPage("service-requests")}
                       >
                         <Wrench className="h-4 w-4 mr-3" />
-                        <span>Service requests</span>
+                        <span>Click-to-Fix</span>
                       </Button>
                     </div>
 
@@ -1562,7 +1562,7 @@ export default function VercelNavigation() {
                         onClick={() => setCurrentPage("visitor-management")}
                       >
                         <UserCheck className="h-4 w-4 mr-3" />
-                        <span>Visitor management</span>
+                        <span>Register a Guest</span>
                       </Button>
                     </div>
 
@@ -1690,9 +1690,9 @@ export default function VercelNavigation() {
                       size="sm"
                       className="bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 h-8 px-3 text-xs font-medium"
                       onClick={() => setCardOrder([
-                        { id: 'book-space', title: 'Book a space', description: 'Reserve meeting rooms, workspaces, and more.', icon: 'bookaspace.png', page: 'book-space' },
-                        { id: 'visitor-management', title: 'Visitor Management', description: 'Manage visitors and guest access.', icon: 'VM.png', page: 'visitor-management' },
-                        { id: 'service-requests', title: 'Service requests', description: 'Report and track maintenance issues', icon: 'SR.png', page: 'service-requests' },
+                        { id: 'book-space', title: 'Book a Desk/Room', description: 'Reserve meeting rooms, workspaces, and more.', icon: 'bookaspace.png', page: 'book-space' },
+                        { id: 'visitor-management', title: 'Register a Guest', description: 'Manage visitors and guest access.', icon: 'VM.png', page: 'visitor-management' },
+                        { id: 'service-requests', title: 'Click-to-Fix', description: 'Report and track maintenance issues', icon: 'SR.png', page: 'service-requests' },
                         { id: 'events-services', title: 'Events & services', description: 'See upcoming events and services', icon: 'events.png', page: 'events' }
                       ])}
                     >
@@ -2235,12 +2235,12 @@ export default function VercelNavigation() {
                   {/* Resource Rows */}
                   <div className="divide-y relative">
                     {[
-                      { name: 'Conference room', location: 'Main Building', unavailable: [0, 1, 2, 3] },
-                      { name: 'Lab 3', location: 'Science Wing', unavailable: [] },
-                      { name: 'Telescope', location: 'Observatory', unavailable: [] },
-                      { name: 'Meeting room', location: 'East Tower', unavailable: [] },
-                      { name: 'The Lounge', location: 'Student Center', unavailable: [] },
-                      { name: 'Roof deck', location: 'North Building', unavailable: [] }
+                      { name: 'Room 1', location: 'Texas Tower', unavailable: [0, 1, 2, 3] },
+                      { name: 'Room 2', location: 'Texas Tower', unavailable: [] },
+                      { name: 'Room 3', location: 'Texas Tower', unavailable: [] },
+                      { name: 'Room 4', location: 'Texas Tower', unavailable: [] },
+                      { name: 'Room 5', location: 'Texas Tower', unavailable: [] },
+                      { name: 'Room 6', location: 'Texas Tower', unavailable: [] }
                     ].map((resource, index) => {
                       // Current time is at 12 PM (index 3), so indices 0, 1, 2 are in the past
                       const currentTimeIndex = 3;
@@ -2345,18 +2345,18 @@ export default function VercelNavigation() {
                     <div className="border rounded-lg bg-white p-4 space-y-3">
                       <div className="aspect-video rounded-lg overflow-hidden">
                         <img 
-                          src="/images/beakers.jpg" 
-                          alt="Lab equipment" 
+                          src="/Hines/Room1.jpeg" 
+                          alt="Room 1" 
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="space-y-2">
-                        <h4 className="font-medium">Lab equipment</h4>
+                        <h4 className="font-medium">Room 1</h4>
                         <p className="text-sm text-gray-600">Tests, experiments, equipment</p>
                         <div className="flex items-center gap-3 text-xs text-gray-500">
                           <span className="flex items-center gap-1">
                             <Users className="h-3 w-3" />
-                            40
+                            1
                           </span>
                           <span className="flex items-center gap-1">
                             <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -2386,18 +2386,18 @@ export default function VercelNavigation() {
                     <div className="border rounded-lg bg-white p-4 space-y-3">
                       <div className="aspect-video rounded-lg overflow-hidden">
                         <img 
-                          src="/images/content/EntireSpace-1.png" 
-                          alt="Large conference space" 
+                          src="/Hines/Room2.jpeg" 
+                          alt="Room 2" 
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="space-y-2">
-                        <h4 className="font-medium">Large conference space</h4>
+                        <h4 className="font-medium">Room 2</h4>
                         <p className="text-sm text-gray-600">Tests, experiments, equipment</p>
                         <div className="flex items-center gap-3 text-xs text-gray-500">
                           <span className="flex items-center gap-1">
                             <Users className="h-3 w-3" />
-                            40
+                            2
                           </span>
                           <span className="flex items-center gap-1">
                             <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -2427,18 +2427,18 @@ export default function VercelNavigation() {
                     <div className="border rounded-lg bg-white p-4 space-y-3">
                       <div className="aspect-video rounded-lg overflow-hidden">
                         <img 
-                          src="/images/content/Lab3.jpg" 
-                          alt="Lab 3" 
+                          src="/Hines/Room3.jpeg" 
+                          alt="Room 3" 
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="space-y-2">
-                        <h4 className="font-medium">Lab 3</h4>
+                        <h4 className="font-medium">Room 3</h4>
                         <p className="text-sm text-gray-600">Tests, experiments, equipment</p>
                         <div className="flex items-center gap-3 text-xs text-gray-500">
                           <span className="flex items-center gap-1">
                             <Users className="h-3 w-3" />
-                            40
+                            1
                           </span>
                           <span className="flex items-center gap-1">
                             <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -3025,7 +3025,7 @@ export default function VercelNavigation() {
                   {/* Header */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <h1 className="text-2xl font-semibold text-gray-900">Visitor Management</h1>
+                      <h1 className="text-2xl font-semibold text-gray-900">Register a Guest</h1>
                       <Settings className="h-5 w-5 text-gray-500" />
                     </div>
                     <div className="flex items-center gap-3">
@@ -3581,7 +3581,7 @@ export default function VercelNavigation() {
                 <div className="space-y-6">
                   {/* Header */}
                   <div className="flex items-center justify-between">
-                    <h1 className="text-2xl font-semibold text-gray-900">Service requests</h1>
+                                          <h1 className="text-2xl font-semibold text-gray-900">Click-to-Fix</h1>
                     <Button 
                       className="bg-blue-600 hover:bg-blue-700 text-white"
                       onClick={() => setIsAddRequestModalOpen(true)}
@@ -4231,9 +4231,9 @@ export default function VercelNavigation() {
                       if (firstSlot) {
                         const [resourceIndex] = firstSlot.split('-').map(Number)
                         const resourceImages = [
-                          "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=400&fit=crop", // Conference room
-                          "/images/content/Lab3.jpg", // Lab 3
-                          "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800&h=400&fit=crop", // Telescope
+                          "/Hines/Room1.jpeg", // Room 1
+                          "/Hines/Room2.jpeg", // Room 2
+                          "/Hines/Room3.jpeg", // Room 3
                           "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=400&fit=crop", // Meeting room
                           "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=400&fit=crop", // The Lounge
                           "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=800&h=400&fit=crop" // Roof deck
@@ -4260,12 +4260,12 @@ export default function VercelNavigation() {
                       if (firstSlot) {
                         const [resourceIndex] = firstSlot.split('-').map(Number)
                         const resources = [
-                          { name: 'Conference room', subtitle: 'The Hive Conference Room', type: 'Conference Center (Small)' },
-                          { name: 'Lab 3', subtitle: 'Science Wing Laboratory', type: 'Laboratory Space' },
-                          { name: 'Telescope', subtitle: 'Observatory Viewing Station', type: 'Telescope Access' },
-                          { name: 'Meeting room', subtitle: 'East Tower Conference Room', type: 'Meeting Space' },
-                          { name: 'The Lounge', subtitle: 'Student Center Lounge', type: 'Lounge Area' },
-                          { name: 'Roof deck', subtitle: 'North Building Roof Deck', type: 'Outdoor Space' }
+                          { name: 'Room 1', subtitle: 'Texas Tower Conference Room', type: 'Conference Center (Small)' },
+                          { name: 'Room 2', subtitle: 'Texas Tower Meeting Room', type: 'Laboratory Space' },
+                          { name: 'Room 3', subtitle: 'Texas Tower Private Office', type: 'Telescope Access' },
+                          { name: 'Room 4', subtitle: 'Texas Tower Board Room', type: 'Meeting Space' },
+                          { name: 'Room 5', subtitle: 'Texas Tower Lounge', type: 'Lounge Area' },
+                          { name: 'Room 6', subtitle: 'Texas Tower Roof Deck', type: 'Outdoor Space' }
                         ]
                         const resource = resources[resourceIndex]
                         return (
@@ -4468,12 +4468,12 @@ export default function VercelNavigation() {
                         const firstSlot = slots[0]
                         const [resourceIndex] = firstSlot.split('-').map(Number)
                         const resources = [
-                          { name: 'Conference room', subtitle: 'The Hive Conference Room', type: 'Conference Center (Small)' },
-                          { name: 'Lab 3', subtitle: 'Science Wing Laboratory', type: 'Laboratory Space' },
-                          { name: 'Telescope', subtitle: 'Observatory Viewing Station', type: 'Telescope Access' },
-                          { name: 'Meeting room', subtitle: 'East Tower Conference Room', type: 'Meeting Space' },
-                          { name: 'The Lounge', subtitle: 'Student Center Lounge', type: 'Lounge Area' },
-                          { name: 'Roof deck', subtitle: 'North Building Roof Deck', type: 'Outdoor Space' }
+                          { name: 'Room 1', subtitle: 'Texas Tower Conference Room', type: 'Conference Center (Small)' },
+                          { name: 'Room 2', subtitle: 'Texas Tower Meeting Room', type: 'Laboratory Space' },
+                          { name: 'Room 3', subtitle: 'Texas Tower Private Office', type: 'Telescope Access' },
+                          { name: 'Room 4', subtitle: 'Texas Tower Board Room', type: 'Meeting Space' },
+                          { name: 'Room 5', subtitle: 'Texas Tower Lounge', type: 'Lounge Area' },
+                          { name: 'Room 6', subtitle: 'Texas Tower Roof Deck', type: 'Outdoor Space' }
                         ]
                         const resource = resources[resourceIndex]
                         

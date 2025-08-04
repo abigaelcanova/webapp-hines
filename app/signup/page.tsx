@@ -16,7 +16,7 @@ export default function SignupPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // For prototype: just redirect to authenticated version
-    window.location.href = "/are-demo-building"
+            window.location.href = "/hines-demo-building"
   }
 
   return (
