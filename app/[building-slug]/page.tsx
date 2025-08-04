@@ -1149,7 +1149,7 @@ export default function VercelNavigation() {
 
             {/* Logo */}
             <div className="flex items-center gap-3">
-              <div className="h-8">
+              <div className="h-4">
                 <img src="/images/logos/Hines-Red-Logo-PNG.png" alt="Hines Logo" className="h-full w-auto" />
               </div>
             </div>
