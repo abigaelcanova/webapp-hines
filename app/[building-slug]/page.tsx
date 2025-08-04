@@ -1443,7 +1443,7 @@ export default function VercelNavigation() {
                     {/* Home - Active */}
                     <div className="relative">
                       {currentPage === "home" && (
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#BF1231] rounded-r-full"></div>
                       )}
                       <Button
                         variant="ghost"
@@ -1463,7 +1463,7 @@ export default function VercelNavigation() {
                     {/* Book a space */}
                     <div className="relative">
                       {currentPage === "book-space" && (
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#BF1231] rounded-r-full"></div>
                       )}
                       <Button
                         variant="ghost"
@@ -1480,10 +1480,50 @@ export default function VercelNavigation() {
                       </Button>
                     </div>
 
+                    {/* Visitor registration */}
+                    <div className="relative">
+                      {currentPage === "visitor-management" && (
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#BF1231] rounded-r-full"></div>
+                      )}
+                      <Button
+                        variant="ghost"
+                        className={cn(
+                          "w-full justify-start h-10 px-3 font-normal text-sm",
+                          currentPage === "visitor-management"
+                            ? "bg-red-50 text-[#BF1231] hover:bg-red-50"
+                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                        )}
+                        onClick={() => setCurrentPage("visitor-management")}
+                      >
+                        <UserCheck className="h-4 w-4 mr-3" />
+                        <span>Register a Guest</span>
+                      </Button>
+                    </div>
+
+                    {/* Service requests */}
+                    <div className="relative">
+                      {currentPage === "service-requests" && (
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#BF1231] rounded-r-full"></div>
+                      )}
+                      <Button
+                        variant="ghost"
+                        className={cn(
+                          "w-full justify-start h-10 px-3 font-normal text-sm",
+                          currentPage === "service-requests"
+                            ? "bg-red-50 text-[#BF1231] hover:bg-red-50"
+                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                        )}
+                        onClick={() => setCurrentPage("service-requests")}
+                      >
+                        <Wrench className="h-4 w-4 mr-3" />
+                        <span>Click-to-Fix</span>
+                      </Button>
+                    </div>
+
                     {/* Events & services */}
                     <div className="relative">
                       {currentPage === "events" && (
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#BF1231] rounded-r-full"></div>
                       )}
                       <Button
                         variant="ghost"
@@ -1500,26 +1540,6 @@ export default function VercelNavigation() {
                         <Badge className="bg-red-100 text-[#BF1231] text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-md ml-auto">
                           2
                         </Badge>
-                      </Button>
-                    </div>
-
-                    {/* Service requests */}
-                    <div className="relative">
-                      {currentPage === "service-requests" && (
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
-                      )}
-                      <Button
-                        variant="ghost"
-                        className={cn(
-                          "w-full justify-start h-10 px-3 font-normal text-sm",
-                          currentPage === "service-requests"
-                            ? "bg-red-50 text-[#BF1231] hover:bg-red-50"
-                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
-                        )}
-                        onClick={() => setCurrentPage("service-requests")}
-                      >
-                        <Wrench className="h-4 w-4 mr-3" />
-                        <span>Click-to-Fix</span>
                       </Button>
                     </div>
 
@@ -1543,26 +1563,6 @@ export default function VercelNavigation() {
                         <Badge className="bg-red-100 text-[#BF1231] text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-md ml-auto">
                           3
                         </Badge>
-                      </Button>
-                    </div>
-
-                    {/* Visitor registration */}
-                    <div className="relative">
-                                                                    {currentPage === "visitor-management" && (
-                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#BF1231] rounded-r-full"></div>
-                        )}
-                      <Button
-                        variant="ghost"
-                        className={cn(
-                          "w-full justify-start h-10 px-3 font-normal text-sm",
-                          currentPage === "visitor-management"
-                            ? "bg-red-50 text-[#BF1231] hover:bg-red-50"
-                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
-                        )}
-                        onClick={() => setCurrentPage("visitor-management")}
-                      >
-                        <UserCheck className="h-4 w-4 mr-3" />
-                        <span>Register a Guest</span>
                       </Button>
                     </div>
 
