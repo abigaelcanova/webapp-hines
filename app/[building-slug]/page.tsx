@@ -227,9 +227,9 @@ export default function VercelNavigation() {
   const happeningSlides = [
     {
       id: 1,
-      title: "ARE Networking Event",
-      description: "Join us for an exclusive networking event for ARE community members. Connect with professionals, enjoy refreshments, and build meaningful relationships within our building community.",
-      image: "/images/content/ARENetworkingEvent.jpg",
+      title: "HiFive",
+      description: "HiFive is powered by Workhuman, a Workday partner that focuses specifically on driving engagement by creating cultures of recognition. HiFive will support not only tenure recognition and gifting, but also life milestone achievements and peer-to-peer recognition.",
+      image: "/Hines/hifive.png",
       date: "Fri, June 14 • 6 PM",
       location: "Boston, MA",
       buttonText: "RSVP"
