@@ -53,12 +53,12 @@ export function HeroCard({
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Search for events and building information..."
-                  className="w-full bg-white/95 backdrop-blur-sm border-0 text-gray-900 placeholder:text-gray-500 pr-12 py-3 text-base rounded-xl shadow-lg focus:ring-2 focus:ring-blue-500/50 transition-all"
+                  className="w-full bg-white/95 backdrop-blur-sm border-0 text-gray-900 placeholder:text-gray-500 pr-12 py-3 text-base rounded-xl shadow-lg focus:ring-2 focus:ring-[#BF1231]/50 transition-all"
                 />
                 <Button 
                   type="submit"
                   size="icon" 
-                  className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 bg-blue-600 hover:bg-blue-700 transition-colors rounded-full"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 bg-[#BF1231] hover:bg-[#9f0e28] transition-colors rounded-full"
                 >
                   <Send className="h-4 w-4" />
                 </Button>

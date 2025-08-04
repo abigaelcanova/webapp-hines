@@ -1089,7 +1089,7 @@ export default function VercelNavigation() {
                   className={cn(
                     "h-7 w-7 rounded-full flex items-center justify-center text-xs relative",
                     isSelected ? "bg-gray-200 text-gray-900" : "",
-                    isHighlighted ? "bg-blue-600 text-white" : "",
+                    isHighlighted ? "bg-[#BF1231] text-white" : "",
                     !isSelected && !isHighlighted ? "hover:bg-gray-100" : "",
                   )}
                   onClick={() => setSelectedDate(new Date(year, month, day))}
@@ -1166,7 +1166,7 @@ export default function VercelNavigation() {
                 <Button variant="ghost" className="h-8 px-1 py-1 gap-1 hover:bg-muted">
                   <Avatar className="h-6 w-6">
                     <AvatarImage src={selectedBuilding.image || "/placeholder.svg"} alt={selectedBuilding.name} />
-                    <AvatarFallback className="bg-blue-600 text-white text-xs font-medium">
+                    <AvatarFallback className="bg-[#BF1231] text-white text-xs font-medium">
                       <Building className="h-4 w-4" />
                     </AvatarFallback>
                   </Avatar>
@@ -1189,7 +1189,7 @@ export default function VercelNavigation() {
                         <Button variant="ghost" className="w-full justify-start h-auto p-2">
                           <Avatar className="h-6 w-6 mr-2">
                             <AvatarImage src={selectedBuilding.image || "/placeholder.svg"} alt={selectedBuilding.name} />
-                            <AvatarFallback className="bg-blue-600 text-white text-xs font-medium">
+                            <AvatarFallback className="bg-[#BF1231] text-white text-xs font-medium">
                               <Building className="h-4 w-4" />
                             </AvatarFallback>
                           </Avatar>
@@ -1212,7 +1212,7 @@ export default function VercelNavigation() {
                           <div className="flex items-center gap-2">
                             <Avatar className="h-6 w-6">
                               <AvatarImage src={building.image || "/placeholder.svg"} alt={building.name} />
-                              <AvatarFallback className="bg-blue-600 text-white text-xs font-medium">
+                              <AvatarFallback className="bg-[#BF1231] text-white text-xs font-medium">
                                 <Building className="h-4 w-4" />
                               </AvatarFallback>
                             </Avatar>
@@ -1374,14 +1374,14 @@ export default function VercelNavigation() {
               <DropdownMenuTrigger asChild>
                 <div className="h-10 w-10 flex items-center justify-center cursor-pointer ml-3">
                   <Avatar className="h-10 w-10">
-                    <AvatarFallback className="bg-blue-600 text-white text-sm">RH</AvatarFallback>
+                    <AvatarFallback className="bg-[#BF1231] text-white text-sm">RH</AvatarFallback>
                   </Avatar>
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-64">
                 <div className="flex items-center gap-3 p-3">
                   <Avatar className="h-12 w-12">
-                    <AvatarFallback className="bg-blue-600 text-white text-sm">RH</AvatarFallback>
+                    <AvatarFallback className="bg-[#BF1231] text-white text-sm">RH</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col">
                                   <span className="font-medium text-sm">Rita Hosdaghian</span>
@@ -1393,7 +1393,7 @@ export default function VercelNavigation() {
                   <Settings className="h-4 w-4 mr-2" />
                   Manage my account
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer text-blue-600 hover:text-blue-700">
+                <DropdownMenuItem className="cursor-pointer text-[#BF1231] hover:text-[#9f0e28]">
                   <svg className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M7 17L17 7" />
                     <path d="M7 7h10v10" />
@@ -1450,7 +1450,7 @@ export default function VercelNavigation() {
                         className={cn(
                           "w-full justify-start h-10 px-3 font-normal text-sm",
                           currentPage === "home"
-                            ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                            ? "bg-red-50 text-[#BF1231] hover:bg-red-50"
                             : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
                         )}
                         onClick={() => setCurrentPage("home")}
@@ -1470,7 +1470,7 @@ export default function VercelNavigation() {
                         className={cn(
                           "w-full justify-start h-10 px-3 font-normal text-sm",
                           currentPage === "book-space"
-                            ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                            ? "bg-red-50 text-[#BF1231] hover:bg-red-50"
                             : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
                         )}
                         onClick={() => setCurrentPage("book-space")}
@@ -1490,14 +1490,14 @@ export default function VercelNavigation() {
                         className={cn(
                           "w-full justify-start h-10 px-3 font-normal text-sm",
                           currentPage === "events"
-                            ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                            ? "bg-red-50 text-[#BF1231] hover:bg-red-50"
                             : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
                         )}
                         onClick={() => setCurrentPage("events")}
                       >
                         <Calendar className="h-4 w-4 mr-3" />
                         <span>Events & services</span>
-                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-md ml-auto">
+                        <Badge className="bg-red-100 text-[#BF1231] text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-md ml-auto">
                           2
                         </Badge>
                       </Button>
@@ -1513,7 +1513,7 @@ export default function VercelNavigation() {
                         className={cn(
                           "w-full justify-start h-10 px-3 font-normal text-sm",
                           currentPage === "service-requests"
-                            ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                            ? "bg-red-50 text-[#BF1231] hover:bg-red-50"
                             : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
                         )}
                         onClick={() => setCurrentPage("service-requests")}
@@ -1526,21 +1526,21 @@ export default function VercelNavigation() {
                     {/* My feed */}
                     <div className="relative">
                       {currentPage === "my-feed" && (
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#BF1231] rounded-r-full"></div>
                       )}
                       <Button
                         variant="ghost"
                         className={cn(
                           "w-full justify-start h-10 px-3 font-normal text-sm",
                           currentPage === "my-feed"
-                            ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                            ? "bg-red-50 text-[#BF1231] hover:bg-red-50"
                             : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
                         )}
                         onClick={() => setCurrentPage("my-feed")}
                       >
                         <FileText className="h-4 w-4 mr-3" />
                         <span>My feed</span>
-                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-md ml-auto">
+                        <Badge className="bg-red-100 text-[#BF1231] text-xs font-medium px-1.5 py-0.5 min-w-[20px] h-5 rounded-md ml-auto">
                           3
                         </Badge>
                       </Button>
@@ -1548,16 +1548,16 @@ export default function VercelNavigation() {
 
                     {/* Visitor registration */}
                     <div className="relative">
-                                              {currentPage === "visitor-management" && (
-                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
+                                                                    {currentPage === "visitor-management" && (
+                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#BF1231] rounded-r-full"></div>
                         )}
                       <Button
                         variant="ghost"
                         className={cn(
                           "w-full justify-start h-10 px-3 font-normal text-sm",
-                                                currentPage === "visitor-management"
-                        ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
-                        : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                          currentPage === "visitor-management"
+                            ? "bg-red-50 text-[#BF1231] hover:bg-red-50"
+                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
                         )}
                         onClick={() => setCurrentPage("visitor-management")}
                       >
@@ -1569,14 +1569,14 @@ export default function VercelNavigation() {
                     {/* About */}
                     <div className="relative">
                       {currentPage === "about" && (
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#BF1231] rounded-r-full"></div>
                       )}
                       <Button
                         variant="ghost"
                         className={cn(
                           "w-full justify-start h-10 px-3 font-normal text-sm",
                           currentPage === "about"
-                            ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                            ? "bg-red-50 text-[#BF1231] hover:bg-red-50"
                             : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
                         )}
                         onClick={() => setCurrentPage("about")}
@@ -1589,14 +1589,14 @@ export default function VercelNavigation() {
                     {/* Help */}
                     <div className="relative">
                       {currentPage === "help" && (
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 rounded-r-full"></div>
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#BF1231] rounded-r-full"></div>
                       )}
                       <Button
                         variant="ghost"
                         className={cn(
                           "w-full justify-start h-10 px-3 font-normal text-sm",
                           currentPage === "help"
-                            ? "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                            ? "bg-red-50 text-[#BF1231] hover:bg-red-50"
                             : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
                         )}
                         onClick={() => setCurrentPage("help")}
@@ -1852,7 +1852,7 @@ export default function VercelNavigation() {
                             <p className="font-medium">{happeningSlides[currentSlide].date}</p>
                             <p className="text-sm text-gray-600">{happeningSlides[currentSlide].location}</p>
                           </div>
-                          <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6">
+                          <Button className="bg-[#BF1231] hover:bg-[#9f0e28] text-white px-6">
                             {happeningSlides[currentSlide].buttonText}
                           </Button>
                         </div>
@@ -1878,7 +1878,7 @@ export default function VercelNavigation() {
                         image="/images/content/exos-1-1.jpg"
                         imageAlt="Gym facility"
                         category="Announcement"
-                        categoryColor="bg-blue-100 text-blue-700"
+                        categoryColor="bg-red-100 text-[#BF1231]"
                         timestamp="2 days ago"
                         headline="Explore all our gym amenity has to offer"
                         description="Exos is a performance training company that focuses on helping individuals and organizations reach their full potential. Our state-of-the-art fitness facility offers personalized training programs, cutting-edge equipment, and expert coaching to help you achieve your wellness goals. From strength training to cardio workouts, recovery services, and nutritional guidance, we provide everything you need for a comprehensive fitness experience."
@@ -1889,7 +1889,7 @@ export default function VercelNavigation() {
                         image="/images/content/Taco.png"
                         imageAlt="Taco Trot event"
                         category="Event"
-                        categoryColor="bg-blue-100 text-blue-700"
+                        categoryColor="bg-red-100 text-[#BF1231]"
                         timestamp="4 days ago"
                         headline="Taco Trot"
                         description="Join us for our annual Taco Trot event! A fun-filled afternoon of delicious tacos, live music, and community spirit. This popular gathering brings together our building community for an afternoon of authentic Mexican cuisine from local food trucks, live entertainment, networking opportunities, and family-friendly activities. Come hungry and ready to connect with your neighbors while enjoying some of the best tacos in the city. Don't miss out on this tasty celebration!"
@@ -1900,7 +1900,7 @@ export default function VercelNavigation() {
                         image="/images/content/Microscope.jpg"
                         imageAlt="Microscope"
                         category="Amenities"
-                        categoryColor="bg-blue-100 text-blue-700"
+                        categoryColor="bg-red-100 text-[#BF1231]"
                         timestamp="1 week ago"
                         headline="New microscopes in every lab"
                         description="We've upgraded all our laboratory spaces with state-of-the-art microscopes to enhance research capabilities and provide cutting-edge equipment for our scientific community. These advanced instruments feature high-resolution imaging, digital connectivity, and automated sample handling systems. The new microscopes support a wide range of research applications including cell biology, materials science, and biomedical research. Our tenants now have access to professional-grade equipment that was previously only available in specialized research facilities."
@@ -1940,7 +1940,7 @@ export default function VercelNavigation() {
                         <h3 className="text-lg font-semibold mb-2">Hines Innovation Event</h3>
                         <div className="flex items-center justify-between">
                           <p className="text-gray-600">August 2, 2025 • 6:00 PM</p>
-                          <Button variant="outline" className="text-blue-600 border-blue-600 hover:bg-blue-50">
+                          <Button variant="outline" className="text-[#BF1231] border-[#BF1231] hover:bg-red-50">
                             RSVP
                           </Button>
                         </div>
@@ -1960,7 +1960,7 @@ export default function VercelNavigation() {
                         <h3 className="text-lg font-semibold mb-2">Monthly All-Hands</h3>
                         <div className="flex items-center justify-between">
                           <p className="text-gray-600">September 1, 2025 • 6:00 PM</p>
-                          <Button variant="outline" className="text-blue-600 border-blue-600 hover:bg-blue-50">
+                          <Button variant="outline" className="text-[#BF1231] border-[#BF1231] hover:bg-red-50">
                             RSVP
                           </Button>
                         </div>
@@ -2270,8 +2270,8 @@ export default function VercelNavigation() {
                                 isUnavailable 
                                   ? "bg-gray-100 cursor-not-allowed" 
                                   : isSelected 
-                                    ? "bg-blue-500 border-blue-600 text-white" 
-                                    : "hover:bg-blue-50 cursor-pointer"
+                                    ? "bg-[#BF1231] border-[#BF1231] text-white" 
+                                    : "hover:bg-red-50 cursor-pointer"
                               )}
                               onMouseDown={(e) => {
                                 e.preventDefault()
@@ -2328,7 +2328,7 @@ export default function VercelNavigation() {
                       </Button>
                       <Button
                         size="sm"
-                        className="bg-blue-600 hover:bg-blue-700"
+                        className="bg-[#BF1231] hover:bg-[#9f0e28]"
                         onClick={() => setBookingModalOpen(true)}
                       >
                         Book Selected
@@ -2703,7 +2703,7 @@ export default function VercelNavigation() {
                       className={cn(
                         "px-4 py-2 text-sm font-medium whitespace-nowrap rounded-lg transition-colors",
                         feedActiveFilter === filter
-                          ? "bg-blue-600 text-white hover:bg-blue-700"
+                          ? "bg-[#BF1231] text-white hover:bg-[#9f0e28]"
                           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                       )}
                     >
@@ -2724,7 +2724,7 @@ export default function VercelNavigation() {
                          image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
                          date: "2 days ago",
                          readTime: "5 min read",
-                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
                        },
                        {
                          id: 2,
@@ -2734,7 +2734,7 @@ export default function VercelNavigation() {
                          image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=300&fit=crop",
                          date: "1 day ago",
                          readTime: "5 min read",
-                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
                        },
                        {
                          id: 3,
@@ -2744,7 +2744,7 @@ export default function VercelNavigation() {
                          image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=300&fit=crop",
                          date: "3 days ago",
                          readTime: "3 min read",
-                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
                        },
                        {
                          id: 4,
@@ -2754,7 +2754,7 @@ export default function VercelNavigation() {
                          image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=300&fit=crop",
                          date: "5 days ago",
                          readTime: "5 min read",
-                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
                        },
                        {
                          id: 5,
@@ -2764,7 +2764,7 @@ export default function VercelNavigation() {
                          image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop",
                          date: "1 week ago",
                          readTime: "5 min read",
-                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
                        },
                        {
                          id: 6,
@@ -2774,7 +2774,7 @@ export default function VercelNavigation() {
                          image: null,
                          date: "2 weeks ago",
                          readTime: "5 min read",
-                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100",
+                         badgeStyle: "bg-red-100 text-[#BF1231]",
                          isEmployeeDiscount: true
                        },
                        {
@@ -2785,7 +2785,7 @@ export default function VercelNavigation() {
                          image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop",
                          date: "6 days ago",
                          readTime: "3 min read",
-                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
                        },
                        {
                          id: 8,
@@ -2795,7 +2795,7 @@ export default function VercelNavigation() {
                          image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop",
                          date: "1 week ago",
                          readTime: "4 min read",
-                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
                        },
                        {
                          id: 9,
@@ -2805,7 +2805,7 @@ export default function VercelNavigation() {
                          image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=300&fit=crop",
                          date: "2 weeks ago",
                          readTime: "8 min read",
-                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
                        },
                        {
                          id: 10,
@@ -2815,7 +2815,7 @@ export default function VercelNavigation() {
                          image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
                          date: "4 days ago",
                          readTime: "6 min read",
-                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
                        },
                        {
                          id: 11,
@@ -2825,7 +2825,7 @@ export default function VercelNavigation() {
                          image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop",
                          date: "3 weeks ago",
                          readTime: "2 min read",
-                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
                        },
                        {
                          id: 12,
@@ -2835,7 +2835,7 @@ export default function VercelNavigation() {
                          image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&h=300&fit=crop",
                          date: "1 month ago",
                          readTime: "4 min read",
-                         badgeStyle: "bg-blue-100 text-blue-700 hover:bg-blue-100"
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
                        }
                      ];
 
@@ -2995,7 +2995,7 @@ export default function VercelNavigation() {
                           <p className="text-sm text-gray-600 mb-2">Drag and drop your documents here</p>
                           <p className="text-sm text-gray-600">
                             or{" "}
-                            <button type="button" className="text-blue-600 hover:text-blue-700 underline">
+                            <button type="button" className="text-[#BF1231] hover:text-[#9f0e28] underline">
                               browse
                             </button>
                             {" "}to upload
@@ -3014,7 +3014,7 @@ export default function VercelNavigation() {
                       >
                         Clear form
                       </Button>
-                      <Button type="submit" className="bg-blue-600 hover:bg-blue-700">
+                      <Button type="submit" className="bg-[#BF1231] hover:bg-[#9f0e28]">
                         Submit request
                       </Button>
                     </div>
@@ -3041,7 +3041,7 @@ export default function VercelNavigation() {
                         <IdCard className="h-4 w-4" />
                         Scan ID
                       </Button>
-                      <Button className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2">
+                      <Button className="bg-[#BF1231] hover:bg-[#9f0e28] flex items-center gap-2">
                         <Plus className="h-4 w-4" />
                         Create visit
                       </Button>
@@ -3290,7 +3290,7 @@ export default function VercelNavigation() {
                               <div className="flex items-center gap-3">
                                 <Avatar className="h-12 w-12">
                                   <AvatarImage src={visitor.avatar} alt={visitor.name} />
-                                  <AvatarFallback className="bg-blue-600 text-white text-sm">
+                                  <AvatarFallback className="bg-[#BF1231] text-white text-sm">
                                     {visitor.initials || visitor.name.split(' ').map(n => n[0]).join('')}
                                   </AvatarFallback>
                                 </Avatar>
@@ -3341,14 +3341,14 @@ export default function VercelNavigation() {
                               </div>
                             </TableCell>
                             <TableCell>
-                              <Badge className={`${visitor.statusColor} hover:${visitor.statusColor}`}>
+                              <Badge className={`${visitor.statusColor}`}>
                                 <div className="w-2 h-2 rounded-full bg-current mr-2"></div>
                                 {visitor.status}
                               </Badge>
                             </TableCell>
                             <TableCell>
                               {visitor.badge === "activate" ? (
-                                <Button variant="outline" size="sm" className="text-blue-600 border-blue-600 hover:bg-blue-50">
+                                <Button variant="outline" size="sm" className="text-[#BF1231] border-[#BF1231] hover:bg-red-50">
                                   Activate
                                 </Button>
                               ) : (
@@ -3408,7 +3408,7 @@ export default function VercelNavigation() {
                         </div>
                         <div className="p-6">
                           <div className="mb-2">
-                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
+                            <Badge className="bg-red-100 text-[#BF1231] text-xs font-medium">
                               <Calendar className="h-3 w-3 mr-1" />
                               Event
                             </Badge>
@@ -3420,7 +3420,7 @@ export default function VercelNavigation() {
                               <Calendar className="h-4 w-4 text-gray-500" />
                               <span className="text-sm text-gray-600">June 15, 2025</span>
                             </div>
-                            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                            <Button className="bg-[#BF1231] hover:bg-[#9f0e28] text-white">
                               RSVP
                             </Button>
                           </div>
@@ -3438,14 +3438,14 @@ export default function VercelNavigation() {
                         </div>
                         <div className="p-6">
                           <div className="mb-2">
-                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
+                            <Badge className="bg-red-100 text-[#BF1231] text-xs font-medium">
                               Service
                             </Badge>
                           </div>
                           <h3 className="text-lg font-semibold mb-2">Wellness Facial</h3>
                           <p className="text-gray-600 text-sm mb-4">Rejuvenating facial treatment with organic products and relaxation</p>
                           <div className="flex justify-end">
-                            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                            <Button className="bg-[#BF1231] hover:bg-[#9f0e28] text-white">
                               Book Now
                             </Button>
                           </div>
@@ -3463,14 +3463,14 @@ export default function VercelNavigation() {
                         </div>
                         <div className="p-6">
                           <div className="mb-2">
-                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
+                            <Badge className="bg-red-100 text-[#BF1231] text-xs font-medium">
                               Service
                             </Badge>
                           </div>
                           <h3 className="text-lg font-semibold mb-2">Therapeutic Massage</h3>
                           <p className="text-gray-600 text-sm mb-4">Professional massage therapy for stress relief and muscle recovery</p>
                           <div className="flex justify-end">
-                            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                            <Button className="bg-[#BF1231] hover:bg-[#9f0e28] text-white">
                               Book Now
                             </Button>
                           </div>
@@ -3488,14 +3488,14 @@ export default function VercelNavigation() {
                         </div>
                         <div className="p-6">
                           <div className="mb-2">
-                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
+                            <Badge className="bg-red-100 text-[#BF1231] text-xs font-medium">
                               Service
                             </Badge>
                           </div>
                           <h3 className="text-lg font-semibold mb-2">Personal Training</h3>
                           <p className="text-gray-600 text-sm mb-4">One-on-one fitness coaching tailored to your goals</p>
                           <div className="flex justify-end">
-                            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                            <Button className="bg-[#BF1231] hover:bg-[#9f0e28] text-white">
                               Book Now
                             </Button>
                           </div>
@@ -3519,7 +3519,7 @@ export default function VercelNavigation() {
                         </div>
                         <div className="p-6">
                           <div className="mb-2">
-                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
+                            <Badge className="bg-red-100 text-[#BF1231] text-xs font-medium">
                               <Calendar className="h-3 w-3 mr-1" />
                               Event
                             </Badge>
@@ -3546,7 +3546,7 @@ export default function VercelNavigation() {
                         </div>
                         <div className="p-6">
                           <div className="mb-2">
-                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
+                            <Badge className="bg-red-100 text-[#BF1231] text-xs font-medium">
                               Service
                             </Badge>
                           </div>
@@ -3566,7 +3566,7 @@ export default function VercelNavigation() {
                         </div>
                         <div className="p-6">
                           <div className="mb-2">
-                            <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100 text-xs font-medium">
+                            <Badge className="bg-red-100 text-[#BF1231] text-xs font-medium">
                               Service
                             </Badge>
                           </div>
@@ -3583,7 +3583,7 @@ export default function VercelNavigation() {
                   <div className="flex items-center justify-between">
                                           <h1 className="text-2xl font-semibold text-gray-900">Click-to-Fix</h1>
                     <Button 
-                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                      className="bg-[#BF1231] hover:bg-[#9f0e28] text-white"
                       onClick={() => setIsAddRequestModalOpen(true)}
                     >
                       Add new request
@@ -3628,7 +3628,7 @@ export default function VercelNavigation() {
                             <span>Cobblestone Collaborative</span>
                           </div>
                         </div>
-                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
+                        <Badge className="bg-red-100 text-[#BF1231]">
                           Open
                         </Badge>
                       </div>
@@ -3644,7 +3644,7 @@ export default function VercelNavigation() {
                             <span>Cobblestone Collaborative</span>
                           </div>
                         </div>
-                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
+                        <Badge className="bg-red-100 text-[#BF1231]">
                           Open
                         </Badge>
                       </div>
@@ -3660,7 +3660,7 @@ export default function VercelNavigation() {
                             <span>Cobblestone Collaborative</span>
                           </div>
                         </div>
-                        <Badge className="bg-blue-100 text-blue-600 hover:bg-blue-100">
+                        <Badge className="bg-red-100 text-[#BF1231]">
                           Open
                         </Badge>
                       </div>
@@ -3678,7 +3678,7 @@ export default function VercelNavigation() {
                                 <span>Cobblestone Collaborative</span>
                               </div>
                             </div>
-                            <Badge className="bg-gray-100 text-gray-600 hover:bg-gray-100">
+                            <Badge className="bg-gray-100 text-gray-600">
                               Closed
                             </Badge>
                           </div>
@@ -3694,7 +3694,7 @@ export default function VercelNavigation() {
                                 <span>Cobblestone Collaborative</span>
                               </div>
                             </div>
-                            <Badge className="bg-gray-100 text-gray-600 hover:bg-gray-100">
+                            <Badge className="bg-gray-100 text-gray-600">
                               Closed
                             </Badge>
                           </div>
@@ -3845,7 +3845,7 @@ export default function VercelNavigation() {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Request Type <span className="text-red-500">*</span>
                       </label>
-                      <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                      <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BF1231] focus:border-[#BF1231]">
                         <option value="">Select request type</option>
                         <option value="maintenance">Maintenance</option>
                         <option value="cleaning">Cleaning</option>
@@ -3862,7 +3862,7 @@ export default function VercelNavigation() {
                       <input
                         type="text"
                         placeholder="Enter location"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BF1231] focus:border-[#BF1231]"
                       />
                     </div>
                   </div>
@@ -4198,7 +4198,7 @@ export default function VercelNavigation() {
                       Cancel
                     </Button>
                     <Button
-                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                      className="bg-[#BF1231] hover:bg-[#9f0e28] text-white"
                       onClick={() => setFiltersModalOpen(false)}
                     >
                       Apply Filters
@@ -4284,7 +4284,7 @@ export default function VercelNavigation() {
                     <div className="flex items-center gap-2">
                       <Calendar className="h-5 w-5 text-gray-400" />
                       <div className="relative">
-                        <select className="border border-gray-300 rounded-md px-3 py-2 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none">
+                        <select className="border border-gray-300 rounded-md px-3 py-2 pr-8 focus:outline-none focus:ring-2 focus:ring-[#BF1231] focus:border-[#BF1231] appearance-none">
                           <option>May 25</option>
                         </select>
                         <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
@@ -4365,7 +4365,7 @@ export default function VercelNavigation() {
                       </svg>
                       <span>845 Texas Ave, Houston, TX 77002, USA</span>
                     </div>
-                    <button className="text-blue-600 hover:text-blue-700 text-sm underline">
+                    <button className="text-[#BF1231] hover:text-[#9f0e28] text-sm underline">
                       Open in maps
                         </button>
                           </div>
@@ -4522,7 +4522,7 @@ export default function VercelNavigation() {
                       setConfirmedBooking(null)
                       setSelectedTimeSlots(new Set())
                     }}
-                    className="p-2 hover:bg-gray-100 rounded-full"
+                    className="p-2 rounded-full"
                   >
                     <X className="h-5 w-5 text-gray-500" />
                         </button>
@@ -4645,7 +4645,7 @@ export default function VercelNavigation() {
                       <input
                         type="text"
                         defaultValue="Rita"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#BF1231] focus:border-[#BF1231]"
                       />
                     </div>
                     <div>
@@ -4655,7 +4655,7 @@ export default function VercelNavigation() {
                       <input
                         type="text"
                         defaultValue="Tobin"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#BF1231] focus:border-[#BF1231]"
                       />
                     </div>
                     </div>
@@ -4702,14 +4702,14 @@ export default function VercelNavigation() {
 
                   {/* Links */}
                   <div className="space-y-3">
-                    <button className="block text-sm text-blue-600 hover:text-blue-700 underline">
+                    <button className="block text-sm text-[#BF1231] hover:text-[#9f0e28] underline">
                       Terms of service
                     </button>
-                    <button className="block text-sm text-blue-600 hover:text-blue-700 underline">
+                    <button className="block text-sm text-[#BF1231] hover:text-[#9f0e28] underline">
                       Privacy policy
                     </button>
                     <button 
-                      className="block text-sm text-blue-600 hover:text-blue-700 underline"
+                      className="block text-sm text-[#BF1231] hover:text-[#9f0e28] underline"
                       onClick={() => {
                         setAccountSettingsModalOpen(false)
                         setUpdatePasswordModalOpen(true)
@@ -4728,7 +4728,7 @@ export default function VercelNavigation() {
                   >
                     Cancel
                   </Button>
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                  <Button className="bg-[#BF1231] hover:bg-[#9f0e28] text-white">
                     Save
                   </Button>
                 </div>
@@ -4774,7 +4774,7 @@ export default function VercelNavigation() {
                       placeholder="Enter your current password here..."
                       value={passwordForm.currentPassword}
                       onChange={(e) => setPasswordForm({...passwordForm, currentPassword: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#BF1231] focus:border-[#BF1231]"
                     />
                   </div>
 
@@ -4789,12 +4789,12 @@ export default function VercelNavigation() {
                         placeholder="Enter your new password here..."
                         value={passwordForm.newPassword}
                         onChange={(e) => setPasswordForm({...passwordForm, newPassword: e.target.value})}
-                        className="w-full px-3 py-2 pr-16 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 pr-16 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#BF1231] focus:border-[#BF1231]"
                       />
                       <button
                         type="button"
                         onClick={() => setShowNewPassword(!showNewPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-blue-600 hover:text-blue-700"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#BF1231] hover:text-[#9f0e28]"
                       >
                         show
                       </button>
@@ -4812,12 +4812,12 @@ export default function VercelNavigation() {
                         placeholder="Confirm new password here..."
                         value={passwordForm.confirmPassword}
                         onChange={(e) => setPasswordForm({...passwordForm, confirmPassword: e.target.value})}
-                        className="w-full px-3 py-2 pr-16 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 pr-16 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#BF1231] focus:border-[#BF1231]"
                       />
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-blue-600 hover:text-blue-700"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#BF1231] hover:text-[#9f0e28]"
                       >
                         show
                       </button>
@@ -4870,7 +4870,7 @@ export default function VercelNavigation() {
                   >
                     Cancel
                   </Button>
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                  <Button className="bg-[#BF1231] hover:bg-[#9f0e28] text-white">
                     Update Password
                   </Button>
                 </div>
@@ -4957,7 +4957,7 @@ export default function VercelNavigation() {
                 {/* Modal Footer */}
                 <div className="p-6 border-t bg-gray-50">
                   <Button 
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                    className="w-full bg-[#BF1231] hover:bg-[#9f0e28] text-white"
                     onClick={handleLocationsDone}
                   >
                     Done
@@ -5163,7 +5163,7 @@ export default function VercelNavigation() {
                 Cancel
               </Button>
               <Button 
-                className="bg-blue-600 hover:bg-blue-700 text-white"
+                className="bg-[#BF1231] hover:bg-[#9f0e28] text-white"
                 onClick={() => {
                   // Apply changes to the main cardOrder state
                   setCardOrder([...modalQuickActions]);

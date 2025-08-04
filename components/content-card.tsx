@@ -16,7 +16,7 @@ export function ContentCard({
   image,
   imageAlt,
   category,
-  categoryColor = 'bg-blue-100 text-blue-700',
+  categoryColor = 'bg-red-100 text-[#BF1231]',
   timestamp,
   headline,
   description,

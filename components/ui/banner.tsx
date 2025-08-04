@@ -58,7 +58,7 @@ export function Banner({
     default: "text-gray-500 hover:text-gray-700 hover:bg-gray-200/50",
     warning: "text-amber-600 hover:text-amber-800 hover:bg-amber-200/50",
     error: "text-red-600 hover:text-red-800 hover:bg-red-200/50",
-    info: "text-blue-600 hover:text-blue-800 hover:bg-blue-200/50"
+    info: "text-[#BF1231] hover:text-[#9f0e28] hover:bg-red-200/50"
   }
 
   const defaultIcon = variant === "warning" ? <AlertTriangle className="h-5 w-5" /> : null

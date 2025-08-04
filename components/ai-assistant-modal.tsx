@@ -461,7 +461,7 @@ export function AIAssistantModal({
                         <div
                           className={`rounded-2xl px-4 py-3 ${
                             message.type === 'user'
-                              ? 'bg-blue-600 text-white'
+                              ? 'bg-[#BF1231] text-white'
                               : 'bg-gray-100 text-gray-900'
                           }`}
                         >
@@ -531,7 +531,7 @@ export function AIAssistantModal({
                 <Button
                   onClick={handleSendMessage}
                   disabled={!inputValue.trim() || isTyping}
-                  className="bg-blue-600 hover:bg-blue-700"
+                  className="bg-[#BF1231] hover:bg-[#9f0e28]"
                 >
                   <Send className="h-4 w-4" />
                 </Button>

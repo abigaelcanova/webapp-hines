@@ -107,11 +107,11 @@ export function AssistantDrawer({
 
             {/* Suggestion Cards */}
             <div className="space-y-3 mb-4">
-              <div className="bg-gray-50 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition-colors">
+              <div className="bg-gray-50 rounded-lg p-4 cursor-pointer transition-colors">
                 <p className="text-xs text-gray-600">What hours is the rooftop terrace open?</p>
               </div>
 
-              <div className="bg-gray-50 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition-colors">
+              <div className="bg-gray-50 rounded-lg p-4 cursor-pointer transition-colors">
                 <p className="text-xs text-gray-600">What's the food truck schedule for the week?</p>
               </div>
             </div>
@@ -132,7 +132,7 @@ export function AssistantDrawer({
                     <div
                       className={`rounded-lg px-3 py-2 text-xs ${
                         message.type === 'user'
-                          ? 'bg-blue-600 text-white'
+                          ? 'bg-[#BF1231] text-white'
                           : 'bg-gray-100 text-gray-900'
                       }`}
                     >
@@ -153,7 +153,7 @@ export function AssistantDrawer({
                 <div className="text-center">
                   <button 
                     onClick={handleMaximize}
-                    className="text-xs text-blue-600 hover:text-blue-700 underline"
+                    className="text-xs text-[#BF1231] hover:text-[#9f0e28] underline"
                   >
                     View full conversation ({messages.length} messages)
                   </button>
