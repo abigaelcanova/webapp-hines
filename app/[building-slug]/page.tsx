@@ -1536,7 +1536,7 @@ export default function VercelNavigation() {
                             : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
                         )}
                         onClick={() => {
-                          setCurrentPage("my-feed");
+                          setCurrentPage("travel-here");
                           setFeedActiveFilter("Travel here");
                         }}
                       >
@@ -2743,7 +2743,15 @@ export default function VercelNavigation() {
                   {["All", "In the neighborhood", "News", "What's happening", "Deals", "Employee offers", "Travel here"].map((filter) => (
                     <button
                       key={filter}
-                      onClick={() => setFeedActiveFilter(filter)}
+                      onClick={() => {
+                        setFeedActiveFilter(filter);
+                        // If clicking a filter other than "Travel here", switch to my-feed page
+                        if (filter !== "Travel here") {
+                          setCurrentPage("my-feed");
+                        } else {
+                          setCurrentPage("travel-here");
+                        }
+                      }}
                       className={cn(
                         "px-4 py-2 text-sm font-medium whitespace-nowrap rounded-lg transition-colors",
                         feedActiveFilter === filter
@@ -3045,6 +3053,190 @@ export default function VercelNavigation() {
                         </div>
                       );
                     });
+                  })()}
+                </div>
+              </div>
+            ) : currentPage === "travel-here" ? (
+              <div className="space-y-6">
+                {/* Header */}
+                <div className="space-y-2">
+                  <h1 className="text-2xl font-semibold text-gray-900">Travel here</h1>
+                  <p className="text-gray-600">Discover amazing travel destinations and experiences</p>
+                </div>
+
+                {/* Search Bar */}
+                <div className="relative">
+                  <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  <input
+                    type="text"
+                    placeholder="Search travel content..."
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BF1231] focus:border-transparent"
+                  />
+                </div>
+
+                {/* Filter Tabs */}
+                <div className="flex gap-2 overflow-x-auto">
+                  {["All", "In the neighborhood", "News", "What's happening", "Deals", "Employee offers", "Travel here"].map((filter) => (
+                    <button
+                      key={filter}
+                      onClick={() => {
+                        setFeedActiveFilter(filter);
+                        // If clicking a filter other than "Travel here", switch to my-feed page
+                        if (filter !== "Travel here") {
+                          setCurrentPage("my-feed");
+                        } else {
+                          setCurrentPage("travel-here");
+                        }
+                      }}
+                      className={cn(
+                        "px-4 py-2 text-sm font-medium whitespace-nowrap rounded-lg transition-colors",
+                        feedActiveFilter === filter
+                          ? "bg-[#BF1231] text-white hover:bg-[#9f0e28]"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      )}
+                    >
+                      {filter}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Content Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {(() => {
+                    const feedData = [
+                      {
+                        id: 1,
+                        title: "Downtown Austin Food Tour",
+                        description: "Explore the best local eateries and hidden gems in downtown Austin.",
+                        image: "/images/content/Taco.png",
+                        category: "Travel here",
+                        date: "2024-01-15",
+                        author: "Sarah Chen",
+                        readTime: "5 min read",
+                        tags: ["Food", "Austin", "Local"]
+                      },
+                      {
+                        id: 2,
+                        title: "Best Coffee Shops Near the Office",
+                        description: "Discover amazing coffee spots within walking distance of your workplace.",
+                        image: "/images/content/exos-1-1.jpg",
+                        category: "Travel here",
+                        date: "2024-01-14",
+                        author: "Mike Rodriguez",
+                        readTime: "3 min read",
+                        tags: ["Coffee", "Local", "Work"]
+                      },
+                      {
+                        id: 3,
+                        title: "Weekend Getaway: Hill Country",
+                        description: "Plan the perfect weekend escape to Texas Hill Country.",
+                        image: "/images/content/Lab3.jpg",
+                        category: "Travel here",
+                        date: "2024-01-13",
+                        author: "Emily Johnson",
+                        readTime: "7 min read",
+                        tags: ["Weekend", "Hill Country", "Travel"]
+                      },
+                      {
+                        id: 4,
+                        title: "Local Art Galleries Worth Visiting",
+                        description: "Immerse yourself in Austin's vibrant art scene with these must-visit galleries.",
+                        image: "/images/content/Microscope.jpg",
+                        category: "Travel here",
+                        date: "2024-01-12",
+                        author: "David Kim",
+                        readTime: "6 min read",
+                        tags: ["Art", "Culture", "Austin"]
+                      },
+                      {
+                        id: 5,
+                        title: "Outdoor Activities This Season",
+                        description: "Make the most of the weather with these outdoor adventures.",
+                        image: "/images/content/EntireSpace-1.png",
+                        category: "Travel here",
+                        date: "2024-01-11",
+                        author: "Lisa Wang",
+                        readTime: "4 min read",
+                        tags: ["Outdoor", "Activities", "Season"]
+                      },
+                      {
+                        id: 6,
+                        title: "Historic Sites You Can't Miss",
+                        description: "Explore Austin's rich history through these fascinating historic locations.",
+                        image: "/images/content/ARENetworkingEvent.jpg",
+                        category: "Travel here",
+                        date: "2024-01-10",
+                        author: "James Lee",
+                        readTime: "8 min read",
+                        tags: ["History", "Austin", "Culture"]
+                      },
+                      {
+                        id: 7,
+                        title: "Music Venues and Live Shows",
+                        description: "Experience Austin's legendary music scene at these top venues.",
+                        image: "/images/content/innovationevent.jpg",
+                        category: "Travel here",
+                        date: "2024-01-09",
+                        author: "Maria Garcia",
+                        readTime: "5 min read",
+                        tags: ["Music", "Live Shows", "Entertainment"]
+                      },
+                      {
+                        id: 8,
+                        title: "Shopping Districts Guide",
+                        description: "From vintage finds to luxury brands, discover Austin's best shopping areas.",
+                        image: "/images/content/Taco.png",
+                        category: "Travel here",
+                        date: "2024-01-08",
+                        author: "Alex Thompson",
+                        readTime: "6 min read",
+                        tags: ["Shopping", "Districts", "Local"]
+                      },
+                      {
+                        id: 9,
+                        title: "Parks and Recreation Spots",
+                        description: "Find your perfect outdoor escape in Austin's beautiful parks and rec areas.",
+                        image: "/images/content/exos-1-1.jpg",
+                        category: "Travel here",
+                        date: "2024-01-07",
+                        author: "Rachel Brown",
+                        readTime: "4 min read",
+                        tags: ["Parks", "Recreation", "Outdoor"]
+                      }
+                    ];
+
+                    return feedData
+                      .filter(item => {
+                        const matchesFilter = feedActiveFilter === "All" || item.category === feedActiveFilter;
+                        return matchesFilter;
+                      })
+                      .map((item) => (
+                        <div key={item.id} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                          <img src={item.image} alt={item.title} className="w-full h-48 object-cover" />
+                          <div className="p-6">
+                            <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+                              <span className="bg-[#BF1231] text-white px-2 py-1 rounded text-xs">{item.category}</span>
+                              <span>{item.date}</span>
+                              <span>•</span>
+                              <span>{item.readTime}</span>
+                            </div>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-2">{item.title}</h3>
+                            <p className="text-gray-600 mb-4">{item.description}</p>
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm text-gray-500">By {item.author}</span>
+                              <div className="flex gap-1">
+                                {item.tags.map((tag) => (
+                                  <span key={tag} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                                    {tag}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ));
                   })()}
                 </div>
               </div>
