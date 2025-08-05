@@ -229,7 +229,7 @@ export default function VercelNavigation() {
       id: 1,
       title: "HiFive",
       description: "HiFive is powered by Workhuman, a Workday partner that focuses specifically on driving engagement by creating cultures...",
-      image: "/Hines/hifive.png",
+      image: "/Hines/hifive-2.png",
       date: "Fri, June 14 • 6 PM",
       location: "Boston, MA",
       buttonText: "RSVP"
@@ -1677,7 +1677,7 @@ export default function VercelNavigation() {
               <div className="space-y-6">
                 {/* Hero Card */}
                 <HeroCard
-                  backgroundImage="/Hines.jpg"
+                  backgroundImage="/Hines/bannerlong.png"
                   buildingName={primaryBuilding}
                   onAssistantSubmit={handleAssistantSubmit}
                 />
@@ -1865,7 +1865,7 @@ export default function VercelNavigation() {
                             key={index}
                             onClick={() => goToSlide(index)}
                             className={`w-2 h-2 rounded-full transition-colors ${
-                              index === currentSlide ? 'bg-blue-600' : 'bg-gray-300'
+                              index === currentSlide ? 'bg-[#BF1231]' : 'bg-gray-300'
                             }`}
                           />
                         ))}

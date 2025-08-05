@@ -37,7 +37,7 @@ export function HeroCard({
         className="absolute inset-0 w-full h-full object-cover object-center rounded-2xl"
       />
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10 rounded-2xl" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-black/5 rounded-2xl" />
       {/* Content */}
       <div className="absolute inset-0 flex flex-col items-start justify-end p-8">
         <div className="space-y-4 max-w-2xl">
