@@ -1643,7 +1643,7 @@ export default function VercelNavigation() {
                             variant="ghost"
                             className="w-full justify-start h-auto px-3 py-1 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                           >
-                            Building resources
+                            Catering for meetings
                           </Button>
                         </div>
                         <div className="relative">
@@ -1660,7 +1660,7 @@ export default function VercelNavigation() {
                             variant="ghost"
                             className="w-full justify-start h-auto px-3 py-1 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                           >
-                            Emergency procedures
+                            Transit
                           </Button>
                         </div>
                         <div className="relative">
