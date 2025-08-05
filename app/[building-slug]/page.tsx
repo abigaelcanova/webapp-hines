@@ -1438,7 +1438,7 @@ export default function VercelNavigation() {
             {leftDrawerOpen && (
               <div className="h-full p-4 flex flex-col">
                 {/* Navigation Items */}
-                <div className="flex-1 min-h-0">
+                <div className="flex-1 min-h-0 overflow-y-auto">
                   <nav className="space-y-1 mb-8">
                     {/* Home - Active */}
                     <div className="relative">
