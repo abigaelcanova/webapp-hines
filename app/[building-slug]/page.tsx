@@ -1555,7 +1555,10 @@ export default function VercelNavigation() {
                             ? "bg-red-50 text-[#BF1231] hover:bg-red-50"
                             : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
                         )}
-                        onClick={() => setCurrentPage("travel-here")}
+                        onClick={() => {
+                          setCurrentPage("my-feed");
+                          setFeedActiveFilter("Travel here");
+                        }}
                       >
                         <svg className="h-4 w-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -2757,7 +2760,7 @@ export default function VercelNavigation() {
 
                 {/* Filter Tabs */}
                 <div className="flex gap-2 overflow-x-auto">
-                  {["All", "In the neighborhood", "News", "What's happening", "Deals", "Employee offers"].map((filter) => (
+                  {["All", "In the neighborhood", "News", "What's happening", "Deals", "Employee offers", "Travel here"].map((filter) => (
                     <button
                       key={filter}
                       onClick={() => setFeedActiveFilter(filter)}
@@ -2896,6 +2899,96 @@ export default function VercelNavigation() {
                          image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&h=300&fit=crop",
                          date: "1 month ago",
                          readTime: "4 min read",
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
+                       },
+                       {
+                         id: 13,
+                         title: "Nearby Hotels & Accommodations",
+                         description: "Discover premium hotels within walking distance of Texas Tower, perfect for business travelers and visiting clients.",
+                         category: "Travel here",
+                         image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
+                         date: "1 day ago",
+                         readTime: "3 min read",
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
+                       },
+                       {
+                         id: 14,
+                         title: "Travel Services on myHines.com",
+                         description: "Book corporate travel, manage expense reports, and access preferred vendor rates through our integrated platform.",
+                         category: "Travel here",
+                         image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=300&fit=crop",
+                         date: "2 days ago",
+                         readTime: "4 min read",
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
+                       },
+                       {
+                         id: 15,
+                         title: "Houston Airports Guide",
+                         description: "Navigate Houston's airports with ease. Ground transportation, parking, and terminal information for business travelers.",
+                         category: "Travel here",
+                         image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&h=300&fit=crop",
+                         date: "3 days ago",
+                         readTime: "5 min read",
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
+                       },
+                       {
+                         id: 16,
+                         title: "Uber for Business Available",
+                         description: "Seamless ground transportation for employees and visitors. Book rides directly through your corporate account.",
+                         category: "Travel here",
+                         image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop",
+                         date: "4 days ago",
+                         readTime: "2 min read",
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
+                       },
+                       {
+                         id: 17,
+                         title: "Directions to Texas Tower",
+                         description: "Complete guide to reaching our building via car, public transit, rideshare, and walking from major Houston landmarks.",
+                         category: "Travel here",
+                         image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+                         date: "5 days ago",
+                         readTime: "6 min read",
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
+                       },
+                       {
+                         id: 18,
+                         title: "Building Wi-Fi Information",
+                         description: "Stay connected with complimentary high-speed Wi-Fi throughout Texas Tower. Network details and guest access info.",
+                         category: "Travel here",
+                         image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=300&fit=crop",
+                         date: "1 week ago",
+                         readTime: "2 min read",
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
+                       },
+                       {
+                         id: 19,
+                         title: "Office Supplies & Business Center",
+                         description: "24/7 business center with printing, copying, and office supplies. Perfect for traveling professionals and last-minute needs.",
+                         category: "Travel here",
+                         image: "https://images.unsplash.com/photo-1497366412874-3415097a27e7?w=400&h=300&fit=crop",
+                         date: "1 week ago",
+                         readTime: "3 min read",
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
+                       },
+                       {
+                         id: 20,
+                         title: "Houston Restaurant Guide",
+                         description: "Discover the best dining options near Texas Tower, from quick business lunches to client entertainment venues.",
+                         category: "Travel here",
+                         image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
+                         date: "2 weeks ago",
+                         readTime: "7 min read",
+                         badgeStyle: "bg-red-100 text-[#BF1231]"
+                       },
+                       {
+                         id: 21,
+                         title: "Houston Events & Attractions",
+                         description: "Make the most of your visit to Houston. Cultural attractions, sports venues, and entertainment options near Texas Tower.",
+                         category: "Travel here",
+                         image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=300&fit=crop",
+                         date: "2 weeks ago",
+                         readTime: "8 min read",
                          badgeStyle: "bg-red-100 text-[#BF1231]"
                        }
                      ];
