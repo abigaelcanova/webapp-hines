@@ -1628,33 +1628,48 @@ export default function VercelNavigation() {
                     </div>
 
                     {/* Helpful Links */}
-                    <div className="!mt-8 px-3">
-                      <h5 className="text-sm font-medium text-gray-900 mb-3">Helpful links</h5>
-                      <div className="space-y-2">
+                    <div className="!mt-8">
+                      <div className="relative">
                         <Button
                           variant="ghost"
-                          className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
+                          className="w-full justify-start h-10 px-3 font-medium text-sm text-gray-900 hover:bg-transparent cursor-default"
                         >
-                          Building resources
+                          Helpful links
                         </Button>
-                        <Button
-                          variant="ghost"
-                          className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
-                        >
-                          Policies & guidelines
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
-                        >
-                          Emergency procedures
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          className="w-full justify-start h-auto p-0 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-transparent"
-                        >
-                          Contact directory
-                        </Button>
+                      </div>
+                      <div className="space-y-1 mt-3">
+                        <div className="relative">
+                          <Button
+                            variant="ghost"
+                            className="w-full justify-start h-auto px-3 py-1 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                          >
+                            Building resources
+                          </Button>
+                        </div>
+                        <div className="relative">
+                          <Button
+                            variant="ghost"
+                            className="w-full justify-start h-auto px-3 py-1 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                          >
+                            Policies & guidelines
+                          </Button>
+                        </div>
+                        <div className="relative">
+                          <Button
+                            variant="ghost"
+                            className="w-full justify-start h-auto px-3 py-1 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                          >
+                            Emergency procedures
+                          </Button>
+                        </div>
+                        <div className="relative">
+                          <Button
+                            variant="ghost"
+                            className="w-full justify-start h-auto px-3 py-1 font-normal text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                          >
+                            Contact directory
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
