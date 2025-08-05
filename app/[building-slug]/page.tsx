@@ -2745,12 +2745,8 @@ export default function VercelNavigation() {
                       key={filter}
                       onClick={() => {
                         setFeedActiveFilter(filter);
-                        // If clicking a filter other than "Travel here", switch to my-feed page
-                        if (filter !== "Travel here") {
-                          setCurrentPage("my-feed");
-                        } else {
-                          setCurrentPage("travel-here");
-                        }
+                        // Filter buttons within My feed should keep you on My feed
+                        // Don't change currentPage when clicking filter buttons
                       }}
                       className={cn(
                         "px-4 py-2 text-sm font-medium whitespace-nowrap rounded-lg transition-colors",
@@ -3060,8 +3056,8 @@ export default function VercelNavigation() {
               <div className="space-y-6">
                 {/* Header */}
                 <div className="space-y-2">
-                  <h1 className="text-2xl font-semibold text-gray-900">Travel here</h1>
-                  <p className="text-gray-600">Discover amazing travel destinations and experiences</p>
+                  <h1 className="text-2xl font-semibold text-gray-900">My feed</h1>
+                  <p className="text-gray-600">Explore our latest articles, tutorials, and insights</p>
                 </div>
 
                 {/* Search Bar */}
