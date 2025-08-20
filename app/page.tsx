@@ -98,6 +98,38 @@ export default function PublicPage() {
     },
   ];
 
+  const publicFeed = [
+    {
+      image:
+        "https://images.unsplash.com/photo-1515168833906-d2a3b82b302a?auto=format&fit=crop&w=1600&q=80",
+      imageAlt: "Networking event on the plaza",
+      category: "Community",
+      timestamp: "Public",
+      headline: "After‑hours Networking Night",
+      description:
+        "Open‑invite mixer for downtown professionals; meet neighbors and local teams.",
+    },
+    {
+      image: "/foodtruck.jpg",
+      imageAlt: "Food trucks",
+      category: "Programming",
+      timestamp: "Fridays",
+      headline: "Food Truck Fridays",
+      description:
+        "Rotating local favorites on the plaza with live music and lawn games.",
+    },
+    {
+      image:
+        "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80",
+      imageAlt: "Innovation talk",
+      category: "Talks",
+      timestamp: "Next week",
+      headline: "Downtown Innovation Talk",
+      description:
+        "A public speaker series featuring Houston founders and designers.",
+    },
+  ];
+
   return (
     <main className="min-h-screen flex flex-col bg-white">
       {/* Header */}
@@ -304,6 +336,29 @@ export default function PublicPage() {
                   />
                 ) : null}
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Public updates: open to everyone */}
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-6 py-16">
+          <div className="flex items-end justify-between mb-6">
+            <h2 className="text-2xl font-semibold">Public updates</h2>
+            <span className="text-sm text-gray-600">Open to everyone</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {publicFeed.map((item) => (
+              <ContentCard
+                key={item.headline}
+                image={item.image}
+                imageAlt={item.imageAlt}
+                category={item.category}
+                timestamp={item.timestamp}
+                headline={item.headline}
+                description={item.description}
+              />
             ))}
           </div>
         </div>
