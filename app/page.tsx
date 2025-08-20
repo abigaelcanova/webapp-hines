@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { SiteFooter } from "@/components/site-footer";
 import { ModernCarousel } from "@/components/modern-carousel";
 import { ContentCard } from "@/components/content-card";
+import { PublicBookingButton } from "@/components/public-booking";
 
 export default function PublicPage() {
   // Image-forward content modeled after logged-in styling
@@ -115,6 +116,18 @@ export default function PublicPage() {
               className="text-sm text-gray-900 hover:text-gray-700 font-medium"
             >
               About
+            </Link>
+            <Link
+              href="/neighborhood"
+              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
+            >
+              Neighborhood
+            </Link>
+            <Link
+              href="/availabilities"
+              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
+            >
+              Availabilities
             </Link>
             <Link
               href="/contact"
@@ -273,16 +286,24 @@ export default function PublicPage() {
           </div>
 
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {highlightCards.map((card) => (
-              <ContentCard
-                key={card.headline}
-                image={card.image}
-                imageAlt={card.imageAlt}
-                category={card.category}
-                timestamp={card.timestamp}
-                headline={card.headline}
-                description={card.description}
-              />
+            {highlightCards.map((card, idx) => (
+              <div key={card.headline} className="space-y-3">
+                <ContentCard
+                  image={card.image}
+                  imageAlt={card.imageAlt}
+                  category={card.category}
+                  timestamp={card.timestamp}
+                  headline={card.headline}
+                  description={card.description}
+                />
+                {/* Make first two items publicly bookable */}
+                {idx < 2 ? (
+                  <PublicBookingButton
+                    spaceName={card.headline}
+                    className="bg-[#BF1231] hover:bg-[#9f0e28] text-white w-full"
+                  />
+                ) : null}
+              </div>
             ))}
           </div>
         </div>
