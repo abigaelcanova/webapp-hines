@@ -277,23 +277,24 @@ export default function PublicPage() {
               Sign in for full details
             </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {amenityTiles.map((tile) => (
               <div
                 key={tile.title}
-                className="relative rounded-2xl overflow-hidden border"
+                className="group relative rounded-2xl overflow-hidden border bg-white"
               >
-                <img
-                  src={tile.image}
-                  alt={tile.title}
-                  className="w-full h-64 sm:h-72 object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <h3 className="text-white text-lg font-semibold">
+                <div className="aspect-[16/9] w-full overflow-hidden">
+                  <img
+                    src={tile.image}
+                    alt={tile.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  />
+                </div>
+                <div className="p-5">
+                  <h3 className="text-gray-900 text-base font-semibold">
                     {tile.title}
                   </h3>
-                  <p className="text-white/90 text-sm">{tile.subtitle}</p>
+                  <p className="text-gray-600 text-sm mt-1">{tile.subtitle}</p>
                 </div>
               </div>
             ))}
@@ -317,25 +318,26 @@ export default function PublicPage() {
             <ModernCarousel slides={spaceSlides} className="h-full" />
           </div>
 
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
             {highlightCards.map((card, idx) => (
-              <div key={card.headline} className="space-y-3">
-                <ContentCard
-                  image={card.image}
-                  imageAlt={card.imageAlt}
-                  category={card.category}
-                  timestamp={card.timestamp}
-                  headline={card.headline}
-                  description={card.description}
-                />
-                {/* Make first two items publicly bookable */}
-                {idx < 2 ? (
-                  <PublicBookingButton
-                    spaceName={card.headline}
-                    className="bg-[#BF1231] hover:bg-[#9f0e28] text-white w-full"
-                  />
-                ) : null}
-              </div>
+              <ContentCard
+                key={card.headline}
+                image={card.image}
+                imageAlt={card.imageAlt}
+                category={card.category}
+                timestamp={card.timestamp}
+                headline={card.headline}
+                description={card.description}
+                layout="vertical"
+                footer={
+                  idx < 2 ? (
+                    <PublicBookingButton
+                      spaceName={card.headline}
+                      className="bg-[#BF1231] hover:bg-[#9f0e28] text-white w-full"
+                    />
+                  ) : undefined
+                }
+              />
             ))}
           </div>
         </div>

@@ -42,11 +42,6 @@ export default function PublicAboutPage() {
             >
               Contact
             </Link>
-            <Link href="/login">
-              <Button className="bg-[#BF1231] hover:bg-[#9f0e28] text-white">
-                Tenant log in
-              </Button>
-            </Link>
           </div>
         </div>
       </header>
