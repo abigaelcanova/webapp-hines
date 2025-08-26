@@ -1,3 +1,4 @@
+"use client";
 /**
  * Public page: unauthenticated landing with "Tenant log in" entry to /login
  */
@@ -7,6 +8,25 @@ import { SiteFooter } from "@/components/site-footer";
 import { ModernCarousel } from "@/components/modern-carousel";
 import { ContentCard } from "@/components/content-card";
 import { PublicBookingButton } from "@/components/public-booking";
+import { useState, useMemo } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { ChevronDown, Building as BuildingIcon } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Slider } from "@/components/ui/slider";
 
 export default function PublicPage() {
   // Image-forward content modeled after logged-in styling
@@ -77,6 +97,8 @@ export default function PublicPage() {
       headline: "Innovation Summit Series",
       description:
         "Talks and workshops with industry leaders in tech and design.",
+      region: "South",
+      city: "Houston",
     },
     {
       image: "/images/content/EntireSpace-1.png",
@@ -86,6 +108,8 @@ export default function PublicPage() {
       headline: "Executive Boardroom",
       description:
         "Premium AV, seamless video conferencing, and concierge support.",
+      region: "South",
+      city: "Houston",
     },
     {
       image: "/images/content/exos-1-1.jpg",
@@ -95,6 +119,8 @@ export default function PublicPage() {
       headline: "Group Classes & Personal Training",
       description:
         "Studio sessions and coaching for strength, mobility, and recovery.",
+      region: "South",
+      city: "Houston",
     },
   ];
 
@@ -130,44 +156,243 @@ export default function PublicPage() {
     },
   ];
 
+  const buildings = [
+    {
+      name: "Hines Demo Building",
+      image: "/Hines.jpg",
+      region: "South",
+      city: "Houston",
+    },
+    {
+      name: "Williams Tower",
+      image:
+        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=120&h=120&fit=crop&crop=faces,center",
+      region: "South",
+      city: "Houston",
+    },
+    {
+      name: "JPMorgan Chase Tower",
+      image:
+        "https://images.unsplash.com/photo-1555109307-f7d9da25c244?w=120&h=120&fit=crop&crop=faces,center",
+      region: "South",
+      city: "Houston",
+    },
+    {
+      name: "717 Texas",
+      image:
+        "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=120&h=120&fit=crop&crop=faces,center",
+      region: "South",
+      city: "Houston",
+    },
+    {
+      name: "All Buildings",
+      image: "/images/logos/lighthouse.png",
+      region: "",
+      city: "",
+    },
+  ];
+  const [projectDropdownOpen, setProjectDropdownOpen] = useState(false);
+  const [primaryBuilding, setPrimaryBuilding] = useState<string>(
+    buildings[0].name
+  );
+  const selectedBuilding =
+    buildings.find((b) => b.name === primaryBuilding) || buildings[0];
+  const isPortfolio = primaryBuilding === "All Buildings";
+
+  // Portfolio filters for buildings
+  const regions = Array.from(
+    new Set(buildings.filter((b) => b.region).map((b) => b.region))
+  ).sort();
+  const cities = Array.from(
+    new Set(buildings.filter((b) => b.city).map((b) => b.city))
+  ).sort();
+  const [activeRegion, setActiveRegion] = useState<string>("All regions");
+  const [activeCity, setActiveCity] = useState<string>("All cities");
+
+  // Portfolio filters for spaces
+  const spaceRegions = Array.from(
+    new Set(highlightCards.filter((s) => s.region).map((s) => s.region))
+  ).sort();
+  const spaceCities = Array.from(
+    new Set(highlightCards.filter((s) => s.city).map((s) => s.city))
+  ).sort();
+  const [activeSpaceRegion, setActiveSpaceRegion] =
+    useState<string>("All regions");
+  const [activeSpaceCity, setActiveSpaceCity] = useState<string>("All cities");
+
+  // Unified availability search state
+  const [searchType, setSearchType] = useState<string>("Spaces");
+  const [searchRegion, setSearchRegion] = useState<string>("All regions");
+  const [searchCity, setSearchCity] = useState<string>("All cities");
+  const [searchDate, setSearchDate] = useState<string>("");
+  const [searchTime, setSearchTime] = useState<string>("");
+  const [searchDurationHrs, setSearchDurationHrs] = useState<number>(2);
+  const [leaseStartMonth, setLeaseStartMonth] = useState<string>("");
+  const [leaseStartYear, setLeaseStartYear] = useState<string>("");
+  const [leaseTermMonths, setLeaseTermMonths] = useState<number>(12);
+
+  const allRegions = useMemo(
+    () =>
+      Array.from(new Set([...(regions as string[]), ...spaceRegions])).sort(),
+    [regions, spaceRegions]
+  );
+  const allCities = useMemo(
+    () => Array.from(new Set([...(cities as string[]), ...spaceCities])).sort(),
+    [cities, spaceCities]
+  );
+
+  const searchResults = useMemo(() => {
+    // Combine spaces/amenities/events using highlightCards as mock data
+    const pool = highlightCards;
+    return pool
+      .filter((item) =>
+        searchType === "All"
+          ? true
+          : item.category.toLowerCase().includes(searchType.toLowerCase())
+      )
+      .filter((item) =>
+        isPortfolio
+          ? searchRegion === "All regions" || item.region === searchRegion
+          : true
+      )
+      .filter((item) =>
+        isPortfolio
+          ? searchCity === "All cities" || item.city === searchCity
+          : true
+      )
+      .filter(() => {
+        if (searchType === "Buildings") {
+          // Mock leasing filter: require a start month/year and term, accept most combos
+          return !!leaseStartMonth && !!leaseStartYear && leaseTermMonths >= 6;
+        }
+        // Mock availability filtering: require date/time present; longer duration narrows results
+        if (!searchDate || !searchTime) return true;
+        return searchDurationHrs <= 4; // simple demo rule
+      });
+  }, [
+    highlightCards,
+    isPortfolio,
+    searchType,
+    searchRegion,
+    searchCity,
+    searchDate,
+    searchTime,
+    searchDurationHrs,
+    leaseStartMonth,
+    leaseStartYear,
+    leaseTermMonths,
+  ]);
+
   return (
     <main className="min-h-screen flex flex-col bg-white">
       {/* Header */}
-      <header className="w-full">
-        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+      <header className="w-full sticky top-0 z-40 bg-[#F9FAFB] border-b">
+        <div className="w-full px-4 md:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img
-              src="/images/logos/Hines-Red-Logo-PNG.png"
-              alt="Hines"
-              className="h-6 w-auto"
-            />
+            <div className="h-8 w-8">
+              <img
+                src="/Hines/herebyhineslogo.png"
+                alt="Here by Hines Logo"
+                className="h-full w-full object-cover rounded-full"
+              />
+            </div>
+            <span className="text-lg font-medium text-black">Hines</span>
           </div>
-          <div className="flex items-center gap-6">
-            <Link
-              href="/about"
-              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
+          <div className="flex items-center gap-4">
+            <DropdownMenu
+              open={projectDropdownOpen}
+              onOpenChange={setProjectDropdownOpen}
             >
-              About
-            </Link>
-            <Link
-              href="/neighborhood"
-              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
-            >
-              Neighborhood
-            </Link>
-            <Link
-              href="/availabilities"
-              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
-            >
-              Availabilities
-            </Link>
-            <Link
-              href="/contact"
-              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
-            >
-              Contact
-            </Link>
-            <Link href="/login">
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="h-9 px-2 py-1 gap-2 hover:bg-muted"
+                >
+                  <Avatar className="h-6 w-6">
+                    <AvatarImage
+                      src={selectedBuilding.image || "/placeholder.svg"}
+                      alt={selectedBuilding.name}
+                    />
+                    <AvatarFallback className="bg-[#BF1231] text-white text-xs font-medium">
+                      <BuildingIcon className="h-4 w-4" />
+                    </AvatarFallback>
+                  </Avatar>
+                  <span className="font-medium truncate max-w-[180px]">
+                    {primaryBuilding}
+                  </span>
+                  <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-[320px] p-0 z-50">
+                <div className="p-2">
+                  <div className="px-2 py-1 text-sm font-medium text-muted-foreground">
+                    Buildings
+                  </div>
+                  <div className="space-y-1 max-h-64 overflow-y-auto">
+                    {buildings.map((building) => (
+                      <div
+                        key={building.name}
+                        className="group flex items-center justify-between rounded-md hover:bg-muted p-2 cursor-pointer"
+                        onClick={() => setPrimaryBuilding(building.name)}
+                      >
+                        <div className="flex items-center gap-2">
+                          <Avatar className="h-6 w-6">
+                            <AvatarImage
+                              src={building.image || "/placeholder.svg"}
+                              alt={building.name}
+                            />
+                            <AvatarFallback className="bg-[#BF1231] text-white text-xs font-medium">
+                              <BuildingIcon className="h-4 w-4" />
+                            </AvatarFallback>
+                          </Avatar>
+                          <span className="truncate">{building.name}</span>
+                        </div>
+                        {primaryBuilding === building.name && (
+                          <span className="text-xs text-[#BF1231]">
+                            Selected
+                          </span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <DropdownMenuSeparator />
+                  <div className="p-2">
+                    <Link href="/login">
+                      <Button className="w-full bg-[#BF1231] hover:bg-[#9f0e28] text-white">
+                        Tenant log in
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <nav className="hidden md:flex items-center gap-6">
+              <Link
+                href="/about"
+                className="text-sm text-gray-900 hover:text-gray-700 font-medium"
+              >
+                About
+              </Link>
+              <Link
+                href="/neighborhood"
+                className="text-sm text-gray-900 hover:text-gray-700 font-medium"
+              >
+                Neighborhood
+              </Link>
+              <Link
+                href="/availabilities"
+                className="text-sm text-gray-900 hover:text-gray-700 font-medium"
+              >
+                Availabilities
+              </Link>
+              <Link
+                href="/contact"
+                className="text-sm text-gray-900 hover:text-gray-700 font-medium"
+              >
+                Contact
+              </Link>
+            </nav>
+            <Link href="/login" className="hidden md:inline-flex">
               <Button className="bg-[#BF1231] hover:bg-[#9f0e28] text-white">
                 Tenant log in
               </Button>
@@ -175,7 +400,6 @@ export default function PublicPage() {
           </div>
         </div>
       </header>
-
       {/* Hero */}
       <section className="relative isolate">
         <div className="absolute inset-0 -z-10">
@@ -190,7 +414,9 @@ export default function PublicPage() {
           <div className="max-w-5xl">
             <div className="flex items-center gap-2">
               <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-white">
-                Welcome to Texas Tower
+                {isPortfolio
+                  ? "Explore our portfolio"
+                  : `Welcome to ${primaryBuilding}`}
               </h1>
               {/* Overlapping badges inline with heading */}
               <div className="relative h-28 w-48 hidden sm:block">
@@ -209,8 +435,9 @@ export default function PublicPage() {
               </div>
             </div>
             <p className="mt-4 text-lg text-white/90">
-              Discover premier workplaces, events, and amenities. Explore our
-              buildings and community offerings.
+              {isPortfolio
+                ? "Discover workplaces, amenities, and events across our portfolio."
+                : "Discover premier workplaces, events, and amenities. Explore our buildings and community offerings."}
             </p>
             <div className="mt-8 flex gap-3">
               <Link href="/login">
@@ -226,100 +453,416 @@ export default function PublicPage() {
         </div>
       </section>
 
-      {/* About: building overview */}
-      <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          <div className="order-2 lg:order-1">
-            <h2 className="text-2xl font-semibold">About Texas Tower</h2>
-            <p className="mt-4 text-gray-700">
-              An accelerator for human potential—Texas Tower brings
-              hospitality-forward service, flexible amenity spaces, and skyline
-              views to the heart of downtown.
-            </p>
-            <ul className="mt-6 space-y-2 text-gray-700">
-              <li>• Mixed-use lobby experience with food and drink options</li>
-              <li>• Modern fitness center and adaptable studio space</li>
-              <li>• Tenant-only rooftop terraces and executive lounges</li>
-              <li>• High-tech conference and event spaces</li>
-            </ul>
-            <div className="mt-6 flex gap-3">
-              <Link href="/explore" className="inline-flex">
-                <Button variant="outline">Explore amenities</Button>
-              </Link>
-              <Link href="/login" className="inline-flex">
-                <Button className="bg-[#BF1231] hover:bg-[#9f0e28] text-white">
-                  Tenant log in
-                </Button>
-              </Link>
+      {/* Availability Search */}
+      <section className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-6 py-6">
+          <div className="rounded-xl border bg-white shadow-sm p-4 md:p-5">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-base font-semibold">Search availability</h3>
+              <span className="text-xs text-gray-500">
+                Find buildings, spaces, and amenities by time
+              </span>
             </div>
-          </div>
-          <div className="order-1 lg:order-2">
-            <div className="rounded-2xl overflow-hidden border">
-              <img
-                src="/Hines/texastower_banner.jpg"
-                alt="Texas Tower"
-                className="w-full h-80 object-cover"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
+              <div className="md:col-span-2">
+                <label className="text-xs text-gray-600">Type</label>
+                <Select value={searchType} onValueChange={setSearchType}>
+                  <SelectTrigger className="mt-1">
+                    <SelectValue placeholder="Spaces" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Spaces">Spaces</SelectItem>
+                    <SelectItem value="Wellness">Amenities</SelectItem>
+                    <SelectItem value="Events">Events</SelectItem>
+                    <SelectItem value="Buildings">Buildings</SelectItem>
+                    <SelectItem value="All">All</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              {isPortfolio && (
+                <>
+                  <div className="md:col-span-2">
+                    <label className="text-xs text-gray-600">Region</label>
+                    <Select
+                      value={searchRegion}
+                      onValueChange={setSearchRegion}
+                    >
+                      <SelectTrigger className="mt-1">
+                        <SelectValue placeholder="All regions" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="All regions">All regions</SelectItem>
+                        {allRegions.map((r) => (
+                          <SelectItem key={r} value={r}>
+                            {r}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="text-xs text-gray-600">City</label>
+                    <Select value={searchCity} onValueChange={setSearchCity}>
+                      <SelectTrigger className="mt-1">
+                        <SelectValue placeholder="All cities" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="All cities">All cities</SelectItem>
+                        {allCities.map((c) => (
+                          <SelectItem key={c} value={c}>
+                            {c}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </>
+              )}
+              <div className="md:col-span-2">
+                <label className="text-xs text-gray-600">Date</label>
+                <Input
+                  type="date"
+                  className="mt-1"
+                  value={searchDate}
+                  onChange={(e) => setSearchDate(e.target.value)}
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="text-xs text-gray-600">Start time</label>
+                <Input
+                  type="time"
+                  className="mt-1"
+                  value={searchTime}
+                  onChange={(e) => setSearchTime(e.target.value)}
+                />
+              </div>
+              <div className="md:col-span-3">
+                <label className="text-xs text-gray-600">Duration (hrs)</label>
+                <div className="mt-2 flex items-center gap-3">
+                  <Slider
+                    value={[searchDurationHrs]}
+                    onValueChange={(v) => setSearchDurationHrs(v[0])}
+                    min={0.5}
+                    max={8}
+                    step={0.5}
+                    className="flex-1"
+                  />
+                  <span className="w-10 text-right text-sm text-gray-700">
+                    {searchDurationHrs}
+                  </span>
+                </div>
+              </div>
+              {/* Leasing controls for Buildings */}
+              {searchType === "Buildings" && (
+                <>
+                  <div className="md:col-span-2">
+                    <label className="text-xs text-gray-600">
+                      Lease start month
+                    </label>
+                    <Select
+                      value={leaseStartMonth}
+                      onValueChange={setLeaseStartMonth}
+                    >
+                      <SelectTrigger className="mt-1">
+                        <SelectValue placeholder="Month" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[
+                          "Jan",
+                          "Feb",
+                          "Mar",
+                          "Apr",
+                          "May",
+                          "Jun",
+                          "Jul",
+                          "Aug",
+                          "Sep",
+                          "Oct",
+                          "Nov",
+                          "Dec",
+                        ].map((m) => (
+                          <SelectItem key={m} value={m}>
+                            {m}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="text-xs text-gray-600">
+                      Lease start year
+                    </label>
+                    <Select
+                      value={leaseStartYear}
+                      onValueChange={setLeaseStartYear}
+                    >
+                      <SelectTrigger className="mt-1">
+                        <SelectValue placeholder="Year" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[2025, 2026, 2027, 2028, 2029].map((y) => (
+                          <SelectItem key={y} value={String(y)}>
+                            {y}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="md:col-span-3">
+                    <label className="text-xs text-gray-600">
+                      Lease term (months)
+                    </label>
+                    <div className="mt-2 flex items-center gap-3">
+                      <Slider
+                        value={[leaseTermMonths]}
+                        onValueChange={(v) => setLeaseTermMonths(v[0])}
+                        min={6}
+                        max={120}
+                        step={6}
+                        className="flex-1"
+                      />
+                      <span className="w-12 text-right text-sm text-gray-700">
+                        {leaseTermMonths}
+                      </span>
+                    </div>
+                  </div>
+                </>
+              )}
+              <div className="md:col-span-1 flex items-end">
+                <Button className="w-full bg-[#BF1231] hover:bg-[#9f0e28] text-white">
+                  Search
+                </Button>
+              </div>
+            </div>
+            <div className="mt-4 text-xs text-gray-600">
+              {searchResults.length} results
+            </div>
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {searchResults.map((card) => (
+                <ContentCard
+                  key={`sr-${card.headline}`}
+                  image={card.image}
+                  imageAlt={card.imageAlt}
+                  category={card.category}
+                  timestamp={card.timestamp}
+                  headline={card.headline}
+                  description={card.description}
+                  layout="vertical"
+                />
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Amenities: image-forward grid */}
-      <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-6 py-16">
-          <div className="flex items-end justify-between mb-6">
-            <h2 className="text-2xl font-semibold">Amenities</h2>
-            <Link
-              href="/login"
-              className="text-sm text-gray-600 hover:text-gray-900"
-            >
-              Sign in for full details
-            </Link>
+      {/* Portfolio vs Building-specific sections */}
+      {isPortfolio ? (
+        <section className="bg-white">
+          <div className="max-w-7xl mx-auto px-6 py-16">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-semibold">Our buildings</h2>
+              <div className="flex items-center gap-3 text-sm">
+                <select
+                  className="border rounded-md h-9 px-2 bg-white text-gray-900"
+                  value={activeRegion}
+                  onChange={(e) => setActiveRegion(e.target.value)}
+                >
+                  <option>All regions</option>
+                  {regions.map((r) => (
+                    <option key={r}>{r}</option>
+                  ))}
+                </select>
+                <select
+                  className="border rounded-md h-9 px-2 bg-white text-gray-900"
+                  value={activeCity}
+                  onChange={(e) => setActiveCity(e.target.value)}
+                >
+                  <option>All cities</option>
+                  {cities.map((c) => (
+                    <option key={c}>{c}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {buildings
+                .filter((b) => b.name !== "All Buildings")
+                .filter((b) =>
+                  activeRegion === "All regions"
+                    ? true
+                    : b.region === activeRegion
+                )
+                .filter((b) =>
+                  activeCity === "All cities" ? true : b.city === activeCity
+                )
+                .map((b) => (
+                  <div
+                    key={b.name}
+                    className="rounded-2xl overflow-hidden border bg-white"
+                  >
+                    <div className="aspect-[16/9] w-full overflow-hidden">
+                      <img
+                        src={b.image}
+                        alt={b.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="p-5">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-gray-900 text-base font-semibold truncate mr-3">
+                          {b.name}
+                        </h3>
+                        <Link href="/login" className="inline-flex">
+                          <Button variant="outline" size="sm">
+                            View
+                          </Button>
+                        </Link>
+                      </div>
+                      <div className="mt-2 text-xs text-gray-600">
+                        {b.region} • {b.city}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {amenityTiles.map((tile) => (
-              <div
-                key={tile.title}
-                className="group relative rounded-2xl overflow-hidden border bg-white"
-              >
-                <div className="aspect-[16/9] w-full overflow-hidden">
-                  <img
-                    src={tile.image}
-                    alt={tile.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                  />
-                </div>
-                <div className="p-5">
-                  <h3 className="text-gray-900 text-base font-semibold">
-                    {tile.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm mt-1">{tile.subtitle}</p>
+        </section>
+      ) : (
+        <>
+          {/* About: building overview */}
+          <section className="bg-white">
+            <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="order-2 lg:order-1">
+                <h2 className="text-2xl font-semibold">About Texas Tower</h2>
+                <p className="mt-4 text-gray-700">
+                  An accelerator for human potential—Texas Tower brings
+                  hospitality-forward service, flexible amenity spaces, and
+                  skyline views to the heart of downtown.
+                </p>
+                <ul className="mt-6 space-y-2 text-gray-700">
+                  <li>
+                    • Mixed-use lobby experience with food and drink options
+                  </li>
+                  <li>• Modern fitness center and adaptable studio space</li>
+                  <li>• Tenant-only rooftop terraces and executive lounges</li>
+                  <li>• High-tech conference and event spaces</li>
+                </ul>
+                <div className="mt-6 flex gap-3">
+                  <Link href="/explore" className="inline-flex">
+                    <Button variant="outline">Explore amenities</Button>
+                  </Link>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              <div className="order-1 lg:order-2">
+                <div className="rounded-2xl overflow-hidden border">
+                  <img
+                    src="/Hines/texastower_banner.jpg"
+                    alt="Texas Tower"
+                    className="w-full h-80 object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Amenities: image-forward grid */}
+          <section className="bg-white">
+            <div className="max-w-7xl mx-auto px-6 py-16">
+              <div className="flex items-end justify-between mb-6">
+                <h2 className="text-2xl font-semibold">Amenities</h2>
+                <Link
+                  href="/login"
+                  className="text-sm text-gray-600 hover:text-gray-900"
+                >
+                  Sign in for full details
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {amenityTiles.map((tile) => (
+                  <div
+                    key={tile.title}
+                    className="group relative rounded-2xl overflow-hidden border bg-white"
+                  >
+                    <div className="aspect-[16/9] w-full overflow-hidden">
+                      <img
+                        src={tile.image}
+                        alt={tile.title}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                      />
+                    </div>
+                    <div className="p-5">
+                      <h3 className="text-gray-900 text-base font-semibold">
+                        {tile.title}
+                      </h3>
+                      <p className="text-gray-600 text-sm mt-1">
+                        {tile.subtitle}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </>
+      )}
 
       {/* Spaces: carousel + supporting cards */}
       <section className="bg-[#F9FAFB]">
         <div className="max-w-7xl mx-auto px-6 py-16">
           <div className="flex items-end justify-between mb-6">
             <h2 className="text-2xl font-semibold">Spaces</h2>
-            <Link
-              href="/explore"
-              className="text-sm text-gray-600 hover:text-gray-900"
-            >
-              Explore availability
-            </Link>
+            <div className="flex items-center gap-3">
+              {isPortfolio && (
+                <>
+                  <select
+                    className="border rounded-md h-9 px-2 bg-white text-gray-900 text-sm"
+                    value={activeSpaceRegion}
+                    onChange={(e) => setActiveSpaceRegion(e.target.value)}
+                  >
+                    <option>All regions</option>
+                    {spaceRegions.map((r) => (
+                      <option key={r}>{r}</option>
+                    ))}
+                  </select>
+                  <select
+                    className="border rounded-md h-9 px-2 bg-white text-gray-900 text-sm"
+                    value={activeSpaceCity}
+                    onChange={(e) => setActiveSpaceCity(e.target.value)}
+                  >
+                    <option>All cities</option>
+                    {spaceCities.map((c) => (
+                      <option key={c}>{c}</option>
+                    ))}
+                  </select>
+                </>
+              )}
+              <Link
+                href="/explore"
+                className="text-sm text-gray-600 hover:text-gray-900"
+              >
+                Explore availability
+              </Link>
+            </div>
           </div>
           <div className="h-72 sm:h-96 rounded-2xl overflow-hidden">
             <ModernCarousel slides={spaceSlides} className="h-full" />
           </div>
 
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {highlightCards.map((card, idx) => (
+            {(isPortfolio
+              ? highlightCards
+                  .filter((s) =>
+                    activeSpaceRegion === "All regions"
+                      ? true
+                      : s.region === activeSpaceRegion
+                  )
+                  .filter((s) =>
+                    activeSpaceCity === "All cities"
+                      ? true
+                      : s.city === activeSpaceCity
+                  )
+              : highlightCards
+            ).map((card, idx) => (
               <ContentCard
                 key={card.headline}
                 image={card.image}
