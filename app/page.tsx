@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function PublicPage() {
   // Image-forward content modeled after logged-in styling
@@ -162,33 +163,61 @@ export default function PublicPage() {
       image: "/Hines.jpg",
       region: "South",
       city: "Houston",
+      availableFrom: "2025-06",
+      openTenancy: true,
+      floors: [
+        { floor: 18, availableFrom: "2025-06", openTenancy: true, rsf: 12000 },
+        { floor: 22, availableFrom: "2025-09", openTenancy: false, rsf: 18500 },
+        { floor: 30, availableFrom: "2026-01", openTenancy: false, rsf: 20000 },
+      ],
     },
     {
       name: "Williams Tower",
       image:
-        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=120&h=120&fit=crop&crop=faces,center",
+        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80",
       region: "South",
       city: "Houston",
+      availableFrom: "2025-09",
+      openTenancy: false,
+      floors: [
+        { floor: 14, availableFrom: "2025-09", openTenancy: false, rsf: 15000 },
+        { floor: 27, availableFrom: "2025-12", openTenancy: false, rsf: 18000 },
+      ],
     },
     {
       name: "JPMorgan Chase Tower",
       image:
-        "https://images.unsplash.com/photo-1555109307-f7d9da25c244?w=120&h=120&fit=crop&crop=faces,center",
+        "https://images.unsplash.com/photo-1555109307-f7d9da25c244?auto=format&fit=crop&w=1600&q=80",
       region: "South",
       city: "Houston",
+      availableFrom: "2026-01",
+      openTenancy: false,
+      floors: [
+        { floor: 9, availableFrom: "2026-01", openTenancy: false, rsf: 10000 },
+        { floor: 25, availableFrom: "2026-06", openTenancy: false, rsf: 16000 },
+      ],
     },
     {
       name: "717 Texas",
       image:
-        "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=120&h=120&fit=crop&crop=faces,center",
+        "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1600&q=80",
       region: "South",
       city: "Houston",
+      availableFrom: "2025-07",
+      openTenancy: true,
+      floors: [
+        { floor: 12, availableFrom: "2025-07", openTenancy: true, rsf: 11000 },
+        { floor: 17, availableFrom: "2025-10", openTenancy: false, rsf: 14500 },
+      ],
     },
     {
       name: "All Buildings",
       image: "/images/logos/lighthouse.png",
       region: "",
       city: "",
+      availableFrom: "",
+      openTenancy: false,
+      floors: [],
     },
   ];
   const [projectDropdownOpen, setProjectDropdownOpen] = useState(false);
@@ -230,6 +259,7 @@ export default function PublicPage() {
   const [leaseStartMonth, setLeaseStartMonth] = useState<string>("");
   const [leaseStartYear, setLeaseStartYear] = useState<string>("");
   const [leaseTermMonths, setLeaseTermMonths] = useState<number>(12);
+  const [showOpenOnly, setShowOpenOnly] = useState<boolean>(false);
 
   const allRegions = useMemo(
     () =>
@@ -242,6 +272,83 @@ export default function PublicPage() {
   );
 
   const searchResults = useMemo(() => {
+    // Helper to parse YYYY-MM
+    const toYearMonth = (y: string, m: string) =>
+      `${y}-${String(
+        (
+          [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ] as const
+        ).indexOf(m as never) + 1
+      ).padStart(2, "0")}`;
+
+    if (searchType === "Buildings") {
+      // Build from buildings list
+      let items = buildings.filter((b) => b.name !== "All Buildings");
+      if (isPortfolio && searchRegion !== "All regions")
+        items = items.filter((b) => b.region === searchRegion);
+      if (isPortfolio && searchCity !== "All cities")
+        items = items.filter((b) => b.city === searchCity);
+
+      // Evaluate open tenancy with basic logic
+      const desiredStart =
+        leaseStartMonth && leaseStartYear
+          ? toYearMonth(leaseStartYear, leaseStartMonth)
+          : "";
+      const results = items
+        .map((b) => {
+          const nextOpen = b.availableFrom || "";
+          const isOpenNow = b.openTenancy;
+          const fitsLease = desiredStart
+            ? (isOpenNow || desiredStart >= nextOpen) && leaseTermMonths >= 6
+            : true;
+
+          // Evaluate floor-level matches
+          const matchedFloors = (b.floors || []).filter((f: any) => {
+            if (showOpenOnly) return f.openTenancy;
+            if (!desiredStart) return true;
+            return f.openTenancy || desiredStart >= f.availableFrom;
+          });
+          const floorsSummary = matchedFloors.length
+            ? `Open floors: ${matchedFloors
+                .slice(0, 4)
+                .map((f: any) => f.floor)
+                .join(", ")}${matchedFloors.length > 4 ? "…" : ""}`
+            : "No matching floors";
+
+          return {
+            image: b.image,
+            imageAlt: b.name,
+            category: "Buildings",
+            timestamp: isOpenNow
+              ? "Open tenancy"
+              : nextOpen
+              ? `Next open: ${nextOpen}`
+              : "",
+            headline: b.name,
+            description: `${b.region} • ${b.city} • ${floorsSummary}`,
+            region: b.region,
+            city: b.city,
+            openNow: isOpenNow,
+            fitsLease,
+          };
+        })
+        .filter((r) => (showOpenOnly ? r.openNow : true))
+        .filter((r) => r.fitsLease);
+      return results;
+    }
+
     // Combine spaces/amenities/events using highlightCards as mock data
     const pool = highlightCards;
     return pool
@@ -261,15 +368,11 @@ export default function PublicPage() {
           : true
       )
       .filter(() => {
-        if (searchType === "Buildings") {
-          // Mock leasing filter: require a start month/year and term, accept most combos
-          return !!leaseStartMonth && !!leaseStartYear && leaseTermMonths >= 6;
-        }
-        // Mock availability filtering: require date/time present; longer duration narrows results
         if (!searchDate || !searchTime) return true;
         return searchDurationHrs <= 4; // simple demo rule
       });
   }, [
+    buildings,
     highlightCards,
     isPortfolio,
     searchType,
@@ -281,6 +384,7 @@ export default function PublicPage() {
     leaseStartMonth,
     leaseStartYear,
     leaseTermMonths,
+    showOpenOnly,
   ]);
 
   return (
@@ -410,7 +514,7 @@ export default function PublicPage() {
           />
           <div className="absolute inset-0 bg-black/30" />
         </div>
-        <div className="max-w-7xl mx-auto px-6 py-28 sm:py-36">
+        <div className="max-w-[1440px] mx-auto px-6 py-28 sm:py-36">
           <div className="max-w-5xl">
             <div className="flex items-center gap-2">
               <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-white">
@@ -453,212 +557,12 @@ export default function PublicPage() {
         </div>
       </section>
 
-      {/* Availability Search */}
-      <section className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-6 py-6">
-          <div className="rounded-xl border bg-white shadow-sm p-4 md:p-5">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-base font-semibold">Search availability</h3>
-              <span className="text-xs text-gray-500">
-                Find buildings, spaces, and amenities by time
-              </span>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
-              <div className="md:col-span-2">
-                <label className="text-xs text-gray-600">Type</label>
-                <Select value={searchType} onValueChange={setSearchType}>
-                  <SelectTrigger className="mt-1">
-                    <SelectValue placeholder="Spaces" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Spaces">Spaces</SelectItem>
-                    <SelectItem value="Wellness">Amenities</SelectItem>
-                    <SelectItem value="Events">Events</SelectItem>
-                    <SelectItem value="Buildings">Buildings</SelectItem>
-                    <SelectItem value="All">All</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              {isPortfolio && (
-                <>
-                  <div className="md:col-span-2">
-                    <label className="text-xs text-gray-600">Region</label>
-                    <Select
-                      value={searchRegion}
-                      onValueChange={setSearchRegion}
-                    >
-                      <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="All regions" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="All regions">All regions</SelectItem>
-                        {allRegions.map((r) => (
-                          <SelectItem key={r} value={r}>
-                            {r}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="text-xs text-gray-600">City</label>
-                    <Select value={searchCity} onValueChange={setSearchCity}>
-                      <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="All cities" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="All cities">All cities</SelectItem>
-                        {allCities.map((c) => (
-                          <SelectItem key={c} value={c}>
-                            {c}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </>
-              )}
-              <div className="md:col-span-2">
-                <label className="text-xs text-gray-600">Date</label>
-                <Input
-                  type="date"
-                  className="mt-1"
-                  value={searchDate}
-                  onChange={(e) => setSearchDate(e.target.value)}
-                />
-              </div>
-              <div className="md:col-span-2">
-                <label className="text-xs text-gray-600">Start time</label>
-                <Input
-                  type="time"
-                  className="mt-1"
-                  value={searchTime}
-                  onChange={(e) => setSearchTime(e.target.value)}
-                />
-              </div>
-              <div className="md:col-span-3">
-                <label className="text-xs text-gray-600">Duration (hrs)</label>
-                <div className="mt-2 flex items-center gap-3">
-                  <Slider
-                    value={[searchDurationHrs]}
-                    onValueChange={(v) => setSearchDurationHrs(v[0])}
-                    min={0.5}
-                    max={8}
-                    step={0.5}
-                    className="flex-1"
-                  />
-                  <span className="w-10 text-right text-sm text-gray-700">
-                    {searchDurationHrs}
-                  </span>
-                </div>
-              </div>
-              {/* Leasing controls for Buildings */}
-              {searchType === "Buildings" && (
-                <>
-                  <div className="md:col-span-2">
-                    <label className="text-xs text-gray-600">
-                      Lease start month
-                    </label>
-                    <Select
-                      value={leaseStartMonth}
-                      onValueChange={setLeaseStartMonth}
-                    >
-                      <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="Month" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {[
-                          "Jan",
-                          "Feb",
-                          "Mar",
-                          "Apr",
-                          "May",
-                          "Jun",
-                          "Jul",
-                          "Aug",
-                          "Sep",
-                          "Oct",
-                          "Nov",
-                          "Dec",
-                        ].map((m) => (
-                          <SelectItem key={m} value={m}>
-                            {m}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="text-xs text-gray-600">
-                      Lease start year
-                    </label>
-                    <Select
-                      value={leaseStartYear}
-                      onValueChange={setLeaseStartYear}
-                    >
-                      <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="Year" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {[2025, 2026, 2027, 2028, 2029].map((y) => (
-                          <SelectItem key={y} value={String(y)}>
-                            {y}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="md:col-span-3">
-                    <label className="text-xs text-gray-600">
-                      Lease term (months)
-                    </label>
-                    <div className="mt-2 flex items-center gap-3">
-                      <Slider
-                        value={[leaseTermMonths]}
-                        onValueChange={(v) => setLeaseTermMonths(v[0])}
-                        min={6}
-                        max={120}
-                        step={6}
-                        className="flex-1"
-                      />
-                      <span className="w-12 text-right text-sm text-gray-700">
-                        {leaseTermMonths}
-                      </span>
-                    </div>
-                  </div>
-                </>
-              )}
-              <div className="md:col-span-1 flex items-end">
-                <Button className="w-full bg-[#BF1231] hover:bg-[#9f0e28] text-white">
-                  Search
-                </Button>
-              </div>
-            </div>
-            <div className="mt-4 text-xs text-gray-600">
-              {searchResults.length} results
-            </div>
-            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {searchResults.map((card) => (
-                <ContentCard
-                  key={`sr-${card.headline}`}
-                  image={card.image}
-                  imageAlt={card.imageAlt}
-                  category={card.category}
-                  timestamp={card.timestamp}
-                  headline={card.headline}
-                  description={card.description}
-                  layout="vertical"
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Availability Search moved to /availabilities */}
 
       {/* Portfolio vs Building-specific sections */}
       {isPortfolio ? (
         <section className="bg-white">
-          <div className="max-w-7xl mx-auto px-6 py-16">
+          <div className="max-w-[1280px] mx-auto px-6 py-16">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-semibold">Our buildings</h2>
               <div className="flex items-center gap-3 text-sm">
@@ -731,7 +635,7 @@ export default function PublicPage() {
         <>
           {/* About: building overview */}
           <section className="bg-white">
-            <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div className="max-w-[1280px] mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="order-2 lg:order-1">
                 <h2 className="text-2xl font-semibold">About Texas Tower</h2>
                 <p className="mt-4 text-gray-700">
@@ -767,7 +671,7 @@ export default function PublicPage() {
 
           {/* Amenities: image-forward grid */}
           <section className="bg-white">
-            <div className="max-w-7xl mx-auto px-6 py-16">
+            <div className="max-w-[1280px] mx-auto px-6 py-16">
               <div className="flex items-end justify-between mb-6">
                 <h2 className="text-2xl font-semibold">Amenities</h2>
                 <Link
@@ -808,7 +712,7 @@ export default function PublicPage() {
 
       {/* Spaces: carousel + supporting cards */}
       <section className="bg-[#F9FAFB]">
-        <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="max-w-[1280px] mx-auto px-6 py-16">
           <div className="flex items-end justify-between mb-6">
             <h2 className="text-2xl font-semibold">Spaces</h2>
             <div className="flex items-center gap-3">
@@ -888,7 +792,7 @@ export default function PublicPage() {
 
       {/* Public updates: open to everyone */}
       <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="max-w-[1280px] mx-auto px-6 py-16">
           <div className="flex items-end justify-between mb-6">
             <h2 className="text-2xl font-semibold">Public updates</h2>
             <span className="text-sm text-gray-600">Open to everyone</span>
