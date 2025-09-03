@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { SiteFooter } from "@/components/site-footer";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default function PublicAboutPage() {
   return (
@@ -72,6 +78,80 @@ export default function PublicAboutPage() {
                 </ul>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQs */}
+      <section className="bg-[#F9FAFB]">
+        <div className="max-w-none mx-auto px-12 py-16">
+          <h2 className="text-2xl font-semibold text-gray-900">FAQs</h2>
+          <p className="mt-2 text-gray-600">
+            Common questions about Texas Tower.
+          </p>
+          <div className="mt-6 rounded-2xl border bg-white p-4">
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="q1">
+                <AccordionTrigger>
+                  What are the building hours?
+                </AccordionTrigger>
+                <AccordionContent>
+                  The building is accessible to tenants 24/7 with keycard
+                  access. Lobby concierge services operate weekdays from 7:00am
+                  to 7:00pm.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q2">
+                <AccordionTrigger>
+                  Where is the parking and how do I enroll?
+                </AccordionTrigger>
+                <AccordionContent>
+                  On‑site garage entry is on Texas Avenue. Monthly parking can
+                  be set up through the property management office; visitor
+                  parking is available with validation from select tenants.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q3">
+                <AccordionTrigger>
+                  How do I book conference rooms and event space?
+                </AccordionTrigger>
+                <AccordionContent>
+                  Tenants can book through the Here by Hines app. For large
+                  events, contact our events team for staffing, catering, and AV
+                  support.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q4">
+                <AccordionTrigger>
+                  Is there on‑site fitness and wellness programming?
+                </AccordionTrigger>
+                <AccordionContent>
+                  Yes—our fitness center includes lockers and showers, with
+                  daily group classes and personal training available for
+                  tenants.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q5">
+                <AccordionTrigger>
+                  What’s the guest check‑in process?
+                </AccordionTrigger>
+                <AccordionContent>
+                  Guests should register in advance via the app. Upon arrival,
+                  they will be issued a temporary badge at the lobby desk with a
+                  government ID.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q6">
+                <AccordionTrigger>
+                  Who do I contact for maintenance or cleaning?
+                </AccordionTrigger>
+                <AccordionContent>
+                  Submit requests through the app or email the property
+                  management team. For urgent issues, call the lobby desk for
+                  immediate assistance.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>

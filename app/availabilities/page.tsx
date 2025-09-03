@@ -32,6 +32,20 @@ export default function AvailabilitiesPage() {
   const [leaseStartYear, setLeaseStartYear] = useState<string>("");
   const [leaseTermMonths, setLeaseTermMonths] = useState<number>(12);
   const [showOpenOnly, setShowOpenOnly] = useState<boolean>(false);
+  const [searchBuildingName, setSearchBuildingName] =
+    useState<string>("All buildings");
+  // Merchant directory filters
+  const MERCHANT_CATEGORIES = [
+    "All categories",
+    "Dining",
+    "Cafe",
+    "Retail",
+    "Wellness",
+    "Services",
+  ] as const;
+  const [merchantCategory, setMerchantCategory] =
+    useState<string>("All categories");
+  const [merchantQuery, setMerchantQuery] = useState<string>("");
 
   // Minimal data reused from landing for search demo
   const highlightCards = [
@@ -172,6 +186,131 @@ export default function AvailabilitiesPage() {
       region: "Northeast",
       city: "New York",
       neighborhoodCategory: "Culture & Arts",
+    },
+  ];
+
+  // Merchant directory mock data
+  const merchants = [
+    {
+      name: "Atrium Cafe",
+      image:
+        "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=1600&q=80",
+      category: "Cafe",
+      tags: ["coffee", "pastries"],
+      buildingName: "Texas Tower",
+      region: "South",
+      city: "Houston",
+      blurb: "Specialty coffee, fresh-baked pastries, and grab‑and‑go bites.",
+    },
+    {
+      name: "Market Kitchen",
+      image:
+        "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1600&q=80",
+      category: "Dining",
+      tags: ["lunch", "bowls", "salads"],
+      buildingName: "Texas Tower",
+      region: "South",
+      city: "Houston",
+      blurb: "Seasonal bowls and salads with plenty of vegetarian options.",
+    },
+    {
+      name: "Ridgewell Retail",
+      image:
+        "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80",
+      category: "Retail",
+      tags: ["convenience", "snacks"],
+      buildingName: "Hines Demo Building",
+      region: "South",
+      city: "Houston",
+      blurb: "Everyday essentials, snacks, and office supplies.",
+    },
+    {
+      name: "Studio Stretch",
+      image:
+        "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1600&q=80",
+      category: "Wellness",
+      tags: ["yoga", "mobility"],
+      buildingName: "Texas Tower",
+      region: "South",
+      city: "Houston",
+      blurb: "Daily yoga and mobility classes to recharge during the day.",
+    },
+    {
+      name: "North End Deli",
+      image:
+        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80",
+      category: "Dining",
+      tags: ["sandwiches"],
+      buildingName: "Downtown Tower",
+      region: "Northeast",
+      city: "New York",
+      blurb: "Classic deli sandwiches and soups made to order.",
+    },
+    {
+      name: "Green & Co.",
+      image:
+        "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1600&q=80",
+      category: "Dining",
+      tags: ["salads", "bowls"],
+      buildingName: "Seaport Center",
+      region: "Northeast",
+      city: "Boston",
+      blurb: "Build‑your‑own salads with locally sourced produce.",
+    },
+    {
+      name: "Thread & Needle",
+      image:
+        "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=1600&q=80",
+      category: "Retail",
+      tags: ["tailor", "dry cleaning"],
+      buildingName: "Market Street Hub",
+      region: "West",
+      city: "San Francisco",
+      blurb: "On‑site tailoring and dry cleaning drop‑off services.",
+    },
+    {
+      name: "Cycle Works",
+      image:
+        "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=1600&q=80",
+      category: "Services",
+      tags: ["bike repair"],
+      buildingName: "Pioneer Place",
+      region: "West",
+      city: "Seattle",
+      blurb: "Same‑day bike repair and tune‑ups for commuters.",
+    },
+    {
+      name: "Sunrise Smoothies",
+      image:
+        "https://images.unsplash.com/photo-1542444459-db63c9f50830?auto=format&fit=crop&w=1600&q=80",
+      category: "Cafe",
+      tags: ["smoothies", "juice"],
+      buildingName: "Lakeside Tower",
+      region: "Midwest",
+      city: "Chicago",
+      blurb: "Cold‑pressed juices and protein smoothies.",
+    },
+    {
+      name: "Fit Lab",
+      image:
+        "https://images.unsplash.com/photo-1534367610401-9f19cf2600d0?auto=format&fit=crop&w=1600&q=80",
+      category: "Wellness",
+      tags: ["training"],
+      buildingName: "Union Station Campus",
+      region: "Mountain",
+      city: "Denver",
+      blurb: "Personal training and small‑group strength classes.",
+    },
+    {
+      name: "Brickell Flowers",
+      image:
+        "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=1600&q=80",
+      category: "Retail",
+      tags: ["gifts", "florist"],
+      buildingName: "Brickell View",
+      region: "Southeast",
+      city: "Miami",
+      blurb: "Full‑service florist and gift shop in the lobby arcade.",
     },
   ];
 
@@ -346,6 +485,28 @@ export default function AvailabilitiesPage() {
   );
   const allRegions = regions;
   const allCities = cities;
+  const buildingNames = useMemo(
+    () => [
+      "All buildings",
+      ...Array.from(new Set(buildings.map((b) => b.name))),
+    ],
+    [buildings]
+  );
+  // Building name -> coords for merchant map markers
+  const buildingCoords: Record<
+    string,
+    { latitude: number; longitude: number }
+  > = useMemo(
+    () =>
+      buildings.reduce((acc: any, b: any) => {
+        acc[b.name] = {
+          latitude: (b as any).latitude,
+          longitude: (b as any).longitude,
+        };
+        return acc;
+      }, {}),
+    [buildings]
+  );
 
   // Initialize filters from URL params on mount
   useEffect(() => {
@@ -353,9 +514,11 @@ export default function AvailabilitiesPage() {
     const type = params.get("type");
     const region = params.get("region");
     const city = params.get("city");
+    const building = params.get("building");
     if (type) setSearchType(type);
     if (region) setSearchRegion(region);
     if (city) setSearchCity(city);
+    if (building) setSearchBuildingName(building);
   }, [params]);
 
   const searchResults = useMemo(() => {
@@ -379,12 +542,43 @@ export default function AvailabilitiesPage() {
         ).indexOf(m as never) + 1
       ).padStart(2, "0")}`;
 
+    // Merchant directory
+    if (searchType === "Merchants") {
+      let items = merchants as any[];
+      if (searchRegion !== "All regions")
+        items = items.filter((m) => m.region === searchRegion);
+      if (searchCity !== "All cities")
+        items = items.filter((m) => m.city === searchCity);
+      if (searchBuildingName !== "All buildings")
+        items = items.filter((m) => m.buildingName === searchBuildingName);
+      if (merchantCategory !== "All categories")
+        items = items.filter((m) => m.category === merchantCategory);
+      if (merchantQuery)
+        items = items.filter(
+          (m) =>
+            m.name.toLowerCase().includes(merchantQuery.toLowerCase()) ||
+            (m.tags || []).some((t: string) =>
+              t.toLowerCase().includes(merchantQuery.toLowerCase())
+            )
+        );
+      return items.map((m) => ({
+        image: m.image,
+        imageAlt: m.name,
+        category: `Merchant · ${m.category}`,
+        timestamp: m.buildingName,
+        headline: m.name,
+        description: m.blurb,
+      }));
+    }
+
     if (searchType === "Buildings") {
       let items = buildings;
       if (searchRegion !== "All regions")
         items = items.filter((b) => b.region === searchRegion);
       if (searchCity !== "All cities")
         items = items.filter((b) => b.city === searchCity);
+      if (searchBuildingName !== "All buildings")
+        items = items.filter((b) => b.name === searchBuildingName);
 
       const desiredStart =
         leaseStartMonth && leaseStartYear
@@ -442,7 +636,21 @@ export default function AvailabilitiesPage() {
     leaseTermMonths,
     showOpenOnly,
     neighborhoodCategory,
+    searchBuildingName,
+    merchantCategory,
+    merchantQuery,
   ]);
+
+  const filteredBuildings = useMemo(() => {
+    let list = buildings;
+    if (searchRegion !== "All regions")
+      list = list.filter((b) => b.region === searchRegion);
+    if (searchCity !== "All cities")
+      list = list.filter((b) => b.city === searchCity);
+    if (searchBuildingName !== "All buildings")
+      list = list.filter((b) => b.name === searchBuildingName);
+    return list;
+  }, [buildings, searchRegion, searchCity, searchBuildingName]);
 
   // Derived helper sets for sidebar browse sections
   const cityList = allCities;
@@ -456,6 +664,31 @@ export default function AvailabilitiesPage() {
     east: number;
     west: number;
   } | null>(null);
+
+  // Map points switch: merchants use building coordinates
+  const mapPoints = useMemo(() => {
+    if (searchType === "Merchants") {
+      const results = searchResults as any[];
+      const uniqueByBuilding = Array.from(
+        new Set(results.map((r) => r.timestamp))
+      );
+      return uniqueByBuilding
+        .map((name) => ({ name }))
+        .filter((p) => buildingCoords[p.name])
+        .map((p, idx) => ({
+          id: String(idx),
+          name: p.name,
+          latitude: buildingCoords[p.name].latitude,
+          longitude: buildingCoords[p.name].longitude,
+        }));
+    }
+    return filteredBuildings.map((b, idx) => ({
+      id: String(idx),
+      name: b.name,
+      latitude: (b as any).latitude ?? 29.7604,
+      longitude: (b as any).longitude ?? -95.3698,
+    }));
+  }, [searchType, searchResults, filteredBuildings, buildingCoords]);
 
   return (
     <main className="min-h-screen flex flex-col bg-white">
@@ -471,18 +704,25 @@ export default function AvailabilitiesPage() {
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             {[
-              "Wellness‑focused",
-              "Tech‑Enabled",
-              "Large Group Friendly",
-              "Premium Amenities",
-              "Outdoor Access",
-            ].map((t) => (
-              <span
-                key={t}
-                className="text-[11px] px-2.5 py-1 rounded-full bg-gray-100 text-gray-800 border"
+              { key: "Spaces", label: "Spaces" },
+              { key: "Wellness", label: "Amenities" },
+              { key: "Events", label: "Events" },
+              { key: "Merchants", label: "Merchants" },
+              { key: "Buildings", label: "Buildings" },
+              { key: "All", label: "All" },
+            ].map((opt) => (
+              <Button
+                key={opt.key}
+                variant={searchType === opt.key ? "default" : "outline"}
+                className={
+                  searchType === opt.key
+                    ? "bg-[#BF1231] hover:bg-[#9f0e28] text-white h-8 px-3"
+                    : "h-8 px-3"
+                }
+                onClick={() => setSearchType(opt.key)}
               >
-                {t}
-              </span>
+                <span className="text-xs">{opt.label}</span>
+              </Button>
             ))}
           </div>
         </div>
@@ -491,6 +731,31 @@ export default function AvailabilitiesPage() {
       {/* Explore layout with left filters and wide results grid */}
       <section className="bg-white">
         <div className="max-w-none mx-auto px-12 py-6">
+          {/* Top visible type chips (desktop) */}
+          <div className="hidden md:flex items-center gap-2 mb-3">
+            {[
+              { key: "Spaces", label: "Spaces" },
+              { key: "Wellness", label: "Amenities" },
+              { key: "Events", label: "Events" },
+              { key: "Merchants", label: "Merchants" },
+              { key: "Buildings", label: "Buildings" },
+              { key: "All", label: "All" },
+            ].map((opt) => (
+              <Button
+                key={opt.key}
+                variant={searchType === opt.key ? "default" : "outline"}
+                className={
+                  searchType === opt.key
+                    ? "bg-[#BF1231] hover:bg-[#9f0e28] text-white h-8 px-3"
+                    : "h-8 px-3"
+                }
+                onClick={() => setSearchType(opt.key)}
+              >
+                <span className="text-xs">{opt.label}</span>
+              </Button>
+            ))}
+          </div>
+
           {/* Full-width filters bar above the grid */}
           <div className="rounded-xl border bg-white p-4 mb-4">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
@@ -504,6 +769,7 @@ export default function AvailabilitiesPage() {
                     <SelectItem value="Spaces">Spaces</SelectItem>
                     <SelectItem value="Wellness">Amenities</SelectItem>
                     <SelectItem value="Events">Events</SelectItem>
+                    <SelectItem value="Merchants">Merchants</SelectItem>
                     <SelectItem value="Buildings">Buildings</SelectItem>
                     <SelectItem value="All">All</SelectItem>
                   </SelectContent>
@@ -541,13 +807,62 @@ export default function AvailabilitiesPage() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="md:col-span-3 flex items-end">
-                <Button className="w-full bg-[#BF1231] hover:bg-[#9f0e28] text-white">
-                  Search
-                </Button>
+              <div className="md:col-span-3">
+                <label className="text-xs text-gray-600">Building</label>
+                <Select
+                  value={searchBuildingName}
+                  onValueChange={setSearchBuildingName}
+                >
+                  <SelectTrigger className="mt-1">
+                    <SelectValue placeholder="All buildings" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {buildingNames.map((n) => (
+                      <SelectItem key={n} value={n}>
+                        {n}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
             <div className="mt-3 grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
+              {searchType === "Merchants" && (
+                <>
+                  <div className="md:col-span-4">
+                    <label className="text-xs text-gray-600">
+                      Merchant category
+                    </label>
+                    <Select
+                      value={merchantCategory}
+                      onValueChange={setMerchantCategory}
+                    >
+                      <SelectTrigger className="mt-1">
+                        <SelectValue placeholder="All categories" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {MERCHANT_CATEGORIES.map((c) => (
+                          <SelectItem key={c} value={c}>
+                            {c}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="md:col-span-8">
+                    <label className="text-xs text-gray-600">
+                      Search merchants
+                    </label>
+                    <Input
+                      type="text"
+                      className="mt-1"
+                      placeholder="Find by name or tag (e.g., coffee, salads, gifts)"
+                      value={merchantQuery}
+                      onChange={(e) => setMerchantQuery(e.target.value)}
+                    />
+                  </div>
+                </>
+              )}
               <div className="md:col-span-4">
                 <label className="text-xs text-gray-600">Date</label>
                 <Input
@@ -655,25 +970,6 @@ export default function AvailabilitiesPage() {
                 </>
               )}
             </div>
-            {/* Neighborhood categories */}
-            <div className="mt-3 flex flex-wrap items-center gap-2">
-              {NEIGHBORHOOD_CATEGORIES.map((c) => (
-                <Button
-                  key={c}
-                  variant={neighborhoodCategory === c ? "default" : "outline"}
-                  className={
-                    neighborhoodCategory === c
-                      ? "bg-[#BF1231] hover:bg-[#9f0e28] text-white h-8 px-3"
-                      : "h-8 px-3"
-                  }
-                  onClick={() => setNeighborhoodCategory(c)}
-                >
-                  <span className="text-xs">
-                    {c === "All" ? "All neighborhoods" : c}
-                  </span>
-                </Button>
-              ))}
-            </div>
           </div>
 
           {/* Two-column layout: left results, right sticky map */}
@@ -723,14 +1019,7 @@ export default function AvailabilitiesPage() {
             {/* Right: sticky map always visible */}
             <div className="lg:col-span-5 hidden lg:block">
               <div className="sticky top-[88px]">
-                <ExploreMap
-                  points={buildings.map((b, idx) => ({
-                    id: String(idx),
-                    name: b.name,
-                    latitude: (b as any).latitude ?? 29.7604,
-                    longitude: (b as any).longitude ?? -95.3698,
-                  }))}
-                />
+                <ExploreMap points={mapPoints} />
               </div>
             </div>
           </div>
