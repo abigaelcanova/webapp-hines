@@ -125,12 +125,6 @@ export default function SiteHeader() {
               About
             </Link>
             <Link
-              href="/neighborhood"
-              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
-            >
-              Neighborhood
-            </Link>
-            <Link
               href="/contact"
               className="text-sm text-gray-900 hover:text-gray-700 font-medium"
             >

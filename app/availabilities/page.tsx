@@ -45,6 +45,7 @@ export default function AvailabilitiesPage() {
         "Premium AV, seamless video conferencing, and concierge support.",
       region: "South",
       city: "Houston",
+      neighborhoodCategory: "Culture & Arts",
     },
     {
       image: "/images/content/Lab3.jpg",
@@ -56,6 +57,7 @@ export default function AvailabilitiesPage() {
         "Modular workstations and writable walls for project sprints.",
       region: "West",
       city: "San Francisco",
+      neighborhoodCategory: "Culture & Arts",
     },
     {
       image: "/images/content/Microscope.jpg",
@@ -66,6 +68,7 @@ export default function AvailabilitiesPage() {
       description: "Prototyping benches, 3D printing, and light fabrication.",
       region: "Northeast",
       city: "New York",
+      neighborhoodCategory: "Culture & Arts",
     },
     {
       image: "/images/content/ARENetworkingEvent.jpg",
@@ -77,6 +80,7 @@ export default function AvailabilitiesPage() {
         "Meet founders, designers, and operators from top companies.",
       region: "South",
       city: "Austin",
+      neighborhoodCategory: "Dining & Nightlife",
     },
     {
       image: "/images/content/innovationevent.jpg",
@@ -88,6 +92,7 @@ export default function AvailabilitiesPage() {
         "Talks and workshops with industry leaders in tech and design.",
       region: "West",
       city: "Seattle",
+      neighborhoodCategory: "Culture & Arts",
     },
     {
       image: "/images/content/Taco.png",
@@ -98,6 +103,7 @@ export default function AvailabilitiesPage() {
       description: "Rotating menus from local favorites in the main lobby.",
       region: "South",
       city: "Houston",
+      neighborhoodCategory: "Dining & Nightlife",
     },
     {
       image: "/images/content/exos-1-1.jpg",
@@ -109,6 +115,7 @@ export default function AvailabilitiesPage() {
         "Studio sessions and coaching for strength, mobility, and recovery.",
       region: "Northeast",
       city: "Boston",
+      neighborhoodCategory: "Parks & Trails",
     },
     {
       image: "/images/content/EntireSpace-1.png",
@@ -119,6 +126,7 @@ export default function AvailabilitiesPage() {
       description: "Quiet retreat with massage chairs and meditation pods.",
       region: "Midwest",
       city: "Chicago",
+      neighborhoodCategory: "Parks & Trails",
     },
     {
       image: "/images/content/ARENetworkingEvent.jpg",
@@ -129,6 +137,7 @@ export default function AvailabilitiesPage() {
       description: "Guided breathwork and stress‑management techniques.",
       region: "West",
       city: "Los Angeles",
+      neighborhoodCategory: "Culture & Arts",
     },
     {
       image: "/images/content/innovationevent.jpg",
@@ -140,6 +149,7 @@ export default function AvailabilitiesPage() {
         "Tiered seating, full lighting grid, and broadcast‑ready AV.",
       region: "Mountain",
       city: "Denver",
+      neighborhoodCategory: "Culture & Arts",
     },
     {
       image: "/images/content/EntireSpace-1.png",
@@ -150,6 +160,7 @@ export default function AvailabilitiesPage() {
       description: "Four connected rooms with a private break‑out lounge.",
       region: "Southeast",
       city: "Miami",
+      neighborhoodCategory: "Dining & Nightlife",
     },
     {
       image: "/images/content/ARENetworkingEvent.jpg",
@@ -160,8 +171,19 @@ export default function AvailabilitiesPage() {
       description: "Company‑wide updates and open Q&A with leadership.",
       region: "Northeast",
       city: "New York",
+      neighborhoodCategory: "Culture & Arts",
     },
   ];
+
+  const NEIGHBORHOOD_CATEGORIES = [
+    "All",
+    "Culture & Arts",
+    "Dining & Nightlife",
+    "Parks & Trails",
+  ] as const;
+  type NeighborhoodCategory = (typeof NEIGHBORHOOD_CATEGORIES)[number];
+  const [neighborhoodCategory, setNeighborhoodCategory] =
+    useState<NeighborhoodCategory>("All");
 
   const buildings = [
     {
@@ -403,6 +425,10 @@ export default function AvailabilitiesPage() {
       items = items.filter((c) => c.region === searchRegion);
     if (searchCity !== "All cities")
       items = items.filter((c) => c.city === searchCity);
+    if (neighborhoodCategory !== "All")
+      items = items.filter(
+        (c: any) => c.neighborhoodCategory === neighborhoodCategory
+      );
     return items;
   }, [
     searchType,
@@ -415,6 +441,7 @@ export default function AvailabilitiesPage() {
     leaseStartYear,
     leaseTermMonths,
     showOpenOnly,
+    neighborhoodCategory,
   ]);
 
   // Derived helper sets for sidebar browse sections
@@ -627,6 +654,25 @@ export default function AvailabilitiesPage() {
                   </div>
                 </>
               )}
+            </div>
+            {/* Neighborhood categories */}
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              {NEIGHBORHOOD_CATEGORIES.map((c) => (
+                <Button
+                  key={c}
+                  variant={neighborhoodCategory === c ? "default" : "outline"}
+                  className={
+                    neighborhoodCategory === c
+                      ? "bg-[#BF1231] hover:bg-[#9f0e28] text-white h-8 px-3"
+                      : "h-8 px-3"
+                  }
+                  onClick={() => setNeighborhoodCategory(c)}
+                >
+                  <span className="text-xs">
+                    {c === "All" ? "All neighborhoods" : c}
+                  </span>
+                </Button>
+              ))}
             </div>
           </div>
 
