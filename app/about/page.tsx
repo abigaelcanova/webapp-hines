@@ -5,47 +5,6 @@ import { SiteFooter } from "@/components/site-footer";
 export default function PublicAboutPage() {
   return (
     <main className="min-h-screen flex flex-col bg-white">
-      {/* Header (same as Public page, with About to the left of Tenant log in) */}
-      <header className="w-full">
-        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link href="/">
-              <img
-                src="/images/logos/Hines-Red-Logo-PNG.png"
-                alt="Hines"
-                className="h-6 w-auto"
-              />
-            </Link>
-          </div>
-          <div className="flex items-center gap-6">
-            <Link
-              href="/about"
-              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
-            >
-              About
-            </Link>
-            <Link
-              href="/neighborhood"
-              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
-            >
-              Neighborhood
-            </Link>
-            <Link
-              href="/availabilities"
-              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
-            >
-              Availabilities
-            </Link>
-            <Link
-              href="/contact"
-              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
-            >
-              Contact
-            </Link>
-          </div>
-        </div>
-      </header>
-
       {/* Hero / Banner */}
       <section className="relative isolate">
         <div className="absolute inset-0 -z-10">

@@ -5,52 +5,6 @@ import { SiteFooter } from "@/components/site-footer";
 export default function NeighborhoodPage() {
   return (
     <main className="min-h-screen flex flex-col bg-white">
-      {/* Header */}
-      <header className="w-full">
-        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link href="/">
-              <img
-                src="/images/logos/Hines-Red-Logo-PNG.png"
-                alt="Hines"
-                className="h-6 w-auto"
-              />
-            </Link>
-          </div>
-          <div className="flex items-center gap-6">
-            <Link
-              href="/about"
-              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
-            >
-              About
-            </Link>
-            <Link
-              href="/neighborhood"
-              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
-            >
-              Neighborhood
-            </Link>
-            <Link
-              href="/availabilities"
-              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
-            >
-              Availabilities
-            </Link>
-            <Link
-              href="/contact"
-              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
-            >
-              Contact
-            </Link>
-            <Link href="/login">
-              <Button className="bg-[#BF1231] hover:bg-[#9f0e28] text-white">
-                Tenant log in
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
-
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">

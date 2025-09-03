@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import SiteHeader from "@/components/site-header";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -28,6 +29,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <SiteHeader />
           <div className="flex-1 flex flex-col">{children}</div>
         </ThemeProvider>
       </body>
