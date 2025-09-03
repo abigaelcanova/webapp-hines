@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ContentCard } from "@/components/content-card";
+import ExploreMap from "@/components/explore-map";
 
 export default function AvailabilitiesPage() {
   // Unified availability search state (moved from landing)
@@ -196,6 +197,13 @@ export default function AvailabilitiesPage() {
     new Set(searchResults.map((r) => r.category))
   ).sort();
 
+  const [mapBounds, setMapBounds] = useState<{
+    north: number;
+    south: number;
+    east: number;
+    west: number;
+  } | null>(null);
+
   return (
     <main className="min-h-screen flex flex-col bg-white">
       {/* Hero header */}
@@ -230,12 +238,11 @@ export default function AvailabilitiesPage() {
       {/* Explore layout with left filters and wide results grid */}
       <section className="bg-white">
         <div className="max-w-[1440px] mx-auto px-4 md:px-6 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Left rail: Filters (reuse your search controls) */}
-          <aside className="lg:col-span-3 space-y-3">
-            <div className="rounded-xl border bg-white p-4">
-              <h3 className="text-sm font-semibold mb-2">Filters</h3>
-              <div className="grid grid-cols-1 gap-3">
-                <div>
+          {/* Left: results with a horizontal filters bar */}
+          <div className="lg:col-span-7">
+            <div className="rounded-xl border bg-white p-4 mb-4">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
+                <div className="md:col-span-3">
                   <label className="text-xs text-gray-600">Type</label>
                   <Select value={searchType} onValueChange={setSearchType}>
                     <SelectTrigger className="mt-1">
@@ -250,7 +257,7 @@ export default function AvailabilitiesPage() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div>
+                <div className="md:col-span-3">
                   <label className="text-xs text-gray-600">Region</label>
                   <Select value={searchRegion} onValueChange={setSearchRegion}>
                     <SelectTrigger className="mt-1">
@@ -266,7 +273,7 @@ export default function AvailabilitiesPage() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div>
+                <div className="md:col-span-3">
                   <label className="text-xs text-gray-600">City</label>
                   <Select value={searchCity} onValueChange={setSearchCity}>
                     <SelectTrigger className="mt-1">
@@ -282,27 +289,32 @@ export default function AvailabilitiesPage() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="grid grid-cols-2 gap-2">
-                  <div>
-                    <label className="text-xs text-gray-600">Date</label>
-                    <Input
-                      type="date"
-                      className="mt-1"
-                      value={searchDate}
-                      onChange={(e) => setSearchDate(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-xs text-gray-600">Start time</label>
-                    <Input
-                      type="time"
-                      className="mt-1"
-                      value={searchTime}
-                      onChange={(e) => setSearchTime(e.target.value)}
-                    />
-                  </div>
+                <div className="md:col-span-3 flex items-end">
+                  <Button className="w-full bg-[#BF1231] hover:bg-[#9f0e28] text-white">
+                    Search
+                  </Button>
                 </div>
-                <div>
+              </div>
+              <div className="mt-3 grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
+                <div className="md:col-span-4">
+                  <label className="text-xs text-gray-600">Date</label>
+                  <Input
+                    type="date"
+                    className="mt-1"
+                    value={searchDate}
+                    onChange={(e) => setSearchDate(e.target.value)}
+                  />
+                </div>
+                <div className="md:col-span-4">
+                  <label className="text-xs text-gray-600">Start time</label>
+                  <Input
+                    type="time"
+                    className="mt-1"
+                    value={searchTime}
+                    onChange={(e) => setSearchTime(e.target.value)}
+                  />
+                </div>
+                <div className="md:col-span-4">
                   <label className="text-xs text-gray-600">
                     Duration (hrs)
                   </label>
@@ -322,7 +334,7 @@ export default function AvailabilitiesPage() {
                 </div>
                 {searchType === "Buildings" && (
                   <>
-                    <div>
+                    <div className="md:col-span-4">
                       <label className="text-xs text-gray-600">
                         Lease start month
                       </label>
@@ -355,7 +367,7 @@ export default function AvailabilitiesPage() {
                         </SelectContent>
                       </Select>
                     </div>
-                    <div>
+                    <div className="md:col-span-4">
                       <label className="text-xs text-gray-600">
                         Lease start year
                       </label>
@@ -375,90 +387,32 @@ export default function AvailabilitiesPage() {
                         </SelectContent>
                       </Select>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Checkbox
-                        id="open-only"
-                        checked={showOpenOnly}
-                        onCheckedChange={(v) => setShowOpenOnly(!!v)}
-                      />
-                      <label
-                        htmlFor="open-only"
-                        className="text-xs text-gray-700"
-                      >
-                        Open tenancy only
-                      </label>
-                    </div>
-                    <div>
-                      <label className="text-xs text-gray-600">
-                        Lease term (months)
-                      </label>
-                      <div className="mt-2 flex items-center gap-3">
-                        <Slider
-                          value={[leaseTermMonths]}
-                          onValueChange={(v) => setLeaseTermMonths(v[0])}
-                          min={6}
-                          max={120}
-                          step={6}
-                          className="flex-1"
+                    <div className="md:col-span-4 flex items-end">
+                      <div className="flex items-center gap-2">
+                        <Checkbox
+                          id="open-only"
+                          checked={showOpenOnly}
+                          onCheckedChange={(v) => setShowOpenOnly(!!v)}
                         />
-                        <span className="w-12 text-right text-sm text-gray-700">
-                          {leaseTermMonths}
-                        </span>
+                        <label
+                          htmlFor="open-only"
+                          className="text-xs text-gray-700"
+                        >
+                          Open tenancy only
+                        </label>
                       </div>
                     </div>
                   </>
                 )}
-                <Button className="w-full bg-[#BF1231] hover:bg-[#9f0e28] text-white">
-                  Search
-                </Button>
               </div>
             </div>
 
-            {/* Browse: Cities */}
-            <div className="rounded-xl border bg-white p-4">
-              <h4 className="text-sm font-semibold mb-2">City</h4>
-              <div className="space-y-1 text-sm">
-                {cityList.map((c) => (
-                  <button
-                    key={c}
-                    className={`w-full text-left px-2 py-1 rounded ${
-                      searchCity === c ? "bg-gray-100" : "hover:bg-gray-50"
-                    }`}
-                    onClick={() => setSearchCity(c)}
-                  >
-                    {c}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Browse: Categories */}
-            <div className="rounded-xl border bg-white p-4">
-              <h4 className="text-sm font-semibold mb-2">Categories</h4>
-              <div className="space-y-1 text-sm">
-                {categoryList.map((cat) => (
-                  <button
-                    key={cat}
-                    className="w-full text-left px-2 py-1 rounded hover:bg-gray-50"
-                    onClick={() =>
-                      setSearchType(cat === "Buildings" ? "Buildings" : cat)
-                    }
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </aside>
-
-          {/* Center: browsable cards */}
-          <div className="lg:col-span-9">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs text-gray-600">
                 {searchResults.length} results
               </span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {searchResults.map((card, idx) => (
                 <div
                   key={`sr-card-${idx}`}
@@ -484,6 +438,20 @@ export default function AvailabilitiesPage() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Right: sticky map always visible */}
+          <div className="lg:col-span-5 hidden lg:block">
+            <div className="sticky top-[88px]">
+              <ExploreMap
+                points={buildings.map((b, idx) => ({
+                  id: String(idx),
+                  name: b.name,
+                  latitude: (b as any).latitude ?? 29.7604,
+                  longitude: (b as any).longitude ?? -95.3698,
+                }))}
+              />
             </div>
           </div>
         </div>

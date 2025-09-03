@@ -12,10 +12,17 @@ export default function ExploreMap({
   points,
   highlightedId,
   onMarkerClick,
+  onViewChange,
 }: {
   points: MapPoint[];
   highlightedId?: string | null;
   onMarkerClick?: (id: string) => void;
+  onViewChange?: (bounds: {
+    north: number;
+    south: number;
+    east: number;
+    west: number;
+  }) => void;
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<any>(null);
@@ -58,18 +65,19 @@ export default function ExploreMap({
         points?.[0]?.latitude ?? 29.7604,
       ];
 
-      mapRef.current = new maplibregl.Map({
+      const map = new maplibregl.Map({
         container: containerRef.current,
         style: "https://demotiles.maplibre.org/style.json",
         center,
         zoom: 12,
         attributionControl: false,
       });
+      mapRef.current = map;
 
-      mapRef.current.addControl(
-        new maplibregl.NavigationControl({ showCompass: false })
-      );
+      map.addControl(new maplibregl.NavigationControl({ showCompass: false }));
 
+      // Add markers
+      const bounds = new maplibregl.LngLatBounds();
       points.forEach((p) => {
         const el = document.createElement("button");
         el.type = "button";
@@ -79,8 +87,39 @@ export default function ExploreMap({
         el.addEventListener("click", () => onMarkerClick?.(p.id));
         const marker = new maplibregl.Marker({ element: el })
           .setLngLat([p.longitude, p.latitude])
-          .addTo(mapRef.current);
+          .addTo(map);
         markersRef.current[p.id] = { marker, el };
+        bounds.extend([p.longitude, p.latitude]);
+      });
+
+      // Fit to points if we have at least 2 unique locations
+      try {
+        if (!bounds.isEmpty()) {
+          map.fitBounds(bounds, { padding: 40, duration: 0 });
+        }
+      } catch {}
+
+      // Notify initial bounds
+      try {
+        const b = map.getBounds();
+        onViewChange?.({
+          north: b.getNorth(),
+          south: b.getSouth(),
+          east: b.getEast(),
+          west: b.getWest(),
+        });
+      } catch {}
+
+      map.on("moveend", () => {
+        try {
+          const b = map.getBounds();
+          onViewChange?.({
+            north: b.getNorth(),
+            south: b.getSouth(),
+            east: b.getEast(),
+            west: b.getWest(),
+          });
+        } catch {}
       });
     });
 
@@ -93,7 +132,7 @@ export default function ExploreMap({
       }
       markersRef.current = {};
     };
-  }, [points, onMarkerClick]);
+  }, [points, onMarkerClick, onViewChange]);
 
   // Highlight + fly to
   useEffect(() => {
@@ -122,7 +161,7 @@ export default function ExploreMap({
   }, [highlightedId, points]);
 
   return (
-    <div className="w-full h-[calc(100vh-96px)] lg:h-[calc(100vh-88px)] rounded-none lg:rounded-2xl border overflow-hidden sticky top-[88px]">
+    <div className="w-full h-[calc(100vh-96px)] lg:h-[calc(100vh-88px)] rounded-none lg:rounded-2xl border overflow-hidden">
       <div ref={containerRef} className="w-full h-full" />
     </div>
   );
