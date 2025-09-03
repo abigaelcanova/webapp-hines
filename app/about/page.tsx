@@ -15,7 +15,7 @@ export default function PublicAboutPage() {
           />
           <div className="absolute inset-0 bg-black/30" />
         </div>
-        <div className="max-w-7xl mx-auto px-6 py-16 sm:py-24">
+        <div className="max-w-none mx-auto px-12 py-16 sm:py-24">
           <h1 className="text-3xl sm:text-4xl font-semibold text-white">
             About Texas Tower
           </h1>
@@ -29,7 +29,7 @@ export default function PublicAboutPage() {
 
       {/* Overview */}
       <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="max-w-none mx-auto px-12 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             {/* Left content */}
             <div className="lg:col-span-7">

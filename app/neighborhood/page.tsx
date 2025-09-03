@@ -15,7 +15,7 @@ export default function NeighborhoodPage() {
           />
           <div className="absolute inset-0 bg-black/30" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-6 py-10 sm:py-14">
+        <div className="relative max-w-none mx-auto px-12 py-10 sm:py-14">
           <h1 className="text-3xl font-semibold text-white">
             The Neighborhood
           </h1>
@@ -29,7 +29,7 @@ export default function NeighborhoodPage() {
 
       {/* Highlights grid */}
       <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div className="max-w-none mx-auto px-12 py-12 grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           <div className="rounded-2xl border overflow-hidden">
             <img
               src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1600&q=80"
@@ -83,7 +83,7 @@ export default function NeighborhoodPage() {
 
       {/* Transit and access */}
       <section className="bg-[#F9FAFB]">
-        <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div className="max-w-none mx-auto px-12 py-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           <div>
             <h2 className="text-xl font-semibold">Connected to everything</h2>
             <p className="mt-3 text-gray-700">

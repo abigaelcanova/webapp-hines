@@ -399,7 +399,7 @@ export default function PublicPage() {
           />
           <div className="absolute inset-0 bg-black/30" />
         </div>
-        <div className="max-w-[1440px] mx-auto px-6 py-28 sm:py-36">
+        <div className="max-w-none mx-auto px-12 py-28 sm:py-36">
           <div className="max-w-5xl">
             <div className="flex items-center gap-2">
               <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-white">
@@ -447,7 +447,7 @@ export default function PublicPage() {
       {/* Portfolio vs Building-specific sections */}
       {isPortfolio ? (
         <section className="bg-white">
-          <div className="max-w-[1280px] mx-auto px-6 py-16">
+          <div className="max-w-none mx-auto px-12 py-16">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-semibold">Our buildings</h2>
               <div className="flex items-center gap-3 text-sm">
@@ -520,7 +520,7 @@ export default function PublicPage() {
         <>
           {/* About: building overview */}
           <section className="bg-white">
-            <div className="max-w-[1280px] mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div className="max-w-none mx-auto px-12 py-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="order-2 lg:order-1">
                 <h2 className="text-2xl font-semibold">About Texas Tower</h2>
                 <p className="mt-4 text-gray-700">
@@ -556,7 +556,7 @@ export default function PublicPage() {
 
           {/* Amenities: image-forward grid */}
           <section className="bg-white">
-            <div className="max-w-[1280px] mx-auto px-6 py-16">
+            <div className="max-w-none mx-auto px-12 py-16">
               <div className="flex items-end justify-between mb-6">
                 <h2 className="text-2xl font-semibold">Amenities</h2>
                 <Link
@@ -597,7 +597,7 @@ export default function PublicPage() {
 
       {/* Spaces: carousel + supporting cards */}
       <section className="bg-[#F9FAFB]">
-        <div className="max-w-[1280px] mx-auto px-6 py-16">
+        <div className="max-w-none mx-auto px-12 py-16">
           <div className="flex items-end justify-between mb-6">
             <h2 className="text-2xl font-semibold">Spaces</h2>
             <div className="flex items-center gap-3">
@@ -677,7 +677,7 @@ export default function PublicPage() {
 
       {/* Public updates: open to everyone */}
       <section className="bg-white">
-        <div className="max-w-[1280px] mx-auto px-6 py-16">
+        <div className="max-w-none mx-auto px-12 py-16">
           <div className="flex items-end justify-between mb-6">
             <h2 className="text-2xl font-semibold">Public updates</h2>
             <span className="text-sm text-gray-600">Open to everyone</span>
@@ -699,6 +699,27 @@ export default function PublicPage() {
       </section>
 
       <SiteFooter buildingName="Hines" />
+
+      {/* Floating Explore button */}
+      <div className="fixed left-12 bottom-12 z-50">
+        <Link href="/availabilities" className="block">
+          <div className="group rounded-2xl shadow-lg border bg-white/95 backdrop-blur px-5 py-4 hover:bg-white transition-colors">
+            <div className="flex items-center gap-3">
+              <div className="h-9 w-9 rounded-lg bg-[#BF1231] text-white flex items-center justify-center text-sm font-medium group-hover:bg-[#9f0e28]">
+                ↗
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-semibold text-gray-900">
+                  Explore
+                </span>
+                <span className="text-xs text-gray-600">
+                  Spaces, amenities, events & buildings
+                </span>
+              </div>
+            </div>
+          </div>
+        </Link>
+      </div>
     </main>
   );
 }

@@ -34,19 +34,8 @@ export default function AvailabilitiesPage() {
   // Minimal data reused from landing for search demo
   const highlightCards = [
     {
-      image: "/images/content/innovationevent.jpg",
-      imageAlt: "Innovation event",
-      category: "Events",
-      timestamp: "This month",
-      headline: "Innovation Summit Series",
-      description:
-        "Talks and workshops with industry leaders in tech and design.",
-      region: "South",
-      city: "Houston",
-    },
-    {
       image: "/images/content/EntireSpace-1.png",
-      imageAlt: "Amenity space",
+      imageAlt: "Boardroom",
       category: "Spaces",
       timestamp: "Bookable",
       headline: "Executive Boardroom",
@@ -56,19 +45,137 @@ export default function AvailabilitiesPage() {
       city: "Houston",
     },
     {
-      image: "/images/content/exos-1-1.jpg",
-      imageAlt: "Fitness class",
-      category: "Wellness",
-      timestamp: "Daily",
-      headline: "Group Classes & Personal Training",
+      image: "/images/content/Lab3.jpg",
+      imageAlt: "Innovation Lab",
+      category: "Spaces",
+      timestamp: "Bookable",
+      headline: "Innovation Lab",
       description:
-        "Studio sessions and coaching for strength, mobility, and recovery.",
+        "Modular workstations and writable walls for project sprints.",
+      region: "West",
+      city: "San Francisco",
+    },
+    {
+      image: "/images/content/Microscope.jpg",
+      imageAlt: "Makers Studio",
+      category: "Spaces",
+      timestamp: "Hourly",
+      headline: "Makers Studio",
+      description: "Prototyping benches, 3D printing, and light fabrication.",
+      region: "Northeast",
+      city: "New York",
+    },
+    {
+      image: "/images/content/ARENetworkingEvent.jpg",
+      imageAlt: "Networking Night",
+      category: "Events",
+      timestamp: "This month",
+      headline: "Tech & Design Mixer",
+      description:
+        "Meet founders, designers, and operators from top companies.",
+      region: "South",
+      city: "Austin",
+    },
+    {
+      image: "/images/content/innovationevent.jpg",
+      imageAlt: "Innovation Summit",
+      category: "Events",
+      timestamp: "This quarter",
+      headline: "Innovation Summit Series",
+      description:
+        "Talks and workshops with industry leaders in tech and design.",
+      region: "West",
+      city: "Seattle",
+    },
+    {
+      image: "/images/content/Taco.png",
+      imageAlt: "Chef Pop‑Up",
+      category: "Events",
+      timestamp: "Weekly",
+      headline: "Chef Pop‑Up Lunch",
+      description: "Rotating menus from local favorites in the main lobby.",
       region: "South",
       city: "Houston",
+    },
+    {
+      image: "/images/content/exos-1-1.jpg",
+      imageAlt: "Wellness Class",
+      category: "Wellness",
+      timestamp: "Daily",
+      headline: "Group Classes & Training",
+      description:
+        "Studio sessions and coaching for strength, mobility, and recovery.",
+      region: "Northeast",
+      city: "Boston",
+    },
+    {
+      image: "/images/content/EntireSpace-1.png",
+      imageAlt: "Wellness Lounge",
+      category: "Wellness",
+      timestamp: "Open now",
+      headline: "Wellness Lounge",
+      description: "Quiet retreat with massage chairs and meditation pods.",
+      region: "Midwest",
+      city: "Chicago",
+    },
+    {
+      image: "/images/content/ARENetworkingEvent.jpg",
+      imageAlt: "Community Workshop",
+      category: "Wellness",
+      timestamp: "Monthly",
+      headline: "Mindfulness Workshop",
+      description: "Guided breathwork and stress‑management techniques.",
+      region: "West",
+      city: "Los Angeles",
+    },
+    {
+      image: "/images/content/innovationevent.jpg",
+      imageAlt: "All‑Hands Space",
+      category: "Spaces",
+      timestamp: "Bookable",
+      headline: "All‑Hands Atrium",
+      description:
+        "Tiered seating, full lighting grid, and broadcast‑ready AV.",
+      region: "Mountain",
+      city: "Denver",
+    },
+    {
+      image: "/images/content/EntireSpace-1.png",
+      imageAlt: "Meeting Suite",
+      category: "Spaces",
+      timestamp: "Bookable",
+      headline: "Team Meeting Suite",
+      description: "Four connected rooms with a private break‑out lounge.",
+      region: "Southeast",
+      city: "Miami",
+    },
+    {
+      image: "/images/content/ARENetworkingEvent.jpg",
+      imageAlt: "Town Hall",
+      category: "Events",
+      timestamp: "Next week",
+      headline: "Town Hall & Q&A",
+      description: "Company‑wide updates and open Q&A with leadership.",
+      region: "Northeast",
+      city: "New York",
     },
   ];
 
   const buildings = [
+    {
+      name: "Texas Tower",
+      image: "/Hines/texastower_banner.jpg",
+      region: "South",
+      city: "Houston",
+      availableFrom: "2025-08",
+      openTenancy: false,
+      floors: [
+        { floor: 10, availableFrom: "2025-08", openTenancy: false, rsf: 9000 },
+        { floor: 27, availableFrom: "2025-11", openTenancy: true, rsf: 15000 },
+      ],
+      latitude: 29.7607,
+      longitude: -95.3671,
+    },
     {
       name: "Hines Demo Building",
       image: "/Hines.jpg",
@@ -84,18 +191,124 @@ export default function AvailabilitiesPage() {
       longitude: -95.3698,
     },
     {
-      name: "Texas Tower",
-      image: "/Hines/texastower_banner.jpg",
-      region: "South",
-      city: "Houston",
-      availableFrom: "2025-08",
+      name: "Downtown Tower",
+      image:
+        "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1600&q=80",
+      region: "Northeast",
+      city: "New York",
+      availableFrom: "2025-09",
+      openTenancy: true,
+      floors: [
+        { floor: 14, availableFrom: "2025-09", openTenancy: true, rsf: 16000 },
+        { floor: 31, availableFrom: "2026-02", openTenancy: false, rsf: 21000 },
+      ],
+      latitude: 40.758,
+      longitude: -73.9855,
+    },
+    {
+      name: "Seaport Center",
+      image:
+        "https://images.unsplash.com/photo-1505764706515-aa95265c5abc?auto=format&fit=crop&w=1600&q=80",
+      region: "Northeast",
+      city: "Boston",
+      availableFrom: "2025-11",
       openTenancy: false,
       floors: [
-        { floor: 10, availableFrom: "2025-08", openTenancy: false, rsf: 9000 },
-        { floor: 27, availableFrom: "2025-11", openTenancy: true, rsf: 15000 },
+        { floor: 7, availableFrom: "2025-11", openTenancy: false, rsf: 8500 },
+        { floor: 19, availableFrom: "2026-03", openTenancy: true, rsf: 14000 },
       ],
-      latitude: 29.7607,
-      longitude: -95.3671,
+      latitude: 42.3601,
+      longitude: -71.0589,
+    },
+    {
+      name: "Market Street Hub",
+      image:
+        "https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1600&q=80",
+      region: "West",
+      city: "San Francisco",
+      availableFrom: "2025-07",
+      openTenancy: true,
+      floors: [
+        { floor: 8, availableFrom: "2025-07", openTenancy: true, rsf: 11000 },
+        { floor: 21, availableFrom: "2025-12", openTenancy: false, rsf: 17500 },
+      ],
+      latitude: 37.7749,
+      longitude: -122.4194,
+    },
+    {
+      name: "Pioneer Place",
+      image:
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1600&q=80",
+      region: "West",
+      city: "Seattle",
+      availableFrom: "2025-10",
+      openTenancy: false,
+      floors: [
+        { floor: 9, availableFrom: "2025-10", openTenancy: false, rsf: 10000 },
+        { floor: 17, availableFrom: "2026-01", openTenancy: true, rsf: 15500 },
+      ],
+      latitude: 47.6062,
+      longitude: -122.3321,
+    },
+    {
+      name: "Lakeside Tower",
+      image:
+        "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1600&q=80",
+      region: "Midwest",
+      city: "Chicago",
+      availableFrom: "2025-12",
+      openTenancy: true,
+      floors: [
+        { floor: 12, availableFrom: "2025-12", openTenancy: true, rsf: 13000 },
+        { floor: 28, availableFrom: "2026-04", openTenancy: false, rsf: 20000 },
+      ],
+      latitude: 41.8781,
+      longitude: -87.6298,
+    },
+    {
+      name: "Union Station Campus",
+      image:
+        "https://images.unsplash.com/photo-1452570053594-1b985d6ea890?auto=format&fit=crop&w=1600&q=80",
+      region: "Mountain",
+      city: "Denver",
+      availableFrom: "2025-09",
+      openTenancy: false,
+      floors: [
+        { floor: 6, availableFrom: "2025-09", openTenancy: false, rsf: 7800 },
+        { floor: 15, availableFrom: "2026-02", openTenancy: true, rsf: 14200 },
+      ],
+      latitude: 39.7392,
+      longitude: -104.9903,
+    },
+    {
+      name: "Brickell View",
+      image:
+        "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?auto=format&fit=crop&w=1600&q=80",
+      region: "Southeast",
+      city: "Miami",
+      availableFrom: "2025-07",
+      openTenancy: true,
+      floors: [
+        { floor: 11, availableFrom: "2025-07", openTenancy: true, rsf: 11500 },
+        { floor: 23, availableFrom: "2025-12", openTenancy: false, rsf: 16500 },
+      ],
+      latitude: 25.7617,
+      longitude: -80.1918,
+    },
+    {
+      name: "Arts District Tower",
+      image:
+        "https://images.unsplash.com/photo-1499914485622-a88fac536970?auto=format&fit=crop&w=1600&q=80",
+      region: "West",
+      city: "Los Angeles",
+      availableFrom: "2025-10",
+      openTenancy: false,
+      floors: [
+        { floor: 5, availableFrom: "2025-10", openTenancy: false, rsf: 9200 },
+        { floor: 18, availableFrom: "2026-03", openTenancy: true, rsf: 15800 },
+      ],
+      latitude: 34.0522,
+      longitude: -118.2437,
     },
   ];
 
@@ -208,7 +421,7 @@ export default function AvailabilitiesPage() {
     <main className="min-h-screen flex flex-col bg-white">
       {/* Hero header */}
       <section className="bg-white">
-        <div className="max-w-[1440px] mx-auto px-4 md:px-6 pt-8 pb-4 text-center">
+        <div className="max-w-none mx-auto px-12 pt-8 pb-4 text-center">
           <h1 className="text-2xl sm:text-3xl font-semibold">
             Explore Spaces, Events & Services
           </h1>
@@ -237,221 +450,229 @@ export default function AvailabilitiesPage() {
 
       {/* Explore layout with left filters and wide results grid */}
       <section className="bg-white">
-        <div className="max-w-[1440px] mx-auto px-4 md:px-6 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Left: results with a horizontal filters bar */}
-          <div className="lg:col-span-7">
-            <div className="rounded-xl border bg-white p-4 mb-4">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
-                <div className="md:col-span-3">
-                  <label className="text-xs text-gray-600">Type</label>
-                  <Select value={searchType} onValueChange={setSearchType}>
-                    <SelectTrigger className="mt-1">
-                      <SelectValue placeholder="Spaces" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Spaces">Spaces</SelectItem>
-                      <SelectItem value="Wellness">Amenities</SelectItem>
-                      <SelectItem value="Events">Events</SelectItem>
-                      <SelectItem value="Buildings">Buildings</SelectItem>
-                      <SelectItem value="All">All</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="md:col-span-3">
-                  <label className="text-xs text-gray-600">Region</label>
-                  <Select value={searchRegion} onValueChange={setSearchRegion}>
-                    <SelectTrigger className="mt-1">
-                      <SelectValue placeholder="All regions" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="All regions">All regions</SelectItem>
-                      {allRegions.map((r) => (
-                        <SelectItem key={r} value={r}>
-                          {r}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="md:col-span-3">
-                  <label className="text-xs text-gray-600">City</label>
-                  <Select value={searchCity} onValueChange={setSearchCity}>
-                    <SelectTrigger className="mt-1">
-                      <SelectValue placeholder="All cities" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="All cities">All cities</SelectItem>
-                      {allCities.map((c) => (
-                        <SelectItem key={c} value={c}>
-                          {c}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="md:col-span-3 flex items-end">
-                  <Button className="w-full bg-[#BF1231] hover:bg-[#9f0e28] text-white">
-                    Search
-                  </Button>
-                </div>
+        <div className="max-w-none mx-auto px-12 py-6">
+          {/* Full-width filters bar above the grid */}
+          <div className="rounded-xl border bg-white p-4 mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
+              <div className="md:col-span-3">
+                <label className="text-xs text-gray-600">Type</label>
+                <Select value={searchType} onValueChange={setSearchType}>
+                  <SelectTrigger className="mt-1">
+                    <SelectValue placeholder="Spaces" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Spaces">Spaces</SelectItem>
+                    <SelectItem value="Wellness">Amenities</SelectItem>
+                    <SelectItem value="Events">Events</SelectItem>
+                    <SelectItem value="Buildings">Buildings</SelectItem>
+                    <SelectItem value="All">All</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
-              <div className="mt-3 grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
-                <div className="md:col-span-4">
-                  <label className="text-xs text-gray-600">Date</label>
-                  <Input
-                    type="date"
-                    className="mt-1"
-                    value={searchDate}
-                    onChange={(e) => setSearchDate(e.target.value)}
-                  />
-                </div>
-                <div className="md:col-span-4">
-                  <label className="text-xs text-gray-600">Start time</label>
-                  <Input
-                    type="time"
-                    className="mt-1"
-                    value={searchTime}
-                    onChange={(e) => setSearchTime(e.target.value)}
-                  />
-                </div>
-                <div className="md:col-span-4">
-                  <label className="text-xs text-gray-600">
-                    Duration (hrs)
-                  </label>
-                  <div className="mt-2 flex items-center gap-3">
-                    <Slider
-                      value={[searchDurationHrs]}
-                      onValueChange={(v) => setSearchDurationHrs(v[0])}
-                      min={0.5}
-                      max={8}
-                      step={0.5}
-                      className="flex-1"
-                    />
-                    <span className="w-10 text-right text-sm text-gray-700">
-                      {searchDurationHrs}
-                    </span>
-                  </div>
-                </div>
-                {searchType === "Buildings" && (
-                  <>
-                    <div className="md:col-span-4">
-                      <label className="text-xs text-gray-600">
-                        Lease start month
-                      </label>
-                      <Select
-                        value={leaseStartMonth}
-                        onValueChange={setLeaseStartMonth}
-                      >
-                        <SelectTrigger className="mt-1">
-                          <SelectValue placeholder="Month" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {[
-                            "Jan",
-                            "Feb",
-                            "Mar",
-                            "Apr",
-                            "May",
-                            "Jun",
-                            "Jul",
-                            "Aug",
-                            "Sep",
-                            "Oct",
-                            "Nov",
-                            "Dec",
-                          ].map((m) => (
-                            <SelectItem key={m} value={m}>
-                              {m}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="md:col-span-4">
-                      <label className="text-xs text-gray-600">
-                        Lease start year
-                      </label>
-                      <Select
-                        value={leaseStartYear}
-                        onValueChange={setLeaseStartYear}
-                      >
-                        <SelectTrigger className="mt-1">
-                          <SelectValue placeholder="Year" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {[2025, 2026, 2027, 2028, 2029].map((y) => (
-                            <SelectItem key={y} value={String(y)}>
-                              {y}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="md:col-span-4 flex items-end">
-                      <div className="flex items-center gap-2">
-                        <Checkbox
-                          id="open-only"
-                          checked={showOpenOnly}
-                          onCheckedChange={(v) => setShowOpenOnly(!!v)}
-                        />
-                        <label
-                          htmlFor="open-only"
-                          className="text-xs text-gray-700"
-                        >
-                          Open tenancy only
-                        </label>
-                      </div>
-                    </div>
-                  </>
-                )}
+              <div className="md:col-span-3">
+                <label className="text-xs text-gray-600">Region</label>
+                <Select value={searchRegion} onValueChange={setSearchRegion}>
+                  <SelectTrigger className="mt-1">
+                    <SelectValue placeholder="All regions" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="All regions">All regions</SelectItem>
+                    {allRegions.map((r) => (
+                      <SelectItem key={r} value={r}>
+                        {r}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="md:col-span-3">
+                <label className="text-xs text-gray-600">City</label>
+                <Select value={searchCity} onValueChange={setSearchCity}>
+                  <SelectTrigger className="mt-1">
+                    <SelectValue placeholder="All cities" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="All cities">All cities</SelectItem>
+                    {allCities.map((c) => (
+                      <SelectItem key={c} value={c}>
+                        {c}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="md:col-span-3 flex items-end">
+                <Button className="w-full bg-[#BF1231] hover:bg-[#9f0e28] text-white">
+                  Search
+                </Button>
               </div>
             </div>
-
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs text-gray-600">
-                {searchResults.length} results
-              </span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {searchResults.map((card, idx) => (
-                <div
-                  key={`sr-card-${idx}`}
-                  className="rounded-2xl border overflow-hidden bg-white hover:shadow-md transition-shadow"
-                >
-                  <div className="h-28 bg-gradient-to-b from-blue-500 to-indigo-500 flex items-center justify-center">
-                    <span className="text-white text-xs opacity-90">
-                      {card.category}
-                    </span>
-                  </div>
-                  <div className="p-4">
-                    <div className="text-sm font-medium truncate">
-                      {card.headline}
-                    </div>
-                    <p className="mt-1 text-xs text-gray-600 line-clamp-3">
-                      {card.description}
-                    </p>
-                    <div className="mt-3">
-                      <Button variant="outline" size="sm">
-                        Contact to Book
-                      </Button>
-                    </div>
-                  </div>
+            <div className="mt-3 grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
+              <div className="md:col-span-4">
+                <label className="text-xs text-gray-600">Date</label>
+                <Input
+                  type="date"
+                  className="mt-1"
+                  value={searchDate}
+                  onChange={(e) => setSearchDate(e.target.value)}
+                />
+              </div>
+              <div className="md:col-span-4">
+                <label className="text-xs text-gray-600">Start time</label>
+                <Input
+                  type="time"
+                  className="mt-1"
+                  value={searchTime}
+                  onChange={(e) => setSearchTime(e.target.value)}
+                />
+              </div>
+              <div className="md:col-span-4">
+                <label className="text-xs text-gray-600">Duration (hrs)</label>
+                <div className="mt-2 flex items-center gap-3">
+                  <Slider
+                    value={[searchDurationHrs]}
+                    onValueChange={(v) => setSearchDurationHrs(v[0])}
+                    min={0.5}
+                    max={8}
+                    step={0.5}
+                    className="flex-1"
+                  />
+                  <span className="w-10 text-right text-sm text-gray-700">
+                    {searchDurationHrs}
+                  </span>
                 </div>
-              ))}
+              </div>
+              {searchType === "Buildings" && (
+                <>
+                  <div className="md:col-span-4">
+                    <label className="text-xs text-gray-600">
+                      Lease start month
+                    </label>
+                    <Select
+                      value={leaseStartMonth}
+                      onValueChange={setLeaseStartMonth}
+                    >
+                      <SelectTrigger className="mt-1">
+                        <SelectValue placeholder="Month" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[
+                          "Jan",
+                          "Feb",
+                          "Mar",
+                          "Apr",
+                          "May",
+                          "Jun",
+                          "Jul",
+                          "Aug",
+                          "Sep",
+                          "Oct",
+                          "Nov",
+                          "Dec",
+                        ].map((m) => (
+                          <SelectItem key={m} value={m}>
+                            {m}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="md:col-span-4">
+                    <label className="text-xs text-gray-600">
+                      Lease start year
+                    </label>
+                    <Select
+                      value={leaseStartYear}
+                      onValueChange={setLeaseStartYear}
+                    >
+                      <SelectTrigger className="mt-1">
+                        <SelectValue placeholder="Year" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[2025, 2026, 2027, 2028, 2029].map((y) => (
+                          <SelectItem key={y} value={String(y)}>
+                            {y}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="md:col-span-4 flex items-end">
+                    <div className="flex items-center gap-2">
+                      <Checkbox
+                        id="open-only"
+                        checked={showOpenOnly}
+                        onCheckedChange={(v) => setShowOpenOnly(!!v)}
+                      />
+                      <label
+                        htmlFor="open-only"
+                        className="text-xs text-gray-700"
+                      >
+                        Open tenancy only
+                      </label>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
-          {/* Right: sticky map always visible */}
-          <div className="lg:col-span-5 hidden lg:block">
-            <div className="sticky top-[88px]">
-              <ExploreMap
-                points={buildings.map((b, idx) => ({
-                  id: String(idx),
-                  name: b.name,
-                  latitude: (b as any).latitude ?? 29.7604,
-                  longitude: (b as any).longitude ?? -95.3698,
-                }))}
-              />
+          {/* Two-column layout: left results, right sticky map */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Left: results */}
+            <div className="lg:col-span-7">
+              {/* Filters were moved above the grid */}
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs text-gray-600">
+                  {searchResults.length} results
+                </span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {searchResults.map((card, idx) => (
+                  <div
+                    key={`sr-card-${idx}`}
+                    className="rounded-2xl border overflow-hidden bg-white hover:shadow-md transition-shadow"
+                  >
+                    <div className="relative h-56 overflow-hidden">
+                      <img
+                        src={(card as any).image}
+                        alt={(card as any).imageAlt || (card as any).headline}
+                        className="w-full h-full object-cover"
+                      />
+                      <span className="absolute top-2 left-2 text-[11px] px-2.5 py-1 rounded-full bg-white/90 text-gray-900 border">
+                        {(card as any).category}
+                      </span>
+                    </div>
+                    <div className="p-4">
+                      <div className="text-sm font-medium truncate">
+                        {card.headline}
+                      </div>
+                      <p className="mt-1 text-xs text-gray-600 line-clamp-3">
+                        {card.description}
+                      </p>
+                      <div className="mt-3">
+                        <Button variant="outline" size="sm">
+                          Contact to Book
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right: sticky map always visible */}
+            <div className="lg:col-span-5 hidden lg:block">
+              <div className="sticky top-[88px]">
+                <ExploreMap
+                  points={buildings.map((b, idx) => ({
+                    id: String(idx),
+                    name: b.name,
+                    latitude: (b as any).latitude ?? 29.7604,
+                    longitude: (b as any).longitude ?? -95.3698,
+                  }))}
+                />
+              </div>
             </div>
           </div>
         </div>

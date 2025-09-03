@@ -67,7 +67,7 @@ export default function PublicContactPage() {
           />
           <div className="absolute inset-0 bg-black/30" />
         </div>
-        <div className="max-w-7xl mx-auto px-6 py-10 sm:py-14">
+        <div className="max-w-none mx-auto px-12 py-10 sm:py-14">
           <h1 className="text-3xl font-semibold text-white">Contact</h1>
           <p className="mt-2 text-white/90 max-w-3xl">
             Have a question about Texas Tower, amenities, or leasing? Send us a
@@ -78,7 +78,7 @@ export default function PublicContactPage() {
 
       {/* Content */}
       <section className="relative z-10 bg-white">
-        <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div className="max-w-none mx-auto px-12 py-12 grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Form */}
           <div className="lg:col-span-7">
             <div className="rounded-2xl border p-6 bg-white shadow-sm">
@@ -116,7 +116,7 @@ export default function PublicContactPage() {
 
       {/* Meet the team */}
       <section className="bg-[#F9FAFB]">
-        <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="max-w-none mx-auto px-12 py-16">
           <h2 className="text-2xl font-semibold text-center">Meet the team</h2>
           <p className="mt-2 text-center text-gray-600">
             Your on‑site team is here to help with leasing, amenities, events,
