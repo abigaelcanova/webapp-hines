@@ -128,7 +128,7 @@ export default function SiteHeader() {
               href="/availabilities"
               className="text-sm text-gray-900 hover:text-gray-700 font-medium"
             >
-              Availabilities
+              Explore
             </Link>
             <Link
               href="/contact"

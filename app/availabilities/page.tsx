@@ -79,6 +79,8 @@ export default function AvailabilitiesPage() {
         { floor: 18, availableFrom: "2025-06", openTenancy: true, rsf: 12000 },
         { floor: 22, availableFrom: "2025-09", openTenancy: false, rsf: 18500 },
       ],
+      latitude: 29.7604,
+      longitude: -95.3698,
     },
     {
       name: "Texas Tower",
@@ -91,6 +93,8 @@ export default function AvailabilitiesPage() {
         { floor: 10, availableFrom: "2025-08", openTenancy: false, rsf: 9000 },
         { floor: 27, availableFrom: "2025-11", openTenancy: true, rsf: 15000 },
       ],
+      latitude: 29.7607,
+      longitude: -95.3671,
     },
   ];
 
@@ -186,173 +190,191 @@ export default function AvailabilitiesPage() {
     showOpenOnly,
   ]);
 
+  // Derived helper sets for sidebar browse sections
+  const cityList = allCities;
+  const categoryList = Array.from(
+    new Set(searchResults.map((r) => r.category))
+  ).sort();
+
   return (
     <main className="min-h-screen flex flex-col bg-white">
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="/Hines/texastower_banner.jpg"
-            alt="Texas Tower"
-            className="w-full h-56 sm:h-72 object-cover"
-          />
-          <div className="absolute inset-0 bg-black/30" />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-6 py-10 sm:py-14">
-          <h1 className="text-3xl font-semibold text-white">Availabilities</h1>
-          <p className="mt-2 text-white/90 max-w-3xl">
-            Browse suites at Texas Tower and inquire directly with our team.
+      {/* Hero header */}
+      <section className="bg-white">
+        <div className="max-w-[1440px] mx-auto px-4 md:px-6 pt-8 pb-4 text-center">
+          <h1 className="text-2xl sm:text-3xl font-semibold">
+            Explore Spaces, Events & Services
+          </h1>
+          <p className="mt-2 text-gray-600 max-w-2xl mx-auto text-sm">
+            Discover amazing spaces, join exciting events, and access premium
+            services across buildings in major cities.
           </p>
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            {[
+              "Wellness‑focused",
+              "Tech‑Enabled",
+              "Large Group Friendly",
+              "Premium Amenities",
+              "Outdoor Access",
+            ].map((t) => (
+              <span
+                key={t}
+                className="text-[11px] px-2.5 py-1 rounded-full bg-gray-100 text-gray-800 border"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Search availability (moved from landing) */}
-      <section className="bg-white border-b">
-        <div className="max-w-[1440px] mx-auto px-6 py-6">
-          <div className="rounded-xl border bg-white shadow-sm p-4 md:p-5">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-base font-semibold">Search availability</h3>
-              <span className="text-xs text-gray-500">
-                Find buildings, spaces, and amenities by time
-              </span>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
-              <div className="md:col-span-2">
-                <label className="text-xs text-gray-600">Type</label>
-                <Select value={searchType} onValueChange={setSearchType}>
-                  <SelectTrigger className="mt-1">
-                    <SelectValue placeholder="Spaces" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Spaces">Spaces</SelectItem>
-                    <SelectItem value="Wellness">Amenities</SelectItem>
-                    <SelectItem value="Events">Events</SelectItem>
-                    <SelectItem value="Buildings">Buildings</SelectItem>
-                    <SelectItem value="All">All</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="md:col-span-2">
-                <label className="text-xs text-gray-600">Region</label>
-                <Select value={searchRegion} onValueChange={setSearchRegion}>
-                  <SelectTrigger className="mt-1">
-                    <SelectValue placeholder="All regions" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="All regions">All regions</SelectItem>
-                    {allRegions.map((r) => (
-                      <SelectItem key={r} value={r}>
-                        {r}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="md:col-span-2">
-                <label className="text-xs text-gray-600">City</label>
-                <Select value={searchCity} onValueChange={setSearchCity}>
-                  <SelectTrigger className="mt-1">
-                    <SelectValue placeholder="All cities" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="All cities">All cities</SelectItem>
-                    {allCities.map((c) => (
-                      <SelectItem key={c} value={c}>
-                        {c}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="md:col-span-2">
-                <label className="text-xs text-gray-600">Date</label>
-                <Input
-                  type="date"
-                  className="mt-1"
-                  value={searchDate}
-                  onChange={(e) => setSearchDate(e.target.value)}
-                />
-              </div>
-              <div className="md:col-span-2">
-                <label className="text-xs text-gray-600">Start time</label>
-                <Input
-                  type="time"
-                  className="mt-1"
-                  value={searchTime}
-                  onChange={(e) => setSearchTime(e.target.value)}
-                />
-              </div>
-              <div className="md:col-span-3">
-                <label className="text-xs text-gray-600">Duration (hrs)</label>
-                <div className="mt-2 flex items-center gap-3">
-                  <Slider
-                    value={[searchDurationHrs]}
-                    onValueChange={(v) => setSearchDurationHrs(v[0])}
-                    min={0.5}
-                    max={8}
-                    step={0.5}
-                    className="flex-1"
-                  />
-                  <span className="w-10 text-right text-sm text-gray-700">
-                    {searchDurationHrs}
-                  </span>
+      {/* Explore layout with left filters and wide results grid */}
+      <section className="bg-white">
+        <div className="max-w-[1440px] mx-auto px-4 md:px-6 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Left rail: Filters (reuse your search controls) */}
+          <aside className="lg:col-span-3 space-y-3">
+            <div className="rounded-xl border bg-white p-4">
+              <h3 className="text-sm font-semibold mb-2">Filters</h3>
+              <div className="grid grid-cols-1 gap-3">
+                <div>
+                  <label className="text-xs text-gray-600">Type</label>
+                  <Select value={searchType} onValueChange={setSearchType}>
+                    <SelectTrigger className="mt-1">
+                      <SelectValue placeholder="Spaces" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Spaces">Spaces</SelectItem>
+                      <SelectItem value="Wellness">Amenities</SelectItem>
+                      <SelectItem value="Events">Events</SelectItem>
+                      <SelectItem value="Buildings">Buildings</SelectItem>
+                      <SelectItem value="All">All</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
-              </div>
-              {searchType === "Buildings" && (
-                <>
-                  <div className="md:col-span-2">
-                    <label className="text-xs text-gray-600">
-                      Lease start month
-                    </label>
-                    <Select
-                      value={leaseStartMonth}
-                      onValueChange={setLeaseStartMonth}
-                    >
-                      <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="Month" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {[
-                          "Jan",
-                          "Feb",
-                          "Mar",
-                          "Apr",
-                          "May",
-                          "Jun",
-                          "Jul",
-                          "Aug",
-                          "Sep",
-                          "Oct",
-                          "Nov",
-                          "Dec",
-                        ].map((m) => (
-                          <SelectItem key={m} value={m}>
-                            {m}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                <div>
+                  <label className="text-xs text-gray-600">Region</label>
+                  <Select value={searchRegion} onValueChange={setSearchRegion}>
+                    <SelectTrigger className="mt-1">
+                      <SelectValue placeholder="All regions" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="All regions">All regions</SelectItem>
+                      {allRegions.map((r) => (
+                        <SelectItem key={r} value={r}>
+                          {r}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600">City</label>
+                  <Select value={searchCity} onValueChange={setSearchCity}>
+                    <SelectTrigger className="mt-1">
+                      <SelectValue placeholder="All cities" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="All cities">All cities</SelectItem>
+                      {allCities.map((c) => (
+                        <SelectItem key={c} value={c}>
+                          {c}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="text-xs text-gray-600">Date</label>
+                    <Input
+                      type="date"
+                      className="mt-1"
+                      value={searchDate}
+                      onChange={(e) => setSearchDate(e.target.value)}
+                    />
                   </div>
-                  <div className="md:col-span-2">
-                    <label className="text-xs text-gray-600">
-                      Lease start year
-                    </label>
-                    <Select
-                      value={leaseStartYear}
-                      onValueChange={setLeaseStartYear}
-                    >
-                      <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="Year" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {[2025, 2026, 2027, 2028, 2029].map((y) => (
-                          <SelectItem key={y} value={String(y)}>
-                            {y}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                  <div>
+                    <label className="text-xs text-gray-600">Start time</label>
+                    <Input
+                      type="time"
+                      className="mt-1"
+                      value={searchTime}
+                      onChange={(e) => setSearchTime(e.target.value)}
+                    />
                   </div>
-                  <div className="md:col-span-2 flex items-end gap-2">
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600">
+                    Duration (hrs)
+                  </label>
+                  <div className="mt-2 flex items-center gap-3">
+                    <Slider
+                      value={[searchDurationHrs]}
+                      onValueChange={(v) => setSearchDurationHrs(v[0])}
+                      min={0.5}
+                      max={8}
+                      step={0.5}
+                      className="flex-1"
+                    />
+                    <span className="w-10 text-right text-sm text-gray-700">
+                      {searchDurationHrs}
+                    </span>
+                  </div>
+                </div>
+                {searchType === "Buildings" && (
+                  <>
+                    <div>
+                      <label className="text-xs text-gray-600">
+                        Lease start month
+                      </label>
+                      <Select
+                        value={leaseStartMonth}
+                        onValueChange={setLeaseStartMonth}
+                      >
+                        <SelectTrigger className="mt-1">
+                          <SelectValue placeholder="Month" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {[
+                            "Jan",
+                            "Feb",
+                            "Mar",
+                            "Apr",
+                            "May",
+                            "Jun",
+                            "Jul",
+                            "Aug",
+                            "Sep",
+                            "Oct",
+                            "Nov",
+                            "Dec",
+                          ].map((m) => (
+                            <SelectItem key={m} value={m}>
+                              {m}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <label className="text-xs text-gray-600">
+                        Lease start year
+                      </label>
+                      <Select
+                        value={leaseStartYear}
+                        onValueChange={setLeaseStartYear}
+                      >
+                        <SelectTrigger className="mt-1">
+                          <SelectValue placeholder="Year" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {[2025, 2026, 2027, 2028, 2029].map((y) => (
+                            <SelectItem key={y} value={String(y)}>
+                              {y}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
                     <div className="flex items-center gap-2">
                       <Checkbox
                         id="open-only"
@@ -366,57 +388,104 @@ export default function AvailabilitiesPage() {
                         Open tenancy only
                       </label>
                     </div>
-                  </div>
-                  <div className="md:col-span-3">
-                    <label className="text-xs text-gray-600">
-                      Lease term (months)
-                    </label>
-                    <div className="mt-2 flex items-center gap-3">
-                      <Slider
-                        value={[leaseTermMonths]}
-                        onValueChange={(v) => setLeaseTermMonths(v[0])}
-                        min={6}
-                        max={120}
-                        step={6}
-                        className="flex-1"
-                      />
-                      <span className="w-12 text-right text-sm text-gray-700">
-                        {leaseTermMonths}
-                      </span>
+                    <div>
+                      <label className="text-xs text-gray-600">
+                        Lease term (months)
+                      </label>
+                      <div className="mt-2 flex items-center gap-3">
+                        <Slider
+                          value={[leaseTermMonths]}
+                          onValueChange={(v) => setLeaseTermMonths(v[0])}
+                          min={6}
+                          max={120}
+                          step={6}
+                          className="flex-1"
+                        />
+                        <span className="w-12 text-right text-sm text-gray-700">
+                          {leaseTermMonths}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </>
-              )}
-              <div className="md:col-span-1 flex items-end">
+                  </>
+                )}
                 <Button className="w-full bg-[#BF1231] hover:bg-[#9f0e28] text-white">
                   Search
                 </Button>
               </div>
             </div>
-            <div className="mt-4 text-xs text-gray-600">
-              {searchResults.length} results
+
+            {/* Browse: Cities */}
+            <div className="rounded-xl border bg-white p-4">
+              <h4 className="text-sm font-semibold mb-2">City</h4>
+              <div className="space-y-1 text-sm">
+                {cityList.map((c) => (
+                  <button
+                    key={c}
+                    className={`w-full text-left px-2 py-1 rounded ${
+                      searchCity === c ? "bg-gray-100" : "hover:bg-gray-50"
+                    }`}
+                    onClick={() => setSearchCity(c)}
+                  >
+                    {c}
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {searchResults.map((card) => (
-                <ContentCard
-                  key={`sr-${card.headline}`}
-                  image={card.image}
-                  imageAlt={card.imageAlt}
-                  category={card.category}
-                  timestamp={card.timestamp}
-                  headline={card.headline}
-                  description={card.description}
-                  layout="vertical"
-                />
+
+            {/* Browse: Categories */}
+            <div className="rounded-xl border bg-white p-4">
+              <h4 className="text-sm font-semibold mb-2">Categories</h4>
+              <div className="space-y-1 text-sm">
+                {categoryList.map((cat) => (
+                  <button
+                    key={cat}
+                    className="w-full text-left px-2 py-1 rounded hover:bg-gray-50"
+                    onClick={() =>
+                      setSearchType(cat === "Buildings" ? "Buildings" : cat)
+                    }
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </aside>
+
+          {/* Center: browsable cards */}
+          <div className="lg:col-span-9">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs text-gray-600">
+                {searchResults.length} results
+              </span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {searchResults.map((card, idx) => (
+                <div
+                  key={`sr-card-${idx}`}
+                  className="rounded-2xl border overflow-hidden bg-white hover:shadow-md transition-shadow"
+                >
+                  <div className="h-28 bg-gradient-to-b from-blue-500 to-indigo-500 flex items-center justify-center">
+                    <span className="text-white text-xs opacity-90">
+                      {card.category}
+                    </span>
+                  </div>
+                  <div className="p-4">
+                    <div className="text-sm font-medium truncate">
+                      {card.headline}
+                    </div>
+                    <p className="mt-1 text-xs text-gray-600 line-clamp-3">
+                      {card.description}
+                    </p>
+                    <div className="mt-3">
+                      <Button variant="outline" size="sm">
+                        Contact to Book
+                      </Button>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-6 py-12">
-          <AvailabilitiesBrowser />
         </div>
       </section>
 
