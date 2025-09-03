@@ -4,7 +4,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { SiteFooter } from "@/components/site-footer";
 import { AvailabilitiesBrowser } from "@/components/availabilities-browser";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   Select,
   SelectContent,
@@ -19,6 +20,7 @@ import { ContentCard } from "@/components/content-card";
 import ExploreMap from "@/components/explore-map";
 
 export default function AvailabilitiesPage() {
+  const params = useSearchParams();
   // Unified availability search state (moved from landing)
   const [searchType, setSearchType] = useState<string>("Spaces");
   const [searchRegion, setSearchRegion] = useState<string>("All regions");
@@ -322,6 +324,17 @@ export default function AvailabilitiesPage() {
   );
   const allRegions = regions;
   const allCities = cities;
+
+  // Initialize filters from URL params on mount
+  useEffect(() => {
+    if (!params) return;
+    const type = params.get("type");
+    const region = params.get("region");
+    const city = params.get("city");
+    if (type) setSearchType(type);
+    if (region) setSearchRegion(region);
+    if (city) setSearchCity(city);
+  }, [params]);
 
   const searchResults = useMemo(() => {
     const toYearMonth = (y: string, m: string) =>

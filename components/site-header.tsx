@@ -113,6 +113,12 @@ export default function SiteHeader() {
           </DropdownMenu>
           <nav className="hidden md:flex items-center gap-6">
             <Link
+              href="/availabilities"
+              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
+            >
+              Explore
+            </Link>
+            <Link
               href="/about"
               className="text-sm text-gray-900 hover:text-gray-700 font-medium"
             >
@@ -123,12 +129,6 @@ export default function SiteHeader() {
               className="text-sm text-gray-900 hover:text-gray-700 font-medium"
             >
               Neighborhood
-            </Link>
-            <Link
-              href="/availabilities"
-              className="text-sm text-gray-900 hover:text-gray-700 font-medium"
-            >
-              Explore
             </Link>
             <Link
               href="/contact"

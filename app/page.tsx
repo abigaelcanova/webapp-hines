@@ -537,7 +537,10 @@ export default function PublicPage() {
                   <li>• High-tech conference and event spaces</li>
                 </ul>
                 <div className="mt-6 flex gap-3">
-                  <Link href="/explore" className="inline-flex">
+                  <Link
+                    href="/availabilities?type=Wellness&region=South&city=Houston"
+                    className="inline-flex"
+                  >
                     <Button variant="outline">Explore amenities</Button>
                   </Link>
                 </div>
