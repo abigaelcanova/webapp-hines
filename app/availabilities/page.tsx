@@ -708,7 +708,6 @@ export default function AvailabilitiesPage() {
               { key: "Wellness", label: "Amenities" },
               { key: "Events", label: "Events" },
               { key: "Merchants", label: "Merchants" },
-              { key: "Buildings", label: "Buildings" },
               { key: "All", label: "All" },
             ].map((opt) => (
               <Button
@@ -731,31 +730,6 @@ export default function AvailabilitiesPage() {
       {/* Explore layout with left filters and wide results grid */}
       <section className="bg-white">
         <div className="max-w-none mx-auto px-12 py-6">
-          {/* Top visible type chips (desktop) */}
-          <div className="hidden md:flex items-center gap-2 mb-3">
-            {[
-              { key: "Spaces", label: "Spaces" },
-              { key: "Wellness", label: "Amenities" },
-              { key: "Events", label: "Events" },
-              { key: "Merchants", label: "Merchants" },
-              { key: "Buildings", label: "Buildings" },
-              { key: "All", label: "All" },
-            ].map((opt) => (
-              <Button
-                key={opt.key}
-                variant={searchType === opt.key ? "default" : "outline"}
-                className={
-                  searchType === opt.key
-                    ? "bg-[#BF1231] hover:bg-[#9f0e28] text-white h-8 px-3"
-                    : "h-8 px-3"
-                }
-                onClick={() => setSearchType(opt.key)}
-              >
-                <span className="text-xs">{opt.label}</span>
-              </Button>
-            ))}
-          </div>
-
           {/* Full-width filters bar above the grid */}
           <div className="rounded-xl border bg-white p-4 mb-4">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
@@ -1005,10 +979,18 @@ export default function AvailabilitiesPage() {
                       <p className="mt-1 text-xs text-gray-600 line-clamp-3">
                         {card.description}
                       </p>
-                      <div className="mt-3">
+                      <div className="mt-3 flex gap-2">
                         <Button variant="outline" size="sm">
                           Contact to Book
                         </Button>
+                        <Link href="/login" className="inline-flex">
+                          <Button
+                            size="sm"
+                            className="bg-[#BF1231] hover:bg-[#9f0e28] text-white"
+                          >
+                            Tenant log in
+                          </Button>
+                        </Link>
                       </div>
                     </div>
                   </div>
