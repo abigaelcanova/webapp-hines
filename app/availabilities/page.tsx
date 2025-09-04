@@ -18,11 +18,35 @@ import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ContentCard } from "@/components/content-card";
 import ExploreMap from "@/components/explore-map";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button as UIButton } from "@/components/ui/button";
+import { SlidersHorizontal } from "lucide-react";
 
 export default function AvailabilitiesPage() {
+  function resetFilters() {
+    setSearchType("All");
+    setSearchRegion("All regions");
+    setSearchCity("All cities");
+    setSearchBuildingName("All buildings");
+    setSearchDate("");
+    setSearchTime("");
+    setSearchDurationHrs(2);
+    setShowPublicOnly(false);
+    setMerchantCategory("All categories");
+    setMerchantQuery("");
+    setLeaseStartMonth("");
+    setLeaseStartYear("");
+    setShowOpenOnly(false);
+  }
   const params = useSearchParams();
   // Unified availability search state (moved from landing)
-  const [searchType, setSearchType] = useState<string>("Spaces");
+  const [searchType, setSearchType] = useState<string>("All");
   const [searchRegion, setSearchRegion] = useState<string>("All regions");
   const [searchCity, setSearchCity] = useState<string>("All cities");
   const [searchDate, setSearchDate] = useState<string>("");
@@ -34,6 +58,7 @@ export default function AvailabilitiesPage() {
   const [showOpenOnly, setShowOpenOnly] = useState<boolean>(false);
   const [searchBuildingName, setSearchBuildingName] =
     useState<string>("All buildings");
+  const [showPublicOnly, setShowPublicOnly] = useState<boolean>(false);
   // Merchant directory filters
   const MERCHANT_CATEGORIES = [
     "All categories",
@@ -508,6 +533,25 @@ export default function AvailabilitiesPage() {
     [buildings]
   );
 
+  // Names of items that are bookable by the public (demo)
+  const PUBLIC_BOOKABLE = useMemo(
+    () =>
+      new Set<string>([
+        // Spaces/Amenities/Events
+        "Executive Boardroom",
+        "Makers Studio",
+        "Team Meeting Suite",
+        "Chef Pop‑Up Lunch",
+        "Mindfulness Workshop",
+        // Merchants
+        "Atrium Cafe",
+        "Market Kitchen",
+        "Sunrise Smoothies",
+        "North End Deli",
+      ]),
+    []
+  );
+
   // Initialize filters from URL params on mount
   useEffect(() => {
     if (!params) return;
@@ -561,6 +605,8 @@ export default function AvailabilitiesPage() {
               t.toLowerCase().includes(merchantQuery.toLowerCase())
             )
         );
+      if (showPublicOnly)
+        items = items.filter((m) => PUBLIC_BOOKABLE.has(m.name));
       return items.map((m) => ({
         image: m.image,
         imageAlt: m.name,
@@ -568,6 +614,7 @@ export default function AvailabilitiesPage() {
         timestamp: m.buildingName,
         headline: m.name,
         description: m.blurb,
+        publicBookable: PUBLIC_BOOKABLE.has(m.name),
       }));
     }
 
@@ -623,7 +670,13 @@ export default function AvailabilitiesPage() {
       items = items.filter(
         (c: any) => c.neighborhoodCategory === neighborhoodCategory
       );
-    return items;
+    if (showPublicOnly) {
+      items = items.filter((c: any) => PUBLIC_BOOKABLE.has(c.headline));
+    }
+    return items.map((c: any) => ({
+      ...c,
+      publicBookable: PUBLIC_BOOKABLE.has(c.headline),
+    }));
   }, [
     searchType,
     searchRegion,
@@ -639,6 +692,7 @@ export default function AvailabilitiesPage() {
     searchBuildingName,
     merchantCategory,
     merchantQuery,
+    showPublicOnly,
   ]);
 
   const filteredBuildings = useMemo(() => {
@@ -702,13 +756,13 @@ export default function AvailabilitiesPage() {
             Discover amazing spaces, join exciting events, and access premium
             services across buildings in major cities.
           </p>
-          <div className="mt-4 flex flex-wrap justify-center gap-2">
+          <div className="mt-4 flex flex-wrap justify-center gap-2 items-center">
             {[
+              { key: "All", label: "All" },
               { key: "Spaces", label: "Spaces" },
               { key: "Wellness", label: "Amenities" },
-              { key: "Events", label: "Events" },
+              { key: "Events", label: "Events & Services" },
               { key: "Merchants", label: "Merchants" },
-              { key: "All", label: "All" },
             ].map((opt) => (
               <Button
                 key={opt.key}
@@ -723,6 +777,273 @@ export default function AvailabilitiesPage() {
                 <span className="text-xs">{opt.label}</span>
               </Button>
             ))}
+
+            {/* Filters modal trigger (desktop) */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <UIButton
+                  variant="outline"
+                  className="h-8 px-3 ml-2 rounded-full hidden md:inline-flex"
+                >
+                  <SlidersHorizontal className="h-4 w-4 mr-1" />
+                  <span className="text-xs">Filters</span>
+                </UIButton>
+              </DialogTrigger>
+              <DialogContent className="max-w-3xl w-auto max-h-[80vh] overflow-y-auto place-content-start rounded-3xl p-0">
+                <DialogHeader className="px-6 py-4 border-b text-center w-full">
+                  <DialogTitle className="text-xl font-semibold">
+                    Filters
+                  </DialogTitle>
+                </DialogHeader>
+                {/* Filters form moved here */}
+                <div className="px-4 py-6">
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
+                    <div className="md:col-span-4">
+                      <label className="text-xs text-gray-600">Type</label>
+                      <Select value={searchType} onValueChange={setSearchType}>
+                        <SelectTrigger className="mt-1 h-12 rounded-xl">
+                          <SelectValue placeholder="Spaces" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="All">All</SelectItem>
+                          <SelectItem value="Spaces">Spaces</SelectItem>
+                          <SelectItem value="Wellness">Amenities</SelectItem>
+                          <SelectItem value="Events">
+                            Events & Services
+                          </SelectItem>
+                          <SelectItem value="Merchants">Merchants</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="md:col-span-4">
+                      <label className="text-xs text-gray-600">Region</label>
+                      <Select
+                        value={searchRegion}
+                        onValueChange={setSearchRegion}
+                      >
+                        <SelectTrigger className="mt-1 h-12 rounded-xl">
+                          <SelectValue placeholder="All regions" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="All regions">
+                            All regions
+                          </SelectItem>
+                          {allRegions.map((r) => (
+                            <SelectItem key={r} value={r}>
+                              {r}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="md:col-span-4">
+                      <label className="text-xs text-gray-600">City</label>
+                      <Select value={searchCity} onValueChange={setSearchCity}>
+                        <SelectTrigger className="mt-1 h-12 rounded-xl">
+                          <SelectValue placeholder="All cities" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="All cities">All cities</SelectItem>
+                          {allCities.map((c) => (
+                            <SelectItem key={c} value={c}>
+                              {c}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="md:col-span-12">
+                      <label className="text-xs text-gray-600">Building</label>
+                      <Select
+                        value={searchBuildingName}
+                        onValueChange={setSearchBuildingName}
+                      >
+                        <SelectTrigger className="mt-1 h-12 rounded-xl">
+                          <SelectValue placeholder="All buildings" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {buildingNames.map((n) => (
+                            <SelectItem key={n} value={n}>
+                              {n}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div className="mt-3 grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
+                    {searchType === "Merchants" && (
+                      <>
+                        <div className="md:col-span-4">
+                          <label className="text-xs text-gray-600">
+                            Merchant category
+                          </label>
+                          <Select
+                            value={merchantCategory}
+                            onValueChange={setMerchantCategory}
+                          >
+                            <SelectTrigger className="mt-1 h-12 rounded-xl">
+                              <SelectValue placeholder="All categories" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {MERCHANT_CATEGORIES.map((c) => (
+                                <SelectItem key={c} value={c}>
+                                  {c}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="md:col-span-8">
+                          <label className="text-xs text-gray-600">
+                            Search merchants
+                          </label>
+                          <Input
+                            type="text"
+                            className="mt-1 h-12 rounded-xl"
+                            placeholder="Find by name or tag (e.g., coffee, salads, gifts)"
+                            value={merchantQuery}
+                            onChange={(e) => setMerchantQuery(e.target.value)}
+                          />
+                        </div>
+                      </>
+                    )}
+                    <div className="md:col-span-4">
+                      <label className="text-xs text-gray-600">Date</label>
+                      <Input
+                        type="date"
+                        className="mt-1 h-12 rounded-xl"
+                        value={searchDate}
+                        onChange={(e) => setSearchDate(e.target.value)}
+                      />
+                    </div>
+                    <div className="md:col-span-4">
+                      <label className="text-xs text-gray-600">
+                        Start time
+                      </label>
+                      <Input
+                        type="time"
+                        className="mt-1 h-12 rounded-xl"
+                        value={searchTime}
+                        onChange={(e) => setSearchTime(e.target.value)}
+                      />
+                    </div>
+                    <div className="md:col-span-4">
+                      <label className="text-xs text-gray-600">
+                        Duration (hrs)
+                      </label>
+                      <div className="mt-2 flex items-center gap-3">
+                        <Slider
+                          value={[searchDurationHrs]}
+                          onValueChange={(v) => setSearchDurationHrs(v[0])}
+                          min={0.5}
+                          max={8}
+                          step={0.5}
+                          className="flex-1"
+                        />
+                        <span className="w-10 text-right text-sm text-gray-700">
+                          {searchDurationHrs}
+                        </span>
+                      </div>
+                      <div className="mt-3 flex items-center gap-2">
+                        <Checkbox
+                          id="public-only-modal"
+                          checked={showPublicOnly}
+                          onCheckedChange={(v) => setShowPublicOnly(!!v)}
+                        />
+                        <label
+                          htmlFor="public-only-modal"
+                          className="text-xs text-gray-700"
+                        >
+                          Public only
+                        </label>
+                      </div>
+                    </div>
+                    {searchType === "Buildings" && (
+                      <>
+                        <div className="md:col-span-4">
+                          <label className="text-xs text-gray-600">
+                            Lease start month
+                          </label>
+                          <Select
+                            value={leaseStartMonth}
+                            onValueChange={setLeaseStartMonth}
+                          >
+                            <SelectTrigger className="mt-1 h-12 rounded-xl">
+                              <SelectValue placeholder="Month" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {[
+                                "Jan",
+                                "Feb",
+                                "Mar",
+                                "Apr",
+                                "May",
+                                "Jun",
+                                "Jul",
+                                "Aug",
+                                "Sep",
+                                "Oct",
+                                "Nov",
+                                "Dec",
+                              ].map((m) => (
+                                <SelectItem key={m} value={m}>
+                                  {m}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="md:col-span-4">
+                          <label className="text-xs text-gray-600">
+                            Lease start year
+                          </label>
+                          <Select
+                            value={leaseStartYear}
+                            onValueChange={setLeaseStartYear}
+                          >
+                            <SelectTrigger className="mt-1 h-12 rounded-xl">
+                              <SelectValue placeholder="Year" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {[2025, 2026, 2027, 2028, 2029].map((y) => (
+                                <SelectItem key={y} value={String(y)}>
+                                  {y}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="md:col-span-4 flex items-end">
+                          <div className="flex items-center gap-2">
+                            <Checkbox
+                              id="open-only"
+                              checked={showOpenOnly}
+                              onCheckedChange={(v) => setShowOpenOnly(!!v)}
+                            />
+                            <label
+                              htmlFor="open-only"
+                              className="text-xs text-gray-700"
+                            >
+                              Open tenancy only
+                            </label>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <div className="px-6 py-4 border-t bg-white sticky bottom-0 flex items-center justify-between">
+                  <UIButton variant="outline" onClick={resetFilters}>
+                    Clear all
+                  </UIButton>
+                  <UIButton className="bg-[#BF1231] hover:bg-[#9f0e28] text-white">
+                    Show {searchResults.length} results
+                  </UIButton>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </section>
@@ -730,8 +1051,8 @@ export default function AvailabilitiesPage() {
       {/* Explore layout with left filters and wide results grid */}
       <section className="bg-white">
         <div className="max-w-none mx-auto px-12 py-6">
-          {/* Full-width filters bar above the grid */}
-          <div className="rounded-xl border bg-white p-4 mb-4">
+          {/* Filters moved into modal on desktop; keep inline for mobile */}
+          <div className="rounded-xl border bg-white p-4 mb-4 md:hidden">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
               <div className="md:col-span-3">
                 <label className="text-xs text-gray-600">Type</label>
@@ -740,12 +1061,11 @@ export default function AvailabilitiesPage() {
                     <SelectValue placeholder="Spaces" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="All">All</SelectItem>
                     <SelectItem value="Spaces">Spaces</SelectItem>
                     <SelectItem value="Wellness">Amenities</SelectItem>
-                    <SelectItem value="Events">Events</SelectItem>
+                    <SelectItem value="Events">Events & Services</SelectItem>
                     <SelectItem value="Merchants">Merchants</SelectItem>
-                    <SelectItem value="Buildings">Buildings</SelectItem>
-                    <SelectItem value="All">All</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -870,6 +1190,19 @@ export default function AvailabilitiesPage() {
                     {searchDurationHrs}
                   </span>
                 </div>
+                <div className="mt-3 flex items-center gap-2">
+                  <Checkbox
+                    id="public-only"
+                    checked={showPublicOnly}
+                    onCheckedChange={(v) => setShowPublicOnly(!!v)}
+                  />
+                  <label
+                    htmlFor="public-only"
+                    className="text-xs text-gray-700"
+                  >
+                    Public only
+                  </label>
+                </div>
               </div>
               {searchType === "Buildings" && (
                 <>
@@ -968,9 +1301,16 @@ export default function AvailabilitiesPage() {
                         alt={(card as any).imageAlt || (card as any).headline}
                         className="w-full h-full object-cover"
                       />
-                      <span className="absolute top-2 left-2 text-[11px] px-2.5 py-1 rounded-full bg-white/90 text-gray-900 border">
-                        {(card as any).category}
-                      </span>
+                      <div className="absolute top-2 left-2 flex items-center gap-2">
+                        <span className="text-[11px] px-2.5 py-1 rounded-full bg-white/90 text-gray-900 border">
+                          {(card as any).category}
+                        </span>
+                        {(card as any).publicBookable && (
+                          <span className="text-[11px] px-2.5 py-1 rounded-full bg-white/90 text-gray-900 border">
+                            Public
+                          </span>
+                        )}
+                      </div>
                     </div>
                     <div className="p-4">
                       <div className="text-sm font-medium truncate">
