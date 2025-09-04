@@ -587,7 +587,7 @@ export default function AvailabilitiesPage() {
       ).padStart(2, "0")}`;
 
     // Merchant directory
-    if (searchType === "Merchants") {
+    if (["Food & Bev", "Retail"].includes(searchType)) {
       let items = merchants as any[];
       if (searchRegion !== "All regions")
         items = items.filter((m) => m.region === searchRegion);
@@ -595,6 +595,8 @@ export default function AvailabilitiesPage() {
         items = items.filter((m) => m.city === searchCity);
       if (searchBuildingName !== "All buildings")
         items = items.filter((m) => m.buildingName === searchBuildingName);
+      // Type determines merchant category when using split pills
+      items = items.filter((m) => m.category === searchType);
       if (merchantCategory !== "All categories")
         items = items.filter((m) => m.category === merchantCategory);
       if (merchantQuery)
@@ -721,7 +723,7 @@ export default function AvailabilitiesPage() {
 
   // Map points switch: merchants use building coordinates
   const mapPoints = useMemo(() => {
-    if (searchType === "Merchants") {
+    if (["Food & Bev", "Retail"].includes(searchType)) {
       const results = searchResults as any[];
       const uniqueByBuilding = Array.from(
         new Set(results.map((r) => r.timestamp))
@@ -762,7 +764,8 @@ export default function AvailabilitiesPage() {
               { key: "Spaces", label: "Spaces" },
               { key: "Wellness", label: "Amenities" },
               { key: "Events", label: "Events & Services" },
-              { key: "Merchants", label: "Merchants" },
+              { key: "Food & Bev", label: "Food & Bev" },
+              { key: "Retail", label: "Retail" },
             ].map((opt) => (
               <Button
                 key={opt.key}
@@ -811,7 +814,8 @@ export default function AvailabilitiesPage() {
                           <SelectItem value="Events">
                             Events & Services
                           </SelectItem>
-                          <SelectItem value="Merchants">Merchants</SelectItem>
+                          <SelectItem value="Food & Bev">Food & Bev</SelectItem>
+                          <SelectItem value="Retail">Retail</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -873,41 +877,19 @@ export default function AvailabilitiesPage() {
                   </div>
 
                   <div className="mt-3 grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
-                    {searchType === "Merchants" && (
-                      <>
-                        <div className="md:col-span-4">
-                          <label className="text-xs text-gray-600">
-                            Merchant category
-                          </label>
-                          <Select
-                            value={merchantCategory}
-                            onValueChange={setMerchantCategory}
-                          >
-                            <SelectTrigger className="mt-1 h-12 rounded-xl">
-                              <SelectValue placeholder="All categories" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {MERCHANT_CATEGORIES.map((c) => (
-                                <SelectItem key={c} value={c}>
-                                  {c}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="md:col-span-8">
-                          <label className="text-xs text-gray-600">
-                            Search merchants
-                          </label>
-                          <Input
-                            type="text"
-                            className="mt-1 h-12 rounded-xl"
-                            placeholder="Find by name or tag (e.g., coffee, salads, gifts)"
-                            value={merchantQuery}
-                            onChange={(e) => setMerchantQuery(e.target.value)}
-                          />
-                        </div>
-                      </>
+                    {["Food & Bev", "Retail"].includes(searchType) && (
+                      <div className="md:col-span-12">
+                        <label className="text-xs text-gray-600">
+                          Search merchants
+                        </label>
+                        <Input
+                          type="text"
+                          className="mt-1 h-12 rounded-xl"
+                          placeholder="Find by name or tag (e.g., coffee, salads, gifts)"
+                          value={merchantQuery}
+                          onChange={(e) => setMerchantQuery(e.target.value)}
+                        />
+                      </div>
                     )}
                     <div className="md:col-span-4">
                       <label className="text-xs text-gray-600">Date</label>
@@ -1065,7 +1047,8 @@ export default function AvailabilitiesPage() {
                     <SelectItem value="Spaces">Spaces</SelectItem>
                     <SelectItem value="Wellness">Amenities</SelectItem>
                     <SelectItem value="Events">Events & Services</SelectItem>
-                    <SelectItem value="Merchants">Merchants</SelectItem>
+                    <SelectItem value="Food & Bev">Food & Bev</SelectItem>
+                    <SelectItem value="Retail">Retail</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -1121,41 +1104,19 @@ export default function AvailabilitiesPage() {
               </div>
             </div>
             <div className="mt-3 grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
-              {searchType === "Merchants" && (
-                <>
-                  <div className="md:col-span-4">
-                    <label className="text-xs text-gray-600">
-                      Merchant category
-                    </label>
-                    <Select
-                      value={merchantCategory}
-                      onValueChange={setMerchantCategory}
-                    >
-                      <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="All categories" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {MERCHANT_CATEGORIES.map((c) => (
-                          <SelectItem key={c} value={c}>
-                            {c}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="md:col-span-8">
-                    <label className="text-xs text-gray-600">
-                      Search merchants
-                    </label>
-                    <Input
-                      type="text"
-                      className="mt-1"
-                      placeholder="Find by name or tag (e.g., coffee, salads, gifts)"
-                      value={merchantQuery}
-                      onChange={(e) => setMerchantQuery(e.target.value)}
-                    />
-                  </div>
-                </>
+              {["Food & Bev", "Retail"].includes(searchType) && (
+                <div className="md:col-span-12">
+                  <label className="text-xs text-gray-600">
+                    Search merchants
+                  </label>
+                  <Input
+                    type="text"
+                    className="mt-1"
+                    placeholder="Find by name or tag (e.g., coffee, salads, gifts)"
+                    value={merchantQuery}
+                    onChange={(e) => setMerchantQuery(e.target.value)}
+                  />
+                </div>
               )}
               <div className="md:col-span-4">
                 <label className="text-xs text-gray-600">Date</label>

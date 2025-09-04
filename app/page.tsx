@@ -518,25 +518,65 @@ export default function PublicPage() {
         </section>
       ) : (
         <>
-          {/* About: building overview */}
-          <section className="bg-white">
-            <div className="max-w-none mx-auto px-12 py-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="order-2 lg:order-1">
-                <h2 className="text-2xl font-semibold">About Texas Tower</h2>
-                <p className="mt-4 text-gray-700">
-                  An accelerator for human potential—Texas Tower brings
-                  hospitality-forward service, flexible amenity spaces, and
-                  skyline views to the heart of downtown.
+          {/* Class A office experience */}
+          <section className="bg-[#F7F8F6]">
+            <div className="max-w-none mx-auto px-12 py-20 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+              {/* Left headline */}
+              <div className="lg:col-span-5">
+                <h2 className="text-[#0F2A2A] font-semibold leading-tight">
+                  <span className="block text-4xl md:text-5xl lg:text-6xl">
+                    The <span className="text-[#F59E66]">Class A</span> office
+                  </span>
+                  <span className="block text-4xl md:text-5xl lg:text-6xl mt-2">
+                    experience
+                  </span>
+                </h2>
+              </div>
+              {/* Right copy + badges */}
+              <div className="lg:col-span-7 lg:pr-16">
+                <p className="text-[15px] leading-7 text-[#0F2A2A] max-w-2xl">
+                  A stunning seven‑story glass atrium welcomes you to a Class A
+                  office destination adjacent to transit. Towering 46 stories
+                  high, the property offers incredible views, a premium
+                  location, and a collection of curated amenities fit for the
+                  modern workforce.
                 </p>
-                <ul className="mt-6 space-y-2 text-gray-700">
-                  <li>
-                    • Mixed-use lobby experience with food and drink options
-                  </li>
-                  <li>• Modern fitness center and adaptable studio space</li>
-                  <li>• Tenant-only rooftop terraces and executive lounges</li>
-                  <li>• High-tech conference and event spaces</li>
-                </ul>
-                <div className="mt-6 flex gap-3">
+                <div className="mt-8 flex items-center gap-10">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/USGBC_LEED_Certified_logo.svg/512px-USGBC_LEED_Certified_logo.svg.png"
+                    alt="LEED"
+                    className="h-12 w-auto object-contain opacity-70 grayscale"
+                  />
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Energy_Star_logo.svg/512px-Energy_Star_logo.svg.png"
+                    alt="Energy Star"
+                    className="h-12 w-auto object-contain opacity-70 grayscale"
+                  />
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Fitwel_logo.png/512px-Fitwel_logo.png"
+                    alt="Fitwel"
+                    className="h-10 w-auto object-contain opacity-70 grayscale"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Everything at your service */}
+          <section className="bg-[#F7F8F6]">
+            <div className="max-w-none mx-auto px-12 py-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+              <div>
+                <h2 className="text-3xl sm:text-4xl font-semibold leading-tight text-[#0F2A2A]">
+                  <span className="text-[#F59E66]">Everything</span>
+                  <span className="ml-2">at your service</span>
+                </h2>
+                <p className="mt-5 text-[15px] leading-7 text-slate-700 max-w-xl">
+                  One Financial proudly offers a suite of modern amenities to
+                  enhance your everyday work life. Experience ease and comfort
+                  with a collection of workplace, dining, wellness, and
+                  lifestyle services.
+                </p>
+                <div className="mt-6">
                   <Link
                     href="/availabilities?type=Wellness&region=South&city=Houston"
                     className="inline-flex"
@@ -545,17 +585,94 @@ export default function PublicPage() {
                   </Link>
                 </div>
               </div>
-              <div className="order-1 lg:order-2">
-                <div className="rounded-2xl overflow-hidden border">
-                  <img
-                    src="/Hines/texastower_banner.jpg"
-                    alt="Texas Tower"
-                    className="w-full h-80 object-cover"
-                  />
-                </div>
+              <div className="relative rounded-2xl overflow-hidden border">
+                <img
+                  src="https://images.unsplash.com/photo-1583454110551-21f2fa2f5a3b?auto=format&fit=crop&w=2000&q=80"
+                  alt="Amenity center gym"
+                  className="w-full h-[420px] object-cover"
+                />
+                {/* Diagonal mask at bottom right */}
+                <div className="pointer-events-none absolute bottom-0 right-0 left-0 h-24 bg-[#F7F8F6] [clip-path:polygon(65%_100%,100%_70%,100%_100%)]" />
               </div>
             </div>
           </section>
+
+          {/* Building stats band (now below service section) */}
+          {!isPortfolio && (
+            <section className="relative bg-[#1B4636] overflow-hidden">
+              <div className="absolute inset-y-0 left-10 flex items-center">
+                <svg
+                  viewBox="0 0 140 320"
+                  className="h-64 md:h-80 lg:h-[28rem] text-white/10"
+                  aria-hidden="true"
+                >
+                  <rect
+                    x="20"
+                    y="20"
+                    width="70"
+                    height="280"
+                    rx="2"
+                    fill="currentColor"
+                  />
+                  {Array.from({ length: 8 }).map((_, i) => (
+                    <rect
+                      key={i}
+                      x="28"
+                      y={40 + i * 30}
+                      width="54"
+                      height="8"
+                      rx="2"
+                      fill="currentColor"
+                    />
+                  ))}
+                  <rect
+                    x="0"
+                    y="270"
+                    width="120"
+                    height="30"
+                    rx="2"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <div className="max-w-none mx-auto px-12 py-12 sm:py-16">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
+                  <div className="relative">
+                    <div className="text-5xl sm:text-6xl font-semibold text-white">
+                      +1.3M
+                    </div>
+                    <div className="mt-3 text-[11px] tracking-[0.3em] text-white/90">
+                      RSF
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-5xl sm:text-6xl font-semibold text-white">
+                      600'
+                    </div>
+                    <div className="mt-3 text-[11px] tracking-[0.3em] text-white/90">
+                      BUILDING HEIGHT
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-5xl sm:text-6xl font-semibold text-white">
+                      46
+                    </div>
+                    <div className="mt-3 text-[11px] tracking-[0.3em] text-white/90">
+                      FLOORS
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-5xl sm:text-6xl font-semibold text-white">
+                      30'
+                    </div>
+                    <div className="mt-3 text-[11px] tracking-[0.3em] text-white/90">
+                      COLUMN SPACING
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* Amenities: image-forward grid */}
           <section className="bg-white">
