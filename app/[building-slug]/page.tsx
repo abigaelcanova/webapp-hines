@@ -146,6 +146,9 @@ export default function VercelNavigation() {
   const [bookingView, setBookingView] = useState("calendar");
   const [bookingDate, setBookingDate] = useState(new Date(2025, 4, 22)); // May 22, 2025
   const [bookingViewType, setBookingViewType] = useState("day");
+  const [resourceView, setResourceView] = useState<"calendar" | "map">(
+    "calendar"
+  );
   const [selectedResources, setSelectedResources] = useState<string[]>([]);
   const [isMobile, setIsMobile] = useState(false);
   const [currentMonthLabel, setCurrentMonthLabel] = useState("");
@@ -3048,23 +3051,68 @@ export default function VercelNavigation() {
                 </div>
 
                 {/* Resource Type Tabs */}
-                <div className="flex gap-1">
-                  <Button
-                    variant="default"
-                    size="sm"
-                    className="bg-primary text-white"
-                  >
-                    All
-                  </Button>
-                  <Button variant="ghost" size="sm" className="text-gray-600">
-                    Lab
-                  </Button>
-                  <Button variant="ghost" size="sm" className="text-gray-600">
-                    Conference space
-                  </Button>
-                  <Button variant="ghost" size="sm" className="text-gray-600">
-                    Equipment
-                  </Button>
+                <div className="flex items-center justify-between">
+                  <div className="flex gap-1">
+                    <Button
+                      variant="default"
+                      size="sm"
+                      className="bg-primary text-white"
+                    >
+                      All
+                    </Button>
+                    <Button variant="ghost" size="sm" className="text-gray-600">
+                      Lab
+                    </Button>
+                    <Button variant="ghost" size="sm" className="text-gray-600">
+                      Conference space
+                    </Button>
+                    <Button variant="ghost" size="sm" className="text-gray-600">
+                      Equipment
+                    </Button>
+                  </div>
+
+                  {/* View Toggle */}
+                  <div className="flex items-center bg-gray-100 rounded-lg p-1">
+                    <button
+                      className={cn(
+                        "flex items-center justify-center w-8 h-8 rounded-md transition-colors",
+                        resourceView === "calendar"
+                          ? "bg-blue-600 text-white"
+                          : "text-gray-600 hover:text-gray-900"
+                      )}
+                      onClick={() => setResourceView("calendar")}
+                    >
+                      <svg
+                        className="h-4 w-4"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle cx="4" cy="6" r="1.5" />
+                        <path d="M8 6h12v1H8V6z" />
+                        <circle cx="4" cy="12" r="1.5" />
+                        <path d="M8 12h12v1H8v-1z" />
+                        <circle cx="4" cy="18" r="1.5" />
+                        <path d="M8 18h12v1H8v-1z" />
+                      </svg>
+                    </button>
+                    <button
+                      className={cn(
+                        "flex items-center justify-center w-8 h-8 rounded-md transition-colors",
+                        resourceView === "map"
+                          ? "bg-blue-600 text-white"
+                          : "text-gray-600 hover:text-gray-900"
+                      )}
+                      onClick={() => setResourceView("map")}
+                    >
+                      <svg
+                        className="h-4 w-4"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
 
                 {/* Time Slot Grid */}
